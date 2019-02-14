@@ -22,93 +22,93 @@
 ## 避免死锁
 
 ```
-#include <unistd.h>
-#include <sys/types.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <errno.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <string.h>
-#include <sys/shm.h>
-#include <sys/ipc.h>
-#include <sys/sem.h>
-#include <sys/wait.h>
+    #include <unistd.h>
+    #include <sys/types.h>
+    #include <stdlib.h>
+    #include <stdio.h>
+    #include <errno.h>
+    #include <sys/mman.h>
+    #include <sys/stat.h>
+    #include <fcntl.h>
+    #include <string.h>
+    #include <sys/shm.h>
+    #include <sys/ipc.h>
+    #include <sys/sem.h>
+    #include <sys/wait.h>
 
-#define ERR_EXIT(x) do{ perror(x); exit(EXIT_FAILURE);}while(0)
-#define DELAY (rand() % 5 + 1)
+    #define ERR_EXIT(x) do{ perror(x); exit(EXIT_FAILURE);}while(0)
+    #define DELAY (rand() % 5 + 1)
 
-union semun
-{
-	int              val;    /* Value for SETVAL */
-	struct semid_ds *buf;    /* Buffer for IPC_STAT, IPC_SET */
-	unsigned short  *array;  /* Array for GETALL, SETALL */
-	struct seminfo  *__buf;  /* Buffer for IPC_INFO (Linux-specific) */
-};
+    union semun
+    {
+        int              val;    /* Value for SETVAL */
+        struct semid_ds *buf;    /* Buffer for IPC_STAT, IPC_SET */
+        unsigned short  *array;  /* Array for GETALL, SETALL */
+        struct seminfo  *__buf;  /* Buffer for IPC_INFO (Linux-specific) */
+    };
 
-int semid;
+    int semid;
 
-void wait_for_2fork(int no)
-{
-	int left = no;
-	int right = (no + 1) % 5;
-	struct sembuf sop[2] = {{left, -1, SEM_UNDO}, {right, -1, SEM_UNDO}};
-	semop(semid, sop, 2);//参数三为要操作的个数，即为sop的数组长度
-}
+    void wait_for_2fork(int no)
+    {
+        int left = no;
+        int right = (no + 1) % 5;
+        struct sembuf sop[2] = {{left, -1, SEM_UNDO}, {right, -1, SEM_UNDO}};
+        semop(semid, sop, 2);//参数三为要操作的个数，即为sop的数组长度
+    }
 
-void free_2fork(int no)
-{
-	int left = no;
-	int right = (no + 1) % 5;
-	struct sembuf sop[2] = {{left, 1, 0}, {right, 1, 0}};
-	semop(semid, sop, 2);//参数三为要操作的个数，即为sop的数组长度
-}
+    void free_2fork(int no)
+    {
+        int left = no;
+        int right = (no + 1) % 5;
+        struct sembuf sop[2] = {{left, 1, 0}, {right, 1, 0}};
+        semop(semid, sop, 2);//参数三为要操作的个数，即为sop的数组长度
+    }
 
-void philosopher(int no)//哲学家：philosoper
-{	
-	srand(getpid());
-	while(1)
-	{
-		printf("%d is thinking \n", no);
-		sleep(DELAY);
-		printf("%d is hunry\n", no);
-		wait_for_2fork(no);
-		printf("%d is eating\n", no);
-		sleep(DELAY);
-		free_2fork(no);
-	}
-}
+    void philosopher(int no)//哲学家：philosoper
+    {	
+        srand(getpid());
+        while(1)
+        {
+            printf("%d is thinking \n", no);
+            sleep(DELAY);
+            printf("%d is hunry\n", no);
+            wait_for_2fork(no);
+            printf("%d is eating\n", no);
+            sleep(DELAY);
+            free_2fork(no);
+        }
+    }
 
-int main(int argc, char *argv[])
-{
-	int key = ftok(".", 'a');
-	semid = semget(key, 5, IPC_CREAT | 0666);
-	if(semid == -1)
-		ERR_EXIT("semget");
-	union semun un;
-	un.val = 1;
-	int i = 0;
-	for(i = 0; i < 5; i++)
-	{
-		semctl(semid, i, SETVAL, un);
-	}
-	int no = 0;
-	pid_t pid;
-	for(i = 1; i < 5; i++)
-	{
-		pid = fork();
-		if(pid == -1)
-			ERR_EXIT("fork");
-		if(pid == 0)
-		{
-			no = i;
-			break;
-		}
-	}
-	philosopher(no);//哲学家：philosoper
-	return 0;
-}
+    int main(int argc, char *argv[])
+    {
+        int key = ftok(".", 'a');
+        semid = semget(key, 5, IPC_CREAT | 0666);
+        if(semid == -1)
+            ERR_EXIT("semget");
+        union semun un;
+        un.val = 1;
+        int i = 0;
+        for(i = 0; i < 5; i++)
+        {
+            semctl(semid, i, SETVAL, un);
+        }
+        int no = 0;
+        pid_t pid;
+        for(i = 1; i < 5; i++)
+        {
+            pid = fork();
+            if(pid == -1)
+                ERR_EXIT("fork");
+            if(pid == 0)
+            {
+                no = i;
+                break;
+            }
+        }
+        philosopher(no);//哲学家：philosoper
+        return 0;
+    }
 ```
 
 ## 使哲学家就餐产生死锁
@@ -116,100 +116,100 @@ int main(int argc, char *argv[])
 >`wait_for_2fork`和`free_2fork`进行了修改，让哲学家每次只申请一个刀叉。
 
 ```
-#include <unistd.h>
-#include <sys/types.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <errno.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <string.h>
-#include <sys/shm.h>
-#include <sys/ipc.h>
-#include <sys/sem.h>
-#include <sys/wait.h>
+    #include <unistd.h>
+    #include <sys/types.h>
+    #include <stdlib.h>
+    #include <stdio.h>
+    #include <errno.h>
+    #include <sys/mman.h>
+    #include <sys/stat.h>
+    #include <fcntl.h>
+    #include <string.h>
+    #include <sys/shm.h>
+    #include <sys/ipc.h>
+    #include <sys/sem.h>
+    #include <sys/wait.h>
 
-#define ERR_EXIT(x) do{ perror(x); exit(EXIT_FAILURE);}while(0)
-#define DELAY (rand() % 5 + 1)
+    #define ERR_EXIT(x) do{ perror(x); exit(EXIT_FAILURE);}while(0)
+    #define DELAY (rand() % 5 + 1)
 
-union semun
-{
-	int              val;    /* Value for SETVAL */
-	struct semid_ds *buf;    /* Buffer for IPC_STAT, IPC_SET */
-	unsigned short  *array;  /* Array for GETALL, SETALL */
-	struct seminfo  *__buf;  /* Buffer for IPC_INFO (Linux-specific) */
-};
+    union semun
+    {
+        int              val;    /* Value for SETVAL */
+        struct semid_ds *buf;    /* Buffer for IPC_STAT, IPC_SET */
+        unsigned short  *array;  /* Array for GETALL, SETALL */
+        struct seminfo  *__buf;  /* Buffer for IPC_INFO (Linux-specific) */
+    };
 
-int semid;
+    int semid;
 
-void wait_for_2fork(int no)
-{
-	int left = no;
-	int right = (no + 1) % 5;
-	struct sembuf sop[2] = {{left, -1, SEM_UNDO}, {right, -1, SEM_UNDO}};
-	semop(semid, sop, 1);//一个一个申请刀叉就可能出现死锁
-	printf("%d get a fork\n", no);
-	sleep(DELAY);//加快死锁发生条件
-	semop(semid, sop + 1, 1);
-	printf("%d get another fork\n", no);
-}
+    void wait_for_2fork(int no)
+    {
+        int left = no;
+        int right = (no + 1) % 5;
+        struct sembuf sop[2] = {{left, -1, SEM_UNDO}, {right, -1, SEM_UNDO}};
+        semop(semid, sop, 1);//一个一个申请刀叉就可能出现死锁
+        printf("%d get a fork\n", no);
+        sleep(DELAY);//加快死锁发生条件
+        semop(semid, sop + 1, 1);
+        printf("%d get another fork\n", no);
+    }
 
-void free_2fork(int no)
-{
-	int left = no;
-	int right = (no + 1) % 5;
-	struct sembuf sop[2] = {{left, 1, 0}, {right, 1, 0}};
-	semop(semid, sop, 1);//一个一个释放刀叉就可能出现死锁
-	printf("%d get a fork\n", no);
-	sleep(DELAY);//加快死锁发生条件
-	semop(semid, sop + 1, 1);
-	printf("%d get another fork\n", no);
-}
+    void free_2fork(int no)
+    {
+        int left = no;
+        int right = (no + 1) % 5;
+        struct sembuf sop[2] = {{left, 1, 0}, {right, 1, 0}};
+        semop(semid, sop, 1);//一个一个释放刀叉就可能出现死锁
+        printf("%d get a fork\n", no);
+        sleep(DELAY);//加快死锁发生条件
+        semop(semid, sop + 1, 1);
+        printf("%d get another fork\n", no);
+    }
 
-void philosopher(int no)//哲学家：philosoper
-{	
-	srand(getpid());
-	while(1)
-	{
-		printf("%d is thinking \n", no);
-		sleep(DELAY);
-		printf("%d is hunry\n", no);
-		wait_for_2fork(no);
-		printf("%d is eating\n", no);
-		sleep(DELAY);
-		free_2fork(no);
-	}
-}
+    void philosopher(int no)//哲学家：philosoper
+    {	
+        srand(getpid());
+        while(1)
+        {
+            printf("%d is thinking \n", no);
+            sleep(DELAY);
+            printf("%d is hunry\n", no);
+            wait_for_2fork(no);
+            printf("%d is eating\n", no);
+            sleep(DELAY);
+            free_2fork(no);
+        }
+    }
 
-int main(int argc, char *argv[])
-{
-	int key = ftok(".", 'a');
-	semid = semget(key, 5, IPC_CREAT | 0666);
-	if(semid == -1)
-		ERR_EXIT("semget");
-	union semun un;
-	un.val = 1;
-	int i = 0;
-	for(i = 0; i < 5; i++)
-	{
-		semctl(semid, i, SETVAL, un);
-	}
-	int no = 0;
-	pid_t pid;
-	for(i = 1; i < 5; i++)
-	{
-		pid = fork();
-		if(pid == -1)
-			ERR_EXIT("fork");
-		if(pid == 0)
-		{
-			no = i;
-			break;
-		}
-	}
-	philosopher(no);//哲学家：philosoper
-	return 0;
-}
+    int main(int argc, char *argv[])
+    {
+        int key = ftok(".", 'a');
+        semid = semget(key, 5, IPC_CREAT | 0666);
+        if(semid == -1)
+            ERR_EXIT("semget");
+        union semun un;
+        un.val = 1;
+        int i = 0;
+        for(i = 0; i < 5; i++)
+        {
+            semctl(semid, i, SETVAL, un);
+        }
+        int no = 0;
+        pid_t pid;
+        for(i = 1; i < 5; i++)
+        {
+            pid = fork();
+            if(pid == -1)
+                ERR_EXIT("fork");
+            if(pid == 0)
+            {
+                no = i;
+                break;
+            }
+        }
+        philosopher(no);//哲学家：philosoper
+        return 0;
+    }
 ```
 
