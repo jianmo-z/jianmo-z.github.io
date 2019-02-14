@@ -63,7 +63,9 @@
     {
         int left = no;
         int right = (no + 1) % 5;
-        struct sembuf sop[2] = {{left, 1, 0}, {right, 1, 0}};
+        struct sembuf sop[2] = {
+            {left, 1, 0},
+            {right, 1, 0} };
         semop(semid, sop, 2);//参数三为要操作的个数，即为sop的数组长度
     }
 
@@ -149,7 +151,9 @@
     {
         int left = no;
         int right = (no + 1) % 5;
-        struct sembuf sop[2] = {{left, -1, SEM_UNDO}, {right, -1, SEM_UNDO}};
+        struct sembuf sop[2] = {
+            {left, -1, SEM_UNDO},
+            {right, -1, SEM_UNDO} };
         semop(semid, sop, 1);//一个一个申请刀叉就可能出现死锁
         printf("%d get a fork\n", no);
         sleep(DELAY);//加快死锁发生条件
@@ -161,7 +165,9 @@
     {
         int left = no;
         int right = (no + 1) % 5;
-        struct sembuf sop[2] = {{left, 1, 0}, {right, 1, 0}};
+        struct sembuf sop[2] = {
+            {left, 1, 0},
+            {right, 1, 0} };
         semop(semid, sop, 1);//一个一个释放刀叉就可能出现死锁
         printf("%d get a fork\n", no);
         sleep(DELAY);//加快死锁发生条件
