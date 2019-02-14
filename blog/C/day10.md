@@ -53,7 +53,9 @@
     {
         int left = no;
         int right = (no + 1) % 5;
-        struct sembuf sop[2] = {{left, -1, SEM_UNDO}, {right, -1, SEM_UNDO}};
+        struct sembuf sop[2] = {
+            {left, -1, SEM_UNDO},
+            {right, -1, SEM_UNDO}};
         semop(semid, sop, 2);//参数三为要操作的个数，即为sop的数组长度
     }
 
