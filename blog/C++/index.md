@@ -23,3 +23,6 @@
 
 ## 测试vector容量增长规律
 > [vector_increase.md](vector_increase.md)<a href="./Download/vector_increase.md.tar.gz"><font color="red">点击下载源文件</font></a>
+
+## C++11新特性
+> [C++11新特性](C++11新特性.md)
