@@ -148,7 +148,7 @@
 
 * `RUN`：基于Dockerfile文件build镜像时候运行的命令
   * `RUN <command>`：通常是`<command>`是一个shell命令，且以`/bin/sh -c`来运行它，这意味着此进程在容器中的PID不为1，不能接收Unix信号，因此，当使用`docker stop <container>`命令停止容器时，此进程接收不到`SIGTERM`信号
-  * `RUN ["<executable>", "<param1>", "<param2>"]`，语法格式中为一个JSON格式的数组，其中`<executable>`为要运行的命令，后面的为参数，这种格式指定的命令不会以`/bin/sh -c`来发起，因此不能使用`shell`操作如变量替换以及通配符`(?.*等)`替换不会进行，不过，如果要运行的命令依赖此shell特性可以使用`RUN["/bin/bash", "-c", "<executable>", "<>param1"]`
+  * `RUN ["<executable>", "<param1>", "<param2>"]`，语法格式中为一个JSON格式的数组，其中`<executable>`为要运行的命令，后面的为参数，这种格式指定的命令不会以`/bin/sh -c`来发起，因此不能使用`shell`操作如变量替换以及通配符`(?.*等)`替换不会进行，不过，如果要运行的命令依赖此shell特性可以使用`RUN["/bin/bash", "-c", "<executable>", "<param1>"]`
 
 * `CMD`：RUN运行于映像文件的构建过程中，而`CMD`运行于基于`Dockerfile`构建出来的新印象文件启动一个容器时。`CMD`只能运行一个，可以有多但是只运行最后一个。
 
@@ -165,7 +165,7 @@
   * `docker run`命令传入的命令参数会覆盖`CMD`指令的内容并且附加到`ENTRYPOINT`命令作为其参数使用。
   * `Dockerfile`文件中也可以存在多个`ENTRYPOINT`指令，但仅有最后一个会生效。
 
-* `USER`：用于指定运行`image`时的或运行`Dockerfile`中热河`RUN、CMD或ENTRYPOINT`指令指定的程序时的用户名或`UID`，默认用户为`root`，`root`用户属于内核。
+* `USER`：用于指定运行`image`时的或运行`Dockerfile`中任何`RUN、CMD或ENTRYPOINT`指令指定的程序时的用户名或`UID`，默认用户为`root`，`root`用户属于内核。
 
   * `USER <UID>|<UserName>`，必须为`/etc/passwd`中的有效用户，否则会失败
 
