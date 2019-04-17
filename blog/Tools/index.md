@@ -4,6 +4,14 @@
 
 > [Git学习](01Git学习.md)
 
+## Docker学习
+
+> [Docker](./Docker/index.md)
+
+## Makefile学习
+
+> [Makefile学习](02Makefile.md )
+
 ## MySQL学习
 
 > [MySQL学习](./Database/index.md)
@@ -11,10 +19,6 @@
 ## 设计模式学习
 
 > [设计模式学习](./03设计模式/index.md )
-
-## Makefile学习
-
-> [Makefile学习](02Makefile.md )
 
 ## Matlab学习
 
