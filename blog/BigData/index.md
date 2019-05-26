@@ -2,23 +2,32 @@
 
 [TOC]
 
+## 初识数据工程师
+
+> [知乎回答](<https://zhuanlan.zhihu.com/p/27486879>) 在大数据时代，数据工程师的角色愈发地重要。也许，数据架构师的称谓更准确。和数据分析师不同，他们不太关注统计. 分析技能. 建模等。他们的**工作重点在于数据架构. 计算. 数据存储. 数据流等**。 因此，数据工程师必须具备**相当强的编程能力**—包括编写数据查询程序的能力。也就是说，他们的能力必须达到开发运营高手的级别。**数据工程师还负责数据库设计，数据仓储，建立数据湖**。 这就意味着，他们必须十分熟悉现有的数据库技术和数据管理系统，比如和大数据有关的**Hadoop**与**HBase** 等。此外，非功能性的基础设施问题，如数据的可扩展性. 可靠性. 韧性. 有效性，备份等也由数据工程师来负责。
+
+## 华为项目经理建议
+
+* 大数据这块多看看Apache基金会下的大数据开源社区
+* 再就是多看看各公司的大数据架构和大数据的技术书籍
+
 ## 入门导读
 
-[推荐入门参考链接](https://mp.weixin.qq.com/s?__biz=MzUzNTk3NTcyNw==&mid=2247484267&idx=1&sn=aa8beba35a4cb964098beec4dbcd3c3d&chksm=fafc012bcd8b883d3c0c586cd3c3379993142cd2be40b42f432bc8b74f0290555fa6b2e1aae2&mpshare=1&scene=1&srcid=&from=singlemessage&ascene=1&devicetype=android-28&version=2700043b&nettype=WIFI&abtest_cookie=BQABAAgACgALABIAEwAHAJ6GHgAjlx4AVpkeAMGZHgDcmR4A%2BpkeAAOaHgAAAA%3D%3D&lang=en&pass_ticket=fIPmEILnY1P6wKxnXPE08lZ5tMtjbrqUUnyHGk2TdlVSCbGDOlM7L%2F0j06AQEZIc&wx_header=1)：一下为部分摘录
+[大数据微信推文](https://mp.weixin.qq.com/s?__biz=MzUzNTk3NTcyNw==&mid=2247484267&idx=1&sn=aa8beba35a4cb964098beec4dbcd3c3d&chksm=fafc012bcd8b883d3c0c586cd3c3379993142cd2be40b42f432bc8b74f0290555fa6b2e1aae2&mpshare=1&scene=1&srcid=&from=singlemessage&ascene=1&devicetype=android-28&version=2700043b&nettype=WIFI&abtest_cookie=BQABAAgACgALABIAEwAHAJ6GHgAjlx4AVpkeAMGZHgDcmR4A%2BpkeAAOaHgAAAA%3D%3D&lang=en&pass_ticket=fIPmEILnY1P6wKxnXPE08lZ5tMtjbrqUUnyHGk2TdlVSCbGDOlM7L%2F0j06AQEZIc&wx_header=1)：一下为部分摘录
 
-1. Java——Java可以编写桌面应用程序、Web应用程序. 分布式系统和嵌入式系统应用程序，是大数据学习的基础；
-2. Linux——大数据开发通常在Linux环境下进行；
-3. Hadoop——分布式系统基础架构，用户可以充分利用集群的威力进行高速运算和存储；
-4. Avro与Protobuf——数据序列化系统，可以提供丰富的数据结构类型；
-5. HBase——分布式的. 面向列的开源数据库，是一个适合于非结构化数据存储的数据库；
-6. ZooKeeper——Hadoop和Hbase的重要组件；
-7. Hive——基于Hadoop的一个数据仓库工具 ；
+1. **Java**——Java可以编写桌面应用程序、Web应用程序. 分布式系统和嵌入式系统应用程序，是大数据学习的基础；
+2. **Linux**——大数据开发通常在Linux环境下进行；
+3. **Hadoop**——分布式系统基础架构，用户可以充分利用集群的威力进行高速运算和存储；
+4. Avro与**Protobuf**——数据序列化系统，可以提供丰富的数据结构类型；
+5. **HBase**——分布式的. 面向列的开源数据库，是一个适合于非结构化数据存储的数据库；
+6. **ZooKeeper**——Hadoop和Hbase的重要组件；
+7. **Hive**——基于Hadoop的一个数据仓库工具 ；
 8. phoenix——用Java编写的基于JDBC API操作HBase的开源SQL引擎；
-9. Redis——key-value存储系统；
-10. Flume——高可用. 高可靠. 分布式的海量日志采集. 聚合和传输的系统；
+9. **Redis**——key-value存储系统；
+10. **Flume**——高可用. 高可靠. 分布式的海量日志采集. 聚合和传输的系统；
 11. SSM——Spring. SpringMVC. MyBatis三个开源框架；
-12. Kafka——一种高吞吐量的分布式发布订阅消息系统；
-13. Spark——专为大规模数据处理而设计的快速通用的计算引擎 ；
+12. **Kafka**——一种高吞吐量的分布式发布订阅消息系统；
+13. **Spark**——专为大规模数据处理而设计的快速通用的计算引擎 ；
 14. Scala——大数据开发重要框架的编程语言；
 15. Azkaban——可完成大数据流任务调度；
 16. Python与数据分析——可用于数据采集. 数据分析以及数据可视化；
