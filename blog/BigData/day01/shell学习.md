@@ -46,6 +46,37 @@
 6. `$!`：后台运行的最后一个进程的进程号
 7. `$?`：最后一次执行的命令的返回状态，如果为`0`表示成功执行，否则为失败。
 
+### $\*和$@的区别
+
+* 代码：
+
+  ```bash
+  #!/bin/bash
+  
+  # 注意区分$*和$@
+  for i in  "$*"
+      do
+          echo "says:{$i}"
+  done
+  
+  echo "==================="
+  
+  for i in  "$@"
+      do
+          echo "says:{$i}"
+  done
+  ```
+
+* 运行结果：
+
+  ```bash
+  says:{asdf asdf aa}
+  ===================
+  says:{asdf}
+  says:{asdf}
+  says:{aa}
+  ```
+
 ## 运算符
 
 1. `$((运算式))`或者`$[运算式]`，乘法：`*`
@@ -92,35 +123,294 @@
 
 ## 流程控制
 
-1. `if`判断
+### if判断
 
-   1. ```bash
-      if [ 条件判断式 ];then
-      	程序
-      fi
-      ```
+1. ```bash
+   if [ 条件判断式 ];then
+   	程序
+   fi
+   ```
 
-   2. ```bash
-      if [ 条件判断式 ]
-        then
-      	程序
-      fi
-      ```
+2. ```bash
+   if [ 条件判断式 ]
+     then
+   	程序
+   fi
+   ```
 
-      PS：`[ 条件判断式 ]`，中括号和条件判断式之间必须有空格
+   PS：`[ 条件判断式 ]`，**中括号和条件判断式之间必须有空格**
+
+   ```bash
+   #!/bin/bash
+   
+   if [ $1 -eq "123" ];then
+       echo "is 123"
+   elif [ $1 -eq "456" ];then
+       echo "is 456"
+   fi
+   ```
+
+### case语句
+
+1. ```bash
+   case $变量名 in
+   	"值1")
+   		# 如果变量值等于1，则执行程序1
+   		;; # ;;作为一个语句的结束
+   	"值2")
+   		# 如果变量的值等于值2，则执行程序2
+   		;; # ;;作为一个语句的结束
+   	... 
+   	*)
+   		# 如果变量值都不是以上的值，则执行此程序
+   		;; # ;;作为一个语句的结束
+   esac # 逆序写case表示结束，同if-fi
+   ```
+
+2. 代码示例
+
+   ```bash
+   #!/bin/bash
+   
+   case $1 in
+       "1")
+           echo "is 1"
+           ;;
+       "2")
+           echo "is 2"
+           ;;
+       "3")
+           echo "is 3"
+           ;;
+       *)
+           echo "is default"
+           ;;
+   esac
+   ```
+
+### for循环
+
+1. 第一种
+
+   ```bash
+   for 变量 in 值1 值2 值3 ...
+   	do
+   		程序
+   done
+   ```
+
+   代码：
+
+   ```bash
+   #!/bin/bash
+   
+   
+   for i in  hello world pip
+       do
+           echo "says:{$i}"
+   done
+   ```
+
+   运行结果：(注意$\*和$@的区别)
+
+   ```bash
+   says:{hello}
+   says:{world}
+   says:{pip}
+   
+   ```
+
+2. 第二种
+
+   ```bash
+   for((初始值; 循环条件; 变量变化))
+   	do
+   		程序
+   done
+   ```
+
+   代码：(计算1~100和)
+
+   ```bash
+   #!/bin/bash
+   
+   sum=0
+   for((i=0;i <= 100; i++))
+       do
+           sum=$[$sum+$i]
+   done
+   
+   echo "sum = $sum"
+   ```
+
+   运行结果：
+
+   ```bash
+   sum = 5050
+   ```
+
+### while循环
+
+1. ```bash
+   while [条件判断式]
+   	do
+   		程序
+   done
+   ```
+
+2. 代码：(计算1~100的和)
+
+   ```bash
+   #!/bin/bash
+   
+   sum=0
+   i=1
+   while [ $i -ne 101 ]  # 注意左右空格
+       do
+           sum=$[ $sum + $i ]
+           i=$[ $i + 1 ]
+   done
+   
+   echo "sum = $sum"
+   ```
+
+3. 运行结果：
+
+   ```bash
+   sum = 5050
+   ```
+
+## read指令
+
+> read读取控制台输入
+>
+> * `-p`：指定读取值时的提示符
+> * `-t`：指定读取值时等待的时间(秒)
+
+代码：(模拟goland的select)
+
+```bash
+#!/bin/bash
+
+read -p "Please input username:" name
+echo "Your name is {$name}"
+
+read -p "Please input phone number(3S-timeout):" -t 3 phone
+if [ $phone ];then
+    echo "Your phone number is {$phone}"
+else
+    echo -e "\nTimeout!!!"
+fi
+```
+
+运行结果1：(未超时)
+
+```bash
+Please input username:pip
+Your name is {pip}
+Please input phone number(3S-timeout):123456789
+Your phone number is {123456789}
+```
+
+运行结果2：(超时)
+
+```
+Please input username:pip
+Your name is {pip}
+Please input phone number(3S-timeout):
+Timeout!!!
+```
+
+## 函数
+
+### 系统函数
+
+1. basename基本用法
+
+   1. `basename [pathname] [suffix]`
+
+   2. `basename [string] [suffix]`，`basename`命令会删除所有的前缀包括后一个`/`字符，然后将字符串显示出来
+
+      代码：
 
       ```bash
       #!/bin/bash
       
-      if [ $1 -eq "123" ];then
-          echo "is 123"
-      elif [ $1 -eq "456" ];then
-          echo "is 456"
-      fi
+      name=$(basename $PWD)
+      echo "current directory name is {$name}"
       ```
 
-2. `case`语句
+      运行结果：
 
-3. `for`循环
+      ```bash
+      current directory name is {code}
+      # echo $PWD
+      # /home/pip/Desktop/Git/ainihu.github.io/blog/BigData/day01/code
+      ```
 
-4. `while`循环
+   3. `dirname [pathname]`
+
+   4. `dirname [string]`
+
+      代码：
+
+      ```bash
+      #!/bin/bash
+      
+      name=$(dirname $PWD)
+      echo "current dirname is {$name}"
+      ```
+
+      运行结果
+
+      ```bash
+      current dirname is {/home/pip/Desktop/Git/ainihu.github.io/blog/BigData/day01}
+      # echo $PWD
+      # /home/pip/Desktop/Git/ainihu.github.io/blog/BigData/day01/code
+      ```
+
+### 自定义函数
+
+1. ```bash
+   [ function ] funname[()]
+   {
+       Action;
+       [return int;]
+   }
+   ```
+
+2. 注意事项
+
+   1. 必须在调用函数之前，先声明函数，`shell`脚本是逐行执行，不是像其他的语言一样先编译
+   2. 函数返回值，只能通过`$?`系统变量获取，可以显示加`return`返回；如果不加，将最后一条命令运行结果作为返回值，`return`后面的数值取值范围`[0-255]`
+
+3. 代码：(计算两个数之和)
+
+   ```bash
+   #!/bin/bash
+   
+   function sum()
+   {
+       s=0
+       s=$[ $1 + $2 ]
+       echo "sum is {$s}"
+   }
+   
+   read -p "please input first num:" n1;  # ;表示一个命令结束，可以在一行写多个独立语句
+   read -p "please input first num:" n2;
+   
+   sum n1 n2 # 调用函数并传参
+   ```
+
+   运行结果：
+
+   ```bash
+   please input first num:12
+   please input first num:34
+   sum is {46}
+   ```
+
+   
+
+
+
