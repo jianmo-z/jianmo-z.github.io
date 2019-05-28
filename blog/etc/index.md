@@ -4,7 +4,7 @@
 > [硬盘挂载出现ntfs问题](硬盘挂载出现ntfs问题.md)<a href="./Download/硬盘挂载出现ntfs问题.md.tar.gz"><font color="red"> 点击下载源文件</font></a>
 
 ## 去除C语言代码宏
-> [去除C语言代码宏](03去除C语言代码宏.md)[跳转链接](https://github.com/ainihu/ainihu.github.io/tree/master/blog/etc)
+> [去除C语言代码宏](03去除C语言代码宏.md)
 
 ## redhat安装wireshark
 > [redhat安装wireshark](redhat安装wireshark.md)<a href="./Download/redhat安装wireshark.md.tar.gz"><font color="red"> 点击下载源文件</font></a>
