@@ -1,4 +1,4 @@
-## Linux基础
+# Linux基础
 
 ## LVM逻辑卷
 

@@ -48,3 +48,5 @@
    1. HDFS上运行MapReduce
    2. YARN上运行MapReduce
 3. 完全分布式模式：多个节点一起运行
+
+工具包和镜像
