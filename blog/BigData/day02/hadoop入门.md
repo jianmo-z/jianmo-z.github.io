@@ -49,3 +49,19 @@
    2. YARN上运行MapReduce
 3. 完全分布式模式：多个节点一起运行
 
+## 集群搭建
+
+| 服务/节点 |  centos202  |     centos203     |  centos204  |
+| :-------: | :---------: | :---------------: | :---------: |
+|   HDFS    |  NameNode   | SecondaryNameNode |             |
+|           |  DataNode   |     DataNode      |  DataNode   |
+|           |      /      |         /         |      /      |
+|   YARN    |      /      |    NodeManager    |      /      |
+|           | NodeManager |  ResourceManager  | NodeManager |
+
+> **在ResourceManager上启动yarn**
+
+### hadoop-hdfs存储文件的路径
+
+> `/opt/module/hadoop-2.7.2/data/tmp/dfs/data/current/BP-1426386978-192.168.91.202-1559281015581/current/finalized/subdir0/subdir0`
+
