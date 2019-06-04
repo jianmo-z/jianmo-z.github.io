@@ -147,8 +147,8 @@ public static void main(String[] args) throws Exception {
    1. API：`void copyFromLocalFile(boolean delSrc, Path src, Path dst)`
    2. 例：`fileSystem.copyFromLocalFile(true, new Path("/etc/passwd"), new Path("/usr/pip/test"));`
 3. 下载文件：
-   1. API：`void copyToLocalFile(Path src, Path dst)`
-   2. 例：`fileSystem.copyToLocalFile(new Path("/usr/pip/test/passwd"), new Path("/tmp/"));`
+   1. API：`void copyToLocalFile(boolean delSrc, Path src, Path dst)`
+   2. 例：`fileSystem.copyToLocalFile(true, new Path("/usr/pip/test/passwd"), new Path("/tmp/"));`
 4. 创建目录：
    1. API：`boolean mkdirs(Path f)`
    2. 例：`fileSystem.mkdirs(new Path("/usr/pip/test"));`
