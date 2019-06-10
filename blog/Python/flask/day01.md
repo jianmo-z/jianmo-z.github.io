@@ -28,3 +28,68 @@
 
 ## DEBUG模式
 
+1. 在`app.run()`传入参数`DEBUG=True`
+2. 设置`app.debug=True`
+3. 通过配置参数`app.config.update(DEBUG=True)`
+4. 通过配置文件设置DEBUG模式`app.config.from_object(config)`
+
+## PIN码
+
+> 在运行程序后会生成PIN码，有PIN码就可以在网页上进行调试
+
+## config配置
+
+### 方式一：加载
+
+1. `import config` ，导入配置模块
+2. 使用`app.config.from_object(config)`，通过模块加载配置文件
+
+### 方式二：加载
+
+1. 使用`app.config.from_pyfile("./config.py")`，通过文本文件加载配置
+2. 必须包含文件的后缀名，不局限于使用`.py`文件，`.txt`文件也能用
+3. 可以传递`silent`参数，当为`False`配置文件不存在报错；`True`配置文件不存在不报错，使用默认配置
+
+## URL与函数的映射
+
+### 映射关系
+
+```python
+@app.route("/list/")
+def my_list():
+	return "my list"
+```
+
+### URL参数传递
+
+```python
+@app.route("/list/<search_id>")
+def get_id(search_id):
+	return "search id is {}".format(search_id)
+```
+
+> 注意`app.route`的参数使用`<>`包围起来并且在函数的参数名必须相同，可以有多个用`/`分割
+
+### 限制参数的数据类型
+
+* `string`:默认的数据类型，节后没有任何斜杠`/`的文本
+* `int`：接收整形
+* `float`：接收浮点类型
+* `path`：和`string`类似，但是接收斜杠`/`
+* `uuid`：只接收`uuid`字符串
+* `any`：可以指定多种途径
+
+```python
+# 限制参数类型传递
+@app.route("/list/<int:search_id>/")
+def get_id(search_id):
+	return "search id is {}".format(search_id)
+
+# any指定多个途径
+@app.route("/<any(name,age):var>/<int:user_id>")
+def get_any_id(var, user_id):
+	return "get any variable is {0}, id is {1}".format(var, user_id)
+```
+
+
+
