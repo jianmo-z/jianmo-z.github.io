@@ -39,12 +39,12 @@
 
 ## config配置
 
-### 方式一：加载
+### 方式一：配置模块
 
 1. `import config` ，导入配置模块
 2. 使用`app.config.from_object(config)`，通过模块加载配置文件
 
-### 方式二：加载
+### 方式二：配置文件
 
 1. 使用`app.config.from_pyfile("./config.py")`，通过文本文件加载配置
 2. 必须包含文件的后缀名，不局限于使用`.py`文件，`.txt`文件也能用
@@ -77,7 +77,7 @@ def get_id(search_id):
 * `float`：接收浮点类型
 * `path`：和`string`类似，但是接收斜杠`/`
 * `uuid`：只接收`uuid`字符串
-* `any`：可以指定多种途径
+* `any`：可以指定多种途径，再一个URL中指定多个路径，即多个URL对应一个函数
 
 ```python
 # 限制参数类型传递
@@ -91,5 +91,59 @@ def get_any_id(var, user_id):
 	return "get any variable is {0}, id is {1}".format(var, user_id)
 ```
 
+## 接收用户参数
 
+1. 使用path的形式(将参数嵌入到路径中)
 
+   > 希望可以让搜索引擎能搜索到的使用该方式
+
+   ```python
+   # 参数传递
+   @app.route("/list/<int:search_id>/")
+   def get_id(search_id):
+   	return "search id is {}".format(search_id)
+   
+   
+   # 指定多个路径
+   @app.route("/<any(name,age):var>/<int:user_id>")
+   def get_any_id(var, user_id):
+   	return "get any variable is {0}, id is {1}".format(var, user_id)
+   ```
+
+2. 使用查询字符串的形式，通过`?`的形式
+
+   > 不希望搜索引擎搜索到，可以传递多个参数使用`&`分割
+
+   ```python
+   # 通过?号的形式传递的参数
+   # http://127.0.0.1:8000/d/?wd=python&time=today
+   @app.route("/d/")
+   def get_d():
+   	wd = request.args.get("wd")
+   	time = request.args.get("time")
+   	return "wd = {}, time = {}".format(wd, time)
+   ```
+
+## url_for
+
+> 函数原型`url_for(endpoint, **values):`，`url_for`将视图函数反转为`url`，如果传递的参数已经定义了就会传递，如果没有定义就使用`?`传递给视图函数，第一个参数，应该是视图函数的名字的字符串，后面的参数就是传递给`url`，传递的参数的形式是字典。
+
+### 为什么需要url_for
+
+1. 如果将来修改了`URL`，但是没有修改`URL`对应的函数名，就不用到处去替换`URL`了
+2. `url_for`会自动的处理那些特殊的字符，比如`/`等
+
+```python
+@app.route("/url_for/<view_func>")
+def get_url_for(view_func):
+	if view_func == "get_id":
+		ret = url_for(view_func, search_id=10)  # 多余的参数使用?传递方式传递给视图函数
+	else:
+		ret = url_for(view_func)
+	# print(ret)  # ret逃逸，垃圾回收不是垃圾乱收
+	return "{}".format(ret)
+```
+
+## 自定义URL转换器
+
+课时10(00:00:51)
