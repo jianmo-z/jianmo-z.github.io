@@ -146,4 +146,97 @@ def get_url_for(view_func):
 
 ## 自定义URL转换器
 
-课时10(00:00:51)
+1. 自定义一个类继承自`BaseConverter`，重写`regex`正则表达式
+2. 映射到`app.url_map.converters`中
+3. 添加限制参数到路由中
+
+```python
+from werkzeug.routing import BaseConverter
+
+# 第一步
+# 自己写一个类继承自BaseConverter
+# 手机号码URL转换器
+class TelephoneConveter(BaseConverter):
+	regex = r'1[85734]\d{9}'  # 第一位为1，第二位为
+
+
+# 第二步
+# 添加到默认的转换器中
+app.url_map.converters['tel'] = TelephoneConveter
+
+# 第三步
+# 自定义URL转换器
+# 判断手机号
+@app.route("/phone/<tel:phone>")
+def phone_number(phone):
+	return "Telephone number is {}".format(phone)
+```
+
+### to_python&to_url
+
+* `to_python(self, value)`方法，返回值传递到`view`函数中作为参数
+* `to_url(self, values)`方法，返回值将在调用`url_for`函数的时候生成符合条件的URL形式
+
+```python
+class ListConverter(BaseConverter):
+	#   to_python(self, value)方法，返回值传递到view函数中作为参数
+	#   to_url(self, values)方法，返回值将在调用url_for函数的时候生成符合条件的
+	# URL形式
+	def to_python(self, value):
+		return "*".join(value.split("+"))
+
+	def to_url(self, value):
+		return "&".join(value)
+
+
+app.url_map.converters['prase'] = ListConverter
+
+
+# 使用加号传参
+# http://127.0.0.1:8000/posts/1+2/
+@app.route("/posts/<prase:post>/")
+def posts(post):
+	return "post is:{}".format(post)  # post is:1*2
+
+
+#  http://127.0.0.1:8000/posts_to_url/
+@app.route("/posts_to_url/")
+def posts_to_url():
+	return url_for("posts", post=['1', '2'])  # /posts/1&2/
+```
+
+> 运行结果：
+>
+> 1. 访问`http://127.0.0.1:8000/posts/1+2/`
+>
+>    结果：`post is:1*2`
+>
+> 2. 访问`http://127.0.0.1:8000/posts_to_url/`
+>
+>    结果：`/posts/1&2/`
+
+## 小细节知识点
+
+### 局域网中其他电脑访问我的网站
+
+> 绑定`0.0.0.0`地址，在run时加入参数`host="0.0.0.0"`
+
+### 指定端口号
+
+> 通过`app.run(port=5000)`，指定参数
+
+### url唯一
+
+> `app.route("/list/")`，通过`http://127.0.0.1:5000/list`和`http://127.0.0.1:5000/list/`都能访问
+>
+> `app.route('/list')`，仅能通过`http://127.0.0.1:5000/list`访问
+
+### GET&POST请求
+
+> 通过`app.route`加`methods`参数列表指定访问的时候接受的方式。
+>
+> * `GET`：通过url传参，有长度限制，传输少量数据。只会在服务器上获取资源，不改变服务器的状态。
+> * `POST`：通过http请求头传参在`Form Data`中，可以用来传输大文件、密码和用户名等隐私信息，提交数据。
+> * 在`flask`中默认使用`GET`方法，，如果想要设置自己的请求方式，那么应该传递`methods`列表
+
+day12-00:00:00
