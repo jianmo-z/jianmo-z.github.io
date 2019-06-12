@@ -239,4 +239,77 @@ def posts_to_url():
 > * `POST`：通过http请求头传参在`Form Data`中，可以用来传输大文件、密码和用户名等隐私信息，提交数据。
 > * 在`flask`中默认使用`GET`方法，，如果想要设置自己的请求方式，那么应该传递`methods`列表
 
-day12-00:00:00
+
+## 重定向
+
+> 页面体现上表现为浏览器从一个页面自动跳转到另一个页面
+
+- 永久重定向：状态码`301`，多个旧网址被废弃了要转到一个新的网站。
+- 临时重定向：状态吗`302`，表示页面暂时性跳转。
+
+> `flask`的重定向是通过`flask.redirect(location, code=30x)`实现的，`location`表示重定向的位置，`code`表示状态码，在`location`位置应该配合使用`url_for`使用
+
+```python
+@app.route('/')
+def hello_world():
+	return 'Hello World!'
+
+
+@app.route("/login/")
+def login():
+	return "login web page"
+
+
+@app.route("/profile/")
+def profile():
+	name = request.args.get('name')
+	if not name:
+		return redirect(url_for("login"), code=302)  # 不指定code默认302
+	else:
+		return "your name is {}".format(name)
+```
+
+## response响应
+
+> `flask = werkzeug + sqlalchemy + jinja2`
+>
+> * `werkzeug`：处理网络请求相关
+> * `sqlalchemy`：处理数据相关的
+> * `jinja2`：处理模板相关的
+
+* 如果返回一个合法的相应对象，则直接返回，即`Response`对象
+* 如果返回的是一个字符串，则`flask`会创建一个`werkzeug.wrappers.Response`对象，以字符串作为主体，状态码为`200`，`MIME`类型为`text/html`，返回该对象。
+* 如果是返回的是元组，元组中的数据类型是`response,status,headers`，就会覆盖`Response`的属性，`headers`可以使一个列表或者字典，作为额外的消息头。
+* 如果以上条件都不满足，`flask`会假设返回值是一个合法的`WSGI`应用程序，并通过`Response.force_type(rv,request.environ)`转化为一个请求对象
+
+### 视图函数可以返回的类型
+
+1. 字符串，将字符串包装成`Response`对象返回
+2. 返回元组，元祖的形式必须为`response,status,headers`，`headers`可以使一个列表或者字典，作为额外的消息头。
+3. 返回`Response`及其子类
+4. 如果返回的不是上面的类型可以自定义响应类型
+
+### 自定义响应
+
+1. 必须继承`Response`类，转换成支持的类型然后调用父类的`force_type`方法
+2. 必须实现方法`force_type(cls, response, environ=None)`，用来处理不能识别的返回值类型
+3. 必须指定`app.response_class`为你自己的类
+
+```python
+class JSONResponse(Response):
+	@classmethod
+	def force_type(cls, response, environ=None):
+		"""
+		这个方法只有视图函数返回字符串、非元祖，非Rseponse对象才调用
+		:param response:
+		:param environ:
+		:return:
+		"""
+		# print(response)
+		# print(type(response))
+		if isinstance(response, dict):  # 是字典
+			response = jsonify(response)
+			return super(JSONResponse, cls).force_type(response)
+```
+
+> `jsonify`可以将字典转化成`json`对象，还将该对象包装成`Response`对象
