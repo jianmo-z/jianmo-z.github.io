@@ -91,7 +91,7 @@ def login(uid):
 
 ## 过滤器
 
-> 过滤器是通过管道符号来使用的`|`，例如：`{{ name | length}}`，过滤器相当于是一个函数，把当前的变量传入到过滤器中，然后过滤器根据自己的功能返回相应的值再渲染到页面中。`Jinja2`内置过滤器[点击查看](<http://jinja.pocoo.org/docs/2.10/templates/#list-of-builtin-filters>)。
+> 过滤器是通过管道符号来使用的`|`，例如：`{\{ name | length}\}`，过滤器相当于是一个函数，把当前的变量传入到过滤器中，然后过滤器根据自己的功能返回相应的值再渲染到页面中。`Jinja2`内置过滤器[点击查看](<http://jinja.pocoo.org/docs/2.10/templates/#list-of-builtin-filters>)。
 >
 > 基本语法：`{\{ variable | 过滤器名字}\}`
 

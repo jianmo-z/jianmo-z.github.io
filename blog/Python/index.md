@@ -15,7 +15,7 @@
 
 
 ## Python批量创建文件
-> [Python批量创建文件](./01python批量创建文件.md)<a href="./Download/python批量创建文件.md.tar.gz"><font color="red">点击下载源文件</font></a>
+> [Python批量创建文件](./01python批量创建文件.md)
 
 
 ## python正则表达式
