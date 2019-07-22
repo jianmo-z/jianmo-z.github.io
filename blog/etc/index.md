@@ -30,6 +30,3 @@
 >  * ssh登陆显示的信息
 >  * win7装系统发生错误
 >  * Linux设置打开默认文件
-
-## 163_redhat7_yum_src
-> <a href="./Download/163.repo"><font color="red"> 点击下载</font></a>
