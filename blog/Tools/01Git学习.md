@@ -92,7 +92,7 @@
 
 ## Git别名
 
-> `git config alias.logg log --oneline --all --decorate --graph"`给后面的字符串起别名则`git logg` 就等效于`git log --oneline --all --decorate --graph `
+> `git config alias.logg "log --oneline --all --decorate --graph"`给后面的字符串起别名则`git logg` 就等效于`git log --oneline --all --decorate --graph `
 
 ## Git查看分支内容
 

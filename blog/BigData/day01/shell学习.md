@@ -203,8 +203,7 @@
 
    ```bash
    #!/bin/bash
-   
-   
+
    for i in  hello world pip
        do
            echo "says:{$i}"
