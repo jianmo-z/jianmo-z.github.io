@@ -149,6 +149,16 @@
        echo "is 456"
    fi
    ```
+   
+3. ```bash
+   #!/bin/sh
+   
+   if [ -d /usr ]; then
+   	echo "exist"
+   else
+   	echo "not exist"
+   fi
+   ```
 
 ### case语句
 
