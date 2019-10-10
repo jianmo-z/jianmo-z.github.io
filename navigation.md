@@ -10,6 +10,7 @@
 [Go](./blog/Go/index.md)
 [Qt](./blog/Qt/index.md)
 [C++](./blog/C++/index.md)
+[Java](./blog/Java/index.md)
 [汇编](./blog/Compile/index.md)
 [Algorithm](./blog/Algorithm/index.md)
 
