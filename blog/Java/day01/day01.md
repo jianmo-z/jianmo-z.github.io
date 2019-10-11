@@ -1,5 +1,7 @@
 # day01
 
+[TOC]
+
 ## IDEA常用快捷键
 
 | 快捷键               | 功能                                   |
@@ -306,7 +308,266 @@ true
 
 ### String方法
 
-> `Java`的任何对象都可以用`Object`对象进行接收，`Object`是所有类的基类。
+> `Java`的任何对象都可以用`Object`对象进行接收，`Object`是所有类的基类。注意：`Java`的`String.split`方法里面是一个正则，特殊字符需要转义`* ^ : | . \`，用`\\`转义。
 
+```
+package com_06.jianmo.Str;
 
+public class StringMethods {
+	public static void main(String[] args) {
+		String s1 = "hello world";
+		char[] array = {'h', 'e', 'l', 'l', 'o'};
+		String s2 = new String(array);
+
+		// 1.字符串比较
+		System.out.println(s1.equals(s2));
+
+		// 2.字符串比较，忽略大小写
+		String s3 = "HELLO";
+		System.out.println(s1.equalsIgnoreCase(s3));
+
+		// 3.获取字符串长度
+		System.out.println("字符串长度为"+s1.length());
+
+		// 4.拼接字符串
+		System.out.println("s1 + s2="+s1.concat(s2));
+
+		// 5.获取某个位置上的字符
+		System.out.println(s1.charAt(1));
+
+		// 6.查询某个字符串第一次出现的位置，没有返回-1
+		System.out.println("'l'第一次出现的位置："+s1.indexOf('l'));
+		System.out.println("'lo'第一次出现的位置："+s1.indexOf("lo"));
+
+		// 7.字符串截取
+		System.out.println("[2,] = "+s1.substring(2));
+		System.out.println("[2,4) = "+s1.substring(2, 4));  // 左闭右开:[begin, end)
+
+		// 8.String与转换相关的常用方法
+		char [] cs = s1.toCharArray();
+		byte [] bs = s1.getBytes();
+		System.out.println(cs[0]);
+		System.out.println(((char) bs[0]));  // 获得的是ASCII，需要进行类型转换为char
+
+		// 9.字符串替换
+		String target = "l";
+		String replacement = "w";
+		System.out.println(s1.replace(target, replacement));  // 返回替换后的字符串，不改变s1
+		System.out.println(s1.replace("l", "w"));  // 返回替换后的字符串，不改变s1
+		System.out.println(s1);  // s1不会发生变化
+
+		// 10.字符串分割
+		String [] ret = "a|b|c|d|e".split("\\|");  // 参数是正则，特殊字符需要转义，*,^,:,|,.,\ 用\\转义。
+		for (String r : ret) {
+			System.out.println(r);
+		}
+	}
+}
+```
+
+## Static关键字
+
+> 如果一个类的成员变量使用了`static`关键字修饰，那么这个变量不再属于对象自己，而是属于所在类。可以通过对象调用，但是推荐使用类名直接进行调用。
+
+* `static`修饰变量：变量属于类，可通过类名直接调用，不需要实例化对象。
+* `static`修饰方法：方法属于类，可通过类名直接调用，不需要实例化对象。
+
+> 静态方法无法直接访问非静态变量或调用方法，非静态可以访问静态。但是不能通过`this`指针。
+
+### 类静态成员
+
+#### 测试代码
+
+```java
+package com_07.jianmo.Static;
+
+public class StaticTest {
+	public static void main(String[] args) {
+		Student.setRoom("101教室");  // static属性的类通过类直接可以访问该类型的变量
+		Student s1 = new Student("张三", 18);
+		Student s2 = new Student("李四", 20);
+		Student s3 = new Student("王麻子", 22);
+
+		Student.room = "202教室";  // static属性的类变量
+		System.out.println(s1);
+		System.out.println(s2);
+		System.out.println(s3);
+
+	}
+}
+```
+
+#### Student类
+
+```java
+package com_07.jianmo.Static;
+
+public class Student {
+	private String name;
+	private Integer age;
+	public static String room;
+
+	public Student() {
+	}
+
+	public Student(String name, Integer age) {
+		this.name = name;
+		this.age = age;
+	}
+
+	public static String getRoom() {
+		return room;
+	}
+
+	public static void setRoom(String room) {
+		Student.room = room;
+	}
+
+	@Override
+	public String toString() {
+		return "Student{" +
+				"name='" + name + '\'' +
+				", room='" + Student.room + '\'' +
+				", age=" + age +
+				'}';
+	}
+}
+```
+
+### 静态代码块
+
+> 当首次用到该类执行一次，典型用途来给静态成员变量赋值。
+
+#### 测试代码
+
+```java
+package com_07.jianmo.Static;
+
+public class PersonTest {
+	public static void main(String[] args) {
+		Person p1 = new Person();
+		Person p2 = new Person();
+	}
+}
+
+```
+
+#### Person类
+
+```java
+package com_07.jianmo.Static;
+
+public class Person {
+	static {
+		System.out.println("欢迎使用该类");
+	}
+
+	public Person() {
+		System.out.println("调用一次构造");
+	}
+}
+```
+
+#### 运行结果
+
+```java
+欢迎使用该类
+调用一次构造
+调用一次构造
+```
+
+## Arrays
+
+> 与数组相关的工具类，提供了大量的静态方法，用来实现数组常见的操作。
+
+### 自定义类的排序
+
+> 注意泛化传入，自定义类的类型。
+
+* 方式一：继承`Comparator`接口，需要实现`compare`方法。
+* 方拾贰：继承`Comparable`接口，需要实现`compareTo`接口。
+
+### 测试类
+
+```java
+package com_08.jianmo.Arrays;
+
+import java.util.Arrays;
+
+public class ArraysTest {
+	public static void main(String[] args) {
+		Student[] array = {
+				new Student("张三", 18),
+				new Student("李四", 22),
+				new Student("王麻子", 20),
+		};
+
+		//  1.数组转为字符串形式
+		System.out.println(Arrays.toString(array));
+
+		// 2.数组进行排序
+		Arrays.sort(array);
+		System.out.println(Arrays.toString(array));
+	}
+}
+```
+
+### Student类
+
+```
+package com_08.jianmo.Arrays;
+
+public class Student implements Comparable<Student>{
+	private String name;
+	private Integer age;
+
+	public Student() {
+
+	}
+
+	public Student(String name, Integer age) {
+		this.name = name;
+		this.age = age;
+	}
+
+	@Override
+	public String toString() {
+		return "Student{" +
+				"name='" + name + '\'' +
+				", age=" + age +
+				'}';
+	}
+
+	@Override
+	public int compareTo(Student t) {
+		return this.age - t.age;
+	}
+}
+```
+
+## Math
+
+> 该类提供了大量的静态方法，完成与数学运算相关的操作。
+
+```java
+package com_09.jianmo.Math;
+
+public class MathTest {
+	public static void main(String[] args) {
+		double a = -34.56;
+
+		// 1.获取绝对值
+		System.out.println(Math.abs(a));
+
+		// 2.向上取整，不是四舍五入
+		System.out.println(Math.ceil(a));
+
+		// 3.向下取整，不是四舍五入
+		System.out.println(Math.floor(a));
+
+		// 4.四舍五入取整
+		System.out.println(Math.round(a));
+	}
+}
+```
 
