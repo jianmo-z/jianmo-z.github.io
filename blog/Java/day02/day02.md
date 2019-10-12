@@ -37,7 +37,7 @@ public class Teacher extends Employee {
 }
 ```
 
-## 重写
+### 重写
 
 * 重写(Override)：在继承关系中，方法的名称一样，参数列表也一样。
 * 重载(Overload)：方法的名称一样，参数列表不一样。
@@ -50,7 +50,7 @@ public class Teacher extends Employee {
 * 子类方法的返回值必须小于等于父类方法的返回值范围，`Object`类是所有类的公共最高父类。
 * 子类方法的权限必须大于等于父类方法的权限修饰符：`public` > `protected` > `(default)` > `private`，不写修饰符表示`default`。
 
-### 父类
+#### 父类
 
 ```java
 package com_02.jianmo.Override;
@@ -62,7 +62,7 @@ public class Phone {
 }
 ```
 
-### 子类
+#### 子类
 
 ```java
 package com_02.jianmo.Override;
@@ -78,7 +78,7 @@ public class NewPhone extends Phone{
 
 ```
 
-### 测试类
+#### 测试类
 
 ```java
 package com_02.jianmo.Override;
@@ -94,7 +94,7 @@ public class OverrideTest {
 }
 ```
 
-## 继承中的构造
+### 继承中的构造
 
 * 先有父类后有子类，父子类调用顺序：先父类后子类。
 * 当父类中没有默认无参构造函数时，在子类构造中通过`super.Father(param)`进行显示的调用，或者父类中写一个默认无参数构造。
@@ -102,7 +102,7 @@ public class OverrideTest {
 
 >  总结：子类必须调用父类构造函数，不写则默认使用`super()`；写了则用自己写的指定的`super`调用，还必须是第一个语句。
 
-## super
+### super
 
 > 用来访问父类的内容
 
@@ -110,7 +110,7 @@ public class OverrideTest {
 2. 在子类的成员方法中，访问父类的成员方法；
 3. 在子类的构造方法中，访问父类的构造方法。
 
-## this
+### this
 
 > 用来访问本类的内容
 
@@ -130,8 +130,6 @@ public class OverrideTest {
 
 ## 抽象方法&抽象类
 
-### 概念
-
 * 抽象方法：在方法名前加`abstract`关键字修饰，然后去掉大括号，分号结尾和`C++`一样；
 * 抽象类：抽象方法所在的类，必须是抽象类才行。在`class`前加`abstract`关键字修饰。
 
@@ -141,3 +139,165 @@ public class OverrideTest {
 2. 抽象类可以有构造方法，用来初始化父类的成员变量；
 3. 抽象类中不一定包含抽象方法，但是有抽象方法那么该类就必须是一个抽象类；
 4. 子类继承的抽象类必须实现父类的所有抽象方法。
+
+#### 抽象类
+
+```java
+package com_03.jianmo.Abstract;
+
+public abstract class Animal {
+	public abstract void eat();  // 抽象方法
+	public int num = 10;  // 普通成员变量
+	public void normalMethod() {  // 普通成员方法
+		System.out.println("普通的方法,num="+this.num);
+	}
+}
+```
+
+#### 子类：Dog
+
+```java
+package com_03.jianmo.Abstract;
+
+public class Dog extends Animal{
+	@Override
+	public void eat() {
+		System.out.println("狗吃骨头");
+	}
+}
+```
+
+#### 子类：Cat
+
+```java
+package com_03.jianmo.Abstract;
+
+public class Cat extends Animal{
+	@Override
+	public void eat() {
+		System.out.println("猫吃鱼");
+	}
+}
+```
+
+#### 测试类
+
+```java
+package com_03.jianmo.Abstract;
+
+public class AbstractTest {
+	public static void main(String[] args) {
+		AbstractTest.method(new Dog());
+		AbstractTest.method(new Cat());
+	}
+	static void method(Animal a) {  // 传入不同对象不同的行为
+		a.eat();
+		a.normalMethod();
+	}
+}
+```
+
+## 接口
+
+> 接口：一个公共的规范标准，接口是一种引用数据类型，最重要的内容就是其中的`抽象方法`。接口当中的修饰符必须是`public stract`所以可以不写。
+
+* 接口(Java 7)可以包含的内容：
+  1. 常量
+  2. 抽象方法
+* 接口(Java 8)可以额外包含的内容
+  3. 默认方法
+  4. 静态方法
+* 接口(Java 9)可以额外包含的内容
+  5. 私有方法
+
+### 接口注意事项
+
+* 接口当中的抽象方法，修饰符必须是两个固定的关键字：`public abstract`，可以省略不写；
+* 接口无法直接使用，需要通过`实现类`来实现接口；
+* 实现类通过`implements`来实现接口，实现类必须实现接口的所有方法；
+* 接口中可以定义变量必须有初始值且不能被修改(常量变量)；
+* 如果实现类没有实现所有的抽象方法，那么该类必须是抽象类。
+
+### 接口
+
+```java
+package com_04.jianmo.Interface;
+
+public interface Animal {
+	void eat();  // 默认加上public abstract
+	public abstract void sleep();  // public abstract可以不加
+	int num = 10;  // 变量必须有初始值，但是无法修改
+	//	void normalMethod() {  // Error:(7, 29) java: 接口抽象方法不能带有主体
+	//		System.out.println("普通成员方法：num="+num);
+	//	}
+}
+
+```
+
+### 子类：Dog
+
+```java
+package com_04.jianmo.Interface;
+
+public class Dog implements Animal {
+	@Override
+	public void eat() {
+		// num = 20;  // Error:(6, 17) java: 无法为最终变量num分配值
+		System.out.println("狗吃" + num + "个骨头");
+	}
+
+	@Override
+	public void sleep() {
+		System.out.println("狗睡觉");
+	}
+}
+```
+
+### 子类：Cat
+
+```java
+package com_04.jianmo.Interface;
+
+public class Cat implements Animal {
+	@Override
+	public void eat() {
+		System.out.println("猫吃" + num + "条鱼");
+	}
+
+	@Override
+	public void sleep() {
+		System.out.println("猫睡觉");
+	}
+}
+```
+
+### 测试类
+
+```java
+package com_04.jianmo.Interface;
+
+public class InterfaceTest {
+	public static void main(String[] args) {
+		Animal dog = new Dog();
+		InterfaceTest.method(dog);
+		System.out.println("==========");
+		Animal cat = new Cat();
+		InterfaceTest.method(cat);
+	}
+	public static void method(Animal a) {
+		a.eat();
+		a.sleep();
+	}
+}
+```
+
+## 接口默认方法
+
+> `Java 8`以后可以在接口中定义默认方法，仅`public`可以省略
+>
+> ```java
+> // Java 8以后在接口中可以定义默认方法，解决接口升级问题
+> public default void Animal() {
+> //...
+> }
+> ```
