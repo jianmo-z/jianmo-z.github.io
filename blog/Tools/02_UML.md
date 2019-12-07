@@ -20,7 +20,7 @@
 
 > 这里根据`visio 2013`版的类图整理出来的关系(七种)：关联、聚合、复合、依赖关系、定向关联、继承、实现。
 
-<img src="./Picture/09_UML类图.png" alt="UML类图" style="zoom:150%;" />
+<img src="./Picture/01_UML类图.png" alt="UML类图" style="zoom:150%;" />
 
 ## 结语
 
