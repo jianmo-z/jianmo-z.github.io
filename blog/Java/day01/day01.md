@@ -4,17 +4,17 @@
 
 ## IDEA常用快捷键
 
-| 快捷键               | 功能                                   |
-| -------------------- | -------------------------------------- |
-| `Alt+Enter`          | 导入包，自动修正代码                   |
-| `Ctrl+Y`             | 删除光标所在行                         |
-| `Ctrl+D`             | 复制光标所在行的内容，插入光标位置下面 |
-| `Ctrl+Alt+L`         | 格式化代码                             |
-| `Ctrl+/`             | 单行注释，再按取消注释                 |
-| `Ctrl+Shift+/`       | 选中代码注释，多行注释，再按取消注释   |
-| `Alt+Insert`         | 自动生成代码，toString，get，set等方法 |
-| `Alt+Shift+上下箭头` | 移动当前代码行                         |
-| `Shift+F6`           | 重命名当前行到后面的所有变量名         |
+| 快捷键               | 功能                                           |
+| -------------------- | ---------------------------------------------- |
+| `Alt+Enter`          | 导入包，自动修正代码                           |
+| `Ctrl+Y`             | 删除光标所在行                                 |
+| `Ctrl+D`             | 复制光标所在行的内容，插入光标位置下面         |
+| `Ctrl+Alt+L`         | 格式化代码                                     |
+| `Ctrl+/`             | 单行注释，再按取消注释                         |
+| `Ctrl+Shift+/`       | 选中代码注释，多行注释，再按取消注释           |
+| `Alt+Insert`         | 自动生成代码，`toString`，`get*`，`set*`等方法 |
+| `Alt+Shift+上下箭头` | 移动当前代码行                                 |
+| `Shift+F6`           | 重命名当前行到后面的所有变量名                 |
 
 ## 面向过程和面向对象
 
@@ -67,7 +67,7 @@ public class People {
 
 ## 常用API
 
-> API(Application Programming Interface)，应用程序编程接口。
+> `API(Application Programming Interface)`，应用程序编程接口。
 
 * `Scanner`：接收键盘输入
 * `Random`：产生随机数
@@ -310,7 +310,7 @@ true
 
 > `Java`的任何对象都可以用`Object`对象进行接收，`Object`是所有类的基类。注意：`Java`的`String.split`方法里面是一个正则，特殊字符需要转义`* ^ : | . \`，用`\\`转义。
 
-```
+```java
 package com_06.jianmo.Str;
 
 public class StringMethods {
@@ -459,6 +459,7 @@ package com_07.jianmo.Static;
 
 public class Person {
 	static {
+        // 静态代码块，一般用来给静态变量赋值
 		System.out.println("欢迎使用该类");
 	}
 
@@ -485,7 +486,7 @@ public class Person {
 > 注意泛化传入，自定义类的类型。
 
 * 方式一：继承`Comparator`接口，需要实现`compare`方法。
-* 方拾贰：继承`Comparable`接口，需要实现`compareTo`接口。
+* 方式二：继承`Comparable`接口，需要实现`compareTo`接口。
 
 ### 测试类
 
@@ -502,7 +503,7 @@ public class ArraysTest {
 				new Student("王麻子", 20),
 		};
 
-		//  1.数组转为字符串形式
+		// 1.数组转为字符串形式
 		System.out.println(Arrays.toString(array));
 
 		// 2.数组进行排序
