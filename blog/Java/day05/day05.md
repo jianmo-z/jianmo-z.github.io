@@ -180,3 +180,219 @@ public class IteratorTest {
 }
 ```
 
+## 泛型
+
+> 泛型是一种未知的数据类型，当我们不知道使用什么数据类型的时候，可以使用泛型，泛型也可以看做变量，用来接收数据类型。
+>
+> * `E e`：Element元素，`E`代表未知的数据类型。
+> * `T t`：Type类型，`T`
+>
+> `ArrayList`集合在定义的时候不知道集合中都会存储什么类型的数据，所以类型使用泛型。
+>
+> ```java
+> public class ArrayList<E> {
+>     // ...
+> }
+> ```
+
+### 泛型的优劣
+
+* 不使用泛型
+  * 好处：
+    * 集合不使用泛型，默认的类型就是Object类型，可以存储任意类型的数据。
+  * 弊端：
+    * 不安全，会引发异常。
+* 使用泛型
+  * 好处：
+    * 避免了类型转换的麻烦，存储的是什么类型，取出的就是什么类型；
+    * 把运行期异常代码，提升到了编译期。
+  * 弊端：
+    * 泛型是什么类型，只能存储什么类型的数据。
+
+```java
+package com_03.jianmo.Generic;
+
+import java.util.ArrayList;
+
+public class GenericTest {
+	public static void main(String[] args) {
+//		show_01();  // 不使用泛型，会抛异常
+		show_02();  // 使用泛型
+	}
+
+	// 集合不使用泛型
+	private static void show_01() {
+		ArrayList list = new ArrayList();
+		list.add("aaa");
+		list.add(10);
+
+		for (Object it : list) {
+			System.out.println(((String) it).length());  // java.lang.ClassCastException
+		}
+	}
+
+	// 集合使用泛型
+	private static void show_02() {
+		ArrayList<String> list = new ArrayList<>();
+		list.add("aaa");
+		list.add("bbb");
+		list.add("ccc");
+		for (String it : list) {
+			System.out.println(it);
+		}
+	}
+}
+```
+
+### 泛型类的定义和使用
+
+> 泛型类的定义：
+>
+> ```java
+> 修饰符 class 类名<E> {
+>     // ...
+> }
+> ```
+
+#### 泛型类的定义
+
+```java
+package com_03.jianmo.Generic;
+
+// 定义一个含有泛型的类
+public class GenericClass<E> {
+	public E getName() {
+		return name;
+	}
+
+	public void setName(E name) {
+		this.name = name;
+	}
+
+	private E name;
+
+}
+```
+
+#### 泛型类的使用
+
+```java
+package com_03.jianmo.Generic;
+
+public class GenericClassTest {
+	public static void main(String[] args) {
+		GenericClass<String> generic1 = new GenericClass<>();
+		generic1.setName("aaa");
+		System.out.println(generic1.getName());
+
+		GenericClass<Integer> generic2 = new GenericClass<>();
+		generic2.setName(111);
+		System.out.println(generic2.getName());
+
+	}
+}
+```
+
+### 泛型方法的定义和使用
+
+> 泛型定义在方法的修饰符合返回值类型之间，含有泛型的方法，在调用方法的时候确定泛型的数据类型，传递什么类型的参数，泛型就是什么类型。
+> ````java
+> 修饰符 <代表泛型的变量> 返回值类型 方法名(参数) {
+>     // ...
+> }
+> ````
+
+#### 泛型方法的定义
+
+```java
+package com_03.jianmo.Generic;
+
+public class GenericFunction {
+	public <E> void print(E e) {
+		System.out.println(e);
+	}
+}
+```
+
+#### 泛型方法的使用
+
+```java
+package com_03.jianmo.Generic;
+
+public class GenericFunctionTest {
+	public static void main(String[] args) {
+		GenericFunction func = new GenericFunction();
+		func.print("aaa");  // 传递什么类型，泛型就是什么类型
+		func.print(111);  // 传递什么类型，泛型就是什么类型
+		func.print(2.22);  // 传递什么类型，泛型就是什么类型
+	}
+}
+```
+
+### 泛型接口的定义和使用
+
+#### 泛型接口的定义
+
+```java
+package com_03.jianmo.Generic;
+
+public interface GenericInterface<E> {
+	public abstract void print(E e);
+}
+```
+
+#### 泛型接口的实现一
+
+```javascript
+package com_03.jianmo.Generic;
+
+// 实现一：使用泛型指定接口的类型
+public class GenericInterfaceImpl_1<E> implements GenericInterface<E> {
+	@Override
+	public void print(E e) {
+		System.out.println(e);
+	}
+}
+```
+
+#### 泛型接口的实现二
+
+```java
+package com_03.jianmo.Generic;
+
+// 实现二：直接显式的指定接口的类型
+public class GenericInterfaceImpl_2 implements GenericInterface<String> {
+	@Override
+	public void print(String s) {
+
+	}
+}
+```
+
+#### 泛型接口的使用
+
+```java
+package com_03.jianmo.Generic;
+
+public class GenericInterfaceTest {
+	public static void main(String[] args) {
+
+		// public class GenericInterfaceImpl_1<E> implements GenericInterface<E>
+		GenericInterfaceImpl_1<String> obj1 = new GenericInterfaceImpl_1<>();
+		obj1.print("aaa");
+
+		// public class GenericInterfaceImpl_2 implements GenericInterface<String>
+		GenericInterfaceImpl_2 obj2 = new GenericInterfaceImpl_2();
+		 obj2.print("bbb");
+	}
+}
+```
+
+### 泛型的通配符
+
+> 使用泛型类或者接口时，传递的数据中，泛型类型不确定，可以通过通配符`<?>`表示，但是一旦使用泛型的通配符，只能使用`Object`类中的共性的方法，集合元素自身方法无法使用。`?`表示未知通配符，此时只能接受数据，不能往该集合中存储数据。
+
+#### 使用方法
+
+> `?`：代表任意的数据类型，且不能创建对象使用，最能作为方法的参数使用
+

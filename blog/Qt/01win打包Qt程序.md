@@ -23,3 +23,12 @@
 
 >   打包成功后即可发布出来了。
 
+## 其他问题参考链接
+
+1. https://www.cnblogs.com/iriczhao/p/11268336.html
+2. https://blog.csdn.net/ze_202020/article/details/78524264
+
+> 缺什么到那个目录里面赋值对应的`dll`，名称里面不能有`d`字母，根据提示可依次添加`Qt5Widgetsd.dll`，`Qt5Guid.dll`，`Qt5Cored.dll`和`libgcc_s_dw2-1.dll`
+>
+> Qt安装对应套件目录下找到插件文件夹：`D:\Qt\5.12.6\mingw73_32\plugins\platforms`文件夹，该文件夹中有几个DLL文件，删除其中文件名末尾后含有字符`d`的dll文件。`d`表示`debug`时用的`dll`
+
