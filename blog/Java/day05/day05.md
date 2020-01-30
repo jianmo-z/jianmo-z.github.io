@@ -390,9 +390,60 @@ public class GenericInterfaceTest {
 
 ### 泛型的通配符
 
-> 使用泛型类或者接口时，传递的数据中，泛型类型不确定，可以通过通配符`<?>`表示，但是一旦使用泛型的通配符，只能使用`Object`类中的共性的方法，集合元素自身方法无法使用。`?`表示未知通配符，此时只能接受数据，不能往该集合中存储数据。
+> 使用泛型类或者接口时，传递的数据中，泛型类型不确定，可以通过通配符`<?>`表示，但是一旦使用泛型的通配符，只能使用`Object`类中的共性的方法，集合元素自身方法无法使用。`?`表示未知通配符，**此时只能接受数据，不能往该集合中存储数据。**
 
 #### 使用方法
 
-> `?`：代表任意的数据类型，且不能创建对象使用，最能作为方法的参数使用
+> `?`：代表任意的数据类型，且不能创建对象使用，最能作为方法的参数使用；
+>
+> 泛型的通配符：不知道使用什么类型来接收的时候，此时可以使用`?`，`？`表示未知通配符。
 
+```java
+package com_07.jianmo.GenericWildCard;
+
+import java.util.ArrayList;
+
+/*
+* 泛型的通配符：？
+*
+* 使用方式：
+*       不能创建对象使用；
+*       只能作为方法的参数使用。
+* */
+
+public class GenericWildCard {
+	public static void main(String[] args) {
+		ArrayList<Integer> list1 = new ArrayList<>();
+		list1.add(1);
+		list1.add(3);
+
+		ArrayList<String> list2 = new ArrayList<>();
+		list2.add("aaa");
+		list2.add("bbb");
+
+		print(list1);
+		System.out.println("===========");
+		print(list2);
+	}
+
+	// 遍历所有类型的ArrayList集合，只能访问数据不能存储数据
+	// 作为参数使用，如下参数
+	public static void print(ArrayList<?> list) {
+		for(Object it:list) {
+			System.out.println(it);
+		}
+	}
+}
+```
+
+### 通配符高级使用---受限泛型
+
+#### 泛型的上限
+
+* 格式：`类型名 <? extends 类名> 对象名称`
+* 意义：只能接受该类型及其子类
+
+#### 泛型的下限
+
+* 格式：`类型名 <? super 类名> 对象名称`
+* 意义：只能接受该类型及其父类型
