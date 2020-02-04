@@ -1,5 +1,10 @@
 # day06
 
+## Java的`==`和`equals`区别
+
+* `==`比较的是`hashCode`方法返回的值，即比较的是两个对象的哈希值；
+* `equals`比较的是`equals`方法返回的值，即比较的两个对象的属性值，根据`equals`实现的区别区分。
+
 ## 集合数据结构
 
 > 常见集合的数据结构：栈、队列、数组、链表和红黑树。
@@ -254,11 +259,162 @@ public class LinkedListTest {
 > * `Set`没有索引；
 > * `Set`不允许存储重复的元素。
 
+### 不允许重复元素原因
+
+> 
+
 ## Set的实现类
+
+### 哈希值
+
+> `java.lang.Object`对象的`int hashCode()`方法返回一个对象的哈希值。
+>
+> `public native int hashCode();`
+>
+> * `native`：代表该方法调用的是本地操作系统的方法。
 
 ### HashSet集合
 
 > * 不允许重复的元素；
 > * 没有索引，没有带索引的方法，也不能使用普通的`for`循环遍历；
 > * 是一个无序的集合，存储元素和取出元素的顺序可能不一致；
-> * 底层是一个哈希表结构，查询快。
+> * 底层是一个哈希表结构，查询快；
+> * 初始容量是16个，对相同的哈希值进行分组，然后使用链表/红黑树对相同哈希值的元素连接。
+> * 在`jdk1.8`之后当链表的长度等于8个就会转化为红黑树，jdk代码`if (binCount >= 7) {this.treeifyBin(tab, hash);}`，包含新插入的元素即：`8 = 7 + 1`。
+
+#### 哈希表底层实现	
+
+* jdk1.8版本之前：
+  * `哈希表=数组+链表`
+* jdk1.8版本之后：
+  * `哈希表=数组+链表`
+  * `哈希表=数组+红黑树(提高查询速度)`
+
+### LinkedHashSet集合
+
+> * 继承自`HashSet`类，`extends HashSet`集合；
+> * 底层：`哈希表（数组 + 链表/红黑树）` + `链表`，多一条链表用来记录元素的存储顺序，保证元素有序；
+> * 元素有序但不能重复。
+
+```java
+package com_01.jianmo.ListAndSet;
+
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+
+public class LinkedHashSetTest {
+	public static void main(String[] args) {
+		HashSet<String> h1 = new HashSet<>();
+		h1.add("www");
+		h1.add("aaa");
+		h1.add("aaa");
+		h1.add("zzz");
+		System.out.println(h1);  // [aaa, www, zzz]
+
+		HashSet<String> h2 = new LinkedHashSet<>();
+		h2.add("www");
+		h2.add("aaa");
+		h2.add("aaa");
+		h2.add("zzz");
+		System.out.println(h2);  // [www, aaa, zzz]
+	}
+}
+```
+
+## 可变参数
+
+> 在`jdk1.5`之后，如果我们定义一个方法需要接受多个参数，并且多个参数类型一致，就可以使用可变参数，可变参数是`jdk1.5`之后的新特性。
+>
+> * `修饰符 返回值类型 方法名(参数类型... 形参名){   }`
+>
+> 本质是传进去了一个数组。
+
+```java
+package com_02.jianmo.VarArgs;
+
+public class VarArgsTest {
+	public static void main(String[] args) {
+		System.out.println(sum01(1, 2, 3));
+	}
+
+
+	public static int sum01(int... nums) {
+		int ret = 0;
+		for (int i : nums) {
+			ret += i;
+		}
+		return ret;
+	}
+
+	// 可变参数的终极写法，接受所有的数据类型
+	public static void sum02(Object...obj) {
+	}
+}
+```
+
+### 注意事项
+
+1. 一个方法的参数列表，只能有一个可变参数，与数据类型无关；
+2. 如果方法的参数有多个，那么可变参数必须写在参数列表的末尾。
+
+## Collections集合工具类
+
+> 操作集合的工具类
+
+* `public static <T> boolean addAll(Collection<? super T> c, T... elements)`，向集合中添加所有的元素；
+
+* `public static void shuffle(List<?> list)`，打乱集合中的元素；
+
+* `public static <T extends Comparable<? super T>> void sort(List<T> list)`，对集合的数据进行排序，默认是升序排序，对于自定义数据类型需要实现`Comparable`接口的`compareTo`方法。
+* `Comparable`排序根据返回值
+  * `= 0`：表示元素是相同；
+  * `> 0`：表示当前元素大于传进来的元素，即`this-other`，升序；
+    * `< 0`：表示当前元素小于传进来的元素，即`other-this`，降序。
+* `public static <T> void sort(List<T> list, Comparator<? super T> c)`，对集合的数据进行排序，使用提供的排序接口`Comparator`。
+
+> `Comparator`和`Comparable`的区别
+>
+> * `Comparable`：自己`this`和别人`other参数`进行比较；
+> * `Comparator`：两个参数`o1`和`o2`进行比较。
+
+```java
+package com_03.jianmo.Collections;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
+public class CollectionsTest {
+	public static void main(String[] args) {
+		ArrayList<Integer> lists = new ArrayList<>();
+
+		// 往集合中添加多个元素
+		Collections.addAll(lists, 1, 3, 5, 7, 9);
+		System.out.println(lists);
+
+		// 打乱集合中元素的顺序
+		Collections.shuffle(lists);
+		System.out.println(lists);
+
+		// 元素排序:默认升序，字符串按照ASCII码进行排序
+		Collections.sort(lists);  // 默认升序
+		System.out.println(lists);
+
+		// 逆序排序，传递一个匿名内部类
+		Collections.sort(lists, new Comparator<Integer>() {
+			@Override
+			public int compare(Integer t1, Integer t2) {
+				return t2 - t1;
+			}
+		});
+		System.out.println(lists);
+
+		// 逆序排序，lambda表达式
+		Collections.shuffle(lists);
+		Collections.sort(lists, (t1, t2) -> t1 - t2);
+		System.out.println(lists);
+
+	}
+}
+```
+
