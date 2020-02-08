@@ -1,6 +1,6 @@
 # day07
 
-## Map集合
+## Map接口
 
 > `java.util.map<k, v>`集合
 >
@@ -12,13 +12,14 @@
 ## Map常见实现类
 
 * `HashMap<k,v>`：无序集合；
-  1. `HashMap`集合底层是哈希表：查询速度快；
+  1. `HashMap`集合底层是哈希表：查询速度快，线程不安全，可以存储`null`值和`null`键；
      * `JDK1.8`之前：数组+单项链表
      * `JDK1.8`之后：数组+单项链表/红黑树(链表长度超过8时)：提高查询速度
   2. `HashMap`集合是一个无序的集合，存储元素和取出元素的顺序可能不一致。
 * `LinkedHashMap`：哈希表和链接列表实现，是`HashMap`的子类。
   1. `LinkedHashMap`集合底层是哈希表+链表；
   2. `LinkedHashMap`集合是一个有序的集合，存储元素和取出元素的顺序是一致的。
+* `HashTable`：不允许存储空，是最早期的双列集合从`JDK1.0`开始的，该集合是线程安全的，即单线程集合。
 
 ## Map接口常用方法
 
@@ -115,6 +116,72 @@ public class LinkedHashMapTest {
 		m2.put("ccc", "CCC");
 
 		System.out.println(m2);  // {aaa=AAA, ccc=CCC, bbb=BBB}
+	}
+}
+```
+
+## HashTable类
+
+> `HashTable`和`Vector`集合一样，在jdk1.2版本之后被更先进的集合`hashMap`和`ArrayList`取代了，但是HashTable的子类被`Properties`集合仍然活跃在历史舞台，`Properties`集合是一个唯一和`IO`流相结合的集合。
+
+```java
+package com_01.jianmo.Map;
+
+import java.util.HashMap;
+import java.util.Hashtable;
+
+public class HashTableTest {
+	public static void main(String[] args) {
+		HashMap<String, String> m = new HashMap<>();
+
+		m.put(null, "a");
+		m.put("a", null);
+
+		System.out.println(m);  // {null=a, a=null}
+
+		Hashtable<String, String> h = new Hashtable<>();
+//		h.put(null, "a");  // java.lang.NullPointerException
+//		h.put("a", null);  // java.lang.NullPointerException
+//		h.put(null, null);// java.lang.NullPointerException
+		h.put("a", "a");
+
+		System.out.println(h); // {a=a}
+
+	}
+}
+```
+
+## JDK9对集合添加的优化
+
+> 单列集合使用`add`方法，双列集合使用`put`方法。
+>
+> `JDK9`对增强`List`接口、`Set`接口、`Map`接口：里面增加了一个静态的方法`of`，可以给集合一次性添加多个元素。
+>
+> * 当集合中存储的元素个数已经确定了，不再改变时使用；
+> * `of`方法只适用`List`接口、`Set`接口、`Map`接口，不适用接口的实现类；
+> * `of`方法的返回值是一个不能改变的集合，集合不能再使用`add`、`put`方法，会抛出异常；
+> * `Set`接口和`Map`接口在调用of方法的时候，不能有重复的元素，否则会抛出异常。
+
+```java
+package com_01.jianmo.Map;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+public class ListSetMap_Of {
+	public static void main(String[] args) {
+		List<String> list = List.of("a", "b", "c", "d", "e", "f", "g");
+//		list.add("h");  // java.lang.UnsupportedOperationException
+		System.out.println(list);
+
+		Set<String> set = Set.of("a", "b", "c", "d", "e", "f", "g");
+//		Set<String> set = Set.of("a", "a", "b", "c", "d", "e", "f", "g");  // java.lang.IllegalArgumentException: duplicate element: a
+		System.out.println(set);
+
+		Map<String, Integer> map = Map.of("a", 1, "b", 2, "c", 3, "d", 4);
+//		Map<String, Integer> map = Map.of("a", 1, "a", 2, "c", 3, "d", 4);  // java.lang.IllegalArgumentException: duplicate key: a
+		System.out.println(map);
 	}
 }
 ```
