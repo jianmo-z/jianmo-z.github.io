@@ -400,9 +400,97 @@ public synchronized void method() {
 | Timed_Waiting(计时等待) | 同`waiting`状态，有几个方法有超时参数，调用他们将进入`Timed Waiting`状态。这一状态将一直保持到超时期满或者接收到唤醒通知，带有超时参数的正常方法有`Thread.sleep`、`Object.wait`。 |
 | Teminated(死亡状态)     | 因为`run`方法正常退出而死亡，或者因为没有捕获的异常终止了`run`方法而死亡。 |
 
-###  锁对象
+###  等待与唤醒机制
 
-> 只有锁对象才能调用`wait()`和`notify()/notifyAll()`方法。
+> 只有锁对象才能调用`wait()`和`notify()/notifyAll()`方法。线程之间的通信，有效的利用资源，防止资源竞争。
 >
-> * `void wait()`：在其他线程调用此对象`notify()/notifyAll()`方法前，导致当前线程等待。
+> * `void wait()`：在其他线程调用此对象`notify()/notifyAll()`方法前，导致当前线程等待。此时该线程不再活动，不参与线程调度，进入`wait set`中，因此不会浪费`CPU`资源；
+> * `void notify()`：唤醒在此对象监视器上等待的单个线程，会继续执行`wait`方法之后的代；
+> * `void notifyAll()`：同`notify`，但是是唤醒所有在此监视器上等待的线程。
+>
+> **注意：**
+>
+> 哪怕只通知了一个等待的线程，被通知的线程也不会立即恢复执行，因为它当初中断的地方是在同步块内，而此刻它已经不持有锁，所以它需要再次尝试去获取锁(很可能其他面临其他线程的竞争)，成功后才能在当初调用wait方法之后的地方恢复执行。
+>
+> * 如果能获取锁，线程就从`WAITING`状态转化为`RUNNABLE`状态；
+> * 否则，从`wait set`出来，又进入`entry set`，线程就从`WAITING`状态又变成了`BLOCKED`状态。
+
+### wait和notify注意
+
+1. `wait`方法与`notify`方法必须要由同一个锁对象调用，因为，对应的锁对象可以通过`notify`唤醒使用同一个锁对象调用的`wait`方法后的线程；
+2. wait方法与notify方法是属于Object类的方法的，因为，锁对象可以是任意对象，而任意对象的所属类都是继承了Object类的；
+3. `wait`方法与`notify`方法必须要**在同步代码块或者同步函数中使用**，因为，**必须要通过锁对象调用者两个方法**。
+
+```java
+package com_07.jianmo.LockObject;
+
+public class LockObjectTest {
+	public static void main(String[] args) {
+		Object obj = new Object();
+
+
+		// 消费者1
+		new Thread() {
+			@Override
+			public void run() {
+				while (true) {
+					synchronized (obj) {
+						System.out.println("消费者1等待包子。。。");
+						try {
+							obj.wait();
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						System.out.println("消费者1等到了一个包子，消费者吃了一个包子");
+					}
+				}
+
+			}
+		}.start();
+
+		// 消费者2
+		new Thread() {
+			@Override
+			public void run() {
+				while (true) {
+					synchronized (obj) {
+						System.out.println("消费者2等待包子。。。");
+						try {
+							obj.wait();
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						System.out.println("消费者2等到了一个包子，消费者吃了一个包子");
+					}
+				}
+
+			}
+		}.start();
+
+		// 生产者
+		new Thread() {
+			@Override
+			public void run() {
+				while (true) {
+					try {
+						Thread.sleep(2 * 1000);  // 做包子需要五秒
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					synchronized (obj) {
+						// 一次唤醒一个顾客：
+						// System.out.println("生产者花费2秒做了一个包子");
+						// obj.notify(); // 一次唤醒一个顾客
+
+						// 一次唤醒所有的顾客
+						System.out.println("生产者花费2秒做了两个包子");
+						obj.notifyAll();
+					}
+				}
+			}
+		}.start();
+
+	}
+}
+```
 
