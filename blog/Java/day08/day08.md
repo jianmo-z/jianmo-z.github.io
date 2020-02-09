@@ -402,7 +402,7 @@ public synchronized void method() {
 
 ###  等待与唤醒机制
 
-> 只有锁对象才能调用`wait()`和`notify()/notifyAll()`方法。线程之间的通信，有效的利用资源，防止资源竞争。
+> 即生产者消费者问题，只有锁对象才能调用`wait()`和`notify()/notifyAll()`方法。线程之间的通信，有效的利用资源，防止资源竞争。
 >
 > * `void wait()`：在其他线程调用此对象`notify()/notifyAll()`方法前，导致当前线程等待。此时该线程不再活动，不参与线程调度，进入`wait set`中，因此不会浪费`CPU`资源；
 > * `void notify()`：唤醒在此对象监视器上等待的单个线程，会继续执行`wait`方法之后的代；
@@ -493,4 +493,197 @@ public class LockObjectTest {
 	}
 }
 ```
+
+## 线程池
+
+> 如果并发的线程数量很多，并且每个线程都是执行一个时间很短的任务就结束了，这样频繁创建线程就会大大降低系统的效率，因为频繁的创建和销毁线程需要时间。所以就需要线程池，即一个容器。
+>
+> 1. 当程序第一次启动的时候，创建多个线程，保存到一个集合中；
+> 2. 需要使用线程的时候，就可以从集合中取出线程使用，`Thread t = list.remove(0)`；返回被移除的元素，线程只能被一个任务使用；
+> 3. 使用完线程，需要把线程归还给线程池，`list.add(t)`。
+>
+> `JDK1.5`之后，`JDK`内置了线程池，可以直接使用。
+
+### Executors
+
+> `JDK1.5`之后提供的，`java.util.concurrent.Executors`线程池的工厂类，用来生产线程池。
+>
+> * `Executors`类中的静态方法
+>   * `static ExectorsService newFixedThreadPool(int nThreads)`：创建一个可重用固定线程数的线程池
+>     * `int nThreads`：创建线程池中包含的线程数量。
+>     * `ExectorsService `接口，返回一个`ExectorsService `接口的实现类对象，可以使用`ExectorsService `接口接收(面向接口编程)。
+> * `ExectorsService`线程池接口
+>   * `submit(Runnable task)`：提交一个`Runnable`任务用于执行，用来从线程池中获取线程，调用`start`方法，执行线程任务；
+>   * `shutdown()`：关闭销毁线程。
+
+### 线程池使用步骤
+
+1. 使用线程池工厂类`Executors`里面提供的静态方法`newFixedThreadPool`生产一个指定线程数量的线程池；
+2. 创建一个类，实现`Runnable`接口，重写`run`方法，设置线程任务、；
+3. 调用`ExectorsService`中的`submit`方法，传递线程任务，开启线程执行，执行`run`方法，当线程池被销毁后，提交任务会抛异常`RejectExecutionException`；
+4. 调用`ExectorsService`中的`shutdown`方法销毁线程，释放线程资源。
+
+```java
+package com_08.jianmo.ThreadPool;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class ThreadPoolTest {
+	public static void main(String[] args) {
+		// 1.创建线程池
+		ExecutorService pool = Executors.newFixedThreadPool(4);
+
+		// 2.向线程池中添加任务
+		pool.submit(new Runnable() {
+			@Override
+			public void run() {
+				System.out.println("doing task");
+			}
+		});
+
+		// 3. 销毁线程池
+		pool.shutdown();
+
+	}
+}
+```
+
+## Lambda表达式
+
+> `JDK1.8`加入的新特性。
+
+### 函数式编程思想
+
+> * 函数式编程思想：
+>   * 只要能获取到结果，谁去做的怎么做的，都不重要，重视的是结果，不重视过程。强调做什么，而不是以什么形式做。
+> * 面向对象的思想：
+>   * 做一件事，找一个能解决这个事情的对象，调用对象的方法，完成任务。
+
+### Lambda
+
+> `(参数类型 参数名称) -> { 代码语句 }`
+>
+> ```java
+> () -> {System.out.println("hello world");}
+> ```
+
+* 小括号`()`即方法的参数，没有则为空，代表不需要传入任何参数；
+* 中间的`->`代表将前面的参数传递给后面的代码；
+* 后面的`{}`即为业务逻辑代码块，如果只有一行代码可以去掉`{}`不写。
+
+```java
+package com_09.jianmo.Lambda;
+
+public class LambdaTest {
+	public static void main(String[] args) {
+
+		// 使用匿名内部类
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				System.out.println(Thread.currentThread().getName() + " doing Task");
+			}
+		}).start();
+
+		// 使用lambda表达式
+		new Thread(()->{
+			System.out.println(Thread.currentThread().getName() + " doing Task");
+		}).start();
+	}
+}
+```
+
+### Lambda的参数和返回值
+
+> 需求：
+>
+> * 使用数组存储多个Person对象；
+> * 对数组中的Person对象使用Arrays的sort方法通过年龄进行排序
+
+#### Person类
+
+```java
+package com_09.jianmo.Lambda;
+
+public class Person {
+	private int age;
+	private String name;
+
+	@Override
+	public String toString() {
+		return "Person{" +
+				"age=" + age +
+				", name='" + name + '\'' +
+				'}';
+	}
+
+	public Person() {
+	}
+
+	public Person(int age, String name) {
+		this.age = age;
+		this.name = name;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+}
+```
+
+#### 测试代码
+
+```java
+package com_09.jianmo.Lambda;
+
+import java.util.Arrays;
+
+public class PersonTest {
+	public static void main(String[] args) {
+		Person[] array = {new Person(12, "张三"),
+				new Person(14, "李四"),
+				new Person(13, "王五"),
+				new Person(10, "皮皮虾")};
+
+		Arrays.sort(array, (Person p1, Person p2) -> {
+			return p1.getAge() - p2.getAge();
+		});
+
+		for (Person it : array) {
+			System.out.println(it);
+		}
+	}
+}
+```
+
+	### Lambda省略格式
+
+> Lambda表达式：是可推导，可以省略。凡是根据上下文推导出来的内容都可以省略书写。可以省略的内容：
+>
+> 1. (参数列表)：括号中参数列表的数据类型，可以省略不写；
+> 2. (参数列表)：括号中的参数如果只有一个，那么类型和`()`都可以省略不写；
+> 3. {一些代码}：如果`{}`中的代码只有一行，无论是否有返回值，可以省略`{}`、`return`、`分号`。
+>    * 要省略`{}`、`return`、`分号`必须一起省略。
+
+### Lambda使用前提
+
+> `Lambda`的语法非常简洁，完全没有面向对象复杂的束缚，但是使用的时候有几个问题需要注意：
+>
+> 1. 使用`Lambda`必须具有接口，且接口中有且只有一个抽象方法。无论是`JDK`内置的`Runnable`、`Comparator`接口还是自定义的接口，只有当接口中的抽象方法存在且唯一时，才能使用`Lambda`。
+> 2. 使用`Lambda`必须具有上下文推断。也就是方法的参数或局部变量类型必须为`Lambda`对应的接口类型，才能使用`Lambda`作为该接口的实例。
+>
+> 有且仅有一个抽象方法的接口，称为**”函数式接口“**。
 
