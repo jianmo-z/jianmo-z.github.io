@@ -217,3 +217,114 @@ public class FileFilterTest {
 }
 ```
 
+#### FileNameFilterImpl
+
+```java
+package com_03.jianmo.FileNameFilter;
+
+import java.io.File;
+import java.io.FilenameFilter;
+
+public class FileNameFilterImpl implements FilenameFilter {
+	@Override
+	public boolean accept(File file, String s) {
+		if (s.endsWith("lnk"))
+			return true;
+		else
+			return false;
+	}
+}
+```
+
+#### FileNameFilterTest
+
+```java
+package com_03.jianmo.FileNameFilter;
+
+import java.io.File;
+
+public class FileNameFilterTest {
+	public static void main(String[] args) {
+		File file = new File("C:\\Users\\Pip\\Desktop");
+		PrintAllFile(file);
+	}
+	public static void PrintAllFile(File file) {
+		File[] files = file.listFiles(new FileNameFilterImpl());
+		for(File it : files) {
+			if(it.isDirectory()) {
+				PrintAllFile(it);
+			} else {
+				System.out.println(it);
+			}
+		}
+	}
+}
+```
+
+
+
+## IO流
+
+> `java`中的`I/O`操作主要是指`java.io`包下的内容，进行输入、输出操作。**输入**也叫**读取数据**，**输出**也叫**写出数据**。
+
+### IO的分类
+
+> 根据数据的流向分为：**输入流**和**输出流**。
+>
+> * 输入流：把数据从**其他设备**上**读**取到**内存**中的流；
+> * 输出流：把数据从**内存**中**写**出到**其他设备**上的流。
+>
+> 根据数据的类型分为：**字节流**和**字符流**。
+
+## 字节流
+
+> 一切皆为字节，一切文本数据(文本、图片、视频等)在存储时，都是以二进制数字的形式保存，都一个一个的字节，那么传输时也是如此。所以，字节流可以传输任意文件数据。在操作流的时候，我们时刻需要明白，无论使用什么样的流对象，底层传输的始终为二进制数据。
+
+### 字节输出流OutputStream
+
+> `java.io.OutputStream`**抽象类**是表示字节输出流的所有类的超类，将指定的字节信息写出到目的地，它定义了自己输出流的基本共性功能方法。
+>
+> * `public void close()`：关闭此输出流并释放与此流相关联的任何系统资源；
+> * `public void flush()`：刷新此输出流并强制任何缓冲的输出字节被写出；
+> * `public void write(byte [] b)`：将`b.length`字节从指定的字节数组写入此输出流；
+> * `public void write(byte [] b, int off, int len)`：从指定的字节数组写入`len`字节，从偏移量`off`开始输出到此输出流；
+> * `public abstract void write(int b)`：将指定的字节输出流。
+>
+> 当完成流的操作时，必须调用此`close`方法，释放系统资源。
+
+### OutputStream实现类
+
+> `OutputStream`的实现类`ByteArrayOutputStream`、`FileOutputStream`、`FilterOutputStream`、`ObjectOutputStream`、`PipedOutputStream`
+
+## FileOutputStream类
+
+> `FileOutputStream`是`OutputStream`的文件流操作的实现类
+
+### 构造方法
+
+
+
+> **构造函数作用**：
+>
+> 1. 创建一个`FileOutputStream`对象；
+> 2. 会根据构造方法中传递的`文件/文件路径`，创建一个空的文件；
+> 3. 会把`FileOutputStream`对象指向创建好的文件。
+
+* `public FileOutputStream(String name)`：创建一个具有指定名称的文件中写入数据的输出文件流；
+* `public FileOutputStream(File file)`：创建一个指定`File`对象表示的文件中写入数据的文件输出流；
+* `public FileOutputStream(String name, boolean append)`
+* `public FileOutputStream(File file, boolean append)`
+* `public FileOutputStream(FileDescriptor fdObj)`
+
+### 写数据
+
+> `java`写数据原理：
+>
+> ​	1、`java`程序  →  2、`JVM`(`java`虚拟机) → 3、`OS`(操作系统) → 4、`OS`调用写数据的方法 → 5、把数据写入到文件中
+>
+> * `public void close()`：关闭此输出流并释放与此流相关的任何系统资源；
+> * `public void flush()`：刷新此输出流并强制任何换种的输出字节被写出；
+> * `public void write(byte[] b)`：将`b.length`字节从指定的字节数组写入此输出流；
+> * `public void write(byte[] b, int off, int len)`：从指定的字节数组写入`len`字节，从偏移量`off`开始输出到此输出流；
+> * `public void write(int b)`：将指定的字节输出流，`b`为`ASCII`码值。
+
