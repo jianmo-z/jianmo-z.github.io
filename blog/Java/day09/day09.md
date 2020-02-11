@@ -294,7 +294,21 @@ public class FileNameFilterTest {
 
 ### OutputStream实现类
 
-> `OutputStream`的实现类`ByteArrayOutputStream`、`FileOutputStream`、`FilterOutputStream`、`ObjectOutputStream`、`PipedOutputStream`
+> `OutputStream`的实现类`ByteArrayOutputStream`、`FileOutputStream`、`FilterOutputStream`、`ObjectOutputStream`、`PipedOutputStream`。
+
+### 字节输入流InputStream
+
+> `java.io.InputStream`抽象类是表示自己输入流的所有类的超类，可以读取字节信息到内存中，它定义了自己输入流的基本共性功能方法。
+>
+> * `public void close()`：关闭输入流并释放与此流相关联的任何系统资源；
+> * `public abstract int read)()`：从输入流读取数据的下一个字节；
+> * `public int read(byte[] b)`：从输入流中读取一些字节数，并将它们存储到字节数组`b`中。
+>
+> 当完成流的操作时，必须调用此`close`方法，释放系统资源。
+
+### InputStream实现类
+
+> `InputStream`的实现类`BufferedInputStream`、`ByteArrayInputStream`、`DataInputStream`、`FilterInputStream`、`PushbackInputStream`。
 
 ## FileOutputStream类
 
@@ -302,21 +316,19 @@ public class FileNameFilterTest {
 
 ### 构造方法
 
-
-
 > **构造函数作用**：
 >
 > 1. 创建一个`FileOutputStream`对象；
 > 2. 会根据构造方法中传递的`文件/文件路径`，创建一个空的文件；
 > 3. 会把`FileOutputStream`对象指向创建好的文件。
 
-* `public FileOutputStream(String name)`：创建一个具有指定名称的文件中写入数据的输出文件流；
-* `public FileOutputStream(File file)`：创建一个指定`File`对象表示的文件中写入数据的文件输出流；
-* `public FileOutputStream(String name, boolean append)`
-* `public FileOutputStream(File file, boolean append)`
+* `public FileOutputStream(String name)`：创建一个新的文件，创建一个具有指定名称的文件中写入数据的输出文件流；
+* `public FileOutputStream(File file)`：创建一个新的文件，创建一个指定`File`对象表示的文件中写入数据的文件输出流；
+* `public FileOutputStream(String name, boolean append)`：同上，不会创建新文件，只是给原文件中追加写数据；
+* `public FileOutputStream(File file, boolean append)`：同上，不会创建新文件，只是给原文件中追加写数据；
 * `public FileOutputStream(FileDescriptor fdObj)`
 
-### 写数据
+### 成员方法
 
 > `java`写数据原理：
 >
@@ -324,7 +336,318 @@ public class FileNameFilterTest {
 >
 > * `public void close()`：关闭此输出流并释放与此流相关的任何系统资源；
 > * `public void flush()`：刷新此输出流并强制任何换种的输出字节被写出；
-> * `public void write(byte[] b)`：将`b.length`字节从指定的字节数组写入此输出流；
+> * `public void write(byte[] b)`：创建爱你将`b.length`字节从指定的字节数组写入此输出流；
 > * `public void write(byte[] b, int off, int len)`：从指定的字节数组写入`len`字节，从偏移量`off`开始输出到此输出流；
 > * `public void write(int b)`：将指定的字节输出流，`b`为`ASCII`码值。
+>
+> `write(byte[] b)`一次写多个字节数据的时候：
+>
+> * 如果写的第一个字节是正数`(0-127)`，那么显示的时候会查询`ASCII`表；
+> * 如果写的第一个字节是负数，那么第一个字节和第二个字节，两个字节组成一个中文显示，查询系统默认编码`(GBK)`。
+
+```java
+package com_04.jianmo.OutputStream;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class OutputStreamTest {
+	public static void main(String[] args)  {
+		try {
+			byte[] bytes = {65, 70, 66, 69, 80};
+			FileOutputStream stream = new FileOutputStream("C:\\Users\\Pip\\Desktop\\a.txt");
+			stream.write(97);  // ASCII的字母a
+			stream.write(bytes);  // 写入byte数组
+			stream.write(bytes, 1, 2);  // 写入数组中指定的一部分数据
+			stream.write("你好".getBytes());  // String转Bytes数组
+			stream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+}
+```
+
+## FileInputStream类
+
+### 构造方法
+
+> 构造方法的作用：
+>
+> 1. 会创建一个`FileInputStream`对象；
+> 2. 会把`FileInputStream`对象指定构造方法中要读取的文件。
+
+* `FileInputStream(File file)`：通过打开一个到实际文件的连接来创建一个`FileInputStream`，该文件通过文件系统中的`File`对象`file`指定；
+* `FileInputStream(FileDescriptor fdObj)`：通过使用文件描述符fdObj创建一个FileInputStream，该文件描述符表示到文件系统中某个实际文件的现有连接；
+* `FileInputStream(String name)`：通过打开一个到实际文件的连接来创建一个`FileInputStream`，该文件通过文件系统中的路径名`name`指定。
+
+### 成员方法
+
+> `java`读取数据原理：
+>
+> ​	1、`java`程序  →  2、`JVM`  →  3、`OS`  →  4、`OS`读取数据的方法  →  5、 读取文件
+>
+> * `public int read()`：从文件中读取一个字节，如果读取到文件末尾返回`-1`；
+> * `public int read(byte[] b)`：从输入流中读取一定数量的字节，并将其存储在缓冲区数组`b`中
+>   * `byte[] b`：缓冲区用来存储数据；
+>   * `int`：返回值表示读取到了多少个字节的数据，返回-1表示读取到了文件末尾。
+
+```java
+package com_05.jianmo.InputStream;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+
+public class InputStreamTest {
+	public static void main(String[] args) {
+		readByte();
+		readByteArray();
+	}
+
+	// 读取一个字节
+	public static void readByte() {
+		try {
+			FileInputStream stream = new FileInputStream("C:\\Users\\Pip\\Desktop\\a.txt");
+			int b = stream.read();
+			System.out.println("读取一个字节数据：" + (char) b);
+			stream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// 读取一个byte数组
+	public static void readByteArray() {
+		try {
+			FileInputStream stream = new FileInputStream("C:\\Users\\Pip\\Desktop\\a.txt");
+			byte[] b = new byte[1024];
+			int size = stream.read(b);
+			System.out.println("读取:" + size + "字节的数据");
+			System.out.println(new String(b, 0, size));  // 转化有效长度为字符
+			stream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+}
+```
+
+## 字符流
+
+> 当使用字节流读取文本文件时，可能会有一个小问题。就是遇到中文字符时，可能不会显示完整的字符，那是因为一个中文字符可能占多个字节存储。所以`java`提供一些字符流类，以字符为单位读写数据，专门用于处理文本文件。
+
+### 字符输入流Reader
+
+> `java.io.Reader`抽象类是表示用于读取字符流的所有类的超类，可以读取字符信息到内存中，它定义了字符输入流的基本共性功能方法。
+>
+> * `public void close()`：关闭此流并释放与此流相关联的任何系统资源；
+> * `public int read()`：从输入流中读取一个字符；
+> * `public int read(char[] cbuf)`：从输入流中读取一些字符，并将它们存储到字符数组`cbuf`中；
+> * `public int read(byte[] b, int off, int len)`：`off`是对于`byte[] b`的偏移量写`len`个字符。
+
+### Reader实现类
+
+> `Reader`的实现类`BufferedReader`、`CharArrayReader`、`FilterReader`、`InputStreamReader`、`PipedReader`、`StringReader`。
+
+### 字符输出流Writer
+
+> `java.io.Writer`抽象类是用于写出字符流的所有类的超类，将指定的字符信息写出到目的地。它定义了字节输出流的基本共性功能方法。
+>
+> * `void write(int c)`：写入单个字符；
+> * `void write(char[] cbuf)`：写入字符数组；
+> * `abstract void write(char[] cbuf, int off, int len)`：写入字符数的一部分，`off`偏移量数组的开始索引，`len`写的字符个数；
+> * `void write(String str)`：写入字符串；
+> * `void write(String str, int off, int len)`：写入字符串的某一部分，`off`字符串偏移量的开始索引，`len`写的字符长度；
+> * `void flush()`：刷新该流的缓冲；
+> * `void close()`：关闭此流，调用前先刷新该流。
+
+### Writer实现类
+
+> `Writer`的实现类`BufferdWriter`、`CharArrayWriter`、`FilterWriter`、`OutputStreamWriter`、`PipeWriter`、`StringWriter`。
+
+## FileReader类
+
+> `java.io.FileReader`类是读取字符文件的便捷类，是`InputStreamReader`的子类。构造时使用系统默认的字符编码和默认字符缓冲区。
+>
+> **字符编码**：字节与字符的对应规则，`WIndows`系统默认的中文编码的`GBK`编码，`IDEA`是`UTF-8`。
+
+### 构造方法
+
+> 构造方法的作用：
+>
+> 1. 创建一个`FileReader`对象；
+> 2. 会把`FileReader`对象指向要读取的文件。
+
+* `public FileReader(String fileName)`
+* `public FileReader(File file)`
+* `public FileReader(FileDescriptor fd)`
+* `public FileReader(String fileName, Charset charset)`
+* `public FileReader(File file, Charset charset)`
+
+### 成员方法
+
+> * `public int read()`：读取一个字符，返回对应的`int`需要进行类型转化为`char`才可以打印出来；
+> * `public int read(char[] cbuf, int offset, int length)`：在`char[] cbuf`的`offset`偏移量处写`length`个字符。
+
+## FileWriter类
+
+> `java.io.FileWriter`类是写字符文件的便捷类，是`OutputStreamWriter`的子类。构造时使用系统默认的字符编码和默认字符缓冲区。
+
+### 构造方法
+
+> 构造方法的作用：
+>
+> 1. 创建一个`FileWriter`对象；
+> 2. 会根据构造方法中传递的文件/文件的路径，创建文件；
+> 3. 会把`FileWriter`对象指向创建好的文件。
+
+* `FileWriter(File file)`：根据给定的`File`对象构造一个`FileWriter`对象；
+* `FileWriter(File file, boolean append)`：根据给定的`File`对象构造一个`FileWriter`对象。
+* `FileWriter(FileDescriptor fd)`：构造与某个文件描述符相关联的`FileWriter`对象；
+* `FileWriter(String fileName)`：根据给定的文件名构造一个`FileWriter`对象；
+* `FileWriter(String fileName, boolean append)`：根据给定的文件名以及指示是否附加写入数据的`boolean`值来构造`FileWriter`对象。
+
+### 成员方法
+
+> - `void write(int c)`：写入单个字符；
+> - `void write(char[] cbuf)`：写入字符数组；
+> - `abstract void write(char[] cbuf, int off, int len)`：写入字符数的一部分，`off`偏移量数组的开始索引，`len`写的字符个数；
+> - `void write(String str)`：写入字符串；
+> - `void write(String str, int off, int len)`：写入字符串的某一部分，`off`字符串偏移量的开始索引，`len`写的字符长度；
+> - `void flush()`：刷新该流的缓冲；
+> - `void close()`：关闭此流，调用前先刷新该流。
+
+```java
+package com_07.jianmo.FileWriteer;
+
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class FileWriterTest {
+	public static void main(String[] args) {
+		try {
+			FileWriter writer = new FileWriter("C:\\Users\\Pip\\Desktop\\a.txt");
+			writer.write((int)'你');  // 写入一个字符
+			writer.write(new char [] {'好', '啊', 'a', 'a', 'a'});
+			writer.write(new String("hello world"));
+
+			writer.flush();
+			writer.close();  // 关闭也会调用flush刷新缓冲区
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+}
+```
+
+### 关闭和刷新
+
+> 因为内置缓冲区的原因，如果不关闭输出流，无法写字符到文件中。但是关闭的流对象，是无法继续写出数据丶
+>
+> * `flush`：刷新缓冲区，流对象可以继续使用；
+> * `close`：先刷新缓冲区，然后通知系统释放资源，且流对象不可以再被使用了。
+
+## 文件IO异常
+
+> 处理文件异常，以及关闭文件时出现的异常。`JDK1.7`新特性：在try的后边增加一个`()`，在括号中可以定义流对象，可以定义多个。那么这个流对象的作用域就在`try`中有效。`try`中的代码执行完毕后会自动释放掉，不需要写`finally`释放流对象了。
+
+### JDK1.7之前处理异常
+
+```java
+package com_08.jianmo.FileIOException;
+
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class FileIOException {
+	public static void main(String[] args) {
+		FileWriter writer = null;  // 提升变量的作用域
+		try {
+			writer = new FileWriter("C:\\Users\\Pip\\Desktop\\a.txt");
+			writer.write(new String("hello world"));
+
+			writer.flush();
+			writer.close();  // 关闭也会调用flush刷新缓冲区
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (writer != null)  // 检查是否为空，避免异常
+					writer.close();  // 保证资源被释放
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}
+```
+
+### JDK1.7处理异常
+
+> `JDK1.7`**新特性**：在try的后边增加一个`()`，在括号中可以定义流对象，可以定义多个。那么这个流对象的作用域就在`try`中有效。`try`中的代码执行完毕后会自动释放掉，不需要写`finally`释放流对象了。
+
+```java
+package com_08.jianmo.FileIOException;
+
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class FileIOExceptionNew {
+	public static void main(String[] args) {
+
+		// 自动释放资源
+		try (FileReader reader = new FileReader("C:\\Users\\Pip\\Desktop\\a.txt");
+		     FileWriter writer = new FileWriter("C:\\Users\\Pip\\Desktop\\b.txt")) {
+
+			// 写文件
+			writer.write(new String("hello world"));
+			writer.flush();
+
+			// 读文件
+			char[] buf = new char[1024];
+			int size = reader.read(buf);
+			System.out.println("size:" + size);
+			System.out.println(buf);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+}
+```
+
+### JDK1.9处理异常
+
+> `JDK1.9`**新特性**，在`try`的前边定义流对象，在`try`后边的`()`中可以引入流对象的名称(变量名)。在`try`代码块执行完毕后，流对象也可以被释放掉，也不用写`finally`。需要把`new`可能产生的`IOException`异常抛出。
+
+```java
+package com_08.jianmo.FileIOException;
+
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class FileIOException9 {
+	public static void main(String[] args) throws IOException {
+		// JDK1.9处理文件异常
+
+		FileReader reader = new FileReader("C:\\Users\\Pip\\Desktop\\a.txt");
+		FileWriter writer = new FileWriter("C:\\Users\\Pip\\Desktop\\b.txt");
+		// 自动释放资源
+		try (reader; writer) {
+			// 写文件
+			writer.write(new String("hello world"));
+			writer.flush();
+
+			// 读文件
+			char[] buf = new char[1024];
+			int size = reader.read(buf);
+			System.out.println("size:" + size);
+			System.out.println(buf);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+}
+```
 
