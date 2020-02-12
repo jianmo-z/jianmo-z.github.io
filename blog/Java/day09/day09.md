@@ -488,6 +488,7 @@ public class InputStreamTest {
 
 > * `public int read()`：读取一个字符，返回对应的`int`需要进行类型转化为`char`才可以打印出来；
 > * `public int read(char[] cbuf, int offset, int length)`：在`char[] cbuf`的`offset`偏移量处写`length`个字符。
+> * `public void close()`：关闭输入流对象，释放资源。
 
 ## FileWriter类
 
