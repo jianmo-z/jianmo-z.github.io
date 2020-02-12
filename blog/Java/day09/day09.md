@@ -547,7 +547,7 @@ public class FileWriterTest {
 > * `flush`：刷新缓冲区，流对象可以继续使用；
 > * `close`：先刷新缓冲区，然后通知系统释放资源，且流对象不可以再被使用了。
 
-## 文件IO异常
+## 文件IO异常处理
 
 > 处理文件异常，以及关闭文件时出现的异常。`JDK1.7`新特性：在try的后边增加一个`()`，在括号中可以定义流对象，可以定义多个。那么这个流对象的作用域就在`try`中有效。`try`中的代码执行完毕后会自动释放掉，不需要写`finally`释放流对象了。
 
@@ -651,3 +651,27 @@ public class FileIOException9 {
 }
 ```
 
+## 属性集
+
+> `java.util.Properties`继承于`Hashtable`，来表示一个持久的属性集。它使用键值结构存储数据，每个键及其对应值都是一个字符串。该类也被许多`Java`类使用，比如获取系统属性时，`System.getProperties`方法就是返回一个`Properties`对象。`Properties`可保存在流中或从流中加载。`Properties`集合是一个唯一和IO流相结合的集合。
+>
+> 1. 可以使用`Properties`集合中的方法`store`，把集合中的临时数据，持久化写到硬盘中存储；
+> 2. 可以使用`Properties`存储中的方法`load`，把硬盘中保存的文件`键值对`，读取到集合中使用。
+>
+> 属性列表中每一个键及其对应值都是一个字符串：`Properties`集合是一个双列集合，`key`和`value`默认都是字符串。
+>
+> 1. 存储键值对的文件中，键与值默认的连接符号可以使用`=`等号和` `空格(其他符号)；
+> 2. 存储键值对的文件中，可以使用`#`进行注释，被注释的键值对不会再被读取；
+> 3. 存储键值对的文件中，键与值默认都是字符串，不用再加引号。
+>
+> 
+
+### 成员方法
+
+* `Object setProperty(String key, String value)`：调用`Hashtable`的方法`put`；
+* `String getProperty(String key)`：用指定的键在此属性列表中搜索属性；
+* `Set<String> stringPropertyNames()`：返回此属性列表中的键集，其中该键及其对应值是字符串，如果在主属性列表中为找到同名的键，则还包括默认属性列表中不同的键。此方法相当于`Map`集合中的`keySet`方法；
+* `void store(OutputStream out, String comments)`：字节输出流，**不能写入中文**，`comments`注释，用来解释说明保存的文件是做什么的，注释不能使用中文，会产生乱码，注释是`Unicode`编码，一般使用`“”`空字符串；
+* `void store(Writer writer, String comments)`：字符输出流，**可以写中文**，`comments`注释，用来解释说明保存的文件是做什么的，注释不能使用中文，会产生乱码，注释是`Unicode`编码，一般使用`“”`空字符串；
+* `void load(InputStream inStream)`：从字节输入流中读取属性列表(`key`和`value`)，`InputStream`不能读取含有中文的键值对；
+* `void load(Reader reader)`：按照简单的面向行的格式从输入字符流中读取属性列表(`key`和`value`)，`Reader`可以读取含有中文的键值对；
