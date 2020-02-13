@@ -395,7 +395,7 @@ public class Person implements Serializable {
 
 > 对象的需要反序列化，必须满足以下两个条件：
 >
-> 1. 类必须实现`java.io.Serializable`接口；
+> 1. 类必须实现`java.io.Serializable`接口，`Serializable`接口是标记性接口；
 > 2. 必须存在类对应的`class`文件。
 
 ### 测试代码
@@ -465,6 +465,84 @@ public class Person implements Serializable {
 
 	public void setAge(int age) {
 		this.age = age;
+	}
+}
+```
+
+## 打印流
+
+> 平时我们在控制台打印输出，是调用`print`方法的`println`方法完成的，这两个方法都来自于`java.io.PrintStream`类，该类能够方便的打印各种数据类型的值，是一种便捷的输出方式。
+
+## PrintStream类
+
+> `PrintStream`继承自`OutputStream`，是一个字节流类。
+
+### 构造方法
+
+* `public PrintStream(File file)`：创建具有指定文件不带自动刷新的新打印流；
+* `public PrintStream(File file, String csn)`：创建具有指定文件名和字符集且不带自动行刷新的新打印流；
+* `public PrintStream(OutputStream out)`：创建新的打印流；
+* `public PrintStream(OutputStream out, boolean autoFlush)`：创建新的打印流，并且是否自动刷新缓冲区；
+* `public PrintStream(OutputStream out, boolean autoFlush, String encoding)`：创建新的打印流，并且是否自动刷新缓冲区，设置编码字符集；
+* `public PrintStream(String fileName)`：使用指定的文件名创建一个新的打印流；
+* `public PrintStream(String filename, String csn)`：创建具有指定文件名称和字符集且不带自动行刷新的新打印流。
+
+### 成员方法
+
+> 具有继承自父类`OutputStream`的成员方法。
+>
+> * `void print(任意类型的值)`；
+> * `void println(任意类型的值)`。
+>
+> **注意：**
+>
+> ​	如果使用继承自父类的write方法写数据，那么查看数据的时候会查询编码表`(97→a)`，如果使用自己特有的方法`print/println`方法写数据，写的数据原样输出`(97→97)`。
+
+```java
+package com_09.jianmo.PrintStream;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
+
+public class PrintStreamTest {
+	public static void main(String[] args) {
+		try(PrintStream pStream = new PrintStream(new File("C:\\Users\\Pip\\Desktop\\a.txt"))) {
+			pStream.println("你好啊");
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+}
+```
+
+### 改变标准打印流向
+
+> `System.out`就是`PrintStream`类型的，只不过它的流向是系统规定的，打印在控制台。既然是流对象，那么就可以改变它的流向，**通过`System`类的`setOut`方法改变输出流向**。 
+>
+> 打印流的特定：
+>
+> 1. 只负责数据的输出，不负责数据的读取；
+> 2. 与其他输出流不同，`PrintStream`永远不会跑出`IOException`；
+> 3. 有特有的方法，`print`、`println`等方法。
+>    * `void print(任意类型的值)`
+>    * `void println(任意类型的值并换行)`
+
+```java
+package com_09.jianmo.PrintStream;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
+
+public class ChangeStdoutStreamTest {
+	public static void main(String[] args) {
+		try(PrintStream pStream = new PrintStream(new File("C:\\Users\\Pip\\Desktop\\a.txt"))) {
+			System.setOut(pStream);  // 改变标准输出的流向
+			System.out.println("你好啊，哈哈哈");
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
 ```
