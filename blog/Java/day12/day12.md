@@ -365,3 +365,431 @@ public class FunctionAndThenTest {
 }
 ```
 
+## Stream流
+
+> 此流与`IO`流无关，主要用来操作集合和数组。流式思想类似于工厂的`生产流水线`。`Stream`流调用指定的方法，可以从一个流模型转换到另一个流模型，`filter`、`map`、`skip`对函数模型进行操作，集合元素并没有真正被处理，当终结方法调用执行时才被操作执行。得益于`Lambda`的延迟执行特性。
+>
+> `Stream`流式一个来自数据源的元素队列：
+>
+> * 元素是特定类型的对象，形成一个队列，`Java`中的`Stream`并不会存储元素，而是按需计算；
+> * 数据流的来源可以是集合也可以是数组等。
+>
+> `Stream`与`Collection`操作不同，`Stream`操作还要两个基础的特性：
+>
+> * `Pipelining`：中间操作都会返回流对象本身。这样多个操作可以串联成一个管道，如同流式风格(`fluent style`)。这样可以对操作进行优化，比如延迟执行`laziness`和短路`short-circuiting`。
+> * **内部迭代**：以前对集合遍历都是通过`Iterator`或者增强`for`的方式，显式的在集合外部进行迭代，这种叫做外部迭代。`Stream`提供了**内部迭代的方式**，流可以直接调用遍历方法。
+>
+> `Stream`流属于管道流，只能被消费(使用)一次，第一个`Stream`流调用完毕，数据就会流到下一个`Stream`中，前一个`Stream`流就不能再调用方法了。
+
+```java
+package com_08.jianmo.Stream;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class StreamTest {
+	public static void main(String[] args) {
+		List<String> list = new ArrayList<>();
+
+		list.add("张三");
+		list.add("王五");
+		list.add("李四");
+		list.add("王麻子");
+		list.add("张无忌");
+		list.add("张三丰");
+		list.add("张将啊");
+
+
+		list.stream()
+				.filter((name) -> name.startsWith("张"))  // 1.使用Predicate接口，获取姓张的
+				.filter((name) -> name.length() > 2)  // 2.使用Predicate接口，获取名字长度大于2的
+				// .forEach((name) -> System.out.println(name));  // 3.1使用Consumer接口，进行遍历
+				.forEach(System.out::println);  // 3.2使用Consumer接口，进行遍历，同上
+
+	}
+}
+```
+
+### 获取流
+
+> `java.util.stream.Stream<T>`是`java 8`新加入的最常见的流接口。
+
+* 所有的`Collection`集合都可以通过`stream`默认方式获取流；
+* `Stream`接口的静态方法`of`可以获取数组对应的流。
+
+```java
+package com_08.jianmo.Stream;
+
+import java.util.*;
+import java.util.stream.Stream;
+
+public class Collection2StreamTest {
+	public static void main(String[] args) {
+		// 把集合转化为Stream流
+		List<String> list = new ArrayList<>();
+		Stream<String> streamList = list.stream();
+
+
+		Set<String> set = new HashSet<>();
+		Stream<String> streamSet = set.stream();
+
+
+		Map<String, Integer> map = new HashMap<>();
+		Stream<String> streamMapKey = map.keySet().stream();
+		Stream<Integer> streamMapValue = map.values().stream();
+		Stream<Map.Entry<String, Integer>> streamMapEntry = map.entrySet().stream();
+
+		// 把数组转化为Stream流
+		Stream<Integer> streamArray1 = Stream.of(1, 2, 3, 4, 5);
+
+		Integer[] array = {1, 2, 3, 4, 5};
+		Stream<Integer> streamArray2 = Stream.of(array);
+	}
+}
+```
+
+### 常用方法
+
+> 流模式的操作很丰富，常用`API`被分为两种：
+>
+> * **延迟方法**：返回值类型仍然是`Stream`接口自身类型的方法，因此支持链式调用。(除终结方法外，其余方法均为延迟方法)；
+> * **终结方法**：返回值类型不再是`Stream`接口自身类型的方法，因此不再支持类似`StringBuilder`那样的链式调用，本节终结方法包括`count`和`forEach`方法。
+
+* `forEach`遍历方法：该方法接收一个`Consumer`接口函数，会将每一个流元素交给该函数进行处理；
+* `filter`过滤方法：通过`filter`方法将一个流转换成另一个子集流；
+* `map`映射方法：如果需要将流中的元素映射到另一个流中，可以使用`map`方法；
+* `count`统计方法：统计流中的元素个数；
+* `limit`取用前`n`个方法：对流进行截取，只要前`n`个元素，当`n`大于流的大小，返回一个空流；
+* `concat`组合方法：合并两个流，使之成为一个流，且这是`Stream`的静态方法，合并的两个流需要数据类型一样。
+
+```java
+package com_08.jianmo.Stream;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
+
+public class StreamMethodTest {
+	public static void main(String[] args) {
+		List<String> list = new ArrayList<>();
+
+		list.add("张三");
+		list.add("王五");
+		list.add("李四");
+		list.add("王麻子");
+		list.add("张无忌");
+		list.add("张三丰");
+		list.add("张将啊");
+
+		// foreach：遍历打印(消费)人名信息，该方法是一个终结方法
+		// list.stream().forEach((name) -> System.out.println(name));
+
+		// filter：过滤姓张的人名，该方法是一个延迟方法
+		// list.stream().
+		// 		filter((name) -> name.startsWith("张")).
+		// 		forEach((name) -> System.out.println(name));
+
+		// map：映射，把姓张的改为姓王的，该方法是一个延迟方法
+		// list.stream().map(name -> name.replace('张', '王')).
+		// 		forEach((name) -> System.out.println(name));
+
+		// size：统计一共有多少人，该方法是一个终结方法
+		// long size = list.stream().count();
+		// System.out.println("size:" + size);
+
+		// limit：取前n个元素，该方法是一个延迟方法
+		// list.stream().limit(4).forEach((name) -> System.out.println(name));
+
+		// skip：跳过n个元素，该方法是一个延迟方法
+		// list.stream().skip(4).forEach((name) -> System.out.println(name));
+
+		// limit + skip，只要（3,5]个元素
+		// list.stream().skip(3).limit(2).forEach((name) -> System.out.println(name));
+
+		// concat：合并两个流，该方法是一个延迟方法
+		List<String> list2 = new ArrayList<>();
+
+		list2.add("Tom");
+		list2.add("Jerry");
+		list2.add("Black");
+		Stream.concat(list.stream(), list2.stream()).forEach((name) -> System.out.println(name));
+	}
+}
+```
+
+## 方法引用
+
+> `对象名::方法名`，对象和方法必须都已经存在了。`::`方法引用的运算符，而它所在的表达式被称为**方法引用**，如果`Lambda`要表达的函数方案已经存在于某个方法的实现中，那么则可以通过双冒号来引用该方法作为`Lambda`的替代者。`Lambda`中传递的参数一定是方法引用中可以接收的类型，否则会抛出异常。
+
+### 通过对象引用成员方法
+
+> 对象名和成员方法必须都已经存在，才可以使用对象名来引用成员方法。`Lambda`中传递的参数一定是方法引用中可以接收的类型，否则会抛出异常。
+
+```java
+package com_09.jianmo.MethodReference;
+/*
+* 通过对象名引用成员方法：对象名和成员方法已经存在，才可以使用对象名来引用成员方法。
+* */
+public class MethodReferenceObjectTest {
+	public static void main(String[] args) {
+		printString( (s) -> {
+			MethodReferenceObject obj = new MethodReferenceObject();
+			obj.printUpperStr(s);
+		});
+
+		// 使用方法引用优化，使用对象名进行引用
+		MethodReferenceObject obj = new MethodReferenceObject();
+		printString(obj::printUpperStr);
+	}
+
+	public static void printString(Printable p) {
+		p.print("hello");
+	}
+}
+```
+
+#### Printable
+
+```java
+package com_09.jianmo.MethodReference;
+
+@FunctionalInterface
+public interface Printable {
+	void print(String str);
+}
+```
+
+### 通过类名称引用静态方法
+
+> `java.lang.Math`类中已经存在了静态方法`abs`，所以我们需要通过`Lambda`来调用该方法，即可以通过函数式接口，又可以通过类名称引用该静态方法。通过类名引用静态成员方法，类已经存在，静态成员方法也已经存在。
+
+```java
+package com_10.jianmo.StaticMethodReference;
+/*
+* 通过类名引用静态成员方法，类已经存在，静态成员方法也已经存在。
+* */
+public class StaticMethodReferenceTest {
+	public static void main(String[] args) {
+		long ret = 0;
+		ret = myAbs(-10, (n) -> n > 0 ? n : -n);
+		System.out.println(ret);
+
+		ret = myAbs(-20, Math::abs);
+		System.out.println(ret);
+	}
+	public static long myAbs(long num, Calculable c) {
+		return c.calcAbs(num);
+	}
+}
+```
+
+#### Calculable
+
+```java
+package com_10.jianmo.StaticMethodReference;
+
+@FunctionalInterface
+public interface Calculable {
+	public abstract long calcAbs(long num);
+}
+```
+
+### 通过super引用成员方法
+
+> 如果存在继承关系，当`Lambda`中需要出现`super`调用时，也可以使用方法引用进行替代。
+
+```java
+package com_11.jianmo.SuperMethodReference;
+
+public class Man extends Human{
+	@Override
+	public void sayHello() {
+		System.out.println("子：hello");
+	}
+
+	public void method(Greetable g) {
+		g.greet();
+	}
+
+	public void show() {
+		// 1.通过创建父类对象调用父类方法
+		// method(()->{
+		// 	Human h = new Human();
+		// 	h.sayHello();
+		// });
+
+		// 2.因为存在子父类关系，所以可以通过super关键字调用父类方法
+		// method(() -> super.sayHello());
+
+		// super父类存在，父类的方法也存在，可以通过引用父类的成员方法，
+		method(super::sayHello);
+	}
+
+	public static void main(String[] args) {
+		Man m = new Man();
+		m.show();
+	}
+}
+```
+
+#### 父类
+
+```java
+package com_11.jianmo.SuperMethodReference;
+
+// 定义父类
+public class Human {
+	public void sayHello() {
+		System.out.println("父：你好");
+	}
+}
+```
+
+#### Greetable
+
+```java
+package com_11.jianmo.SuperMethodReference;
+
+@FunctionalInterface
+public interface Greetable {
+	public abstract void greet();
+}
+```
+
+### 通过this引用成员方法
+
+> `this`代表当前对象，吐过需要引用的方法就是当前类中的方法，那么就可以通过`this::成员方法`的方式进行引用。
+
+```java
+package com_12.jianmo.ThisMethodReference;
+
+public class ThisMethodReferenceTest {
+	public static void main(String[] args) {
+		ThisMethodReferenceTest t = new ThisMethodReferenceTest();
+		t.test();
+	}
+	public void test() {
+		// 对象内调用方法
+		method("Lambda", (s) -> System.out.println(s + ":I'm rich"));
+
+		// 使用this调用成员方法
+		method("this.member", (s) -> this.isRich(s));
+
+		// 使用this引用成员方法
+		method("this.Ref", this::isRich);
+	}
+
+	private void method(String s, Richable r) {
+		r.rich(s);
+	}
+
+	private void isRich(String w) {
+		System.out.println(w +":I'm rich");
+	}
+}
+```
+
+#### Richable
+
+```java
+package com_12.jianmo.ThisMethodReference;
+
+@FunctionalInterface
+public interface Richable {
+	public abstract void rich(String s);
+}
+```
+
+### 类构造器引用
+
+> 由于构造器的名称与类名完全一样，并不固定。所以构造器引用使用`类名称::new`的格式表示。
+
+```java
+package com_13.jianmo.ClassConstructorReference;
+
+public class ClassConstructorReferenceTest {
+	public static void main(String[] args) {
+		// 传入一个Lambda表达式创建对象
+		printPersonName("王五", (s) -> new Person(s));
+
+
+		// 类构造器(构造方法)引用
+		printPersonName("张三", Person::new);
+	}
+	public static void printPersonName(String name, PersonBuilder p) {
+		System.out.println(p.BuilderPerson(name).getName());
+	}
+}
+```
+
+#### Person
+
+```java
+package com_13.jianmo.ClassConstructorReference;
+
+public class Person {
+	private String name;
+
+	public Person() {
+	}
+
+	public Person(String name) {
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+}
+```
+
+#### PersonBuilder
+
+```java
+package com_13.jianmo.ClassConstructorReference;
+
+@FunctionalInterface
+public interface PersonBuilder {
+	// 根据姓名创建对象
+	public abstract Person BuilderPerson(String name);
+}
+```
+
+### 数组构造器引用
+
+> 数组也是`Object`的子类对象，所以同样具有构造器，但是语法不同。`int[]::new`的方式数组构造器，可以改变不同的数组类型。
+
+```java
+package com_14.jianmo.ArrayConstructorReference;
+
+public class ArrayConstructorReferenceTest {
+	public static void main(String[] args) {
+		int [] arr;
+		arr = initArray(5, (len) -> new int[len]);
+		System.out.println(arr + " len:" + arr.length);
+
+		// 已知是int类型的数组
+		arr = initArray(10, int[]::new);
+		System.out.println(arr + " len:" + arr.length);
+	}
+	public static int[] initArray(int len, ArrayBuilder builder) {
+		return builder.buildArray(len);
+	}
+}
+```
+
+#### ArrayBuilder
+
+```java
+package com_14.jianmo.ArrayConstructorReference;
+
+@FunctionalInterface
+public interface ArrayBuilder {
+	public abstract int[] buildArray(int len);
+} 
+```
+
