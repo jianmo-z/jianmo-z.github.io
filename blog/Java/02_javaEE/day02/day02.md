@@ -1,4 +1,4 @@
-# day14
+# day02
 
 ## Mariadb安装
 
@@ -69,7 +69,7 @@
 >      ```
 >
 >      - 数据库数据类型：
->    
+>        
 >        - `int`：整数类型，`age int,`；
 >        - `double`：小数类型，`score double(5, 2)`，`5`表示数据宽度，`2`表示小数的数据宽度；
 >        - `date`：日期，只包含年月日，`yyyy-MM-dd；`
@@ -77,9 +77,9 @@
 >        - `timestamp`：时间戳类型，包含年月日时分秒，`yyyy-MM-dd HH:mm:ss`，如果不给该字段赋值或赋值为`null`，那么就会自动把当前的系统时间用来赋值；
 >        - `varchar`：字符串，`name varchar(20)`，`name`最大五个字符；
 >        - `text`：存储文本数据，存储比较大的字符串。
->    
+>        
 >      - 创建表
->    
+>        
 >        ```mysql
 >        create table student(
 >            id int, 
