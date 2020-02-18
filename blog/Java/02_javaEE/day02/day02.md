@@ -4,7 +4,7 @@
 
 > 参考链接(**无坑**)：https://www.cnblogs.com/yhongji/p/9783065.html
 >
-> `pdf`文件：[Centos安装Mariadb](./Centos安装Mariadb.pdf)
+> `pdf`文件：[Centos安装Mariadb参考文件](https://github.com/ainihu/ainihu.github.io/tree/master/blog/Java/02_javaEE/day02)
 
 ## SQL通用语法
 
