@@ -6,14 +6,14 @@
 
 ## JavaEE学习笔记
 
-| 序号 |           链接            | 序号 |           链接            |
-| :--: | :-----------------------: | :--: | :-----------------------: |
-|  1   | [day01](./day01/day01.md) |  2   | [day02](./day02/day02.md) |
-|  3   | [day03](./day03/day03.md) |  4   | [day04](./day04/day04.md) |
-|  5   | [day05](./day05/day05.md) |  6   | [day06](./day06/day06.md) |
-|  7   | [day07](./day07/day07.md) |  8   | [day08](./day08/day08.md) |
-|  9   | [day09](./day09/day09.md) |  10  | [day10](./day10/day10.md) |
-|  11  | [day11](./day11/day11.md) |  12  | [day12](./day12/day12.md) |
+| 序号 |           链接            | 序号 |                             链接                             |
+| :--: | :-----------------------: | :--: | :----------------------------------------------------------: |
+|  1   | [day01](./day01/day01.md) |  2   | [day02](https://github.com/ainihu/ainihu.github.io/blob/master/blog/Java/02_javaEE/day02/day02.md) |
+|  3   | [day03](./day03/day03.md) |  4   |                  [day04](./day04/day04.md)                   |
+|  5   | [day05](./day05/day05.md) |  6   |                  [day06](./day06/day06.md)                   |
+|  7   | [day07](./day07/day07.md) |  8   |                  [day08](./day08/day08.md)                   |
+|  9   | [day09](./day09/day09.md) |  10  |                  [day10](./day10/day10.md)                   |
+|  11  | [day11](./day11/day11.md) |  12  |                  [day12](./day12/day12.md)                   |
 
 ## JavaSE学习导航
 
