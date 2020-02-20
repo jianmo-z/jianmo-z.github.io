@@ -288,3 +288,4 @@ grant ALL on *.* to "pip"@"%";  -- 授予pip所有库的所有表的所有操作
 -- revoke 权限列表 on 数据库.表名 from "用户名"@"主机名"
 REVOKE UPDATE on db1.account from "pip"@"%";  -- 撤销pip@%的db1.account的修改权限
 ```
+

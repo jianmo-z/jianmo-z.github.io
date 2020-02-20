@@ -9,7 +9,7 @@
 ## SQL通用语法
 
 1. SQL语句可以单行或多行书写，以`分号;`或`\g`结束；
-2. 可以使用空格和锁紧来增强语句的可读性；
+2. 可以使用空格和缩进来增强语句的可读性；
 3. `MySQL`数据库的`SQl`语句不区分大小写，关键建议使用大写；
 4. `3种`注释方法
    * 单行注释：使用`-- 注释`或`# 注释`开头，使用`#`是MySQL独有的，`--`和`#`需要一个空格；
@@ -64,8 +64,8 @@
 >      > 	列名1 数据类型1,
 >      > 	列名2 数据类型2,
 >      > 	... ...
->      > 	列名n 数据类型n
->      > ); -- 最后一列，不需要添加逗号,
+>      > 	列名n 数据类型n -- 最后一列，不需要添加逗号,
+>      > ); 
 >      > ```
 >    
 >    - 数据库数据类型：
@@ -179,8 +179,8 @@
    > 一般可以使用四则运算计算一些列的值，一般只用数值型的计算
 
    * `IFNULL(expr1,expr2)`：`null`参与的运算，计算结果都为`null`。
-     * `expr1`：那个字段需要判断是否为`null`；
-     * 如果`expr1`字段为`null`，则使用`expr2`替换`null`。
+     * `expr1`：该字段判断是否为`null`；
+     * 如果`expr1`字段为`null`，则使用`expr2`替换`null`值。
 
 4. 起别名
 
@@ -195,7 +195,7 @@ SELECT  NAME,  age  FROM student;
 
 -- 除去重复的结果集
 SELECT DISTINCT address FROM student;
-SELECT DISTINCT NAME, address FROM student;  -- 结果集行必须全部相同
+SELECT DISTINCT NAME, address FROM student;  -- 结果几行必须全部相同
 
 -- 计算Math和English之和
 SELECT NAME, math, english, math + english FROM student;
@@ -207,7 +207,7 @@ SELECT NAME, math, english, IFNULL(math, 0) + IFNULL(english,0) FROM student;
 
 -- 起别名：使用as给查询的字段起别名，或者空格
 SELECT NAME, math, english, IFNULL(math, 0) + IFNULL(english,0) as '总分' FROM student;
-SELECT NAME, math 数学, english 英语, IFNULL(math, 0) + IFNULL(english,0) 总分 FROM student;
+SELECT NAME, math 数学, english 英语, IFNULL(math, 0) + IFNULL(english,0) '总分' FROM student;
 ```
 
 ### 条件查询
@@ -674,7 +674,7 @@ SELECT * FROM student LIMIT 6, 3;
 
 ### 第二范式
 
-> 在第一范式(`1NF`)的基础上，非码属性必须完全依赖于码(在`1NF`基础上消除非主属性对主码的部分函数依赖)；
+> 在第一范式(`1NF`)的基础上，非码属性必须完全依赖于候选码(在`1NF`基础上消除非主属性对主码的部分函数依赖)；
 >
 > 1. 函数依赖：`A→B`，如果通过`A`属性(属性组)的值，可以确定唯一`B`属性的值，则称`B`依赖于`A`。例：`学号→姓名`、`(学号，课程名称)→分数`；
 > 2. 完全函数依赖：`A→B`，如果`A`是一个属性组，则`B`属性值得确定需要依赖`A`属性组中所有的属性值。例：`(学号，课程名称)→分数`；
