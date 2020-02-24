@@ -308,6 +308,9 @@ public class ServletDemo02 implements Servlet {
 
 > `HTTP`(`Hyper Text Transfer Protocol`)超文本传输协议，定义了客户端好服务端通信时发送数据的格式。
 >
+> * 请求消息：客户端发送给服务端的消息；
+> * 响应消息：服务端发送给客户端的消息。
+>
 > 特点：
 >
 > * 基于`TCP/IP`的高级协议；
@@ -415,7 +418,7 @@ public class ServletDemo02 implements Servlet {
     * `Enumeration<String> getParameterNames()`：获取所有参数的请求名称；
     * `Map<String, String[]> getParameterMap()`：获取所有参数的`map`键值对集合。
 
-  * 共享数据：
+  * **共享数据**：
 
     - 域对象：一个有作用范围的对象，可以在范围内共享数据。
     - `request`域：代表一次请求的范围，一般用于请求转发的多个资源中共享数据；
@@ -520,3 +523,282 @@ public class RequestTest extends HttpServlet {
 }
 ```
 
+## BeanUtils工具类
+
+> 用于封装`JavaBean`的，`JavaBean`标准的`Java`类，用来封装数据。
+>
+> 1. 类必须被public修饰；
+> 2. 必须提供空参的构造器；
+> 3. 成员变量必须使用private修饰；
+> 4. 提供公共的`Setter`和`Getter`方法。
+
+### 概念
+
+> * 成员变量：即为类内的变量。
+> * 属性：`Setter`和`Getter`方法截取后的产物，`getUsernaem() → Username → username`，截取后的产物首字母小写。
+> * 方法：
+>   * `setProperty()`：设置属性；
+>   * `getProperty()`：获取属性；
+>   * `populate(Object obj, Map map)`：将`map`集合的键值对信息，封装到对应`JavaBean `对象中。
+>
+> ```java
+> package com_00.test;
+> 
+> import org.apache.commons.beanutils.BeanUtils;
+> import org.junit.Test;
+> import java.lang.reflect.InvocationTargetException;
+> import java.util.Map;
+> 
+> 
+> public class BeanUtilsTest {
+> 	@Test
+> 	public static void main(String[] args) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+> 		// 通过成员变量设置值：失败
+> 		Person p1 = new Person();
+> 		BeanUtils.setProperty(p1, "name", "tom");
+> 		BeanUtils.setProperty(p1, "age", "18");
+> 		try {
+> 			System.out.println("getProperty:p1.name = " + BeanUtils.getProperty(p1, "name"));
+> 		} catch (NoSuchMethodException e) {
+> 			System.out.println("getProperty:p1.name = error!!!");
+> 		}
+> 
+> 		System.out.println("getProperty:p1.age = " + BeanUtils.getProperty(p1, "age"));
+> 
+> 
+> 		System.out.println("p1：" + p1);
+> 
+> 		// 通过属性设置值：成功
+> 		// setFirstName() → FirstName → firstName
+> 		Person p2 = new Person();
+> 		BeanUtils.setProperty(p2, "firstName", "tom");
+> 		BeanUtils.setProperty(p2, "age", "18");
+> 		try {
+> 			System.out.println("getProperty:p2.name = " + BeanUtils.getProperty(p2, "name"));
+> 		} catch (NoSuchMethodException e) {
+> 			System.out.println("getProperty:p2.name = error!!!");
+> 		}
+> 		System.out.println("getProperty.p2.age = " + BeanUtils.getProperty(p2, "age"));
+> 
+> 		System.out.println("p2：" + p2);
+> 
+> 		// 设置值
+> 		Person p3 = new Person();
+> 		BeanUtils.populate(p3, Map.of("firstName", "tom", "age", "18"));
+> 		System.out.println("p3：" + p3);
+> 	}
+> }
+> ```
+
+### Person类
+
+```java
+package com_00.test;
+
+public class Person {
+	private String name;
+	private String age;
+
+	public Person() { }
+
+	public Person(String name, String age) {
+		this.name = name;
+		this.age = age;
+	}
+
+	public String getFirstName() { return name;}
+
+	public void setFirstName(String name) { this.name = name; }
+
+	public String getAge() { return age; }
+
+	public void setAge(String age) { this.age = age; }
+
+	@Override
+	public String toString() {
+		return "Person{" +
+				"name='" + name + '\'' +
+				", age='" + age + '\'' +
+				'}';
+	}
+}
+```
+
+## Response
+
+> 数据格式：服务端发送给客户端的数据。
+>
+> 1. 响应行：
+>
+>    1. 组成：`协议/版本 响应状态码 状态码描述`；
+>
+>    2. 响应状态码：服务器告诉客户端浏览器本次请求和响应的一个状态。
+>
+>       > 状态码都是`3位`数字
+>    >
+>       > * `1XX`：服务器接收客户端消息，但是没有接收完成，等待一端时间后， 发送`1XX`多的状态码；
+>       > * `2XX`：成功；
+>       > * `3XX`：重定向，代表：`302`(重定向)，`304`(访问缓存)；
+>       > * `4XX`：客户端错误，代表：`404`(请求路径名没有对应的资源)，`405`(请求方式没有对应的`doXXX`方法)；
+>       > * `5XX`：服务端错误，代表：`500`(服务器端发生异常)。
+>
+> 2. 响应头：`头名称: 值`
+>
+>    * `Content-Type`：服务器告诉客户端本次响应体数据格式以及编码格式；
+>    * `Content-Disposition`：服务器告诉客户端以什么格式打开响应体数据；
+>      * `in-line`：默认值，在当前页面内打开；
+>      * `attachment;filename=xxx`：以附件形式打开响应体数据。
+>    * `Content-Length`：服务器告诉客户端本次请求的数据大小；
+>    * `Date`：服务器给客户端传输的数据内容；
+>    
+> 3. 响应空行；
+>
+> 4. 响应体。
+
+## Response功能
+
+> 设置响应消息：
+>
+> 1. 设置响应行：`HTTP/1.1 200 OK`
+>    * 设置状态码：`void setStatus(int sc)`；
+> 2. 设置响应头：
+>    * `setHeader(String name, Strin value)`
+> 3. 设置响应体：
+>    1. 获取输出流；
+>       * 字符输出流：`PrintWriter getWriter()`；
+>       * 字节输出流：`ServletOutputStream getOutputStream()`，视为`OutputStream`使用。
+>    2. 使用输出流，将数据输出到浏览器中；
+
+### 重定向
+
+* 重定向特点：
+  * 地址栏发生变化；
+  * 重定向可以访问其他站点(服务器)的资源；
+  * 重定向是**两次请求**。
+* 转发的特点：
+  * 转发路径栏路径不变；
+  * 转发只能访问当前服务器下的资源；
+  * 转发是**一次请求**，可以使用`request`对象来共享数据。
+
+> ```java
+> package com_03.web.response;
+> 
+> import javax.servlet.ServletException;
+> import javax.servlet.annotation.WebServlet;
+> import javax.servlet.http.HttpServlet;
+> import javax.servlet.http.HttpServletRequest;
+> import javax.servlet.http.HttpServletResponse;
+> import java.io.IOException;
+> 
+> @WebServlet("/ResponseDemo01")
+> public class ResponseDemo01 extends HttpServlet {
+> 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+> 		System.out.println("ResponseDemo01" + "doPost");
+> 
+> 
+> // 方式一重定向方法：
+> 		// 1.设置状态码
+> 		// response.setStatus(302);
+> 		// 2.设置响应资源路径
+> 		// response.setHeader("location", "/day07_tomcat/ResponseDemo02");
+> 
+> // 方式二重定向方法：
+> 		response.sendRedirect("/day07_tomcat/ResponseDemo02");
+> 	}
+> 
+> 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { }
+> }
+> ```
+
+### 重定向路径
+
+> 都可以省略了`http://ip:port`。
+>
+> * 相对路径：通过相对路径不可以确定唯一资源，不以斜杠`/`开头的路径，以`.`开头的路径，确定访问当前资源和目标资源之间的相对位置关系；
+>   * `./`：当前目录；
+>   * `../`：上一级目录。
+> * 绝对路径：通过绝对路径可以确定唯一资源，以斜杠`/`开头的路径。例：`/url/to/path`。
+>   * 给客户端用：需要加虚拟目录(项目的访问路径)，虚拟目录动态获取`request.getContextPath()`；
+>   * 给服务器内部使用：不需要加虚拟目录，因为同属于同一个项目。
+
+### 响应中文乱码
+
+> 设置`Content-Type`：服务器告诉客户端本次响应体数据格式以及编码格式，建议浏览器使用的编码格式，是在**获取流之前**设置字符集问题。
+>
+> * 方式一：
+>
+>   `response.setHeader("content-type", "text/html;charset=utf-8")`
+>
+> * 方式二：
+>
+>   `response.setContentType("text/html;charset=utf-8")`
+
+## ServletContext对象
+
+> 代表整个`web`应用，可以和程序的容器(服务器)进行通信。
+>
+> 获取`ServletContext`对象，两种方式获取到的是同一个对象：
+>
+> 1. 方式一：获取`request`对象获取，`request.getServletContext()`；
+> 2. 方式二：通过`httpServlet`对象，`this.getServletContext()`。
+>
+> 功能：
+>
+> * 获取`MIME`类型；
+>   * 在互联网通信过程中定义的一种文件数据类型格式为`大类型/小类型`，如：`text/html`、`image/jpeg`。
+>   * `String getMineType(String file)`，通过文件拓展名获取文件类型；
+> * 域对象：共享数据，所有用户所有请求的数据；
+>   * 存储数据：`void setAttribute(String name, Object obj)`； 
+>   * 通过键获取值：`Obejct getAttribute(String name)`；
+>   * 通过键移除键值对：`void removeAttribute(String name)`。
+> * 获取文件的真实(服务器)路径。
+>   * `String ServletContext.getRealPath(String var1);`
+>
+> ```java
+> package com_04.web.ServletContext;
+> 
+> import com.alibaba.druid.support.json.JSONUtils;
+> 
+> import javax.servlet.ServletContext;
+> import javax.servlet.ServletException;
+> import javax.servlet.annotation.WebServlet;
+> import javax.servlet.http.HttpServlet;
+> import javax.servlet.http.HttpServletRequest;
+> import javax.servlet.http.HttpServletResponse;
+> import java.io.File;
+> import java.io.IOException;
+> 
+> @WebServlet("/ServletContextTest01")
+> public class ServletContextTest01 extends HttpServlet {
+> 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+> 		// 1.ServletContext获取
+> 		// 方式一：
+> 		ServletContext servletContext1 = request.getServletContext();
+> 
+> 		// 方式二：
+> 		ServletContext servletContext2 = this.getServletContext();
+> 
+> 		System.out.println(servletContext1.equals(servletContext2));  // true
+> 
+> 		// 2.获取MIME类型
+> 		String mimeType = servletContext1.getMimeType("a.jpg");  // image/jpeg
+> 		System.out.println(mimeType);
+> 
+> 		// 3.域对象：共享数据，设置数据
+> 		servletContext1.setAttribute("name", "tom");
+> 
+> 		// 4.获取文件真实路径：使用文件流读取文件是需要用到
+> 		final String realPath01 = servletContext1.getRealPath("/config.txt");  // web目录下资源路径
+> 		final String realPath02 = servletContext1.getRealPath("/WEB-INF/config.txt");  // web/WEB-INF目录下资源路径
+> 		final String realPath03 = servletContext1.getRealPath("/WEB-INF/classes/config.txt");  // src目录下资源路径
+> 		System.out.println(realPath01);  // E:\IdeaProjects\java_ee\out\artifacts\day07_tomcat_war_exploded\config.txt
+> 		System.out.println(realPath02);  // E:\IdeaProjects\java_ee\out\artifacts\day07_tomcat_war_exploded\WEB-INF\config.txt
+> 		System.out.println(realPath03);  // E:\IdeaProjects\java_ee\out\artifacts\day07_tomcat_war_exploded\WEB-INF\classes\config.txt
+> 
+> 	}
+> 
+> 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+> 
+> 	}
+> }
+> ```
