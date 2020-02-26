@@ -286,7 +286,7 @@ public class CookieTest02 extends HttpServlet {
 >    * 比较运算符：`>`、`<`、`>=`、`<=`、`==`、`!=`；
 >    * 逻辑运算符：`&&或and`、`||或or`、`!或not`；
 >    * 空运算符：`empty`，用于判断字符串、集合和数组是否为`null`并且长度是否为0。
->      * `${empty list}`，判断list是否为`null`且长度为0；
+>      * `${empty list}`，判断`list`是否为`null`且长度为0；
 >      * `${not empty list}`，表示判断字符串、集合、数组对象是否不为`null`、且长度大于0；
 > 2. 获取值：
 >    * `EL`表达式只能从域对象中获取值，
@@ -317,7 +317,106 @@ public class CookieTest02 extends HttpServlet {
 ### 常用JSTL标签
 
 1. `if`相当于`java`代码的`if`；
+   * `test`：必须属性，接收`boolean`表达式，
+     * 如果表达式为`true`，则显示标签体内容；如果表达式为`false`，则不显示标签体内容。
+     * 一般情况下，`test`属性值会结合`el`表达式一起使用。
+   * `c:if`标签没有`else`情况，想要`else`情况，则可以再定义一个`c:if`标签；
 2. `choose`相当于`java`代码的`switch`；
+   * `when`标签表示判断，相当于`case`；
+   * `otherwise`标签，相当于`default`。
 3. `foreach`相当于`java`代码的`for`循环。
+   * 循环
+     * `begin`:开始值
+     * `end`:结束值
+     * `var`:临时变量
+     * `step`:步长
+     * `varStatus`:循环状态对象
+       * `index`:容器中元素的索引，从0开始
+       * `count`:循环次数，从1开始
+   * 迭代容器
+     * `items`:容器元素
+     * `var`: 容器中元素的临时变量
+     * `varStatus`:循环状态对象
+       * `index`:容器中元素的索引，从0开始
+       * `count`:循环次数，从1开始	
+
+```jsp
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<html>
+<head>
+    <title>JSTLTest</title>
+</head>
+<body>
+
+    <%--
+        c:if标签，类似于Java中的if判断语句。
+            1.属性：
+                * test：必须属性，接收boolean表达式，
+                   * 如果表达式为true，则显示标签体内容；
+                   * 如果表达式为false，则不显示标签体内容。
+    --%>
+    <c:if test="true">
+        我是true
+    </c:if>
+
+    <%--
+        c:choose标签，类似于Java中的switch语句
+            1.when标签表示判断，相当于case
+            2.otherwise标签，相当于default
+    --%>
+    <% request.setAttribute("num", 3); %>
+    <c:choose >
+        <c:when test="${num == 1}">今天星期一</c:when>
+        <c:when test="${num == 2}">今天星期二</c:when>
+        <c:when test="${num == 3}">今天星期三</c:when>
+        <c:when test="${num == 4}">今天星期四</c:when>
+        <c:when test="${num == 5}">今天星期五</c:when>
+        <c:when test="${num == 6}">今天星期六</c:when>
+        <c:when test="${num == 7}">今天星期日</c:when>
+        <c:otherwise>输入非法</c:otherwise>
+    </c:choose>
+
+    <%--
+        c:foreach标签，类似于Java中的for循环
+            * 循环
+                * begin:开始值
+                * end:结束值
+                * var:临时变量
+                * step:步长
+                * varStatus:循环状态对象
+                    * index:容器中元素的索引，从0开始
+                    * count:循环次数，从1开始
+            * 迭代容器
+                * items:容器元素
+                * var: 容器中元素的临时变量
+                * varStatus:循环状态对象
+                    * index:容器中元素的索引，从0开始
+                    * count:循环次数，从1开始
+    --%>
+    <c:forEach begin="1" end = "10" var = "i" step="2" varStatus="s">
+        <br>${i} -> index:${s.index} -> count:${s.count}
+    </c:forEach>
+
+    <%
+        List<Integer>  list = new ArrayList();
+        list.add(3);
+        list.add(5);
+        list.add(1);
+        list.add(12);
+        request.setAttribute("list", list);
+    %>
+
+    <br>遍历容器：
+    <c:forEach items="${requestScope.list}" var = "it" >
+        <br>${it}
+    </c:forEach>
+
+
+</body>
+</html>
+```
 
 ## 三层架构
