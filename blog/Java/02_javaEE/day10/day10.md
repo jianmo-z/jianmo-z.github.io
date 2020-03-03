@@ -216,10 +216,10 @@ public interface UserDao {
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.jianmo.dao.IUserDao">
+<mapper namespace="com.jianmo.dao.UserDao">
 
     <!-- 配置 查询结果的列名和实体类的属性名的对应关系 -->
-    <resultMap id="userMap" type="uSeR">
+    <resultMap id="userMap" type="User">
         <!-- 主键字段的对应 -->
         <id property="userId" column="id"></id>
         <!--非主键字段的对应-->
@@ -290,3 +290,151 @@ public interface UserDao {
 > - `OGNL`表达式写法：`user.username();`
 >
 > `Mybatis`中可以直接写`username`不指定对象名，是因为`parameterType`中已经提供了属性所属的类。
+
+## SqlMapConfig配置文件
+
+### properties
+
+> 可以在`xml`文件的`configuration`标签中定义`properties`子标签。
+>
+> - 通过`properties`标签的`resource`属性：引入配置文件的位置，是按照类路径的写法来写，并且必须存在于类路径下。
+> - 通过`properties`标签的`url`属性：要求按照`url`的写法来写地址。
+>   - `url`：统一资源定位符；
+>   - `uri`：统一资源标识符。
+>
+> ```xml
+> <configuration>
+> 	<properties url="file:///D:/IdeaProjects/day02_eesy_01mybatisCRUD/src/main/resources/jdbcConfig.properties">
+>        <!-- <property name="driver" value="com.mysql.jdbc.Driver"></property>
+>         <property name="url" value="jdbc:mysql://localhost:3306/eesy_mybatis"></property>
+>         <property name="username" value="root"></property>
+>         <property name="password" value="1234"></property>-->
+> 	</properties>
+> </configuration>
+> ```
+>
+> 
+
+### typeAliases
+
+> 可以在`xml`文件的`configuration`标签中定义`typeAliases`子标签。
+>
+> - 通过`typeAlias`标签的属性`type`是实体类全限定类名，`alias`属性指定别名，当制定了别名就**不再区分大小写**；
+> - 通过`package`标签的属性`name`配置包的别名，当指定后该包下的所有**实体类**都会注册别名，并且类名就是别名**不再区分大小写**。
+>
+> ```xml
+> <configuration>
+> 	<typeAliases>
+>         <!-- typeAlias用于配置别名。type属性指定的是实体类全限定类名。alias属性指定别名，当指定了别名就再区分大小写 -->
+>         <typeAlias type="com.itheima.domain.User" alias="user"></typeAlias>
+> 
+>         <!-- 用于指定要配置别名的包，当指定之后，该包下的实体类都会注册别名，并且类名就是别名，不再区分大小写-->
+>         <package name="com.itheima.domain"></package>
+>     </typeAliases>
+> </configuration>
+> ```
+
+### mappers
+
+> `mappers`标签可以通过配置`package`子标签适用于指定`dao`的**接口**所在的包，当指定接口后就不需要写`mapper`以及`resource`或者`class`。
+
+## Mybatis连接池
+
+> `Mybatis`连接池的三种配置`POOLED`、`UNPOOLED`和`JNDI`：
+>
+> - 主配置文件`SqlMapConfig.xml`中的`dataSource`标签，`type`属性表示采用何种连接池的方式；
+>   - `type`属性的取值：
+>     - `POOLED`：采用传统的`javax.sql.DataSource`规范中的连接池，`Mybatis`中有针对规范的实现；
+>     - `UNPOOLED`：采用传统的获取连接的方式，虽然也实现了`javax.sql.DataSource`接口，但是没有使用连接池的思想；
+>     - `JNDI`：采用服务器提供的`JNDI`技术实现，来获取`DataSource`对象，不同的服务器所能拿到的`DataSource`不同。**注意**：如果不是`web`或者`Maven`的`war`工程，则不能使用。如果使用`tomcat`服务器，采用连接池就是`dbcp`连接池。
+
+## Mybatis事务控制
+
+> - `commit`
+> - `rollback`
+
+## Mybatis基于XML配置的SQL语句使用
+
+> `mappers`配置文件中的几个标签；
+>
+> - `<if>`
+>
+>   > ```xml
+>   > <!-- 根据参数条件查询:if标签-->
+>   > <select id="findUserByCondition" parameterType="com.jianmo.domain.User" resultType="com.jianmo.domain.User">
+>   >     select * from user where 1=1
+>   >     <if test="username != null">
+>   >         and username=#{username}
+>   >     </if>
+>   >     <if test="sex != null">
+>   >         and sex=#{sex}
+>   >     </if>
+>   > </select>
+>   > ```
+>
+> - `<where>`，避免加`where 1=1`条件
+>
+>   > ```xml
+>   > <!-- 根据参数条件查询:where标签-->
+>   > <select id="findUserByCondition" parameterType="com.jianmo.domain.User" resultType="com.jianmo.domain.User">
+>   >     select * from user
+>   >     <where>
+>   >         <if test="username != null">
+>   >             and username=#{username}
+>   >         </if>
+>   >         <if test="sex != null">
+>   >             and sex=#{sex}
+>   >         </if>
+>   >     </where>
+>   > </select>
+>   > ```
+>
+> - `<foreach>`
+>
+>   > ```xml
+>   > <!--根据QueryVo的ids集合查询用户信息列表-->
+>   > <select id="findUserByIds" parameterType="com.jianmo.domain.QueryVo" resultType="com.jianmo.domain.User">
+>   >     select * from user
+>   >     <where>
+>   >         <if test="ids != null and ids.size() > 0">
+>   >             <foreach collection="ids" open="and id in(" close=")" item="id" separator=",">
+>   >                 #{id}  <!-- item="id" -->
+>   >             </foreach>
+>   >         </if>
+>   >     </where>
+>   > </select>
+>   > ```
+>
+> - `<sql>`，抽取重复的`sql`代码，且只需要修改一次。
+>
+>   > ```xml
+>   > <!-- 定义sql标签进行去除重复代码 -->
+>   > <sql id="defaultUserSQL">
+>   >     select * from user
+>   > </sql>
+>   > 
+>   > <!-- 根据参数条件查询:where标签，并引用sql语句-->
+>   > <select id="findUserByCondition" parameterType="com.jianmo.domain.User" resultType="com.jianmo.domain.User">
+>   >     <!-- select * from user -->
+>   >     <include refid="defaultUserSQL"></include>  <!-- 引用sql标签 -->
+>   > 
+>   >     <where>
+>   >         <if test="username != null">
+>   >             and username=#{username}
+>   >         </if>
+>   >         <if test="sex != null">
+>   >             and sex=#{sex}
+>   >         </if>
+>   >     </where>
+>   > </select>
+>   > ```
+
+## Mybatis的多表操作
+
+### 一对多
+
+### 多对一
+
+### 一对一
+
+### 多对多
