@@ -211,6 +211,8 @@ public interface UserDao {
 
 ### xml方式
 
+> `resultMap`子元素`id`代表`resultMap`的主键，而`result`代表其属性。
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
@@ -277,6 +279,17 @@ public interface UserDao {
     </select>
 </mapper>
 ```
+
+## ResultMap中的id和result的区别
+
+> 参考链接：https://www.cnblogs.com/1iHu4D0n9/p/9059594.html
+>
+> 子元素`id`代表`resultMap`的**主键**，而`result`代表其**属性**。
+>
+> 在自定义的`resultMap`中第一列通常是主键`id`，那么`id `和`result`有什么区别呢？
+>
+> - `id`和`result`都是映射单列值到一个属性或字段的简单数据类型。
+> - 唯一不同的是，`id`是作为唯一标识的，当和其他对象实例对比的时候，这个`id`很有用，尤其是应用到缓存和内嵌的结果映射。
 
 ## Mybatis的参数深入类型
 
@@ -431,10 +444,89 @@ public interface UserDao {
 
 ## Mybatis的多表操作
 
-### 一对多
+### 一对多和多对一
 
-### 多对一
+> ```xml
+> <mapper namespace="com.jianmo.dao.AccountDao">
+> 
+>     <!-- 查询所有 -->
+>     <select id="findAll" resultType="com.jianmo.domain.Account">
+>         select * from account;
+>     </select>
+>     <!-- 查询所有账户信息并带用户名和地址信息：一对多 -->
+>     <select id="findAllAccount" resultType="com.jianmo.domain.AccountUser">
+>         select account.*, user.address, user.username from user, account where user.id = account.uid;
+>     </select>
+> </mapper>
+> ```
 
 ### 一对一
 
+> ```xml
+> <mapper namespace="com.jianmo.dao.UserDao">
+> 
+>     <!-- 查询所有 -->
+>     <select id="findAll" resultType="com.jianmo.domain.User">
+>         select * from user;
+>     </select>
+> 
+>     <!-- 根据id查询用户：一对一 -->
+>     <select id="findByID" parameterType="INT" resultType="com.jianmo.domain.User">
+>         select * from user where id = #{uid}
+>     </select>
+> 
+> </mapper>
+> ```
+
 ### 多对多
+
+> ```xml
+> <mapper namespace="com.jianmo.dao.RoleDao">
+> 
+>     <resultMap id="roleMap" type="com.jianmo.domain.Role">
+>         <id property="roleId" column="id"></id>
+>         <result property="roleName" column="role_name"></result>
+>         <result property="roleDesc" column="role_desc"></result>
+>         <collection property="users" ofType="com.jianmo.domain.User">
+>             <id column="id" property="id"></id>
+>             <result column="username" property="username"></result>
+>             <result column="birthday" property="birthday"></result>
+>             <result column="sex" property="sex"></result>
+>             <result column="address" property="address"></result>
+>         </collection>
+>     </resultMap>
+> 
+>     <resultMap id="userMap" type="com.jianmo.domain.User">
+>         <id column="id" property="id"></id>
+>         <result column="username" property="username"></result>
+>         <result column="birthday" property="birthday"></result>
+>         <result column="sex" property="sex"></result>
+>         <result column="address" property="address"></result>
+>         <collection property="roles" ofType="com.jianmo.domain.Role">
+>             <id property="roleId" column="rid"></id>
+>             <result property="roleName" column="ROLE_NAME"></result>
+>             <result property="roleDesc" column="ROLE_DESC"></result>
+>         </collection>
+>     </resultMap>
+> 
+>     <!--查询一个角色对应的多个用户：多对多-->
+>     <select id="findAllRole" resultMap="roleMap">
+>         select user.*, role.ID as rid, role.ROLE_NAME, role.ROLE_DESC from role
+>             left outer join user_role on role.ID = user_role.RID
+>             left outer join user on user_role.UID = user.id
+>     </select>
+> 
+>     <!--查询一个用户对应的多个角色：多对多-->
+>     <select id="findAllUser" resultMap="userMap">
+>         select user.*, role.id as rid, role.ROLE_DESC, role.ROLE_NAME from user
+>         left outer join user_role on user.id = user_role.UID
+>         left outer join role on user_role.RID = role.ID;
+>     </select>
+> 
+> </mapper>
+> ```
+
+## JDNI
+
+> 
+
