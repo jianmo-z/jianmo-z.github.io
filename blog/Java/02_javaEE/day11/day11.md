@@ -70,3 +70,279 @@
 
 ## Mybatis注解开发
 
+### CRUD注解开发
+
+```java
+package com.jianmo.test;
+
+import com.jianmo.domain.User;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+
+import java.util.List;
+
+/**
+ * 在Mybatis中针对注解一共有四个注解
+ *  - @Select
+ *  - @Insert
+ *  - @Update
+ *  - @Delete
+ */
+public interface UserDao {
+
+	/**
+	 * 查询所有用户
+	 * @return
+	 */
+	@Select("select * from user;")
+	List<User> findAll();
+
+	/**
+	 * 保存用户
+	 * @param user
+	 */
+	@Insert("insert into user(username, address, sex, birthday) values(#{username}, #{address}, #{sex}, #{birthday})")
+	void saveUser(User user);
+
+	/**
+	 * 更新用户
+	 * @param user
+	 */
+	@Update("update user set username=#{username}, address=#{address}, sex=#{sex}, birthday=#{birthday} where id=#{id}")
+	void updateUser(User user);
+
+	/**
+	 * 删除用户
+	 * @param id
+	 */
+	@Delete("delete from user where id=#{id}")
+	void deleteUserByID(Integer id);
+
+	@Select("select * from user where id=#{id}")
+	User findByID(Integer id);
+
+	@Select("select * from user where username like #{username}")
+	List<User> findByName(String username);
+
+	@Select("select count(id) from user;")
+	Integer findTotal();
+}
+```
+
+### 多表注解开发：一对一
+
+```java
+package com.jianmo.dao;
+
+import com.jianmo.domain.Account;
+import org.apache.ibatis.annotations.One;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.mapping.FetchType;
+
+import java.util.List;
+
+public interface AccountDao {
+	/**
+	 * 查询所有账户并且获取每个账户所属的用户信息：两个表查询
+	 * 一对一
+	 * @return
+	 */
+	@Select("select * from account;")
+	@Results(id = "accountMap", value = {
+			@Result(id = true, property = "id", column = "id"),
+			@Result(property = "uid", column = "uid"),
+			@Result(property = "money", column = "money"),
+			@Result(property = "user", column = "uid",
+					one = @One(select = "com.jianmo.dao.UserDao.findByID", fetchType = FetchType.LAZY))
+	})
+	List<Account> findAll();
+
+	@Select("select * from account where uid=#{uId}")
+	List<Account> findByUID(Integer uId);
+}
+```
+
+### 多表注解开发：一对多
+
+```java
+package com.jianmo.dao;
+
+import com.jianmo.domain.User;
+import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.mapping.FetchType;
+
+import java.util.List;
+
+/**
+ * 在Mybatis中针对注解一共有四个注解
+ * - @Select
+ * - @Insert
+ * - @Update
+ * - @Delete
+ */
+public interface UserDao {
+
+	/**
+	 * 查询所有用户
+	 *
+	 * @return
+	 */
+	@Select("select * from user;")
+	@Results(id = "userMap",
+			value = {
+					@Result(id = true, property = "userId", column = "id"),
+					@Result(property = "userName", column = "username"),
+					@Result(property = "userAddress", column = "address"),
+					@Result(property = "userSex", column = "sex"),
+					@Result(property = "userBirthday", column = "birthday"),
+			})
+	List<User> findAll();
+
+	/**
+	 * 通过ID查询用户
+	 *
+	 * @param id
+	 * @return
+	 */
+	@Select("select * from user where id=#{id}")
+	@ResultMap(value = {"userMap"}) // 引用ResultMap
+	User findByID(Integer id);
+
+	/**
+	 * 查询所有信息和对应的账户信息
+	 * 一对多
+	 * @return
+	 */
+	@Select("select * from user")
+	@Results(id = "userMap4Account", value = {
+			@Result(id = true, property = "userId", column = "id"),
+			@Result(property = "userName", column = "username"),
+			@Result(property = "userAddress", column = "address"),
+			@Result(property = "userSex", column = "sex"),
+			@Result(property = "userBirthday", column = "birthday"),
+			@Result(property = "accounts", column = "id",
+					many = @Many(select = "com.jianmo.dao.AccountDao.findByUID", fetchType = FetchType.EAGER)),
+	})
+	List<User> findAllWithAccounts();
+}
+```
+
+### 注解配置缓存
+
+> - 一级缓存默认开始不用关心，使用同一个`OpenSession`；
+> - 配置文件(`SqlMapConfig.xml`)加`Dao`**接口**注解(`***Dao.java`)；
+
+#### 配置文件
+
+> `settings`配置`setting`标签的属性`cacheEnabled`；
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 引入外部配置文件 -->
+    <properties resource="jdbcConfig.properties"></properties>
+
+    <!-- 开启Mybatis二级缓存 -->
+    <settings>
+        <setting name="cacheEnabled" value="true"/>
+    </settings>
+
+    <!-- 配置别名 -->
+    <typeAliases>
+        <package name="com.com.jianmo.domain"/>
+    </typeAliases>
+
+    <!-- 配置环境 -->
+    <environments default="mysql">
+        <environment id="mysql">
+            <transactionManager type="JDBC"></transactionManager>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!-- 指定带有注解的dao接口所在位置 -->
+    <mappers>
+        <package name="com.jianmo.dao"/>
+    </mappers>
+</configuration>
+```
+
+#### Dao接口配置
+
+> 给接口添加注解`@CacheNamespace(blocking = true)`
+
+```java
+package com.jianmo.dao;
+
+import com.jianmo.domain.User;
+import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.mapping.FetchType;
+
+import java.util.List;
+
+/**
+ * 在Mybatis中针对注解一共有四个注解
+ * - @Select
+ * - @Insert
+ * - @Update
+ * - @Delete
+ */
+@CacheNamespace(blocking = true)  // 开启二级缓存
+public interface UserDao {
+
+	/**
+	 * 查询所有用户
+	 *
+	 * @return
+	 */
+	@Select("select * from user;")
+	@Results(id = "userMap",
+			value = {
+					@Result(id = true, property = "userId", column = "id"),
+					@Result(property = "userName", column = "username"),
+					@Result(property = "userAddress", column = "address"),
+					@Result(property = "userSex", column = "sex"),
+					@Result(property = "userBirthday", column = "birthday"),
+			})
+	List<User> findAll();
+
+	/**
+	 * 通过ID查询用户
+	 *
+	 * @param id
+	 * @return
+	 */
+	@Select("select * from user where id=#{id}")
+	@ResultMap(value = {"userMap"}) // 引用ResultMap
+	User findByID(Integer id);
+
+	/**
+	 * 查询所有信息和对应的账户信息
+	 * 一对多
+	 * @return
+	 */
+	@Select("select * from user")
+	@Results(id = "userMap4Account", value = {
+			@Result(id = true, property = "userId", column = "id"),
+			@Result(property = "userName", column = "username"),
+			@Result(property = "userAddress", column = "address"),
+			@Result(property = "userSex", column = "sex"),
+			@Result(property = "userBirthday", column = "birthday"),
+			@Result(property = "accounts", column = "id",
+					many = @Many(select = "com.jianmo.dao.AccountDao.findByUID", fetchType = FetchType.EAGER)),
+	})
+	List<User> findAllWithAccounts();
+}
+```
+
