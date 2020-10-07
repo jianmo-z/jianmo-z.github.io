@@ -102,7 +102,7 @@
 >    - 修改表的字符集：
 >      - 查看`student`表的字符集：`show create table student;`
 >      - 修改`student`表的字符集为`utf8`：`alter table student character set utf8;`
->    - 添加一列：`alter table add 列名 数据类型;`，`alter table student add gender varchar(10);`
+>    - 添加一列：`alter table 表名 add 列名 数据类型;`，`alter table student add gender varchar(10);`
 >    - 修改列名、类型：
 >      - 修改列名和类型：`alter table 表名 change 旧列名 新列名 新类型;`，`alter table student change gender sex varchar(20);`；
 >      - 修改列类型：`alter table 表名 modify 列名 新类型`，`alter table student modify sex varchar(10);`
