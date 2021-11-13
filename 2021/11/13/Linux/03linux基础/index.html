@@ -17,17 +17,19 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>Hexo</title>
-  <meta name="description" content="Linux基础知识umask   当用户的UID小于199，并且用户名和用户组名相同时，umaks的值为022。否则的话umask的值为002，当创建文件夹时默认的权限为0777 - umask，当创建文件时默认的权限为0777 - umaks - 0111，文件默认取消执行权限，因为执行权限对文件影响大   配置文件    系统配置文件：&#x2F;etc&#x2F;profile   shell配置文件：&#x2F;etc">
+  <title>03 Linux基础知识--权限控制&amp;进程管理 | Hexo</title>
+  <meta name="description" content="03 Linux基础知识-权限控制&amp;进程管理umask当用户的UID小于199，并且用户名和用户组名相同时，umaks的值为022。否则的话umask的值为002，当创建文件夹时默认的权限为0777 - umask，当创建文件时默认的权限为0777 - umaks - 0111，文件默认取消执行权限，因为执行权限对文件影响大 配置文件    系统配置文件：&#x2F;etc&#x2F;profile   sh">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="03 Linux基础知识--权限控制&amp;进程管理">
 <meta property="og:url" content="http://example.com/2021/11/13/Linux/03linux%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Linux基础知识umask   当用户的UID小于199，并且用户名和用户组名相同时，umaks的值为022。否则的话umask的值为002，当创建文件夹时默认的权限为0777 - umask，当创建文件时默认的权限为0777 - umaks - 0111，文件默认取消执行权限，因为执行权限对文件影响大   配置文件    系统配置文件：&#x2F;etc&#x2F;profile   shell配置文件：&#x2F;etc">
+<meta property="og:description" content="03 Linux基础知识-权限控制&amp;进程管理umask当用户的UID小于199，并且用户名和用户组名相同时，umaks的值为022。否则的话umask的值为002，当创建文件夹时默认的权限为0777 - umask，当创建文件时默认的权限为0777 - umaks - 0111，文件默认取消执行权限，因为执行权限对文件影响大 配置文件    系统配置文件：&#x2F;etc&#x2F;profile   sh">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-11-13T08:08:48.227Z">
-<meta property="article:modified_time" content="2021-11-13T08:08:48.227Z">
+<meta property="article:published_time" content="2021-11-13T05:00:00.000Z">
+<meta property="article:modified_time" content="2021-11-13T13:23:11.208Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="acl权限控制">
+<meta property="article:tag" content="进程管理">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
   <link rel="canonical" href="http://example.com/2021/11/13/Linux/03linux%E5%9F%BA%E7%A1%80/index.html">
@@ -210,7 +212,7 @@
   <div class="widget">
     <h3 class="widget-title">分类</h3>
     <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">10</span></li></ul>
     </div>
   </div>
 
@@ -220,7 +222,7 @@
   <div class="widget">
     <h3 class="widget-title">标签</h3>
     <div class="widget-body">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80/" rel="tag">Linux基础</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%AE%89%E8%A3%85WPS/" rel="tag">Linux安装WPS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" rel="tag">基础命令</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LVM%E5%8D%B7/" rel="tag">LVM卷</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" rel="tag">Linux基础命令</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%AE%89%E8%A3%85WPS/" rel="tag">Linux安装WPS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" rel="tag">Linux用户管理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA/" rel="tag">Linux磁盘分区</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" rel="tag">Linux磁盘管理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VIM%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" rel="tag">VIM基本操作</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/acl%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/" rel="tag">acl权限控制</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ftp/" rel="tag">ftp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yum%E7%AE%A1%E7%90%86/" rel="tag">yum管理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1/" rel="tag">延时任务</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E7%9B%98%E6%8C%82%E8%BD%BD/" rel="tag">硬盘挂载</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/" rel="tag">虚拟机安装</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="tag">进程管理</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%82%AE%E4%BB%B6%E7%AE%A1%E7%90%86/" rel="tag">邮件管理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" rel="tag">防火墙</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -230,7 +232,7 @@
   <div class="widget">
     <h3 class="widget-title">标签云</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/Linux%E5%9F%BA%E7%A1%80/" style="font-size: 13px;">Linux基础</a> <a href="/tags/Linux%E5%AE%89%E8%A3%85WPS/" style="font-size: 13px;">Linux安装WPS</a> <a href="/tags/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" style="font-size: 13px;">基础命令</a>
+      <a href="/tags/LVM%E5%8D%B7/" style="font-size: 13px;">LVM卷</a> <a href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" style="font-size: 13px;">Linux基础命令</a> <a href="/tags/Linux%E5%AE%89%E8%A3%85WPS/" style="font-size: 13px;">Linux安装WPS</a> <a href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" style="font-size: 13px;">Linux用户管理</a> <a href="/tags/Linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA/" style="font-size: 13px;">Linux磁盘分区</a> <a href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" style="font-size: 13px;">Linux磁盘管理</a> <a href="/tags/VIM%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" style="font-size: 13px;">VIM基本操作</a> <a href="/tags/acl%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/" style="font-size: 14px;">acl权限控制</a> <a href="/tags/ftp/" style="font-size: 13px;">ftp</a> <a href="/tags/yum%E7%AE%A1%E7%90%86/" style="font-size: 13px;">yum管理</a> <a href="/tags/%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1/" style="font-size: 13px;">延时任务</a> <a href="/tags/%E7%A1%AC%E7%9B%98%E6%8C%82%E8%BD%BD/" style="font-size: 13px;">硬盘挂载</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/" style="font-size: 13px;">虚拟机安装</a> <a href="/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" style="font-size: 14px;">进程管理</a> <a href="/tags/%E9%82%AE%E4%BB%B6%E7%AE%A1%E7%90%86/" style="font-size: 13px;">邮件管理</a> <a href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" style="font-size: 13px;">防火墙</a>
     </div>
   </div>
 
@@ -255,13 +257,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                
+                <a class="category-link" href="/categories/Linux/">Linux</a>
               </p>
               <p class="item-title">
-                <a href="/2021/11/13/Linux/02linux%E5%9F%BA%E7%A1%80/" class="title">(no title)</a>
+                <a href="/2021/11/13/Linux/01linux%E5%9F%BA%E7%A1%80/" class="title">01 Linux基础知识--基础命令</a>
               </p>
               <p class="item-date">
-                <time datetime="2021-11-13T09:09:37.796Z" itemprop="datePublished">2021-11-13</time>
+                <time datetime="2021-11-13T05:00:00.000Z" itemprop="datePublished">2021-11-13</time>
               </p>
             </div>
           </li>
@@ -270,13 +272,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                
+                <a class="category-link" href="/categories/Linux/">Linux</a>
               </p>
               <p class="item-title">
-                <a href="/2021/11/13/Linux/03linux%E5%9F%BA%E7%A1%80/" class="title">(no title)</a>
+                <a href="/2021/11/13/Linux/02linux%E5%9F%BA%E7%A1%80/" class="title">02 Linux基础知识--vim&amp;用户管理</a>
               </p>
               <p class="item-date">
-                <time datetime="2021-11-13T08:08:48.227Z" itemprop="datePublished">2021-11-13</time>
+                <time datetime="2021-11-13T05:00:00.000Z" itemprop="datePublished">2021-11-13</time>
               </p>
             </div>
           </li>
@@ -285,13 +287,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                
+                <a class="category-link" href="/categories/Linux/">Linux</a>
               </p>
               <p class="item-title">
-                <a href="/2021/11/13/Linux/04linux%E5%9F%BA%E7%A1%80/" class="title">(no title)</a>
+                <a href="/2021/11/13/Linux/03linux%E5%9F%BA%E7%A1%80/" class="title">03 Linux基础知识--权限控制&amp;进程管理</a>
               </p>
               <p class="item-date">
-                <time datetime="2021-11-13T08:08:48.227Z" itemprop="datePublished">2021-11-13</time>
+                <time datetime="2021-11-13T05:00:00.000Z" itemprop="datePublished">2021-11-13</time>
               </p>
             </div>
           </li>
@@ -300,13 +302,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                
+                <a class="category-link" href="/categories/Linux/">Linux</a>
               </p>
               <p class="item-title">
-                <a href="/2021/11/13/Linux/05linux%E5%9F%BA%E7%A1%80/" class="title">(no title)</a>
+                <a href="/2021/11/13/Linux/04linux%E5%9F%BA%E7%A1%80/" class="title">04 Linux基础知识--进程监控&amp;ssh&amp;文件传输</a>
               </p>
               <p class="item-date">
-                <time datetime="2021-11-13T08:08:48.227Z" itemprop="datePublished">2021-11-13</time>
+                <time datetime="2021-11-13T05:00:00.000Z" itemprop="datePublished">2021-11-13</time>
               </p>
             </div>
           </li>
@@ -315,13 +317,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                
+                <a class="category-link" href="/categories/Linux/">Linux</a>
               </p>
               <p class="item-title">
-                <a href="/2021/11/13/Linux/06linux%E5%9F%BA%E7%A1%80/" class="title">(no title)</a>
+                <a href="/2021/11/13/Linux/05linux%E5%9F%BA%E7%A1%80/" class="title">05 Linux基础知识–-日志&amp;网络配置</a>
               </p>
               <p class="item-date">
-                <time datetime="2021-11-13T08:08:48.227Z" itemprop="datePublished">2021-11-13</time>
+                <time datetime="2021-11-13T05:00:00.000Z" itemprop="datePublished">2021-11-13</time>
               </p>
             </div>
           </li>
@@ -343,15 +345,33 @@
     
     <div class="article-header">
       
+        
+  
+    <h1 class="article-title" itemprop="name">
+      03 Linux基础知识--权限控制&amp;进程管理
+    </h1>
+  
+
+      
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2021/11/13/Linux/03linux%E5%9F%BA%E7%A1%80/" class="article-date">
-	  <time datetime="2021-11-13T08:08:48.227Z" itemprop="datePublished">2021-11-13</time>
+	  <time datetime="2021-11-13T05:00:00.000Z" itemprop="datePublished">2021-11-13</time>
 	</a>
 </span>
         
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </span>
+
         
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/acl%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/" rel="tag">acl权限控制</a>, <a class="article-tag-link-link" href="/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="tag">进程管理</a>
+  </span>
+
 
         
 	<span class="article-read hidden-xs">
@@ -368,18 +388,15 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h1 id="Linux基础知识"><a href="#Linux基础知识" class="headerlink" title="Linux基础知识"></a>Linux基础知识</h1><h2 id="umask"><a href="#umask" class="headerlink" title="umask"></a>umask</h2><blockquote>
-<p>  当用户的<code>UID</code>小于199，并且用户名和用户组名相同时，<code>umaks</code>的值为<code>022</code>。否则的话<code>umask</code>的值为<code>002</code>，当创建文件夹时默认的权限为<code>0777 - umask</code>，当创建文件时默认的权限为<code>0777 - umaks - 0111</code>，文件默认取消执行权限，因为执行权限对文件影响大</p>
-<p>  配置文件</p>
+        <h1 id="03-Linux基础知识-权限控制-amp-进程管理"><a href="#03-Linux基础知识-权限控制-amp-进程管理" class="headerlink" title="03 Linux基础知识-权限控制&amp;进程管理"></a>03 Linux基础知识-权限控制&amp;进程管理</h1><h2 id="umask"><a href="#umask" class="headerlink" title="umask"></a>umask</h2><p>当用户的<code>UID</code>小于199，并且用户名和用户组名相同时，<code>umaks</code>的值为<code>022</code>。否则的话<code>umask</code>的值为<code>002</code>，当创建文件夹时默认的权限为<code>0777 - umask</code>，当创建文件时默认的权限为<code>0777 - umaks - 0111</code>，文件默认取消执行权限，因为执行权限对文件影响大</p>
+<p>配置文件</p>
 <ul>
 <li>  系统配置文件：<code>/etc/profile</code></li>
 <li>  <code>shell</code>配置文件：<code>/etc/bashrc</code></li>
 <li>  某一个用户的<code>shell</code>配置文件：<code>~/.bashrc</code></li>
 <li>  使配置文件生效：<code>source 要生效的文件</code>，即让系统重新读取该文件，否则需要内核自举。</li>
 </ul>
-</blockquote>
-<h2 id="特殊权限"><a href="#特殊权限" class="headerlink" title="特殊权限"></a>特殊权限</h2><blockquote>
-<ul>
+<h2 id="特殊权限"><a href="#特殊权限" class="headerlink" title="特殊权限"></a>特殊权限</h2><ul>
 <li>粘滞位(<code>sticky</code>)<ul>
 <li>  只针对目录生效，当一个目录有<code>sticky</code>权限时，在这个目录中的文件只能被文件的所有者删除。</li>
 <li>  设置：<code>chmod o+t 目录</code>或<code>chmod 1xxx 目录</code></li>
@@ -397,17 +414,17 @@
 </ul>
 </li>
 </ul>
-</blockquote>
 <h2 id="acl权限"><a href="#acl权限" class="headerlink" title="acl权限"></a>acl权限</h2><blockquote>
-<p>  学会使用<code>man setfcal</code></p>
-<p>  设置：<code>setfcal -m u:username:rwx dir</code></p>
-<p>  设置：<code>setfcal -m g:groupname:rwx dir</code></p>
-<p>  查看：<code>getfacl filename</code></p>
-<p>  作用：让特定的用户对特定的文件拥有特定的权限</p>
-<p>  acl列表查看：</p>
-<p>  ​    权限位<code>+</code>号表示acl权限开启</p>
-<p>  查看文件acl开启的权限：<code>getfacl 文件命名</code></p>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># file:文件名称</span><br><span class="line"># owner:文件所有者</span><br><span class="line"># group:文件所属组</span><br><span class="line">use::所有者权限</span><br><span class="line">user:用户:指定用户的权限</span><br><span class="line">group::文件所有组的权限</span><br><span class="line">maks：:能赋予用户最大的权限</span><br><span class="line">other::其他用户</span><br></pre></td></tr></table></figure>
+<p>学会使用<code>man setfcal</code></p>
+</blockquote>
+<p>设置：<code>setfcal -m u:username:rwx dir</code></p>
+<p>设置：<code>setfcal -m g:groupname:rwx dir</code></p>
+<p>查看：<code>getfacl filename</code></p>
+<p>作用：让特定的用户对特定的文件拥有特定的权限</p>
+<p>acl列表查看：</p>
+<p>​    权限位<code>+</code>号表示acl权限开启</p>
+<p>查看文件acl开启的权限：<code>getfacl 文件命名</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># file:文件名称</span><br><span class="line"># owner:文件所有者</span><br><span class="line"># group:文件所属组</span><br><span class="line">use::所有者权限</span><br><span class="line">user:用户:指定用户的权限</span><br><span class="line">group::文件所有组的权限</span><br><span class="line">maks：:能赋予用户最大的权限</span><br><span class="line">other::其他用户</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><p><code>mask</code>值</p>
@@ -427,26 +444,24 @@
 </blockquote>
 </li>
 </ul>
-</blockquote>
-<h2 id="系统进程及服务的控制"><a href="#系统进程及服务的控制" class="headerlink" title="系统进程及服务的控制"></a>系统进程及服务的控制</h2><blockquote>
-<ul>
-<li><p>  图形查看进程</p>
+<h2 id="系统进程及服务的控制"><a href="#系统进程及服务的控制" class="headerlink" title="系统进程及服务的控制"></a>系统进程及服务的控制</h2><ul>
+<li><p>图形查看进程</p>
 </li>
 <li><p>命令查看(<code>ps</code>)</p>
 <ul>
-<li><p>  <code>-A</code>：显示所有进程</p>
+<li><p><code>-A</code>：显示所有进程</p>
 </li>
-<li><p>  <code>-a</code>：当前环境中运行的进程，不显示管理信息与当前终端的进程信息</p>
+<li><p><code>-a</code>：当前环境中运行的进程，不显示管理信息与当前终端的进程信息</p>
 </li>
-<li><p>  <code>-u</code>：有效使用者和相关的进程</p>
+<li><p><code>-u</code>：有效使用者和相关的进程</p>
 </li>
-<li><p>  <code>a</code>：当前环境中的进程，包含管理信息与当前终端的进程信息</p>
+<li><p><code>a</code>：当前环境中的进程，包含管理信息与当前终端的进程信息</p>
 </li>
-<li><p>  <code>x</code>：通常与<code>-a</code>参数一起使用，列出系统中所有运行包含<code>tty</code>输出设备</p>
+<li><p><code>x</code>：通常与<code>-a</code>参数一起使用，列出系统中所有运行包含<code>tty</code>输出设备</p>
 </li>
-<li><p>  <code>-f</code>：显示进程父子关系</p>
+<li><p><code>-f</code>：显示进程父子关系</p>
 </li>
-<li><p>  <code>-e</code>：经常与<code>-f</code>一起使用，显示详细信息，显示系统的资源调用和进程的详细信息</p>
+<li><p><code>-e</code>：经常与<code>-f</code>一起使用，显示详细信息，显示系统的资源调用和进程的详细信息</p>
 </li>
 <li><p><code>-o</code>：显示指定信息</p>
 <ul>
@@ -532,7 +547,6 @@
 </ul>
 </li>
 </ul>
-</blockquote>
 
       
     </div>
@@ -542,7 +556,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://example.com/2021/11/13/Linux/03linux%E5%9F%BA%E7%A1%80/" title="" target="_blank" rel="external">http://example.com/2021/11/13/Linux/03linux基础/</a>
+      <a href="http://example.com/2021/11/13/Linux/03linux%E5%9F%BA%E7%A1%80/" title="03 Linux基础知识--权限控制&amp;进程管理" target="_blank" rel="external">http://example.com/2021/11/13/Linux/03linux基础/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -589,12 +603,12 @@
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2021/11/13/Linux/02linux%E5%9F%BA%E7%A1%80/" title="(no title)"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+      <a href="/2021/11/13/Linux/02linux%E5%9F%BA%E7%A1%80/" title="02 Linux基础知识--vim&amp;用户管理"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
     </li>
     
     
     <li class="next">
-      <a href="/2021/11/13/Linux/04linux%E5%9F%BA%E7%A1%80/" title="(no title)"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2021/11/13/Linux/04linux%E5%9F%BA%E7%A1%80/" title="04 Linux基础知识--进程监控&amp;ssh&amp;文件传输"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
@@ -736,7 +750,7 @@ var gitment = new Gitment({
   // id默认为当前页面url，如果url后带参数或锚点，gitment要重新初始化
   // https://github.com/imsun/gitment/issues/55
   // 解决方案：id:window.location.pathname,或者将id设置为当前页面标题
-  id: '', 
+  id: '03 Linux基础知识--权限控制&amp;进程管理', 
   owner: 'ainihu', // 可以是你的GitHub用户名，也可以是github id
   repo: 'ainihu.github.io',
   oauth: {
