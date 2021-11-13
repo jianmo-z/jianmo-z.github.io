@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Hexo</title>
+  <meta name="description" content="Linux基础日志采集服务   查看日志状态：systemctl status rsyslog.service   获取配置文件的帮助信息：man 5 rsyslog.conf   日志：*.*：第一个*表示什么类型，第二个*表示该服务程序的日志级别  日志的位置：&#x2F;var&#x2F;log&#x2F;   &#x2F;var&#x2F;log&#x2F;messages：服务信息日志   &#x2F;var&#x2F;log&#x2F;secure：系统登录日志   &#x2F;va">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2021/11/13/Linux/05linux%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Linux基础日志采集服务   查看日志状态：systemctl status rsyslog.service   获取配置文件的帮助信息：man 5 rsyslog.conf   日志：*.*：第一个*表示什么类型，第二个*表示该服务程序的日志级别  日志的位置：&#x2F;var&#x2F;log&#x2F;   &#x2F;var&#x2F;log&#x2F;messages：服务信息日志   &#x2F;var&#x2F;log&#x2F;secure：系统登录日志   &#x2F;va">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-11-13T08:08:48.227Z">
+<meta property="article:modified_time" content="2021-11-13T08:08:48.227Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://example.com/2021/11/13/Linux/05linux%E5%9F%BA%E7%A1%80/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitment@0.0.3/style/default.min.css">
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/ainihu" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">昵称</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Web Developer &amp; Designer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Shenzhen, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/ainihu" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/ainihu" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/ainihu" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80/" rel="tag">Linux基础</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%AE%89%E8%A3%85WPS/" rel="tag">Linux安装WPS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" rel="tag">基础命令</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Linux%E5%9F%BA%E7%A1%80/" style="font-size: 13px;">Linux基础</a> <a href="/tags/Linux%E5%AE%89%E8%A3%85WPS/" style="font-size: 13px;">Linux安装WPS</a> <a href="/tags/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" style="font-size: 13px;">基础命令</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a><span class="archive-list-count">10</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/11/13/Linux/02linux%E5%9F%BA%E7%A1%80/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-11-13T08:08:48.227Z" itemprop="datePublished">2021-11-13</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/11/13/Linux/03linux%E5%9F%BA%E7%A1%80/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-11-13T08:08:48.227Z" itemprop="datePublished">2021-11-13</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/11/13/Linux/04linux%E5%9F%BA%E7%A1%80/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-11-13T08:08:48.227Z" itemprop="datePublished">2021-11-13</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/11/13/Linux/05linux%E5%9F%BA%E7%A1%80/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-11-13T08:08:48.227Z" itemprop="datePublished">2021-11-13</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/11/13/Linux/06linux%E5%9F%BA%E7%A1%80/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-11-13T08:08:48.227Z" itemprop="datePublished">2021-11-13</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-Linux/05linux基础" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/11/13/Linux/05linux%E5%9F%BA%E7%A1%80/" class="article-date">
+	  <time datetime="2021-11-13T08:08:48.227Z" itemprop="datePublished">2021-11-13</time>
+	</a>
+</span>
+        
+        
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/11/13/Linux/05linux%E5%9F%BA%E7%A1%80/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="Linux基础"><a href="#Linux基础" class="headerlink" title="Linux基础"></a>Linux基础</h1><h2 id="日志采集服务"><a href="#日志采集服务" class="headerlink" title="日志采集服务"></a>日志采集服务</h2><blockquote>
+<p>  查看日志状态：<code>systemctl status rsyslog.service</code></p>
+<p>  <strong>获取配置文件的帮助信息：<code>man 5 rsyslog.conf</code></strong></p>
+<p>  日志：<code>*.*</code>：第一个<code>*</code>表示什么类型，第二个<code>*</code>表示该服务程序的日志级别</p>
+<ul>
+<li>日志的位置：<code>/var/log/</code><ul>
+<li>  <code>/var/log/messages</code>：服务信息日志</li>
+<li>  <code>/var/log/secure</code>：系统登录日志</li>
+<li>  <code>/var/log/cron</code>：定时任务日志</li>
+<li>  <code>/var/log/maillog</code>：邮件日志</li>
+<li>  <code>/var/log/boot.log</code>：系统启动日志</li>
+</ul>
+</li>
+<li>日志的类型：<ul>
+<li>  <code>auth</code>：pam产生的日志</li>
+<li>  <code>authpriv</code>：ssh，ftp等登录信息的验证信息</li>
+<li>  <code>cron</code>：时间任务相关</li>
+<li>  <code>kern</code>：内核</li>
+<li>  <code>lpr</code>：打印</li>
+<li>  <code>mail</code>：邮件</li>
+<li>  <code>mark(syslog)-rsyslog</code>：服务内部的信息，时间标识</li>
+<li>  <code>news</code>：新闻组</li>
+<li>  <code>user</code>：用户程序产生的相关信息</li>
+<li>  <code>uucp</code>：unix tounix copy，unix主机之间相关的通讯</li>
+<li>  <code>local 1-7</code>：自定义的日志系统</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>日志级别：记录的内容逐次减少<ol>
+<li> <code>debug</code>调试信息：有调式信息的，日志信息最多</li>
+<li> <code>info</code>重要事件 ：一般信息的日志，最常用</li>
+<li> <code>notice</code>重要通知：最具有重要性的普通条件的信息</li>
+<li> <code>warning</code>警报：警告级别</li>
+<li> <code>err</code>错误：错误级别，阻止某个功能或者模块不能正常工作的信息 </li>
+<li> <code>crit</code>临界：严重级别，阻止整个系统或者整个软件哎能不能正常工作的信息</li>
+<li> <code>alert</code>：需要立即修改的信息</li>
+<li> <code>emerg</code>系统不可用：内核崩溃等严重信息</li>
+<li> <code>none</code>：什么都不记录</li>
+</ol>
+</li>
+<li>  例：<code>*.*;mail.none    /var/log/message</code>，把所有服务的所有日志信息保存到<code>/var/log/meesage</code>文件中，不保存<code>mail</code>的信息。</li>
+</ul>
+</blockquote>
+<h2 id="日志同步"><a href="#日志同步" class="headerlink" title="日志同步"></a>日志同步</h2><blockquote>
+<p>配置文件<code>/etc/rsyslog.conf</code>，修改完重启服务<code>systemctl restart rsyslog</code></p>
+<ul>
+<li>  客户端(日志发送方)：<code>*.*    @ipaddr</code>：一个<code>@</code>表示使用<code>udp</code>协议，两个<code>@</code>表示使用<code>tcp</code>协议</li>
+<li>  服务端(日志接收方)：<code>$ModLoad imudp</code>、<code>$UDPServerRun 514</code>，开启接收的模块，并且打开接收的端口</li>
+<li>  设置防火墙可以通过客户端的日志 / 关闭防火墙</li>
+</ul>
+<p>  日志采集的格式：<code>/etc/rsyslog.conf</code></p>
+<ul>
+<li><p>```<br>  $template LOGFMT, “%timegenerated% %FROMHOST-IP% %syslogtag% %msg% \n”<br>  <em>.</em>    /var/log/test;LOGFMT</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  *   `LOGFMT`：相当于定义了一个变量</span><br><span class="line"></span><br><span class="line">  *   `%timegenerated%`：显示日志时间</span><br><span class="line"></span><br><span class="line">  *   `%FROMHOST-IP%`：显示主机IP</span><br><span class="line"></span><br><span class="line">  *   `%syslogtag%`：日志记录目标</span><br><span class="line"></span><br><span class="line">  *   `%msg%`：日志内容</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 时间同步</span><br><span class="line"></span><br><span class="line"> 配置文件`/etc/chrony.conf`、服务程序</span><br><span class="line"></span><br><span class="line">  *   服务端(时间源)：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>  allow 172.25.254.0/24 ##允许那些客户端来同步本机时间，在配置文件的22行<br>  local stratum 10 ##本机不同步任何主机的时间，本机作为时间源，在配置文件的29行</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">*   客户端(同步时间源)：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>  server 172.25.254.100 iburst ##本机立即同步172.25.254.100这台主机的时间</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  设置完后需要重启同步时间服务：`systemctl restart chronyd.service`</span><br><span class="line"></span><br><span class="line">  查看时间同步源：`chronyc sources -v`</span><br><span class="line"></span><br><span class="line">## 查看系统时间</span><br><span class="line"></span><br><span class="line">  `timedatectl`：查看系统详细</span><br><span class="line"></span><br><span class="line">  `timedatectl list-timezones `：查看时区列表</span><br><span class="line"></span><br><span class="line">  `timedatectl set-timezones Asia/Shanghai`：设置时区</span><br><span class="line"></span><br><span class="line">  `timedatectl set-time  &quot;2018-11-11 11:11&quot;`：设置时间</span><br><span class="line"></span><br><span class="line">  `timedatectl set-local-rtc 0/1` ：是否使用UTC时间</span><br><span class="line"></span><br><span class="line">  *   `0`设置为UTC时间，`1`设置为LOCAL时间</span><br><span class="line"></span><br><span class="line">  `cat /etc/adjtime`：查看时间</span><br><span class="line"></span><br><span class="line">## 日志查看</span><br><span class="line"></span><br><span class="line">  `journalctl`：日志查看工具</span><br><span class="line"></span><br><span class="line">  *   `-n 3`：查看最近三条日志</span><br><span class="line">  *   `-p err`：查看错误日志</span><br><span class="line">  *   `-o verbose _PID=pid _COMM=command`：查看指定pid的日志，该进程可以是已经死亡的</span><br><span class="line">  *   `--since &quot;2018-10-13 12:00&quot;`：查看从什么时间开始的日志</span><br><span class="line">  *   `` --until &quot;2018-10-14 12:00&quot; `：查看从什么时间结束的日志</span><br><span class="line"></span><br><span class="line">  使用`systemd-journal`保存系统日志</span><br><span class="line"></span><br><span class="line">  1.  `mkdir /var/log/journal`建立一个目录保存`journal`日志</span><br><span class="line">  2.  `chgrp systemd-journal /var/log/journal`</span><br><span class="line">  3.  `chmod g+s /var/log/journal`</span><br><span class="line">  4.  `ps aux | grep systemd-journald`</span><br><span class="line">  5.  `killall -1 systemd-journald-pid`</span><br><span class="line">  6.  `ls /var/log/journal`，查看保存的文件</span><br><span class="line"></span><br><span class="line">## 网络配置</span><br><span class="line"></span><br><span class="line">  1.  IP：由32位bit位组成</span><br><span class="line"></span><br><span class="line">  2.  子网掩码：用来划分网络区域。</span><br><span class="line"></span><br><span class="line">  3.  IP通信判定：网络位一致，主机位不一致</span><br><span class="line"></span><br><span class="line">  4.  网络通信工具：`ping`</span><br><span class="line"></span><br><span class="line">  5.  `ifconfig`</span><br><span class="line"></span><br><span class="line">      *   `ifconfig device ip/24`：设置ip地址和子网掩码</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      *   关闭网卡接口：`ifconfig 网卡名 down`</span><br><span class="line">      *   开启网卡接口：`ifconfig 网卡 up`</span><br><span class="line">      *   查看网卡所有的`ip`：`ip addr show`</span><br><span class="line"></span><br><span class="line">  6.  修改ip</span><br><span class="line"></span><br><span class="line">      *   图形修改</span><br><span class="line">          *   图形界面设置` nm-connection-editor `</span><br><span class="line">          *   命令模式下图形修改`nmtui`</span><br><span class="line"></span><br><span class="line">      *   命令修改</span><br><span class="line">          *   `nmcli `：后面可以加参数对网卡进行配置和连接与断开，`NetworkManager`服务必须开启，`device_name`为网卡名</span><br><span class="line">              *   `nmcli device show`：查看网卡信息</span><br><span class="line">              *   `nmcli device status device_name`：查看网卡服务接口状态信息</span><br><span class="line">              *   `nmcli device connect device_name`：启用网卡</span><br><span class="line">              *   `nmcli device disconnect device_name`：关闭网卡接口</span><br><span class="line">              *   `nmcli connection show`：查看网卡配置信息</span><br><span class="line">              *   `nmcli connection down device_name`：关闭网卡</span><br><span class="line">              *   `nmcli connection up device_name`：开启网卡</span><br><span class="line">              *   `nmcli connection delete device_name`：删除网卡信息</span><br><span class="line"></span><br><span class="line">      *   修改配置文件：`/etc/sysconfig/network-scripts/device_name`，`device_name`为网卡的配置文件名字，自行替换`redhat7/centos7`一般为`ifcfg-eth0`，配置的文件名为`ifcfg-`开头。</span><br><span class="line"></span><br><span class="line">          *   `DEVICE=eth0`：网卡的设备名</span><br><span class="line">          *   `ONBOOT=yes`：开机是否自启</span><br><span class="line">          *   `BOOTPROTO=dhcp/static/none`：三个中的一个，`dhcp`动态分配，`static`静态IP，`none`类似`static`</span><br><span class="line">          *   `IPADDR=172.25.254.108`：`IP`地址</span><br><span class="line">              *   配置多个`IP`，`IPADDR0`、`IPADDR1`、... ...</span><br><span class="line">          *   `PREFIX=24`/`NETMASK=255.255.255.0`：子网掩码</span><br><span class="line">              *   配置多个子网掩码对应`IP`，`PREFIX0`、`PREFIX1`、... ...</span><br><span class="line">          *   `NAME=eth0`：配置名字</span><br><span class="line"></span><br><span class="line">          示例：</span><br><span class="line"></span><br><span class="line">          单个IP配置</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code>  DEVICE=eth0
+  ONBOOT=yes
+  BOOTPROTO=static
+  IPADDR=172.25.254.108 #IP设置仅供参考，不同情况，不同IP
+  PREFIX=24
+  GATEWAY=172.25.254.111 # 网关配置，见下面
+  NAME=eth0
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">多个IP配置</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+  DEVICE=eth0
+  ONBOOT=yes
+  BOOTPROTO=static
+  IPADDR0=172.25.254.108 #IP设置仅供参考，不同情况，不同IP
+  PREFIX0=24
+  GATEWAY0=172.25.254.111 # 网关配置，见下面
+  IPADDR1=172.25.0.108 #IP设置仅供参考，不同情况，不同IP
+  PREFIX1=24
+  GATEWAY1=172.25.254.222 # 网关配置，见下面
+  NAME=eth0
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  7.  lo回环接口</span><br><span class="line"></span><br><span class="line">      &gt;   可以用来测试本机的通信协议是否完好，用于本机内部的通信。</span><br><span class="line"></span><br><span class="line">  8.  网关配置</span><br><span class="line"></span><br><span class="line">      &gt;   `vim /etc/sysconfig/network`，全局网关，针对没有设定网关的网卡配置文件</span><br><span class="line">      &gt;</span><br><span class="line">      &gt;   查看防火墙策略：`firewall-cmd --list-all`</span><br><span class="line">      &gt;</span><br><span class="line">      &gt;   添加防火墙策略：`firewall-cmd --permanent --add-masquerade`，主机作路由转换</span><br><span class="line">      &gt;</span><br><span class="line">      &gt;   重新加载服务：`firewall-cmd --list-all`</span><br><span class="line"></span><br><span class="line">  9.  DNS解析配置</span><br><span class="line"></span><br><span class="line">      &gt;   `vim /etc/resolv.conf`，配置文件位置，`DNS`服务器`nameserver 114.114.114.114`，也可以在网卡的配置文件中设置`DNS1=IP`。</span><br><span class="line">      &gt;</span><br><span class="line">      &gt;   `/etc/hosts`，本机暂存域名和IP的键值对，本地解析文件`IP 域名`</span><br><span class="line">      &gt;</span><br><span class="line">      &gt;   ​</span><br><span class="line">      &gt;</span><br><span class="line">      &gt;   在网络配置文件中可以添加`DNS1=8.8.8.8`或者其他的`IP`地址</span><br><span class="line">      &gt;</span><br><span class="line">      &gt;   如果远程的`dns`和本地的`host`域名解析冲突，通过修改`/etc/nsswitch.conf`来设置优先级别，在第39行。</span><br><span class="line"></span><br><span class="line">  10.  dhcp服务设置自己的DNS</span><br><span class="line"></span><br><span class="line">     &gt;   当网卡使用`dhcp`模式的时候网卡会使用`dhcp`服务器的`DNS`，如果不需要`dhcp`的DNS提供的信息，把`/etc/sysconfig/network-scripts/ifcfg-eth0`里面加上`PEERDNS=no`，使用自己的`DNS`不使用`dhcp`提供的服务</span><br><span class="line"></span><br><span class="line">  11.  man手册的帮助文档</span><br><span class="line"></span><br><span class="line">       &gt;   `/usr/share/doc/initscripts-9.49.37/sysconfig.txt`，其中的数字会不同版本号的原因，按`Tab`补齐就可以了。</span><br><span class="line"></span><br><span class="line">## dhcp服务</span><br><span class="line"></span><br><span class="line">  配置文件`/etc/dhcp/dhcpd.conf`拷贝模板配置文件`cp /usr/share/doc/dhcp-4.2.5/dhcpd.conf.example /etc/dhcp/dhcpd.conf`</span><br><span class="line"></span><br><span class="line">  *   `yum install -y dhcp`，安装`dhcp`服务</span><br><span class="line"></span><br><span class="line">  *   `cp /usr/share/doc/dhcp-4.2.5/dhcpd.conf.example /etc/dhcp/dhcpd.conf`</span><br><span class="line"></span><br><span class="line">  *   `vim /etc/dhcp/dhcpd.conf`，编辑配置文件</span><br><span class="line"></span><br><span class="line">      *   `subnet`：分配的IP地址</span><br><span class="line">      *   `netmark`：子网掩码</span><br><span class="line">      *   `range IP1 IP2;`：分配的IP池范围</span><br><span class="line">      *   `option routers IP;`：网关</span><br><span class="line"></span><br><span class="line">  *   完整配置文件示例</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</code></pre>
+<h1 id="dhcpd-conf"><a href="#dhcpd-conf" class="headerlink" title="dhcpd.conf"></a>dhcpd.conf</h1><h1 id=""><a href="#" class="headerlink" title=""></a></h1><h1 id="Sample-configuration-file-for-ISC-dhcpd"><a href="#Sample-configuration-file-for-ISC-dhcpd" class="headerlink" title="Sample configuration file for ISC dhcpd"></a>Sample configuration file for ISC dhcpd</h1><h1 id="-1"><a href="#-1" class="headerlink" title=""></a></h1><h1 id="option-definitions-common-to-all-supported-networks…"><a href="#option-definitions-common-to-all-supported-networks…" class="headerlink" title="option definitions common to all supported networks…"></a>option definitions common to all supported networks…</h1><p>  option domain-name “example.org”;<br>  option domain-name-servers ns1.example.org, ns2.example.org;</p>
+<p>  default-lease-time 600;<br>  max-lease-time 7200;</p>
+<h1 id="Use-this-to-enble-disable-dynamic-dns-updates-globally"><a href="#Use-this-to-enble-disable-dynamic-dns-updates-globally" class="headerlink" title="Use this to enble / disable dynamic dns updates globally."></a>Use this to enble / disable dynamic dns updates globally.</h1><p>  #ddns-update-style none;</p>
+<h1 id="If-this-DHCP-server-is-the-official-DHCP-server-for-the-local"><a href="#If-this-DHCP-server-is-the-official-DHCP-server-for-the-local" class="headerlink" title="If this DHCP server is the official DHCP server for the local"></a>If this DHCP server is the official DHCP server for the local</h1><h1 id="network-the-authoritative-directive-should-be-uncommented"><a href="#network-the-authoritative-directive-should-be-uncommented" class="headerlink" title="network, the authoritative directive should be uncommented."></a>network, the authoritative directive should be uncommented.</h1><p>  #authoritative;</p>
+<h1 id="Use-this-to-send-dhcp-log-messages-to-a-different-log-file-you-also"><a href="#Use-this-to-send-dhcp-log-messages-to-a-different-log-file-you-also" class="headerlink" title="Use this to send dhcp log messages to a different log file (you also"></a>Use this to send dhcp log messages to a different log file (you also</h1><h1 id="have-to-hack-syslog-conf-to-complete-the-redirection"><a href="#have-to-hack-syslog-conf-to-complete-the-redirection" class="headerlink" title="have to hack syslog.conf to complete the redirection)."></a>have to hack syslog.conf to complete the redirection).</h1><p>  log-facility local7;</p>
+<h1 id="No-service-will-be-given-on-this-subnet-but-declaring-it-helps-the"><a href="#No-service-will-be-given-on-this-subnet-but-declaring-it-helps-the" class="headerlink" title="No service will be given on this subnet, but declaring it helps the"></a>No service will be given on this subnet, but declaring it helps the</h1><h1 id="DHCP-server-to-understand-the-network-topology"><a href="#DHCP-server-to-understand-the-network-topology" class="headerlink" title="DHCP server to understand the network topology."></a>DHCP server to understand the network topology.</h1></li>
+</ul>
+<pre><code>  # This is a very basic subnet declaration.
+
+  subnet 172.25.254.0 netmask 255.255.255.0 &#123;
+    range 172.25.254.50 172.25.254.80;
+    option routers 172.25.254.250;
+  &#125;
+</code></pre>
+<pre><code>
+  *   服务端：`/var/lib/dhcpd/dhcpd.leases`
+
+  *   客户端：`/var/log/message`
+</code></pre>
+</blockquote>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2021/11/13/Linux/05linux%E5%9F%BA%E7%A1%80/" title="" target="_blank" rel="external">http://example.com/2021/11/13/Linux/05linux基础/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/ainihu" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/ainihu" target="_blank"><span class="text-dark">昵称</span><small class="ml-1x">Web Developer &amp; Designer</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/11/13/Linux/04linux%E5%9F%BA%E7%A1%80/" title="(no title)"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/11/13/Linux/06linux%E5%9F%BA%E7%A1%80/" title="(no title)"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/ainihu" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/ainihu" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/ainihu" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+<script src="//cdn.jsdelivr.net/npm/gitment@0.0.3/dist/gitment.browser.min.js"></script>
+<script>
+var gitment = new Gitment({
+  // id默认为当前页面url，如果url后带参数或锚点，gitment要重新初始化
+  // https://github.com/imsun/gitment/issues/55
+  // 解决方案：id:window.location.pathname,或者将id设置为当前页面标题
+  id: '', 
+  owner: 'ainihu', // 可以是你的GitHub用户名，也可以是github id
+  repo: 'ainihu.github.io',
+  oauth: {
+    client_id: '05c85d22667d5cbee237',
+    client_secret: '77235833fd2a5f50f547eddddd262465feb55af5',
+  }
+})
+gitment.render('comments')
+</script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

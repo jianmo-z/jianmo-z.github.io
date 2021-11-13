@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Hexo</title>
+  <meta name="description" content="Linux基础进程动态监控   top：动态查看进程    按1显示CPU每个核的负载   按s修改刷新频率   按c依照CPU负载排序   按m依照内存大小排序   按h获取帮助   按u查看指定用户的进程，需要输入用户名   按k对指定用户进程发起信号   按q退出     PID USER PR NI VIRT    进程id 进程用户 人物优先级 优先级值 进程使用的虚拟内存      R">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2021/11/13/Linux/04linux%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Linux基础进程动态监控   top：动态查看进程    按1显示CPU每个核的负载   按s修改刷新频率   按c依照CPU负载排序   按m依照内存大小排序   按h获取帮助   按u查看指定用户的进程，需要输入用户名   按k对指定用户进程发起信号   按q退出     PID USER PR NI VIRT    进程id 进程用户 人物优先级 优先级值 进程使用的虚拟内存      R">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-11-13T08:08:48.227Z">
+<meta property="article:modified_time" content="2021-11-13T08:08:48.227Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://example.com/2021/11/13/Linux/04linux%E5%9F%BA%E7%A1%80/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitment@0.0.3/style/default.min.css">
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/ainihu" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">昵称</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Web Developer &amp; Designer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Shenzhen, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/ainihu" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/ainihu" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/ainihu" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80/" rel="tag">Linux基础</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%AE%89%E8%A3%85WPS/" rel="tag">Linux安装WPS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" rel="tag">基础命令</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Linux%E5%9F%BA%E7%A1%80/" style="font-size: 13px;">Linux基础</a> <a href="/tags/Linux%E5%AE%89%E8%A3%85WPS/" style="font-size: 13px;">Linux安装WPS</a> <a href="/tags/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" style="font-size: 13px;">基础命令</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a><span class="archive-list-count">10</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/11/13/Linux/02linux%E5%9F%BA%E7%A1%80/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-11-13T08:08:48.227Z" itemprop="datePublished">2021-11-13</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/11/13/Linux/03linux%E5%9F%BA%E7%A1%80/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-11-13T08:08:48.227Z" itemprop="datePublished">2021-11-13</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/11/13/Linux/04linux%E5%9F%BA%E7%A1%80/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-11-13T08:08:48.227Z" itemprop="datePublished">2021-11-13</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/11/13/Linux/05linux%E5%9F%BA%E7%A1%80/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-11-13T08:08:48.227Z" itemprop="datePublished">2021-11-13</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/11/13/Linux/06linux%E5%9F%BA%E7%A1%80/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-11-13T08:08:48.227Z" itemprop="datePublished">2021-11-13</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-Linux/04linux基础" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/11/13/Linux/04linux%E5%9F%BA%E7%A1%80/" class="article-date">
+	  <time datetime="2021-11-13T08:08:48.227Z" itemprop="datePublished">2021-11-13</time>
+	</a>
+</span>
+        
+        
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/11/13/Linux/04linux%E5%9F%BA%E7%A1%80/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="Linux基础"><a href="#Linux基础" class="headerlink" title="Linux基础"></a>Linux基础</h1><h2 id="进程动态监控"><a href="#进程动态监控" class="headerlink" title="进程动态监控"></a>进程动态监控</h2><blockquote>
+<p>  <code>top</code>：动态查看进程</p>
+<ul>
+<li>  按<code>1</code>显示CPU每个核的负载</li>
+<li>  按<code>s</code>修改刷新频率</li>
+<li>  按<code>c</code>依照CPU负载排序</li>
+<li>  按<code>m</code>依照内存大小排序</li>
+<li>  按<code>h</code>获取帮助</li>
+<li>  按<code>u</code>查看指定用户的进程，需要输入用户名</li>
+<li>  按<code>k</code>对指定用户进程发起信号</li>
+<li>  按<code>q</code>退出</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>PID</th>
+<th>USER</th>
+<th>PR</th>
+<th>NI</th>
+<th>VIRT</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>进程id</td>
+<td>进程用户</td>
+<td>人物优先级</td>
+<td>优先级值</td>
+<td>进程使用的虚拟内存</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>RES</th>
+<th>SHR</th>
+<th>%CPU</th>
+<th>%MEM</th>
+<th>TIME</th>
+<th>COMMAND</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>进程使用的未被换出的物理内存大小</td>
+<td>共享内存</td>
+<td>CPU使用率</td>
+<td>内存使用率</td>
+<td>使用CPU的时间总计</td>
+<td>命令名</td>
+</tr>
+</tbody></table>
+</blockquote>
+<h2 id="控制服务systemctl"><a href="#控制服务systemctl" class="headerlink" title="控制服务systemctl"></a>控制服务<code>systemctl</code></h2><blockquote>
+<p><code>C/S</code>：server、client</p>
+<ul>
+<li>  <code>pstree</code>：查看进程树</li>
+<li>  <code>systemd</code>系统初始化进程</li>
+<li>  进程控制命令<code>systemctl</code></li>
+<li>  <code>ssh</code>，<code>client</code> ===&gt; <code>sshd</code>，<code>server</code></li>
+<li>  <code>status</code>：查看服务状态</li>
+<li>  <code>start</code>：开启服务</li>
+<li>  <code>restart</code>：重启服务</li>
+<li>  <code>stop</code>：停止服务</li>
+<li>  <code>reload</code>：重新加载服务配置</li>
+<li>  <code>disable</code>：设置服务，开机不自启动  </li>
+<li>  <code>enable</code>：设置服务，开机自启动</li>
+<li>  <code>mask</code>：设置无法启动，注销服务</li>
+<li>  查看端口</li>
+<li>  <code>netstat -antulpe | grep :22</code>，查看22端口的程序</li>
+</ul>
+</blockquote>
+<h2 id="linux查看本机ip"><a href="#linux查看本机ip" class="headerlink" title="linux查看本机ip"></a>linux查看本机ip</h2><ul>
+<li>  <code>ip addr show</code>，推荐使用，可以查到所有的ip地址</li>
+<li>  <code>ifconfig</code>，只能查看到一个ip地址</li>
+</ul>
+<h2 id="修改hostname"><a href="#修改hostname" class="headerlink" title="修改hostname"></a>修改hostname</h2><blockquote>
+<p><code>hostnamctl set-hostname yourhostname</code>，将<code>yourhostname</code>改成你要设置的名字即可。</p>
+</blockquote>
+<h2 id="ssh服务"><a href="#ssh服务" class="headerlink" title="ssh服务"></a>ssh服务</h2><blockquote>
+<p>  <code>ssh username@ip</code>，文本方式链接</p>
+<ul>
+<li>  <code>username</code>：登陆的用户名</li>
+<li>  <code>ip</code>：目标主机ip</li>
+<li>  <code>-X</code>：在链接成功后可以打开图形，比如摄像头<code>cheese</code>… …</li>
+</ul>
+<blockquote>
+<p>  <code>sshd</code>，表示服务，在服务器端使用</p>
+<p>  <code>ssh</code>，客户端使用，连接远程服务。</p>
+</blockquote>
+<ul>
+<li>  <code>sshd = secure shell</code></li>
+</ul>
+<p>  <code>第一次链接会在家目录下生成</code>~/.ssh/known_hosts`认证文件</p>
+<ul>
+<li><p>key认证</p>
+<ul>
+<li><p>  第一步：<code>ssh-keygen</code>，在<code>~/.ssh/</code>生成公钥和密钥，三次回车，不设置就回车。</p>
+</li>
+<li><p>  第二步：进入<code>~/.ssh/</code>，有两个文件<code>id_rsa(私钥)</code>和<code>id_rsa.pub(公钥)</code></p>
+</li>
+<li><p>  第三步：使用公钥加密主机<code>ssh-copy-id -i id_rsa.pub root@ip</code></p>
+</li>
+<li><p>第四步：把<code>id_rsa</code>发送给目标主机，且需要放在<code>~/.ssh</code>目录下。</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen</span><br><span class="line">cd ~/.ssh/</span><br><span class="line">ssh-copy-id -i id_rsa.pub root@172.25.254.108 </span><br><span class="line">scp ./id_rsa root@172.25.254.108:/root/.ssh/</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>  <code>ssh</code>远程连接目标主机就不需要再输入密码，完成所有操作了。。。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>访问控制</p>
+<p>  配置文件：<code>/etc/ssh/sshd_config</code></p>
+<ul>
+<li>  字段：<code>PasswordAuthentication yes</code>，是否允许用户通过密码登陆</li>
+<li>  字段：<code>PermitRootLogin yes</code>，是否允许<code>root</code>登陆</li>
+<li>  字段：<code>Allowusers username1 username2</code>，允许登陆的白名单，多个用户用空格分隔开</li>
+<li>  字段：<code>Denyusers username1 username2</code>，不允许登陆的黑名单，多个用户用空格分隔开</li>
+</ul>
+</li>
+<li><p>  配置文件生效需要重启<code>sshd</code>服务</p>
+</li>
+<li><p>  查看配置文件的写法：<code>man 5 sshd_config</code></p>
+</li>
+<li><p>  登陆信息：<code>vim /etc/motd</code>，在用户登陆的时候提示信息，文件内容就是登陆后的显示信息。</p>
+</li>
+<li><p>用户审计：</p>
+<ul>
+<li>  <code>w -i</code>：查看正在登陆系统用户，显示ip</li>
+<li>  <code>w -f</code>：查看使用来源，显示主机名</li>
+<li>  <code>last</code>：查看谁登录过你的<code>shell</code></li>
+<li>  <code>lastb</code>：试图登录但是没有成功</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="scp服务"><a href="#scp服务" class="headerlink" title="scp服务"></a>scp服务</h2><blockquote>
+<p>  <code>scp sendfile username@ip:absolute_path</code>，上传文件</p>
+<p>  <code>scp username@ip:absolute_path_file dir </code>，下载文件</p>
+<ul>
+<li>  <code>-r</code>：下载/上传目录时会用到，递归下载/上传文件</li>
+<li>  <code>-p</code>：保存文件的信息(时间戳…)下载/上传到目的主机</li>
+<li>  <code>absolute_path</code>：<strong>绝对路径</strong></li>
+</ul>
+</blockquote>
+<h2 id="忘记root密码？？？"><a href="#忘记root密码？？？" class="headerlink" title="忘记root密码？？？"></a>忘记root密码？？？</h2><blockquote>
+<ul>
+<li>  第一步：重启电脑，进入系统选择界面按<code>e</code>。</li>
+<li>  第二步：找到倒数第二行把<code>ro</code>当前行的后面的内容删掉。并把<code>ro</code>改为<code>rw  rb.break</code>，再按<code>Ctrl + x</code>，启动系统。</li>
+<li>  第三步：进入系统后，<code>chroot /sysroot/</code>进入系统分区，并使用<code>passwd root</code>修改<code>root</code>用户密码。</li>
+<li>  第四步：在根目录下创建<code>touch /.autorelabel</code>，如果不创建系统启动会出问题。</li>
+<li>  第五步：使用两次<code>exit</code>来重启电脑，使用修改后的密码登录。</li>
+</ul>
+</blockquote>
+<h2 id="rsync-远程同步"><a href="#rsync-远程同步" class="headerlink" title="rsync 远程同步"></a>rsync 远程同步</h2><blockquote>
+<p>速度快，默认会忽略文件属性，链接文件，设备文件</p>
+<p>参数：</p>
+<ul>
+<li>  <code>-r</code>：同步目录</li>
+<li>  <code>-p</code>：同步权限</li>
+<li>  <code>-o</code>：同步文件所有人</li>
+<li>  <code>-g</code>：同步文件所有组</li>
+<li>  <code>-t</code>：同步文件时间戳</li>
+<li>  <code>-l</code>：同步链接文件</li>
+<li>  <code>-D</code>：同步设备文件</li>
+</ul>
+</blockquote>
+<h2 id="查看文件大小"><a href="#查看文件大小" class="headerlink" title="查看文件大小"></a>查看文件大小</h2><blockquote>
+<p>  <code>du -sh dir</code></p>
+<p>  参数：</p>
+<ul>
+<li>  <code>-s</code>：显示总的文件大小</li>
+<li>  <code>-h</code>：人类容易辨别的字节大小单位</li>
+</ul>
+</blockquote>
+<h2 id="打包文件-tar"><a href="#打包文件-tar" class="headerlink" title="打包文件 tar"></a>打包文件 tar</h2><blockquote>
+<p><code>-x</code>：解包</p>
+<p><code>-c</code>：创建一个压缩包</p>
+<p><code>-v</code>：显示过程详情信息</p>
+<p><code>-f</code>：指定打包后的名字</p>
+<p><code>-t</code>：查看归档文件内容</p>
+<p><code>-r</code>：添加文件到归档，第一个为归档，后面的是要添加的文件</p>
+<p><code>--get</code>：解挡指定文件，<code>tar f etc.tar --get file</code></p>
+<p><code>--delete</code>：删除归档指定的文件，<code>tar f etc.tar --delete file</code></p>
+<p><code>-C</code>：指定解档目录</p>
+<p><code>-z</code>：使用<code>gzip</code>压缩</p>
+<p><code>-J</code>：使用<code>xz</code>压缩</p>
+<p><code>-j</code>：使用<code>gzip2</code>压缩</p>
+</blockquote>
+<h2 id="压缩"><a href="#压缩" class="headerlink" title="压缩"></a>压缩</h2><blockquote>
+<ul>
+<li><code>zip</code>压缩，压缩效率高，推荐使用<ul>
+<li>  <code>zip -r filename.tar.zip etc.tar</code></li>
+<li>  <code>unzip  filname.tar.zip</code></li>
+</ul>
+</li>
+<li><code>gzip</code>压缩，压缩效率高，推荐使用+1<ul>
+<li>  <code>gzip filname.tar</code></li>
+<li>  <code>gunzip filname.tar.gz</code></li>
+</ul>
+</li>
+<li><code>bzip2</code>压缩，压缩效率低<ul>
+<li>  <code>bzip2 filname.tar</code></li>
+<li>  <code>bunzip2 filname.tar.bz2</code></li>
+</ul>
+</li>
+<li><code>xz</code>压缩，压缩效率最高，很慢<ul>
+<li>  <code>xz filname.tar</code></li>
+<li>  <code>unxz filname.tar.xz</code></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2021/11/13/Linux/04linux%E5%9F%BA%E7%A1%80/" title="" target="_blank" rel="external">http://example.com/2021/11/13/Linux/04linux基础/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/ainihu" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/ainihu" target="_blank"><span class="text-dark">昵称</span><small class="ml-1x">Web Developer &amp; Designer</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/11/13/Linux/03linux%E5%9F%BA%E7%A1%80/" title="(no title)"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/11/13/Linux/05linux%E5%9F%BA%E7%A1%80/" title="(no title)"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/ainihu" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/ainihu" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/ainihu" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+<script src="//cdn.jsdelivr.net/npm/gitment@0.0.3/dist/gitment.browser.min.js"></script>
+<script>
+var gitment = new Gitment({
+  // id默认为当前页面url，如果url后带参数或锚点，gitment要重新初始化
+  // https://github.com/imsun/gitment/issues/55
+  // 解决方案：id:window.location.pathname,或者将id设置为当前页面标题
+  id: '', 
+  owner: 'ainihu', // 可以是你的GitHub用户名，也可以是github id
+  repo: 'ainihu.github.io',
+  oauth: {
+    client_id: '05c85d22667d5cbee237',
+    client_secret: '77235833fd2a5f50f547eddddd262465feb55af5',
+  }
+})
+gitment.render('comments')
+</script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -2,9 +2,72 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://example.com/2021/11/10/hello-world/</loc>
+    <loc>http://example.com/2021/11/13/Linux/01linux%E5%9F%BA%E7%A1%80/</loc>
     
-    <lastmod>2021-11-10</lastmod>
+    <lastmod>2021-11-13</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://example.com/2021/11/13/Linux/02linux%E5%9F%BA%E7%A1%80/</loc>
+    
+    <lastmod>2021-11-13</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://example.com/2021/11/13/Linux/03linux%E5%9F%BA%E7%A1%80/</loc>
+    
+    <lastmod>2021-11-13</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://example.com/2021/11/13/Linux/04linux%E5%9F%BA%E7%A1%80/</loc>
+    
+    <lastmod>2021-11-13</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://example.com/2021/11/13/Linux/05linux%E5%9F%BA%E7%A1%80/</loc>
+    
+    <lastmod>2021-11-13</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://example.com/2021/11/13/Linux/06linux%E5%9F%BA%E7%A1%80/</loc>
+    
+    <lastmod>2021-11-13</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://example.com/2021/11/13/Linux/07linux%E5%9F%BA%E7%A1%80/</loc>
+    
+    <lastmod>2021-11-13</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://example.com/2021/11/13/Linux/08linux%E5%9F%BA%E7%A1%80/</loc>
+    
+    <lastmod>2021-11-13</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://example.com/2021/11/13/Linux/09linux%E5%9F%BA%E7%A1%80/</loc>
+    
+    <lastmod>2021-11-13</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://example.com/2021/11/13/Linux/10linux%E5%9F%BA%E7%A1%80/</loc>
+    
+    <lastmod>2021-11-13</lastmod>
     
   </url>
   
@@ -17,6 +80,34 @@
   </url>
 
   
+  <url>
+    <loc>http://example.com/tags/Linux%E5%9F%BA%E7%A1%80/</loc>
+    <lastmod>2021-11-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/tags/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2021-11-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/tags/Linux%E5%AE%89%E8%A3%85WPS/</loc>
+    <lastmod>2021-11-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
 
+  
+  <url>
+    <loc>http://example.com/categories/Linux/</loc>
+    <lastmod>2021-11-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
   
 </urlset>
