@@ -26,7 +26,7 @@
 <meta property="og:description" content="10 Linux基础知识–LVM卷&amp;ftp&amp;防火墙LVM逻辑卷   pv物理卷，被lv命令处理过的物理分区   vg物理卷组，被组装到一起的物理卷   pe物理扩展，lvm设备的最小单元，lvm是pe的最小单元   lvm逻辑卷，直接使用的设备，可以增大缩减并保持原有数据不变 创建LVM  pvcreate &#x2F;dev&#x2F;vdb1，创建一个分区，前提需要一个分区，使用fdisk分区，标">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-11-13T05:00:00.000Z">
-<meta property="article:modified_time" content="2021-11-14T06:28:34.698Z">
+<meta property="article:modified_time" content="2021-11-14T08:25:54.460Z">
 <meta property="article:author" content="Zhanghui">
 <meta property="article:tag" content="LVM卷">
 <meta property="article:tag" content="ftp">
@@ -386,6 +386,15 @@
 
   
   
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#10-Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%93LVM%E5%8D%B7-amp-ftp-amp-%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-number">1.</span> <span class="toc-text">10 Linux基础知识–LVM卷&amp;ftp&amp;防火墙</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#LVM%E9%80%BB%E8%BE%91%E5%8D%B7"><span class="toc-number">1.1.</span> <span class="toc-text">LVM逻辑卷</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E4%BF%A1%E6%81%AF"><span class="toc-number">1.2.</span> <span class="toc-text">查看信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LVM%E5%87%8F%E5%B0%8F%E5%92%8C%E6%89%A9%E5%AE%B9"><span class="toc-number">1.3.</span> <span class="toc-text">LVM减小和扩容</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#xfs%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text">xfs格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ext%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.3.2.</span> <span class="toc-text">ext格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LVM%E5%BF%AB%E7%85%A7"><span class="toc-number">1.3.3.</span> <span class="toc-text">LVM快照</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ftp%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.4.</span> <span class="toc-text">ftp服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ftp%E7%9A%84%E5%AE%89%E5%85%A8%E9%83%A8%E7%BD%B2"><span class="toc-number">1.5.</span> <span class="toc-text">ftp的安全部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ftp%E5%8C%BF%E5%90%8D%E7%94%A8%E6%88%B7%E9%85%8D%E7%BD%AE"><span class="toc-number">1.6.</span> <span class="toc-text">ftp匿名用户配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ftp%E6%9C%AC%E5%9C%B0%E7%94%A8%E6%88%B7%E9%85%8D%E7%BD%AE"><span class="toc-number">1.7.</span> <span class="toc-text">ftp本地用户配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ftp%E8%99%9A%E6%8B%9F%E7%94%A8%E6%88%B7%E9%85%8D%E7%BD%AE"><span class="toc-number">1.8.</span> <span class="toc-text">ftp虚拟用户配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-number">1.9.</span> <span class="toc-text">防火墙</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SELinux%E5%86%85%E6%A0%B8%E7%BA%A7%E5%88%AB%E7%9A%84%E5%8A%A0%E5%BC%BA%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-number">1.10.</span> <span class="toc-text">SELinux内核级别的加强防火墙</span></a></li></ol></li></ol>
+    </nav>
+  </div>
+</aside>
+
 <main class="main" role="main">
   <div class="content">
   <article id="post-Linux/10linux基础" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
@@ -714,6 +723,15 @@
     
     
     
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
   </ul>
   
   
@@ -947,7 +965,7 @@ $(function() {
     appId: 'HWeSYxEgUb4QJP5fMcLyhcbO-gzGzoHsz',
     appKey: 'FyoSEBuamW1Or1TCvnEIk6Pe',
     placeholder: 'Just go go',
-    avatar: 'mm',
+    avatar: 'mp',
     meta: meta,
     pageSize: '10' || 10,
     visitor: false
