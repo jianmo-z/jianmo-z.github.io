@@ -323,31 +323,6 @@
           <li>
             
             <div class="item-thumb">
-              <a href="/2022/01/19/Socket/day02/" class="thumb">
-    
-    
-        <span class="thumb-image thumb-none"></span>
-    
-</a>
-
-            </div>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/Socket/">Socket</a>
-              </p>
-              <p class="item-title">
-                <a href="/2022/01/19/Socket/day02/" class="title">02 C/S模型、socket相关函数</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2022-01-19T05:00:00.000Z" itemprop="datePublished">2022-01-19</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-thumb">
               <a href="/2022/01/19/Socket/day01/" class="thumb">
     
     
@@ -370,6 +345,31 @@
             </div>
           </li>
           
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/2022/01/19/Socket/day02/" class="thumb">
+    
+    
+        <span class="thumb-image thumb-none"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Socket/">Socket</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/01/19/Socket/day02/" class="title">02 C/S模型、socket相关函数</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-01-19T05:00:00.000Z" itemprop="datePublished">2022-01-19</time>
+              </p>
+            </div>
+          </li>
+          
       </ul>
     </div>
   </div>
@@ -383,6 +383,49 @@
   <main class="main" role="main">
   
   <div class="content article-list">
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/12/14/Golang/12%E8%8C%83%E5%9B%B4Range/">12 Golang范围Range</a>
+    </h1>
+  
+
+  </div>
+  
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="12-范围Range"><a href="#12-范围Range" class="headerlink" title="12 范围Range"></a>12 范围Range</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import	&quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">	range关键字用于for循环中迭代数组(array)、切片(slice)、通道(channel)或集合(map)</span><br><span class="line">的元素。</span><br><span class="line">	返回值：</span><br><span class="line">		第一个表示下标</span><br><span class="line">		第二个表示值</span><br><span class="line">	如果是map：</span><br><span class="line">		第一个表示key</span><br><span class="line">		第二个表示value</span><br><span class="line"></span><br><span class="line">	用 &#x27;_&#x27;去接收一个变量表示不关心这个变量的值，起到占位的作用，该位置的值会被抛弃掉</span><br><span class="line">*/</span><br><span class="line">func main() &#123;</span><br><span class="line">	a := [] int&#123;1, 2, 4, 5&#125;</span><br><span class="line">	m := map[int]string&#123;1:&quot;hello&quot;, 2:&quot;world&quot;, 3:&quot;hi&quot;&#125;</span><br><span class="line">	fmt.Println(a)</span><br><span class="line"></span><br><span class="line">	for index, num := range a &#123; // 如果不关心下标，可以设置为 &#x27;_&#x27;</span><br><span class="line">		fmt.Println(&quot;index =&quot;, index, &quot;num =&quot;, num)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	for key, value := range m&#123;</span><br><span class="line">		fmt.Println(&quot;key =&quot;, key, &quot; value =&quot;, value)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/12/14/Golang/12%E8%8C%83%E5%9B%B4Range/" class="article-date">
+	  <time datetime="2021-12-14T05:00:00.000Z" itemprop="datePublished">12月 14</time>
+	</a>
+</span>
+    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a>
+  </span>
+
+    
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/14/Golang/12%E8%8C%83%E5%9B%B4Range/#comments" class="article-comment-link">评论</a></span>
+    
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 188(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
+	
+
+  </p>
+</article>
+
     
       <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
   <div class="article-header">
@@ -561,6 +604,49 @@
     
   
     <h1 itemprop="name">
+      <a class="article-title" href="/2021/12/14/Golang/17%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/">17 Golang错误处理</a>
+    </h1>
+  
+
+  </div>
+  
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="17-错误处理"><a href="#17-错误处理" class="headerlink" title="17 错误处理"></a>17 错误处理</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;errors&quot;</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">Go通过内置的错误接口提供了非常简单的错误处理机制</span><br><span class="line"></span><br><span class="line">内部定义为:</span><br><span class="line">	type error interface &#123;</span><br><span class="line">		Error() string</span><br><span class="line">	&#125;</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">// 内置的错误处理接口</span><br><span class="line">func driv(a, b int)(float32, error)  &#123;</span><br><span class="line">	if b == 0&#123;</span><br><span class="line">		return 0, errors.New(&quot;分母不能为0&quot;)</span><br><span class="line">	&#125;</span><br><span class="line">	return float32(a)/float32(b), errors.New(&quot;success&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	result, err := driv(3, 4)</span><br><span class="line">	fmt.Println(&quot;result =&quot;, result, &quot; err =&quot;, err)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/12/14/Golang/17%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/" class="article-date">
+	  <time datetime="2021-12-14T05:00:00.000Z" itemprop="datePublished">12月 14</time>
+	</a>
+</span>
+    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a>
+  </span>
+
+    
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/14/Golang/17%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/#comments" class="article-comment-link">评论</a></span>
+    
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 113(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
+	
+
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
       <a class="article-title" href="/2021/12/14/Golang/18%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E5%90%8E%E7%BC%80%E5%B9%B6%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%98%E5%82%A8/">18 Golang批量修改文件后缀并格式化存储</a>
     </h1>
   
@@ -595,49 +681,6 @@
 	
 	
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2(分)</span>
-	
-
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/12/14/Golang/17%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/">17 Golang错误处理</a>
-    </h1>
-  
-
-  </div>
-  
-  <div class="article-entry text-muted" itemprop="description">
-    <h1 id="17-错误处理"><a href="#17-错误处理" class="headerlink" title="17 错误处理"></a>17 错误处理</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;errors&quot;</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">Go通过内置的错误接口提供了非常简单的错误处理机制</span><br><span class="line"></span><br><span class="line">内部定义为:</span><br><span class="line">	type error interface &#123;</span><br><span class="line">		Error() string</span><br><span class="line">	&#125;</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">// 内置的错误处理接口</span><br><span class="line">func driv(a, b int)(float32, error)  &#123;</span><br><span class="line">	if b == 0&#123;</span><br><span class="line">		return 0, errors.New(&quot;分母不能为0&quot;)</span><br><span class="line">	&#125;</span><br><span class="line">	return float32(a)/float32(b), errors.New(&quot;success&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	result, err := driv(3, 4)</span><br><span class="line">	fmt.Println(&quot;result =&quot;, result, &quot; err =&quot;, err)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2021/12/14/Golang/17%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/" class="article-date">
-	  <time datetime="2021-12-14T05:00:00.000Z" itemprop="datePublished">12月 14</time>
-	</a>
-</span>
-    
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a>
-  </span>
-
-    
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/14/Golang/17%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/#comments" class="article-comment-link">评论</a></span>
-    
-	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 113(字)</span>
-	
-	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
 	
 
   </p>
@@ -854,49 +897,6 @@
     
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/12/14/Golang/11%E5%88%87%E7%89%87slice/">11 Golang切片slice</a>
-    </h1>
-  
-
-  </div>
-  
-  <div class="article-entry text-muted" itemprop="description">
-    <h1 id="11-切片slice"><a href="#11-切片slice" class="headerlink" title="11 切片slice"></a>11 切片slice</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">定义切片:声明一个未指定大小的数组来定义切片</span><br><span class="line">	var identifier []type // 切片不需要说明长度</span><br><span class="line"></span><br><span class="line">或者使用make()函数来创建切片:</span><br><span class="line">	var slicel []type = make([]type, len)</span><br><span class="line">	slicel := make([]type, len)</span><br><span class="line"></span><br><span class="line">指定容量:(可以省略不写),要求length &lt;= capacity,符合逻辑</span><br><span class="line">	make([]T, length, capacity)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">len()</span><br><span class="line">cap()</span><br><span class="line"></span><br><span class="line">append()</span><br><span class="line">copy()</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">func main()&#123;</span><br><span class="line">	var arr = [] int&#123;1, 3, 4, 5, 3, 2, 7&#125;</span><br><span class="line">	a := arr[1:5]</span><br><span class="line">	b := arr[:5]</span><br><span class="line">	c := arr[1:]</span><br><span class="line">	d := arr[len(arr) - 1:len(arr) - 0]</span><br><span class="line"></span><br><span class="line">	fmt.Println(a)</span><br><span class="line">	fmt.Println(b)</span><br><span class="line">	fmt.Println(c)</span><br><span class="line">	fmt.Println(d)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	var array = make([]int, 5, 7)</span><br><span class="line">	fmt.Println(array)</span><br><span class="line">	fmt.Println(&quot;len =&quot;, len(array), &quot;\ncap =&quot;, cap(array))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	arrayAppend := append(array, 1)</span><br><span class="line">	fmt.Println(arrayAppend)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	arrayCopy := make([]int, 3)</span><br><span class="line">	// 如果len(array_copy) &lt; len(array_append)那么只会复制len(array_copy)个元素</span><br><span class="line">	copy(arrayCopy, arrayAppend)</span><br><span class="line">	fmt.Println(arrayCopy)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2021/12/14/Golang/11%E5%88%87%E7%89%87slice/" class="article-date">
-	  <time datetime="2021-12-14T05:00:00.000Z" itemprop="datePublished">12月 14</time>
-	</a>
-</span>
-    
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a>
-  </span>
-
-    
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/14/Golang/11%E5%88%87%E7%89%87slice/#comments" class="article-comment-link">评论</a></span>
-    
-	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 192(字)</span>
-	
-	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
-	
-
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
       <a class="article-title" href="/2021/11/13/Linux/01linux%E5%9F%BA%E7%A1%80/">01 Linux基础知识--基础命令&amp;安装wps</a>
     </h1>
   
@@ -908,7 +908,8 @@
 <p>   <code>Application</code>   —&gt; <code>System Tools</code> —&gt;  <code>Settings</code> —&gt; <code>Region &amp; Language</code></p>
 <p>   点击<code>加号</code>选择添加的输入法，找到中文输入法后，选择点击右上角的添加即可。</p>
 </blockquote>
-<p><img src="/2021/11/13/Linux/01linux%E5%9F%BA%E7%A1%80/01%E8%AF%AD%E8%A8%80%E8%AE%BE%E7%BD%AE.png" alt="01语言设置"></p>
+<img src="/2021/11/13/Linux/01linux%E5%9F%BA%E7%A1%80/11/13/Linux/01linux%E5%9F%BA%E7%A1%80/01%E8%AF%AD%E8%A8%80%E8%AE%BE%E7%BD%AE.png" class alt="01语言设置">
+
 <h2 id="进入虚拟控制台"><a href="#进入虚拟控制台" class="headerlink" title="进入虚拟控制台"></a>进入虚拟控制台</h2><p><code>Ctrl + Alt + F1/F7</code>进入图形界面</p>
 <p><code>Ctrl + Alt + F2 ~ F6</code>进入图形界面</p>
 <p>通过<code>man  init </code>可以查看系统运行的等级。</p>
@@ -936,6 +937,79 @@
 
 
     <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/11/13/Linux/01linux%E5%9F%BA%E7%A1%80/#comments" class="article-comment-link">评论</a></span>
+    
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2.1k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 7(分)</span>
+	
+
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/11/13/Linux/02linux%E5%9F%BA%E7%A1%80/">02 Linux基础知识--vim&amp;用户管理</a>
+    </h1>
+  
+
+  </div>
+  
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="02-Linux基础知识–vim学习-amp-用户管理"><a href="#02-Linux基础知识–vim学习-amp-用户管理" class="headerlink" title="02 Linux基础知识–vim学习&amp;用户管理"></a>02 Linux基础知识–vim学习&amp;用户管理</h1><h2 id="vim模式"><a href="#vim模式" class="headerlink" title="vim模式"></a>vim模式</h2><ul>
+<li>  普通模式：浏览文件</li>
+<li>  插入模式：对文件内容进行编辑，输入<code>i</code></li>
+<li>  命令模式：临时更改vim的工作方式，对字符批量处理，输入<code>:</code></li>
+<li>  视图模式</li>
+<li>  选择模式</li>
+<li>  Ex模式</li>
+</ul>
+<h2 id="vim配置文件"><a href="#vim配置文件" class="headerlink" title="vim配置文件"></a>vim配置文件</h2><p><code>vim</code>的个人配置文件是<code>~/.vimrc</code>，即在家目录下的一个隐藏文件，如果这个文件不存在那么就新建一个，这个配置文件是当前用户的不会影响到其他用户，如果是想要影响所有的用户的<code>vim</code>配置那么就要修改<code>/etc/vimrc</code>文件，修改文件只需要在文件的最后添加就可以了。</p>
+<ul>
+<li>  <code>set shiftwidth=4</code>：配置自动缩进4个空格,当然要设自动缩进先.</li>
+<li>  <code>set sts=4  </code> ：即配置softtabstop为4.输入tab后就跳了4格</li>
+<li>  <code>set tabstop=4 </code> ：实际的tab即为4个空格,而不是缺省的8个Q</li>
+<li>  <code>set expandtab</code>：在输入tab后,vim用恰当的空格来填充这个<code>tab</code></li>
+<li>  普通模式下按<code>g</code>跳到文件尾</li>
+</ul>
+<h2 id="调整工作方式"><a href="#调整工作方式" class="headerlink" title="调整工作方式"></a>调整工作方式</h2><ul>
+<li>  <code>set nu</code>：设置行号</li>
+<li>  <code>set nonu</code>：取消行号</li>
+<li>  <code>set mouse=a</code>：设置鼠标</li>
+<li>  <code>set c</code>：显示行线</li>
+</ul>
+<h2 id="字符搜索"><a href="#字符搜索" class="headerlink" title="字符搜索"></a>字符搜索</h2><ul>
+<li>  <code>/</code>：从上向下搜索</li>
+<li>  <code>?</code>：从下向上搜索</li>
+</ul>
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/11/13/Linux/02linux%E5%9F%BA%E7%A1%80/" class="article-date">
+	  <time datetime="2021-11-13T05:00:00.000Z" itemprop="datePublished">11月 13</time>
+	</a>
+</span>
+    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </span>
+
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" rel="tag">Linux用户管理</a>, <a class="article-tag-link-link" href="/tags/vim/" rel="tag">vim</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/11/13/Linux/02linux%E5%9F%BA%E7%A1%80/#comments" class="article-comment-link">评论</a></span>
     
 	
 		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2.1k(字)</span>
@@ -1019,79 +1093,6 @@
 	
 	
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 4(分)</span>
-	
-
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/11/13/Linux/02linux%E5%9F%BA%E7%A1%80/">02 Linux基础知识--vim&amp;用户管理</a>
-    </h1>
-  
-
-  </div>
-  
-  <div class="article-entry text-muted" itemprop="description">
-    <h1 id="02-Linux基础知识–vim学习-amp-用户管理"><a href="#02-Linux基础知识–vim学习-amp-用户管理" class="headerlink" title="02 Linux基础知识–vim学习&amp;用户管理"></a>02 Linux基础知识–vim学习&amp;用户管理</h1><h2 id="vim模式"><a href="#vim模式" class="headerlink" title="vim模式"></a>vim模式</h2><ul>
-<li>  普通模式：浏览文件</li>
-<li>  插入模式：对文件内容进行编辑，输入<code>i</code></li>
-<li>  命令模式：临时更改vim的工作方式，对字符批量处理，输入<code>:</code></li>
-<li>  视图模式</li>
-<li>  选择模式</li>
-<li>  Ex模式</li>
-</ul>
-<h2 id="vim配置文件"><a href="#vim配置文件" class="headerlink" title="vim配置文件"></a>vim配置文件</h2><p><code>vim</code>的个人配置文件是<code>~/.vimrc</code>，即在家目录下的一个隐藏文件，如果这个文件不存在那么就新建一个，这个配置文件是当前用户的不会影响到其他用户，如果是想要影响所有的用户的<code>vim</code>配置那么就要修改<code>/etc/vimrc</code>文件，修改文件只需要在文件的最后添加就可以了。</p>
-<ul>
-<li>  <code>set shiftwidth=4</code>：配置自动缩进4个空格,当然要设自动缩进先.</li>
-<li>  <code>set sts=4  </code> ：即配置softtabstop为4.输入tab后就跳了4格</li>
-<li>  <code>set tabstop=4 </code> ：实际的tab即为4个空格,而不是缺省的8个Q</li>
-<li>  <code>set expandtab</code>：在输入tab后,vim用恰当的空格来填充这个<code>tab</code></li>
-<li>  普通模式下按<code>g</code>跳到文件尾</li>
-</ul>
-<h2 id="调整工作方式"><a href="#调整工作方式" class="headerlink" title="调整工作方式"></a>调整工作方式</h2><ul>
-<li>  <code>set nu</code>：设置行号</li>
-<li>  <code>set nonu</code>：取消行号</li>
-<li>  <code>set mouse=a</code>：设置鼠标</li>
-<li>  <code>set c</code>：显示行线</li>
-</ul>
-<h2 id="字符搜索"><a href="#字符搜索" class="headerlink" title="字符搜索"></a>字符搜索</h2><ul>
-<li>  <code>/</code>：从上向下搜索</li>
-<li>  <code>?</code>：从下向上搜索</li>
-</ul>
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2021/11/13/Linux/02linux%E5%9F%BA%E7%A1%80/" class="article-date">
-	  <time datetime="2021-11-13T05:00:00.000Z" itemprop="datePublished">11月 13</time>
-	</a>
-</span>
-    
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </span>
-
-    
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" rel="tag">Linux用户管理</a>, <a class="article-tag-link-link" href="/tags/vim/" rel="tag">vim</a>
-  </span>
-
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/11/13/Linux/02linux%E5%9F%BA%E7%A1%80/#comments" class="article-comment-link">评论</a></span>
-    
-	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2.1k(字)</span>
-	
-	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 7(分)</span>
 	
 
   </p>
@@ -1221,83 +1222,6 @@
     
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/11/13/Linux/06linux%E5%9F%BA%E7%A1%80/">06 Linux基础知识–-虚拟机安装</a>
-    </h1>
-  
-
-  </div>
-  
-  <div class="article-entry text-muted" itemprop="description">
-    <h1 id="06-Linux基础–-虚拟机安装"><a href="#06-Linux基础–-虚拟机安装" class="headerlink" title="06 Linux基础–-虚拟机安装"></a>06 Linux基础–-虚拟机安装</h1><h2 id="虚拟机的安装"><a href="#虚拟机的安装" class="headerlink" title="虚拟机的安装"></a>虚拟机的安装</h2><blockquote>
-<p>  关于这部分我不想写，个人觉得没必要，多踩坑多百度，自然就能解决。本人装系统已经装吐了，所以真的不想写了，请自行百度。</p>
-</blockquote>
-<h2 id="虚拟机管理命令"><a href="#虚拟机管理命令" class="headerlink" title="虚拟机管理命令"></a>虚拟机管理命令</h2><ul>
-<li><p>  <code>virt-manager</code>：超级用户执行，开启虚拟机管理器</p>
-</li>
-<li><p><code>virsh list</code>：查看正在运行的虚拟机</p>
-<ul>
-<li>  <code>virsh list --all</code>：查看所有的虚拟机状态</li>
-</ul>
-</li>
-<li><p>  <code>virsh start 虚拟机名</code>：打开一个虚拟机</p>
-</li>
-<li><p>  <code>virt-viewer 虚拟机名</code>：查看一个虚拟机</p>
-</li>
-<li><p>  <code>virsh shutdown 虚拟机名</code>：关闭一个正在运行的虚拟机，需要进入系统后才可以关闭</p>
-</li>
-<li><p>  <code>virsh desroy 虚拟机名</code>：虚拟机直接断电关机</p>
-</li>
-<li><p>  <code>virsh undefine 虚拟机名</code>：删除虚拟机</p>
-</li>
-</ul>
-<h2 id="复制-移动虚拟机"><a href="#复制-移动虚拟机" class="headerlink" title="复制/移动虚拟机"></a>复制/移动虚拟机</h2><ul>
-<li>  第一步拷贝<code>系统文件</code>：<code>/var/lib/libvirt/images/</code>目录下的<code>.qcow2</code>的文件，不同的名字表示不同的虚拟机</li>
-<li>  第二部拷贝<code>配置文件</code>：<code>/etc/libvirt/qemu</code>目录下对应的虚拟机的配置文件</li>
-<li>  第三步创建<code>创建虚拟机</code>：要求拷贝完母盘和配置文件，<code>virsh create 配置文件</code>，需要将母盘移动到<code>/var/lib/libvirt/images</code>目录中否则会提示找不到文件，这个恢复是一次性的</li>
-<li>  第四步<code>恢复虚拟机</code>：<code>virsh define 虚拟机名.xml</code>，<code>xml</code>文件是虚拟机的配置文件</li>
-</ul>
-<h2 id="脚本安装虚拟机"><a href="#脚本安装虚拟机" class="headerlink" title="脚本安装虚拟机"></a>脚本安装虚拟机</h2><p>以<code>.sh</code>结尾</p>
-<p>第一行<code>#!/bin/bash</code>指定解释器</p>
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2021/11/13/Linux/06linux%E5%9F%BA%E7%A1%80/" class="article-date">
-	  <time datetime="2021-11-13T05:00:00.000Z" itemprop="datePublished">11月 13</time>
-	</a>
-</span>
-    
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </span>
-
-    
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/" rel="tag">虚拟机安装</a>
-  </span>
-
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/11/13/Linux/06linux%E5%9F%BA%E7%A1%80/#comments" class="article-comment-link">评论</a></span>
-    
-	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 616(字)</span>
-	
-	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2(分)</span>
-	
-
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
       <a class="article-title" href="/2021/11/13/Linux/05linux%E5%9F%BA%E7%A1%80/">05 Linux基础知识–-日志&amp;网络配置</a>
     </h1>
   
@@ -1382,6 +1306,83 @@
 	
 	
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 8(分)</span>
+	
+
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/11/13/Linux/06linux%E5%9F%BA%E7%A1%80/">06 Linux基础知识–-虚拟机安装</a>
+    </h1>
+  
+
+  </div>
+  
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="06-Linux基础–-虚拟机安装"><a href="#06-Linux基础–-虚拟机安装" class="headerlink" title="06 Linux基础–-虚拟机安装"></a>06 Linux基础–-虚拟机安装</h1><h2 id="虚拟机的安装"><a href="#虚拟机的安装" class="headerlink" title="虚拟机的安装"></a>虚拟机的安装</h2><blockquote>
+<p>  关于这部分我不想写，个人觉得没必要，多踩坑多百度，自然就能解决。本人装系统已经装吐了，所以真的不想写了，请自行百度。</p>
+</blockquote>
+<h2 id="虚拟机管理命令"><a href="#虚拟机管理命令" class="headerlink" title="虚拟机管理命令"></a>虚拟机管理命令</h2><ul>
+<li><p>  <code>virt-manager</code>：超级用户执行，开启虚拟机管理器</p>
+</li>
+<li><p><code>virsh list</code>：查看正在运行的虚拟机</p>
+<ul>
+<li>  <code>virsh list --all</code>：查看所有的虚拟机状态</li>
+</ul>
+</li>
+<li><p>  <code>virsh start 虚拟机名</code>：打开一个虚拟机</p>
+</li>
+<li><p>  <code>virt-viewer 虚拟机名</code>：查看一个虚拟机</p>
+</li>
+<li><p>  <code>virsh shutdown 虚拟机名</code>：关闭一个正在运行的虚拟机，需要进入系统后才可以关闭</p>
+</li>
+<li><p>  <code>virsh desroy 虚拟机名</code>：虚拟机直接断电关机</p>
+</li>
+<li><p>  <code>virsh undefine 虚拟机名</code>：删除虚拟机</p>
+</li>
+</ul>
+<h2 id="复制-移动虚拟机"><a href="#复制-移动虚拟机" class="headerlink" title="复制/移动虚拟机"></a>复制/移动虚拟机</h2><ul>
+<li>  第一步拷贝<code>系统文件</code>：<code>/var/lib/libvirt/images/</code>目录下的<code>.qcow2</code>的文件，不同的名字表示不同的虚拟机</li>
+<li>  第二部拷贝<code>配置文件</code>：<code>/etc/libvirt/qemu</code>目录下对应的虚拟机的配置文件</li>
+<li>  第三步创建<code>创建虚拟机</code>：要求拷贝完母盘和配置文件，<code>virsh create 配置文件</code>，需要将母盘移动到<code>/var/lib/libvirt/images</code>目录中否则会提示找不到文件，这个恢复是一次性的</li>
+<li>  第四步<code>恢复虚拟机</code>：<code>virsh define 虚拟机名.xml</code>，<code>xml</code>文件是虚拟机的配置文件</li>
+</ul>
+<h2 id="脚本安装虚拟机"><a href="#脚本安装虚拟机" class="headerlink" title="脚本安装虚拟机"></a>脚本安装虚拟机</h2><p>以<code>.sh</code>结尾</p>
+<p>第一行<code>#!/bin/bash</code>指定解释器</p>
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/11/13/Linux/06linux%E5%9F%BA%E7%A1%80/" class="article-date">
+	  <time datetime="2021-11-13T05:00:00.000Z" itemprop="datePublished">11月 13</time>
+	</a>
+</span>
+    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </span>
+
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/" rel="tag">虚拟机安装</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/11/13/Linux/06linux%E5%9F%BA%E7%A1%80/#comments" class="article-comment-link">评论</a></span>
+    
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 616(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2(分)</span>
 	
 
   </p>

@@ -25,14 +25,12 @@
 <meta property="og:site_name" content="缄默">
 <meta property="og:description" content="day07本章目标 TCP 11种状态 连接建立三次握手、连接终止四次握手 TIME_WAIT与SO_REUSEADDR SIGPIPE  ACK、SYN和FIN 参考文档：https:&#x2F;&#x2F;zhidao.baidu.com&#x2F;question&#x2F;27114298.html ACK：是一种确认应答，在数据通信传输中，接收站发给发送站的一种传输控制字符。它表示确认发来的数据已经接受无误。SYN：攻击属于D">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://ainihu.github.io/2022/01/19/Socket/day07/tcp%E7%9A%8411%E7%A7%8D%E7%8A%B6%E6%80%81.png">
 <meta property="article:published_time" content="2022-01-19T05:00:00.000Z">
 <meta property="article:modified_time" content="2022-01-19T13:19:37.306Z">
 <meta property="article:author" content="Zhanghui">
 <meta property="article:tag" content="TCP的11种状态">
 <meta property="article:tag" content="SIGPIPPE信号">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://ainihu.github.io/2022/01/19/Socket/day07/tcp%E7%9A%8411%E7%A7%8D%E7%8A%B6%E6%80%81.png">
   <!-- Canonical links -->
   <link rel="canonical" href="http://ainihu.github.io/2022/01/19/Socket/day07/index.html">
   
@@ -331,31 +329,6 @@
           <li>
             
             <div class="item-thumb">
-              <a href="/2022/01/19/Socket/day02/" class="thumb">
-    
-    
-        <span class="thumb-image thumb-none"></span>
-    
-</a>
-
-            </div>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/Socket/">Socket</a>
-              </p>
-              <p class="item-title">
-                <a href="/2022/01/19/Socket/day02/" class="title">02 C/S模型、socket相关函数</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2022-01-19T05:00:00.000Z" itemprop="datePublished">2022-01-19</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-thumb">
               <a href="/2022/01/19/Socket/day01/" class="thumb">
     
     
@@ -371,6 +344,31 @@
               </p>
               <p class="item-title">
                 <a href="/2022/01/19/Socket/day01/" class="title">01 socket 字节序&amp;地址转换函数&amp;套接字类型</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-01-19T05:00:00.000Z" itemprop="datePublished">2022-01-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/2022/01/19/Socket/day02/" class="thumb">
+    
+    
+        <span class="thumb-image thumb-none"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Socket/">Socket</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/01/19/Socket/day02/" class="title">02 C/S模型、socket相关函数</a>
               </p>
               <p class="item-date">
                 <time datetime="2022-01-19T05:00:00.000Z" itemprop="datePublished">2022-01-19</time>
@@ -464,7 +462,8 @@
 <p>参考文档：<br><a target="_blank" rel="noopener" href="https://zhidao.baidu.com/question/27114298.html">https://zhidao.baidu.com/question/27114298.html</a></p>
 <p><code>ACK</code>：是一种确认应答，在数据通信传输中，接收站发给发送站的一种传输控制字符。它表示确认发来的数据已经接受无误。<br><code>SYN</code>：攻击属于<code>DOS</code>攻击的一种，它利用<code>TCP协议</code>缺陷，通过发送大量的<code>半连接请求</code>，耗费CPU和内存资源。是最常见又最容易被利用的一种攻击手法。<br><code>FIN</code>：是用来扫描保留的端口，发送一个<code>FIN</code>包（或者是任何没有ACK或SYN标记的包）到目标的一个开放的端口，然后等待回应。许多系统会返回一个复位标记。</p>
 </blockquote>
-<h2 id="TCP-11种状态"><a href="#TCP-11种状态" class="headerlink" title="TCP 11种状态"></a>TCP 11种状态</h2><p><img src="/2022/01/19/Socket/day07/tcp%E7%9A%8411%E7%A7%8D%E7%8A%B6%E6%80%81.png" alt="tcp的11种状态"></p>
+<h2 id="TCP-11种状态"><a href="#TCP-11种状态" class="headerlink" title="TCP 11种状态"></a>TCP 11种状态</h2>
+
 <blockquote>
 <p><strong>貌似有点不对啊，不是说是11种状态吗？？？怎么只有10种，莫非打错字了？？？NO！！！NO！！！NO！！！</strong></p>
 <p><strong>第十一种状态为：<code>CLOSING</code></strong></p>
@@ -549,12 +548,12 @@
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2022/01/19/Socket/day05/" title="05 readline实现、get*name系列函数"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+      <a href="/2022/01/19/Socket/day06/" title="06 TCP回射C/S&amp;僵尸进程&amp;SIGCHLD信号"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
     </li>
     
     
     <li class="next">
-      <a href="/2022/01/19/Socket/day06/" title="06 TCP回射C/S&amp;僵尸进程&amp;SIGCHLD信号"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2022/01/19/Socket/day08/" title="08 五种I/O模型&amp;select模型"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     

@@ -323,31 +323,6 @@
           <li>
             
             <div class="item-thumb">
-              <a href="/2022/01/19/Socket/day02/" class="thumb">
-    
-    
-        <span class="thumb-image thumb-none"></span>
-    
-</a>
-
-            </div>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/Socket/">Socket</a>
-              </p>
-              <p class="item-title">
-                <a href="/2022/01/19/Socket/day02/" class="title">02 C/S模型、socket相关函数</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2022-01-19T05:00:00.000Z" itemprop="datePublished">2022-01-19</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-thumb">
               <a href="/2022/01/19/Socket/day01/" class="thumb">
     
     
@@ -363,6 +338,31 @@
               </p>
               <p class="item-title">
                 <a href="/2022/01/19/Socket/day01/" class="title">01 socket 字节序&amp;地址转换函数&amp;套接字类型</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-01-19T05:00:00.000Z" itemprop="datePublished">2022-01-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/2022/01/19/Socket/day02/" class="thumb">
+    
+    
+        <span class="thumb-image thumb-none"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Socket/">Socket</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/01/19/Socket/day02/" class="title">02 C/S模型、socket相关函数</a>
               </p>
               <p class="item-date">
                 <time datetime="2022-01-19T05:00:00.000Z" itemprop="datePublished">2022-01-19</time>
@@ -473,7 +473,7 @@
   
   <div class="article-entry text-muted" itemprop="description">
     <h1 id="UDP-TCP文件传输"><a href="#UDP-TCP文件传输" class="headerlink" title="UDP/TCP文件传输"></a>UDP/TCP文件传输</h1><h2 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h2><blockquote>
-<p><img src="/2022/01/19/Socket/01%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/TCP_UDP%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93.png" alt="文件结构"></p>
+
 </blockquote>
 
   </div>
@@ -505,6 +505,86 @@
 	
 	
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
+	
+
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/01/19/Socket/day01/">01 socket 字节序&amp;地址转换函数&amp;套接字类型</a>
+    </h1>
+  
+
+  </div>
+  
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="day01"><a href="#day01" class="headerlink" title="day01"></a>day01</h1><h2 id="本章目标"><a href="#本章目标" class="headerlink" title="本章目标"></a>本章目标</h2><ul>
+<li>什么是<code>socket</code>?</li>
+<li>IPv4套接口地址结构</li>
+<li>网络字节序</li>
+<li>地址转换函数</li>
+<li>套接字类型</li>
+</ul>
+<h2 id="什么是socket"><a href="#什么是socket" class="headerlink" title="什么是socket?"></a>什么是socket?</h2><blockquote>
+<p><code>socket</code>可以看成是用户进程与内核网络协议栈的编程接口；</p>
+<p><code>socket</code>不仅可以用于本机的进程间通信，还可以用于网络上不同主机的进程通信。</p>
+<p>套接口通信是全双工通信。</p>
+<p><code>socket</code>可以异构通信，通信双方的软件、硬件可以不同。</p>
+</blockquote>
+<h2 id="IPv4套接口地址结构"><a href="#IPv4套接口地址结构" class="headerlink" title="IPv4套接口地址结构"></a>IPv4套接口地址结构</h2><blockquote>
+<p>IPv4套接口地址结构通常也称为”网际套接字地址结构”，它以”sockaddr_in”命名，定义在头文件&lt;netinet/in.h&gt;中****</p>
+<p><strong><code>man 7 ip</code>查看<code>sockaddr_in</code>结构体，<code>sockaddr_in</code>仅仅应用于<code>IPv4</code>地址结构</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">struct sockaddr_in</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&gt;​		uint8_t sin_len;</span><br><span class="line"></span><br><span class="line">&gt;​		sa_family_t sin_family;</span><br><span class="line"></span><br><span class="line">&gt;​		in_port_t sin_port;</span><br><span class="line"></span><br><span class="line">&gt;​		struct in_addr sin_addr;</span><br><span class="line"></span><br><span class="line">&gt;​		char sin_zero[8];</span><br><span class="line"></span><br><span class="line">&gt;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>sin_len</code>：整个<code>sockaddr_in</code>结构体的长度,在4.3BSD-Reno版本之前的第一个成员是<code>sin_family</code>；</p>
+<p><code>sin_family</code>：指定该地址家族，在这里必须设为<code>AF_INET</code>；</p>
+<p><code>sin_port</code>：端口；</p>
+<p><code>sin_addr</code>：IPv4的地址；</p>
+<p><code>sin_zero</code>：暂不使用，一般将其设置为0。</p>
+</blockquote>
+<h2 id="通用地址结构"><a href="#通用地址结构" class="headerlink" title="通用地址结构"></a>通用地址结构</h2><blockquote>
+<p>通用地址结构用来指定套接字关联的地址，<code>sockaddr</code>可以应用于所有的协议的套接口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt;struct sockaddr</span><br><span class="line"></span><br><span class="line">&gt;&#123;</span><br><span class="line"></span><br><span class="line">&gt;​	uint8_t sin_len;</span><br><span class="line"></span><br><span class="line">&gt;​	sa_family_t sin_family;</span><br><span class="line"></span><br><span class="line">&gt;​	char sa_data[14];</span><br><span class="line"></span><br><span class="line">&gt;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>sin_len</code>：整个<code>sockaddr</code>结构体的长度；</p>
+<p><code>sin_family</code>：指定该地址家族；</p>
+<p><code>sa_data</code>：由<code>sin_family</code>决定它的形式。</p>
+</blockquote>
+<h2 id="网络字节序"><a href="#网络字节序" class="headerlink" title="网络字节序"></a>网络字节序</h2>
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2022/01/19/Socket/day01/" class="article-date">
+	  <time datetime="2022-01-19T05:00:00.000Z" itemprop="datePublished">1月 19</time>
+	</a>
+</span>
+    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Socket/">Socket</a>
+  </span>
+
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/socket/" rel="tag">socket</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2022/01/19/Socket/day01/#comments" class="article-comment-link">评论</a></span>
+    
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 987(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 3(分)</span>
 	
 
   </p>
@@ -615,86 +695,6 @@
 	
 	
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2(分)</span>
-	
-
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/19/Socket/day01/">01 socket 字节序&amp;地址转换函数&amp;套接字类型</a>
-    </h1>
-  
-
-  </div>
-  
-  <div class="article-entry text-muted" itemprop="description">
-    <h1 id="day01"><a href="#day01" class="headerlink" title="day01"></a>day01</h1><h2 id="本章目标"><a href="#本章目标" class="headerlink" title="本章目标"></a>本章目标</h2><ul>
-<li>什么是<code>socket</code>?</li>
-<li>IPv4套接口地址结构</li>
-<li>网络字节序</li>
-<li>地址转换函数</li>
-<li>套接字类型</li>
-</ul>
-<h2 id="什么是socket"><a href="#什么是socket" class="headerlink" title="什么是socket?"></a>什么是socket?</h2><blockquote>
-<p><code>socket</code>可以看成是用户进程与内核网络协议栈的编程接口；</p>
-<p><code>socket</code>不仅可以用于本机的进程间通信，还可以用于网络上不同主机的进程通信。</p>
-<p>套接口通信是全双工通信。</p>
-<p><code>socket</code>可以异构通信，通信双方的软件、硬件可以不同。</p>
-</blockquote>
-<h2 id="IPv4套接口地址结构"><a href="#IPv4套接口地址结构" class="headerlink" title="IPv4套接口地址结构"></a>IPv4套接口地址结构</h2><blockquote>
-<p>IPv4套接口地址结构通常也称为”网际套接字地址结构”，它以”sockaddr_in”命名，定义在头文件&lt;netinet/in.h&gt;中****</p>
-<p><strong><code>man 7 ip</code>查看<code>sockaddr_in</code>结构体，<code>sockaddr_in</code>仅仅应用于<code>IPv4</code>地址结构</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">struct sockaddr_in</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&gt;​		uint8_t sin_len;</span><br><span class="line"></span><br><span class="line">&gt;​		sa_family_t sin_family;</span><br><span class="line"></span><br><span class="line">&gt;​		in_port_t sin_port;</span><br><span class="line"></span><br><span class="line">&gt;​		struct in_addr sin_addr;</span><br><span class="line"></span><br><span class="line">&gt;​		char sin_zero[8];</span><br><span class="line"></span><br><span class="line">&gt;&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>sin_len</code>：整个<code>sockaddr_in</code>结构体的长度,在4.3BSD-Reno版本之前的第一个成员是<code>sin_family</code>；</p>
-<p><code>sin_family</code>：指定该地址家族，在这里必须设为<code>AF_INET</code>；</p>
-<p><code>sin_port</code>：端口；</p>
-<p><code>sin_addr</code>：IPv4的地址；</p>
-<p><code>sin_zero</code>：暂不使用，一般将其设置为0。</p>
-</blockquote>
-<h2 id="通用地址结构"><a href="#通用地址结构" class="headerlink" title="通用地址结构"></a>通用地址结构</h2><blockquote>
-<p>通用地址结构用来指定套接字关联的地址，<code>sockaddr</code>可以应用于所有的协议的套接口</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt;struct sockaddr</span><br><span class="line"></span><br><span class="line">&gt;&#123;</span><br><span class="line"></span><br><span class="line">&gt;​	uint8_t sin_len;</span><br><span class="line"></span><br><span class="line">&gt;​	sa_family_t sin_family;</span><br><span class="line"></span><br><span class="line">&gt;​	char sa_data[14];</span><br><span class="line"></span><br><span class="line">&gt;&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>sin_len</code>：整个<code>sockaddr</code>结构体的长度；</p>
-<p><code>sin_family</code>：指定该地址家族；</p>
-<p><code>sa_data</code>：由<code>sin_family</code>决定它的形式。</p>
-</blockquote>
-<h2 id="网络字节序"><a href="#网络字节序" class="headerlink" title="网络字节序"></a>网络字节序</h2>
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2022/01/19/Socket/day01/" class="article-date">
-	  <time datetime="2022-01-19T05:00:00.000Z" itemprop="datePublished">1月 19</time>
-	</a>
-</span>
-    
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/Socket/">Socket</a>
-  </span>
-
-    
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/socket/" rel="tag">socket</a>
-  </span>
-
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2022/01/19/Socket/day01/#comments" class="article-comment-link">评论</a></span>
-    
-	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 987(字)</span>
-	
-	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 3(分)</span>
 	
 
   </p>
@@ -915,78 +915,6 @@
     
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/19/Socket/day07/">07 TCP的11种状态、SIGPIPE信号</a>
-    </h1>
-  
-
-  </div>
-  
-  <div class="article-entry text-muted" itemprop="description">
-    <h1 id="day07"><a href="#day07" class="headerlink" title="day07"></a>day07</h1><h2 id="本章目标"><a href="#本章目标" class="headerlink" title="本章目标"></a>本章目标</h2><ul>
-<li><code>TCP</code> 11种状态</li>
-<li>连接建立三次握手、连接终止四次握手</li>
-<li><code>TIME_WAIT</code>与<code>SO_REUSEADDR</code></li>
-<li><code>SIGPIPE</code></li>
-</ul>
-<h2 id="ACK、SYN和FIN"><a href="#ACK、SYN和FIN" class="headerlink" title="ACK、SYN和FIN"></a>ACK、SYN和FIN</h2><blockquote>
-<p>参考文档：<br><a target="_blank" rel="noopener" href="https://zhidao.baidu.com/question/27114298.html">https://zhidao.baidu.com/question/27114298.html</a></p>
-<p><code>ACK</code>：是一种确认应答，在数据通信传输中，接收站发给发送站的一种传输控制字符。它表示确认发来的数据已经接受无误。<br><code>SYN</code>：攻击属于<code>DOS</code>攻击的一种，它利用<code>TCP协议</code>缺陷，通过发送大量的<code>半连接请求</code>，耗费CPU和内存资源。是最常见又最容易被利用的一种攻击手法。<br><code>FIN</code>：是用来扫描保留的端口，发送一个<code>FIN</code>包（或者是任何没有ACK或SYN标记的包）到目标的一个开放的端口，然后等待回应。许多系统会返回一个复位标记。</p>
-</blockquote>
-<h2 id="TCP-11种状态"><a href="#TCP-11种状态" class="headerlink" title="TCP 11种状态"></a>TCP 11种状态</h2><p><img src="/2022/01/19/Socket/day07/tcp%E7%9A%8411%E7%A7%8D%E7%8A%B6%E6%80%81.png" alt="tcp的11种状态"></p>
-<blockquote>
-<p><strong>貌似有点不对啊，不是说是11种状态吗？？？怎么只有10种，莫非打错字了？？？NO！！！NO！！！NO！！！</strong></p>
-<p><strong>第十一种状态为：<code>CLOSING</code></strong></p>
-</blockquote>
-<blockquote>
-<p>关闭请求由双方都可以主动的发起，图中为客户端发起的中断连接，也可以是服务器发起中断连接。</p>
-<p><code>TIME_WAIT</code>：保留两倍的<code>MSL</code>时间。</p>
-<blockquote>
-<p>参考：MSL，即 Maximum Segment Lifetime，一个数据分片（报文）在网络中能够生存的最长时间，在RFC793中定义MSL通常为2分钟，即超过两分钟即认为这个报文已经在网络中被丢弃了。对于一个TCP连接，在双方进入TIME_WAIT后，通常会等待2倍MSL时间后，再关闭掉连接，作用是为了防止由于FIN报文丢包，对端重发导致与后续的TCP连接请求产生顺序混乱，具体原理这里就不详细解释了，</p>
-</blockquote>
-<p>参考链接：</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qwertyupoiuytr/article/details/71436967">https://blog.csdn.net/qwertyupoiuytr/article/details/71436967</a></p>
-</blockquote>
-<h3 id="CLOSING状态"><a href="#CLOSING状态" class="headerlink" title="CLOSING状态"></a>CLOSING状态</h3>
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2022/01/19/Socket/day07/" class="article-date">
-	  <time datetime="2022-01-19T05:00:00.000Z" itemprop="datePublished">1月 19</time>
-	</a>
-</span>
-    
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/Socket/">Socket</a>
-  </span>
-
-    
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/SIGPIPPE%E4%BF%A1%E5%8F%B7/" rel="tag">SIGPIPPE信号</a>, <a class="article-tag-link-link" href="/tags/TCP%E7%9A%8411%E7%A7%8D%E7%8A%B6%E6%80%81/" rel="tag">TCP的11种状态</a>
-  </span>
-
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2022/01/19/Socket/day07/#comments" class="article-comment-link">评论</a></span>
-    
-	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 759(字)</span>
-	
-	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 3(分)</span>
-	
-
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
       <a class="article-title" href="/2022/01/19/Socket/day06/">06 TCP回射C/S&amp;僵尸进程&amp;SIGCHLD信号</a>
     </h1>
   
@@ -1060,6 +988,83 @@
     
   
     <h1 itemprop="name">
+      <a class="article-title" href="/2022/01/19/Socket/day07/">07 TCP的11种状态、SIGPIPE信号</a>
+    </h1>
+  
+
+  </div>
+  
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="day07"><a href="#day07" class="headerlink" title="day07"></a>day07</h1><h2 id="本章目标"><a href="#本章目标" class="headerlink" title="本章目标"></a>本章目标</h2><ul>
+<li><code>TCP</code> 11种状态</li>
+<li>连接建立三次握手、连接终止四次握手</li>
+<li><code>TIME_WAIT</code>与<code>SO_REUSEADDR</code></li>
+<li><code>SIGPIPE</code></li>
+</ul>
+<h2 id="ACK、SYN和FIN"><a href="#ACK、SYN和FIN" class="headerlink" title="ACK、SYN和FIN"></a>ACK、SYN和FIN</h2><blockquote>
+<p>参考文档：<br><a target="_blank" rel="noopener" href="https://zhidao.baidu.com/question/27114298.html">https://zhidao.baidu.com/question/27114298.html</a></p>
+<p><code>ACK</code>：是一种确认应答，在数据通信传输中，接收站发给发送站的一种传输控制字符。它表示确认发来的数据已经接受无误。<br><code>SYN</code>：攻击属于<code>DOS</code>攻击的一种，它利用<code>TCP协议</code>缺陷，通过发送大量的<code>半连接请求</code>，耗费CPU和内存资源。是最常见又最容易被利用的一种攻击手法。<br><code>FIN</code>：是用来扫描保留的端口，发送一个<code>FIN</code>包（或者是任何没有ACK或SYN标记的包）到目标的一个开放的端口，然后等待回应。许多系统会返回一个复位标记。</p>
+</blockquote>
+<h2 id="TCP-11种状态"><a href="#TCP-11种状态" class="headerlink" title="TCP 11种状态"></a>TCP 11种状态</h2>
+
+<blockquote>
+<p><strong>貌似有点不对啊，不是说是11种状态吗？？？怎么只有10种，莫非打错字了？？？NO！！！NO！！！NO！！！</strong></p>
+<p><strong>第十一种状态为：<code>CLOSING</code></strong></p>
+</blockquote>
+<blockquote>
+<p>关闭请求由双方都可以主动的发起，图中为客户端发起的中断连接，也可以是服务器发起中断连接。</p>
+<p><code>TIME_WAIT</code>：保留两倍的<code>MSL</code>时间。</p>
+<blockquote>
+<p>参考：MSL，即 Maximum Segment Lifetime，一个数据分片（报文）在网络中能够生存的最长时间，在RFC793中定义MSL通常为2分钟，即超过两分钟即认为这个报文已经在网络中被丢弃了。对于一个TCP连接，在双方进入TIME_WAIT后，通常会等待2倍MSL时间后，再关闭掉连接，作用是为了防止由于FIN报文丢包，对端重发导致与后续的TCP连接请求产生顺序混乱，具体原理这里就不详细解释了，</p>
+</blockquote>
+<p>参考链接：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qwertyupoiuytr/article/details/71436967">https://blog.csdn.net/qwertyupoiuytr/article/details/71436967</a></p>
+</blockquote>
+<h3 id="CLOSING状态"><a href="#CLOSING状态" class="headerlink" title="CLOSING状态"></a>CLOSING状态</h3><blockquote>
+<p>如果客户端和服务器双方同时关闭<code>close</code>时，会产生此状态，建议参考连接。</p>
+<p>参考文档：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/dog250/article/details/52070680">https://blog.csdn.net/dog250/article/details/52070680</a></p>
+</blockquote>
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2022/01/19/Socket/day07/" class="article-date">
+	  <time datetime="2022-01-19T05:00:00.000Z" itemprop="datePublished">1月 19</time>
+	</a>
+</span>
+    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Socket/">Socket</a>
+  </span>
+
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/SIGPIPPE%E4%BF%A1%E5%8F%B7/" rel="tag">SIGPIPPE信号</a>, <a class="article-tag-link-link" href="/tags/TCP%E7%9A%8411%E7%A7%8D%E7%8A%B6%E6%80%81/" rel="tag">TCP的11种状态</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2022/01/19/Socket/day07/#comments" class="article-comment-link">评论</a></span>
+    
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 759(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 3(分)</span>
+	
+
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
       <a class="article-title" href="/2022/01/19/Socket/day08/">08 五种I/O模型&amp;select模型</a>
     </h1>
   
@@ -1082,9 +1087,17 @@
 <h2 id="1、阻塞I-O模型"><a href="#1、阻塞I-O模型" class="headerlink" title="1、阻塞I/O模型"></a>1、阻塞I/O模型</h2><blockquote>
 <p>阻塞等待数据到来。</p>
 </blockquote>
-<p><img src="/2022/01/19/Socket/day08/%E9%98%BB%E5%A1%9EIO%E6%A8%A1%E5%9E%8B.png" alt="阻塞IO模型"></p>
+
+
 <h2 id="2、非阻塞I-O模型"><a href="#2、非阻塞I-O模型" class="headerlink" title="2、非阻塞I/O模型"></a>2、非阻塞I/O模型</h2><blockquote>
 <p>**<code>忙等待</code>**，用的很少，程序一直在等待数据，没有数据相当于死循环，占用CPU资源。</p>
+</blockquote>
+
+
+<blockquote>
+<p><code>fcntl(fd, F_SETFL, flag|O_NONBLOCK);</code></p>
+<p>详情查看本博客C语言部分：<a target="_blank" rel="noopener" href="http://39.106.165.33/#!./blog/C/4.C%E8%AF%AD%E8%A8%80%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1.md">跳转连接</a></p>
+<p>PS：<code>EMOULDBLOCK</code>错误应当改为<code>EWOULDBLOCK</code></p>
 </blockquote>
   </div>
   
@@ -1115,78 +1128,6 @@
 	
 	
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 6(分)</span>
-	
-
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/19/Socket/day10/">10 close和shutdown函数</a>
-    </h1>
-  
-
-  </div>
-  
-  <div class="article-entry text-muted" itemprop="description">
-    <h1 id="day10"><a href="#day10" class="headerlink" title="day10"></a>day10</h1><h2 id="本章目标"><a href="#本章目标" class="headerlink" title="本章目标"></a>本章目标</h2><ul>
-<li><code>close</code>和<code>shutdown</code>的区别</li>
-<li>进一步改进回射客户端程序</li>
-</ul>
-<h2 id="close和shutdown"><a href="#close和shutdown" class="headerlink" title="close和shutdown"></a>close和shutdown</h2><ul>
-<li><p><code>close</code>终止了数据传送的两个方向</p>
-</li>
-<li><p><code>shutdown</code>可以有选择的终止某个方向的数据传送或者终止数据传送的两个方向</p>
-</li>
-<li><p><code>shutdown how=1</code>就可以保证对等方接收到一个<code>EOF</code>字符，而不管其他进程是否已经打开了套接字，即不关心引用计数。而<code>close</code>不能保证一定给对等方发送<code>EOF</code>，而是直到套接字引用计数减为<code>0</code>时才发送，也就是说直到所有的进程都关闭了套接字。才是真的关闭了套接字。</p>
-<blockquote>
-<p><code>FIN</code>：是用来扫描保留的端口，发送一个FIN包（或者是任何没有<code>ACK</code>或<code>SYN</code>标记的包）到目标的一个开放的端口，然后等待回应。许多系统会返回一个复位标记。</p>
-</blockquote>
-</li>
-</ul>
-<blockquote>
-<p>当客户端(或者服务器)发送消息后，另一端没有读取消息，消息还在管道中，但是客户端(或者服务器)使用<code>close</code>关闭了套接字，那么另一端就不能把未读取的数据读取出来。所以需要<code>shutdown</code>，终止某个方向的数据传送。</p>
-</blockquote>
-<p>关于<code>shutdown</code>和<code>close</code>参考文档：<a target="_blank" rel="noopener" href="https://blog.csdn.net/lgp88/article/details/7176509">https://blog.csdn.net/lgp88/article/details/7176509</a></p>
-<h2 id="shutdown"><a href="#shutdown" class="headerlink" title="shutdown"></a>shutdown</h2><blockquote>
-<p><code>man 2 shutdown</code>查看帮助，这个是一个函数，和<code>linux</code>命令一样但是… …，这俩不一样</p>
-<p><strong>假设客户端使用了<code>close(fd)</code>，那么客户端的其他进程如果也使用了这个套接字(即：引用计数 &gt; 1)，则只是引用计数减一操作，其他的进程仍然可以通过这个套接字与服务器进行通信。</strong></p>
-<p><strong>假设客户端如果使用了<code>shutdown(fd, SHUT_RD)</code>，则直接关闭读端(不管引用计数为多少)，其他进程则不能通过读端再进行数据的读取了，同理可得<code>SHUT_WR</code>：关闭写端，<code>SHUT_RDWR</code>：读端和写端都关闭。</strong></p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;sys/socket.h&gt;</span><br><span class="line"></span><br><span class="line">int shutdown(int sockfd, int how);</span><br><span class="line"></span><br><span class="line">DESCRIPTION</span><br><span class="line">	The  shutdown() call causes all or part of a full-duplex connection on the socket associated with sockfd to be shut down. If how is SHUT_RD, further receptions will be disallowed.  If how is SHUT_WR, further transmissions will  be  disallowed. If how is SHUT_RDWR, further receptions and transmissions will be disallowed.</span><br><span class="line"></span><br><span class="line">RETURN VALUE</span><br><span class="line">	On success, zero is returned.  On error, -1 is returned, and errno is set appropriately.</span><br><span class="line"></span><br><span class="line">ERRORS</span><br><span class="line">	EBADF  </span><br><span class="line">		sockfd is not a valid descriptor.</span><br><span class="line">	EINVAL </span><br><span class="line">		An invalid value was specified in how (but see BUGS).</span><br><span class="line">	ENOTCONN</span><br><span class="line">		The specified socket is not connected.</span><br><span class="line">	ENOTSOCK</span><br><span class="line">		sockfd is a file, not a socket.</span><br></pre></td></tr></table></figure>
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2022/01/19/Socket/day10/" class="article-date">
-	  <time datetime="2022-01-19T05:00:00.000Z" itemprop="datePublished">1月 19</time>
-	</a>
-</span>
-    
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/Socket/">Socket</a>
-  </span>
-
-    
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/close%E5%87%BD%E6%95%B0-shutdown%E5%87%BD%E6%95%B0/" rel="tag">close函数 - shutdown函数</a>
-  </span>
-
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2022/01/19/Socket/day10/#comments" class="article-comment-link">评论</a></span>
-    
-	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 733(字)</span>
-	
-	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2(分)</span>
 	
 
   </p>
@@ -1294,6 +1235,78 @@
 	
 	
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 6(分)</span>
+	
+
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/01/19/Socket/day10/">10 close和shutdown函数</a>
+    </h1>
+  
+
+  </div>
+  
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="day10"><a href="#day10" class="headerlink" title="day10"></a>day10</h1><h2 id="本章目标"><a href="#本章目标" class="headerlink" title="本章目标"></a>本章目标</h2><ul>
+<li><code>close</code>和<code>shutdown</code>的区别</li>
+<li>进一步改进回射客户端程序</li>
+</ul>
+<h2 id="close和shutdown"><a href="#close和shutdown" class="headerlink" title="close和shutdown"></a>close和shutdown</h2><ul>
+<li><p><code>close</code>终止了数据传送的两个方向</p>
+</li>
+<li><p><code>shutdown</code>可以有选择的终止某个方向的数据传送或者终止数据传送的两个方向</p>
+</li>
+<li><p><code>shutdown how=1</code>就可以保证对等方接收到一个<code>EOF</code>字符，而不管其他进程是否已经打开了套接字，即不关心引用计数。而<code>close</code>不能保证一定给对等方发送<code>EOF</code>，而是直到套接字引用计数减为<code>0</code>时才发送，也就是说直到所有的进程都关闭了套接字。才是真的关闭了套接字。</p>
+<blockquote>
+<p><code>FIN</code>：是用来扫描保留的端口，发送一个FIN包（或者是任何没有<code>ACK</code>或<code>SYN</code>标记的包）到目标的一个开放的端口，然后等待回应。许多系统会返回一个复位标记。</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>当客户端(或者服务器)发送消息后，另一端没有读取消息，消息还在管道中，但是客户端(或者服务器)使用<code>close</code>关闭了套接字，那么另一端就不能把未读取的数据读取出来。所以需要<code>shutdown</code>，终止某个方向的数据传送。</p>
+</blockquote>
+<p>关于<code>shutdown</code>和<code>close</code>参考文档：<a target="_blank" rel="noopener" href="https://blog.csdn.net/lgp88/article/details/7176509">https://blog.csdn.net/lgp88/article/details/7176509</a></p>
+<h2 id="shutdown"><a href="#shutdown" class="headerlink" title="shutdown"></a>shutdown</h2><blockquote>
+<p><code>man 2 shutdown</code>查看帮助，这个是一个函数，和<code>linux</code>命令一样但是… …，这俩不一样</p>
+<p><strong>假设客户端使用了<code>close(fd)</code>，那么客户端的其他进程如果也使用了这个套接字(即：引用计数 &gt; 1)，则只是引用计数减一操作，其他的进程仍然可以通过这个套接字与服务器进行通信。</strong></p>
+<p><strong>假设客户端如果使用了<code>shutdown(fd, SHUT_RD)</code>，则直接关闭读端(不管引用计数为多少)，其他进程则不能通过读端再进行数据的读取了，同理可得<code>SHUT_WR</code>：关闭写端，<code>SHUT_RDWR</code>：读端和写端都关闭。</strong></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;sys/socket.h&gt;</span><br><span class="line"></span><br><span class="line">int shutdown(int sockfd, int how);</span><br><span class="line"></span><br><span class="line">DESCRIPTION</span><br><span class="line">	The  shutdown() call causes all or part of a full-duplex connection on the socket associated with sockfd to be shut down. If how is SHUT_RD, further receptions will be disallowed.  If how is SHUT_WR, further transmissions will  be  disallowed. If how is SHUT_RDWR, further receptions and transmissions will be disallowed.</span><br><span class="line"></span><br><span class="line">RETURN VALUE</span><br><span class="line">	On success, zero is returned.  On error, -1 is returned, and errno is set appropriately.</span><br><span class="line"></span><br><span class="line">ERRORS</span><br><span class="line">	EBADF  </span><br><span class="line">		sockfd is not a valid descriptor.</span><br><span class="line">	EINVAL </span><br><span class="line">		An invalid value was specified in how (but see BUGS).</span><br><span class="line">	ENOTCONN</span><br><span class="line">		The specified socket is not connected.</span><br><span class="line">	ENOTSOCK</span><br><span class="line">		sockfd is a file, not a socket.</span><br></pre></td></tr></table></figure>
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2022/01/19/Socket/day10/" class="article-date">
+	  <time datetime="2022-01-19T05:00:00.000Z" itemprop="datePublished">1月 19</time>
+	</a>
+</span>
+    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Socket/">Socket</a>
+  </span>
+
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/close%E5%87%BD%E6%95%B0-shutdown%E5%87%BD%E6%95%B0/" rel="tag">close函数 - shutdown函数</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2022/01/19/Socket/day10/#comments" class="article-comment-link">评论</a></span>
+    
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 733(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2(分)</span>
 	
 
   </p>
@@ -1903,6 +1916,49 @@
     
   
     <h1 itemprop="name">
+      <a class="article-title" href="/2021/12/14/Golang/04%E8%BF%90%E7%AE%97%E7%AC%A6/">04 Golang运算符</a>
+    </h1>
+  
+
+  </div>
+  
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="04-运算符"><a href="#04-运算符" class="headerlink" title="04 运算符"></a>04 运算符</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> *  算术运算符、关系运算符、逻辑运算符、位运算符、赋值运算符、其他运算符</span><br><span class="line"> *</span><br><span class="line"> *  算术运算符：+ - * / % ++ --</span><br><span class="line"> *  关系运算符：== != &gt; &lt; &gt;= &lt;=</span><br><span class="line"> *  逻辑运算符：&amp;&amp; || !</span><br><span class="line"> *  位运算符：&amp; | ^ &lt;&lt; &gt;&gt;</span><br><span class="line"> *  赋值运算符：= += -= *= /= %= &lt;&lt;= &gt;&gt;= &amp;= ^= |=</span><br><span class="line"> *  其他运算符：&amp;(返回变量存储地址) *(指针变量)</span><br><span class="line"> */</span><br><span class="line">func main()&#123;</span><br><span class="line">	var a = &quot;hello&quot; // 可以自动判断变量类型，所以string类型名可以省略掉</span><br><span class="line">	var b = &quot;world&quot;</span><br><span class="line">	c := a + b</span><br><span class="line">	fmt.Printf(&quot;c = %s, len(c) = %d&quot;, c, len(c))</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/12/14/Golang/04%E8%BF%90%E7%AE%97%E7%AC%A6/" class="article-date">
+	  <time datetime="2021-12-14T05:00:00.000Z" itemprop="datePublished">12月 14</time>
+	</a>
+</span>
+    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a>
+  </span>
+
+    
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/14/Golang/04%E8%BF%90%E7%AE%97%E7%AC%A6/#comments" class="article-comment-link">评论</a></span>
+    
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 146(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
+	
+
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
       <a class="article-title" href="/2021/12/14/Golang/05%E6%9D%A1%E4%BB%B6_%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5/">05 Golang条件_循环语句</a>
     </h1>
   
@@ -1975,49 +2031,6 @@
     
 	
 		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 229(字)</span>
-	
-	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
-	
-
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/12/14/Golang/04%E8%BF%90%E7%AE%97%E7%AC%A6/">04 Golang运算符</a>
-    </h1>
-  
-
-  </div>
-  
-  <div class="article-entry text-muted" itemprop="description">
-    <h1 id="04-运算符"><a href="#04-运算符" class="headerlink" title="04 运算符"></a>04 运算符</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> *  算术运算符、关系运算符、逻辑运算符、位运算符、赋值运算符、其他运算符</span><br><span class="line"> *</span><br><span class="line"> *  算术运算符：+ - * / % ++ --</span><br><span class="line"> *  关系运算符：== != &gt; &lt; &gt;= &lt;=</span><br><span class="line"> *  逻辑运算符：&amp;&amp; || !</span><br><span class="line"> *  位运算符：&amp; | ^ &lt;&lt; &gt;&gt;</span><br><span class="line"> *  赋值运算符：= += -= *= /= %= &lt;&lt;= &gt;&gt;= &amp;= ^= |=</span><br><span class="line"> *  其他运算符：&amp;(返回变量存储地址) *(指针变量)</span><br><span class="line"> */</span><br><span class="line">func main()&#123;</span><br><span class="line">	var a = &quot;hello&quot; // 可以自动判断变量类型，所以string类型名可以省略掉</span><br><span class="line">	var b = &quot;world&quot;</span><br><span class="line">	c := a + b</span><br><span class="line">	fmt.Printf(&quot;c = %s, len(c) = %d&quot;, c, len(c))</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2021/12/14/Golang/04%E8%BF%90%E7%AE%97%E7%AC%A6/" class="article-date">
-	  <time datetime="2021-12-14T05:00:00.000Z" itemprop="datePublished">12月 14</time>
-	</a>
-</span>
-    
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a>
-  </span>
-
-    
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/14/Golang/04%E8%BF%90%E7%AE%97%E7%AC%A6/#comments" class="article-comment-link">评论</a></span>
-    
-	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 146(字)</span>
 	
 	
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
@@ -2205,20 +2218,20 @@
     
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/12/14/Golang/12%E8%8C%83%E5%9B%B4Range/">12 Golang范围Range</a>
+      <a class="article-title" href="/2021/12/14/Golang/11%E5%88%87%E7%89%87slice/">11 Golang切片slice</a>
     </h1>
   
 
   </div>
   
   <div class="article-entry text-muted" itemprop="description">
-    <h1 id="12-范围Range"><a href="#12-范围Range" class="headerlink" title="12 范围Range"></a>12 范围Range</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import	&quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">	range关键字用于for循环中迭代数组(array)、切片(slice)、通道(channel)或集合(map)</span><br><span class="line">的元素。</span><br><span class="line">	返回值：</span><br><span class="line">		第一个表示下标</span><br><span class="line">		第二个表示值</span><br><span class="line">	如果是map：</span><br><span class="line">		第一个表示key</span><br><span class="line">		第二个表示value</span><br><span class="line"></span><br><span class="line">	用 &#x27;_&#x27;去接收一个变量表示不关心这个变量的值，起到占位的作用，该位置的值会被抛弃掉</span><br><span class="line">*/</span><br><span class="line">func main() &#123;</span><br><span class="line">	a := [] int&#123;1, 2, 4, 5&#125;</span><br><span class="line">	m := map[int]string&#123;1:&quot;hello&quot;, 2:&quot;world&quot;, 3:&quot;hi&quot;&#125;</span><br><span class="line">	fmt.Println(a)</span><br><span class="line"></span><br><span class="line">	for index, num := range a &#123; // 如果不关心下标，可以设置为 &#x27;_&#x27;</span><br><span class="line">		fmt.Println(&quot;index =&quot;, index, &quot;num =&quot;, num)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	for key, value := range m&#123;</span><br><span class="line">		fmt.Println(&quot;key =&quot;, key, &quot; value =&quot;, value)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    <h1 id="11-切片slice"><a href="#11-切片slice" class="headerlink" title="11 切片slice"></a>11 切片slice</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">定义切片:声明一个未指定大小的数组来定义切片</span><br><span class="line">	var identifier []type // 切片不需要说明长度</span><br><span class="line"></span><br><span class="line">或者使用make()函数来创建切片:</span><br><span class="line">	var slicel []type = make([]type, len)</span><br><span class="line">	slicel := make([]type, len)</span><br><span class="line"></span><br><span class="line">指定容量:(可以省略不写),要求length &lt;= capacity,符合逻辑</span><br><span class="line">	make([]T, length, capacity)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">len()</span><br><span class="line">cap()</span><br><span class="line"></span><br><span class="line">append()</span><br><span class="line">copy()</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">func main()&#123;</span><br><span class="line">	var arr = [] int&#123;1, 3, 4, 5, 3, 2, 7&#125;</span><br><span class="line">	a := arr[1:5]</span><br><span class="line">	b := arr[:5]</span><br><span class="line">	c := arr[1:]</span><br><span class="line">	d := arr[len(arr) - 1:len(arr) - 0]</span><br><span class="line"></span><br><span class="line">	fmt.Println(a)</span><br><span class="line">	fmt.Println(b)</span><br><span class="line">	fmt.Println(c)</span><br><span class="line">	fmt.Println(d)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	var array = make([]int, 5, 7)</span><br><span class="line">	fmt.Println(array)</span><br><span class="line">	fmt.Println(&quot;len =&quot;, len(array), &quot;\ncap =&quot;, cap(array))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	arrayAppend := append(array, 1)</span><br><span class="line">	fmt.Println(arrayAppend)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	arrayCopy := make([]int, 3)</span><br><span class="line">	// 如果len(array_copy) &lt; len(array_append)那么只会复制len(array_copy)个元素</span><br><span class="line">	copy(arrayCopy, arrayAppend)</span><br><span class="line">	fmt.Println(arrayCopy)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
   </div>
   
   <p class="article-meta">
     <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2021/12/14/Golang/12%E8%8C%83%E5%9B%B4Range/" class="article-date">
+	<a href="/2021/12/14/Golang/11%E5%88%87%E7%89%87slice/" class="article-date">
 	  <time datetime="2021-12-14T05:00:00.000Z" itemprop="datePublished">12月 14</time>
 	</a>
 </span>
@@ -2230,10 +2243,10 @@
 
     
 
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/14/Golang/12%E8%8C%83%E5%9B%B4Range/#comments" class="article-comment-link">评论</a></span>
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/14/Golang/11%E5%88%87%E7%89%87slice/#comments" class="article-comment-link">评论</a></span>
     
 	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 188(字)</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 192(字)</span>
 	
 	
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
