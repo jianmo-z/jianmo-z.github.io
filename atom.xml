@@ -24,13 +24,15 @@
     <updated>2022-01-19T13:19:37.307Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;day15&quot;&gt;&lt;a href=&quot;#day15&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;h1 id=&quot;day15&quot;&gt;&lt;a href=&quot;#day15&quot; class=&quot;headerlink&quot; title=&quot;day15&quot;&gt;&lt;/a&gt;day15&lt;/h1&gt;&lt;p&gt;本章目标&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;UDP聊天室&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;未完成，先欠着，打算和Qt的一个项目做在一起。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</summary>
     
     
     
@@ -45,13 +47,11 @@
     <updated>2022-01-19T13:19:37.307Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;epollsrv-cpp&quot;&gt;&lt;a href=&quot;#epollsrv-cpp&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;h1 id=&quot;epollsrv-cpp&quot;&gt;&lt;a href=&quot;#epollsrv-cpp&quot; class=&quot;headerlink&quot; title=&quot;epollsrv.cpp&quot;&gt;&lt;/a&gt;epollsrv.cpp&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;epollsrv.cpp&lt;/code&gt;文件源代码，&lt;code&gt;epoll&lt;/code&gt;只是服务器发生了变化而客户端不需要变化。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;47&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;48&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;49&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;50&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;51&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;52&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;53&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;54&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;55&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;56&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;57&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;58&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;59&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;60&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;61&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;62&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;63&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;65&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;66&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;67&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;68&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;69&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;70&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;71&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;72&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;73&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;74&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;75&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;76&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;77&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;78&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;79&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;80&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;81&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;82&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;83&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;84&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;85&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;86&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;87&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;88&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;89&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;90&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;91&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;92&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;93&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;94&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;95&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;96&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;97&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;98&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;99&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;100&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;101&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;102&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;103&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;104&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;105&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;106&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;107&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;108&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;109&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;110&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;111&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;112&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;113&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;114&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;115&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;116&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;117&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;118&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;119&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;120&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;121&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;122&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;123&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;124&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;125&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;126&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;127&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;128&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;129&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;130&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;131&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;132&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;133&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;134&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;135&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;136&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;137&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;138&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;139&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;140&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;141&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;142&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;143&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;144&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;145&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;146&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;147&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;148&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;149&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;150&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;151&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;152&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;153&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;154&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;155&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;156&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;157&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;158&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;159&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;160&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;161&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;162&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;163&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;164&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;165&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;166&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;167&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;168&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;169&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;170&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;171&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;172&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;173&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;174&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;175&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;176&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;177&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;178&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;179&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;180&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;181&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;182&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;183&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;184&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;185&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;186&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;187&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;188&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;189&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;190&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;191&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;192&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;193&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;194&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;195&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;196&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;197&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;198&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;199&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;200&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;201&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;202&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;203&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;204&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;205&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;206&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;207&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;208&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;209&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;210&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;211&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;212&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;213&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;214&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;215&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;216&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;217&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;218&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;219&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;220&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;221&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;222&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;223&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;224&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;225&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;226&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;227&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;228&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;229&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;230&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;231&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;232&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;233&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;234&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;235&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;236&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;237&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;238&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;239&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;240&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;241&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;242&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;243&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;244&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;245&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;246&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;247&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;248&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;249&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;250&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;251&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;252&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;253&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;254&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;255&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;256&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;257&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;258&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;259&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;260&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;261&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;262&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;263&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;264&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;265&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;266&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;267&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;268&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;269&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;270&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;271&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;272&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;273&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;274&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;275&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;276&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;277&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;278&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;279&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;280&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;281&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;282&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;283&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;284&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;285&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;286&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;287&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;288&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;289&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;290&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;291&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;292&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;293&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;294&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;295&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;296&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;297&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;298&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;299&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;300&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;301&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;302&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;303&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;304&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;305&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;306&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;307&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;308&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;309&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;310&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;311&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;312&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;313&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;314&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;315&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;stdlib.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;sys/types.h&amp;gt;          /* See NOTES */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;sys/socket.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;unistd.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;errno.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;netinet/in.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;arpa/inet.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;arpa/inet.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;string.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;signal.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;poll.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;vector&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;algorithm&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;sys/wait.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;sys/select.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;sys/epoll.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;fcntl.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#define ERR_EXIT(err) &amp;#123;perror(err); exit(EXIT_FAILURE);&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;typedef std::vector&amp;lt;struct epoll_event&amp;gt; EventList;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;typedef struct package&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	unsigned int len;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	char data[1024];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;package;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;void handle(int sign)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	printf(&amp;quot;sign = %d\n&amp;quot;, sign);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	exit(EXIT_SUCCESS);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//size_t read(int fd, void *buf, size_t count);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//ssize_t 无符号整数&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//size_t 有符号整数&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ssize_t readn(int fd, void * buf, size_t count)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	size_t nleft = count;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	ssize_t nread = 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	char * bufp = static_cast&amp;lt;char *&amp;gt;(buf);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	while(nleft &amp;gt; 0)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		if((nread = read(fd, bufp, nleft)) &amp;lt; 0)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			if(errno == EINTR)//如果信号被中断，仍然要继续发送数据。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				continue;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			//return 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			return -1;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		else if(nread == 0)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			return count - nleft;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		bufp += nread;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		nleft -= nread;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	return count;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//ssize_t write(int fd, const void *buf, size_t count);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//ssize_t 无符号整数&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//size_t 有符号整数&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ssize_t writen(int fd, void * buf, size_t count)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	size_t nleft = count;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	ssize_t nwrite;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	char * bufp = static_cast&amp;lt;char *&amp;gt;(buf);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	while(nleft &amp;gt; 0)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		if((nwrite = write(fd, bufp, nleft)) &amp;lt; 0)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			if(errno == EINTR)//如果信号被中断，仍然要继续发送数据。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				continue;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			return -1;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		else if(nwrite == 0)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			continue;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		bufp += nwrite;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		nleft -= nwrite;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	return count;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ssize_t recv_peek(int sockfd, void * buf, size_t len)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	while(1)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#123;	//recv读取数据但是不会把数据从缓冲区移除&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		int ret = recv(sockfd, buf, len, MSG_PEEK);//有数据返回，无数据阻塞，对方套接口关闭，返回零，信号中断返回-1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		if(ret == -1 &amp;amp;&amp;amp; errno == EINTR)//信号终止，继续进行操作&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			continue;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		return ret;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ssize_t readline(int sockfd, void * buf, size_t maxline)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	int ret;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	int nread;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	char * bufp = static_cast&amp;lt;char *&amp;gt;(buf);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	int nleft = maxline;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	while(1)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		ret = recv_peek(sockfd, buf, nleft);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		if(ret &amp;lt; 0)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			return ret;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		else if(ret == 0)//表示对方关闭了套接口&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			return ret;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		nread = ret;//接收到的字节数&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		int i;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		for(i = 0; i &amp;lt; nread; i++)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			if(bufp[i] == &amp;#x27;\n&amp;#x27;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				ret = readn(sockfd, bufp, i+1);//取出数据并从缓冲区移除&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				if(ret != i + 1)//接收数据失败，直接返回&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;					printf(&amp;quot;接收数据失败&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;					exit(EXIT_FAILURE);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				return ret;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		if(nread &amp;gt; nleft)//没有遇到&amp;#x27;\n&amp;#x27;把数据拿出来&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			printf(&amp;quot;没有遇到回车换&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			exit(EXIT_FAILURE);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		nleft -= nread;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		ret = readn(sockfd, bufp, nread);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		if(ret != nread)//接收数据失败，直接返回&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			printf(&amp;quot;接收数据失败&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			exit(EXIT_FAILURE);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		bufp += nread;//指针偏移，如果遇到&amp;#x27;\n&amp;#x27;指针已经偏移&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	return -1;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;void activate_nonblock(int fd)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	int ret = 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	int flags = fcntl(fd, F_GETFL);//获取文件描述符的状态&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	if(fd == -1)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		ERR_EXIT(&amp;quot;fcntl:1&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	flags |= O_NONBLOCK;//不阻塞模式&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	ret = fcntl(fd, F_SETFL, flags);//设置文件描述符的状态&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	if(ret == -1)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		ERR_EXIT(&amp;quot;fcntl:2&amp;quot;);	&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;void deactivate_nonblock(int fd)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	int ret = 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	int flags = fcntl(fd, F_GETFL);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	if(flags == -1)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		ERR_EXIT(&amp;quot;fcntl:1&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	flags &amp;amp;= ~O_NONBLOCK;//不阻塞，位操作,~按位取反&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	ret = fcntl(fd, F_SETFL, flags);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	if(ret == -1)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		ERR_EXIT(&amp;quot;fcntl:1&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;void signal_handle(int sign)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	//wait(NULL);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	//waitpid(-1, NULL, WNOHANG);//可能会有僵尸进程的存在，因为进程发送了SIGCHLD信号但是没有接收到，无法处理导致了僵尸进程的存在&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	while(waitpid(-1, NULL, WNOHANG) &amp;gt; 0);//如果没有子进程退出循环,避免僵尸进程&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;void signpipe(int sign)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	printf(&amp;quot;SIGPIPE = %d\n&amp;quot;, sign);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;int main()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	//int conn = -1;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	int listenfd;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	struct sockaddr_in servaddr;//一个服务器的地址&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	signal(SIGPIPE, signpipe);//信号	&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	//signal(SIGCHLD, SIG_IGN);//忽略信号	&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	signal(SIGCHLD, signal_handle);//忽略信号	&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	listenfd = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	if(listenfd &amp;lt; 0)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		perror(&amp;quot;创建scoket失败\n&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		exit(EXIT_FAILURE);//退出程序&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	memset(&amp;amp;servaddr, 0, sizeof(servaddr));//初始化地址&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	servaddr.sin_family = AF_INET;//地址族&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	servaddr.sin_port = htons(6000);//端口号，网络字节序转化为主机字节序&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	servaddr.sin_addr.s_addr = htonl(INADDR_ANY);//表示绑定本机的任意地址(返回一个主机字节序)---&amp;gt;和下面的两个一样作用绑定IP地址&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	//servaddr.sin_addr.s_addr = inet_addr(&amp;quot;127.0.0.1&amp;quot;);//(和上面的一样的意思)指定网络地址---&amp;gt; 真实的情况下表示本机的ip地址&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	//inet_aton(&amp;quot;127.0.0.1&amp;quot;, &amp;amp;servaddr.sin_addr);//绑定IP地址&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	int on = 1;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	on = setsockopt(listenfd, SOL_SOCKET, SO_REUSEADDR, &amp;amp;on, sizeof(on));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	if(on &amp;lt; 0)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		printf(&amp;quot;端口重复利用失败\n&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		exit(EXIT_FAILURE);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;	&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	if(bind(listenfd, (struct sockaddr *)&amp;amp;servaddr, sizeof(servaddr)) &amp;lt; 0)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		perror(&amp;quot;绑定本地地址到套接字失败\n&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		exit(EXIT_FAILURE);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	if(listen(listenfd, SOMAXCONN) &amp;lt; 0)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		perror(&amp;quot;绑定本地地址到套接字失败\n&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		exit(EXIT_FAILURE);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;	&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	struct sockaddr_in peeraddr;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	socklen_t peerlen = sizeof(peeraddr);//必须有初始值，否则accept会失败&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	std::vector&amp;lt;int&amp;gt; clients;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	int epollfd;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	epollfd = epoll_create1(EPOLL_CLOEXEC);//创建一个实例&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	struct epoll_event event;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	event.data.fd = listenfd;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	event.events = EPOLLIN | EPOLLET;//EPOLLIN监听，EPOLLET边沿方式触发&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	epoll_ctl(epollfd, EPOLL_CTL_ADD, listenfd, &amp;amp;event);//添加一个套接字到epoll&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	EventList events(16);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	struct sockaddr_in perraddr;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	socklen_t perrlen;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	int conn;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	int count = 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	int i;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	int nready;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	while(1)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		//检测那个套接字产生的事件。 //&amp;amp;*：迭代器解绑定的感觉... ...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		nready = epoll_wait(epollfd, &amp;amp;(*events.begin()), static_cast&amp;lt;int&amp;gt;(events.size()), -1);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		if(nready == -1)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			if(errno == EINTR)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				continue;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			ERR_EXIT(&amp;quot;epoll_wait&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		if(nready == 0)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			continue;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		if((ssize_t)nready == events.size())&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			if(events.size() &amp;gt; 4096)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				events.resize(events.size() + 2048);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			else&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				events.resize(events.size() * 2);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		for(i = 0; i &amp;lt; nready; i++)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			if(events[i].data.fd == listenfd)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				perrlen = sizeof(perraddr);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				conn = accept(listenfd, (struct sockaddr *)&amp;amp;peeraddr, &amp;amp;perrlen);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				if(conn == -1)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;					ERR_EXIT(&amp;quot;accept&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				printf(&amp;quot;peer:ip = %s, port = %d\n&amp;quot;, inet_ntoa(perraddr.sin_addr), ntohs(perraddr.sin_port));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				printf(&amp;quot;count = %d\n&amp;quot;, ++count);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				clients.push_back(conn);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				activate_nonblock(conn);//设置为非阻塞模式&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				//添加新的套接字到event中&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				event.data.fd = conn;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				event.events = EPOLLIN | EPOLLET;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				epoll_ctl(epollfd, EPOLL_CTL_ADD, conn, &amp;amp;event);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			else if(events[i].events &amp;amp; EPOLLIN)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				conn = events[i].data.fd;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				if(conn &amp;lt; 0)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;					continue;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				char recvbuf[1024] = &amp;#123;0&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				int ret = readline(conn, recvbuf, 1024);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				if(ret == -1)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;					ERR_EXIT(&amp;quot;readline&amp;quot;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				else if(ret == 0)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;					count --;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;					printf(&amp;quot;client closed\n&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;					close(conn);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;					event = events[i];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;					epoll_ctl(epollfd, EPOLL_CTL_DEL, conn, &amp;amp;event);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;					clients.erase(std::remove(clients.begin(), clients.end(), conn), clients.end());//删除已经断开的客户端的套接字&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				fputs(recvbuf, stdout);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				writen(conn, recvbuf, strlen(recvbuf));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	return 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+</summary>
     
     
     
@@ -66,13 +66,10 @@
     <updated>2022-01-19T13:19:37.301Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;UDP-TCP文件传输&quot;&gt;&lt;a href=&quot;#UDP-TCP文件传输&quot; class=&quot;headerlink&quot; title=&quot;UDP/TCP文件传输&quot;&gt;&lt;/a&gt;UDP/TCP文件传输&lt;/h1&gt;&lt;h2 id=&quot;文件结构&quot;&gt;&lt;a href=&quot;#文件结构&quot;</summary>
-        
-      
+    <summary type="html">&lt;h1 id=&quot;UDP-TCP文件传输&quot;&gt;&lt;a href=&quot;#UDP-TCP文件传输&quot; class=&quot;headerlink&quot; title=&quot;UDP/TCP文件传输&quot;&gt;&lt;/a&gt;UDP/TCP文件传输&lt;/h1&gt;&lt;h2 id=&quot;文件结构&quot;&gt;&lt;a href=&quot;#文件结构&quot; class=&quot;headerlink&quot; title=&quot;文件结构&quot;&gt;&lt;/a&gt;文件结构&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;/2022/01/19/Socket/01%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/TCP_UDP%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93.png&quot; alt=&quot;文件结构&quot;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</summary>
     
     
     
@@ -91,13 +88,39 @@
     <updated>2022-01-19T13:19:37.306Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;day01&quot;&gt;&lt;a href=&quot;#day01&quot; class=&quot;headerlink&quot; title=&quot;day01&quot;&gt;&lt;/a&gt;day01&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;h1 id=&quot;day01&quot;&gt;&lt;a href=&quot;#day01&quot; class=&quot;headerlink&quot; title=&quot;day01&quot;&gt;&lt;/a&gt;day01&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot; title=&quot;本章目标&quot;&gt;&lt;/a&gt;本章目标&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;什么是&lt;code&gt;socket&lt;/code&gt;?&lt;/li&gt;
+&lt;li&gt;IPv4套接口地址结构&lt;/li&gt;
+&lt;li&gt;网络字节序&lt;/li&gt;
+&lt;li&gt;地址转换函数&lt;/li&gt;
+&lt;li&gt;套接字类型&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;什么是socket&quot;&gt;&lt;a href=&quot;#什么是socket&quot; class=&quot;headerlink&quot; title=&quot;什么是socket?&quot;&gt;&lt;/a&gt;什么是socket?&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;socket&lt;/code&gt;可以看成是用户进程与内核网络协议栈的编程接口；&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;socket&lt;/code&gt;不仅可以用于本机的进程间通信，还可以用于网络上不同主机的进程通信。&lt;/p&gt;
+&lt;p&gt;套接口通信是全双工通信。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;socket&lt;/code&gt;可以异构通信，通信双方的软件、硬件可以不同。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;IPv4套接口地址结构&quot;&gt;&lt;a href=&quot;#IPv4套接口地址结构&quot; class=&quot;headerlink&quot; title=&quot;IPv4套接口地址结构&quot;&gt;&lt;/a&gt;IPv4套接口地址结构&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;IPv4套接口地址结构通常也称为”网际套接字地址结构”，它以”sockaddr_in”命名，定义在头文件&amp;lt;netinet/in.h&amp;gt;中****&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;man 7 ip&lt;/code&gt;查看&lt;code&gt;sockaddr_in&lt;/code&gt;结构体，&lt;code&gt;sockaddr_in&lt;/code&gt;仅仅应用于&lt;code&gt;IPv4&lt;/code&gt;地址结构&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;struct sockaddr_in&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;gt;​		uint8_t sin_len;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;gt;​		sa_family_t sin_family;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;gt;​		in_port_t sin_port;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;gt;​		struct in_addr sin_addr;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;gt;​		char sin_zero[8];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;code&gt;sin_len&lt;/code&gt;：整个&lt;code&gt;sockaddr_in&lt;/code&gt;结构体的长度,在4.3BSD-Reno版本之前的第一个成员是&lt;code&gt;sin_family&lt;/code&gt;；&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sin_family&lt;/code&gt;：指定该地址家族，在这里必须设为&lt;code&gt;AF_INET&lt;/code&gt;；&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sin_port&lt;/code&gt;：端口；&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sin_addr&lt;/code&gt;：IPv4的地址；&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sin_zero&lt;/code&gt;：暂不使用，一般将其设置为0。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;通用地址结构&quot;&gt;&lt;a href=&quot;#通用地址结构&quot; class=&quot;headerlink&quot; title=&quot;通用地址结构&quot;&gt;&lt;/a&gt;通用地址结构&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;通用地址结构用来指定套接字关联的地址，&lt;code&gt;sockaddr&lt;/code&gt;可以应用于所有的协议的套接口&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;gt;struct sockaddr&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;gt;​	uint8_t sin_len;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;gt;​	sa_family_t sin_family;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;gt;​	char sa_data[14];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;code&gt;sin_len&lt;/code&gt;：整个&lt;code&gt;sockaddr&lt;/code&gt;结构体的长度；&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sin_family&lt;/code&gt;：指定该地址家族；&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sa_data&lt;/code&gt;：由&lt;code&gt;sin_family&lt;/code&gt;决定它的形式。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;网络字节序&quot;&gt;&lt;a href=&quot;#网络字节序&quot; class=&quot;headerlink&quot; title=&quot;网络字节序&quot;&gt;&lt;/a&gt;网络字节序&lt;/h2&gt;</summary>
     
     
     
@@ -116,13 +139,69 @@
     <updated>2022-01-19T13:19:37.306Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;day02&quot;&gt;&lt;a href=&quot;#day02&quot; class=&quot;headerlink&quot; title=&quot;day02&quot;&gt;&lt;/a&gt;day02&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;h1 id=&quot;day02&quot;&gt;&lt;a href=&quot;#day02&quot; class=&quot;headerlink&quot; title=&quot;day02&quot;&gt;&lt;/a&gt;day02&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot; title=&quot;本章目标&quot;&gt;&lt;/a&gt;本章目标&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;TCP&lt;/code&gt;客户/服务器模型 —&amp;gt; &lt;code&gt;C/S&lt;/code&gt;模型&lt;/li&gt;
+&lt;li&gt;回射客户/服务器，&lt;code&gt;echosrv.c &lt;/code&gt; &lt;code&gt;echocli.c&lt;/code&gt;文件&lt;/li&gt;
+&lt;li&gt;socket、bind、listen、accept、connect函数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;socket函数&quot;&gt;&lt;a href=&quot;#socket函数&quot; class=&quot;headerlink&quot; title=&quot;socket函数&quot;&gt;&lt;/a&gt;socket函数&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;man 2 socket 查看帮助&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;包含头文件&lt;code&gt;&amp;lt;sys/socket.h&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;功能：创建一个套接字用于通信&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;原型：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;int socket(int domain, int type, int protocol);&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;参数：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;domain&lt;/code&gt; ：指通信协议族&lt;code&gt;(protocol family)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;type&lt;/code&gt; ：指定&lt;code&gt;socket&lt;/code&gt;类型。&lt;ul&gt;
+&lt;li&gt;流式套接字&lt;code&gt;SOCK_STREAM&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;数据报套接字&lt;code&gt;SOCK_DGRAM&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;原始套接字&lt;code&gt;SOCK_RAW&lt;/code&gt;；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;protocol&lt;/code&gt;：协议类型&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;返回值：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;成功返回非负整数，它和文件描述符类似，我们把它称为套接字，简称套接字；&lt;/p&gt;
+&lt;p&gt;失败返回&lt;code&gt;-1&lt;/code&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;bind函数&quot;&gt;&lt;a href=&quot;#bind函数&quot; class=&quot;headerlink&quot; title=&quot;bind函数&quot;&gt;&lt;/a&gt;bind函数&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;包含头文件&lt;code&gt;&amp;lt;sys/socket.h&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;功能：绑定一个本地地址到套接字&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;原型&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;ing bind(int sockfd, const struct sockaddr * addr, socklen_t addrlen);&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;参数&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;sockfd&lt;/code&gt;：&lt;code&gt;sockfd&lt;/code&gt;函数返回的套接字&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;addr&lt;/code&gt;：要绑定的地址&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;addrlen&lt;/code&gt;：地址长度&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;返回值：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;成功返回&lt;code&gt;0&lt;/code&gt;    ，失败返回&lt;code&gt;-1&lt;/code&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;listen函数&quot;&gt;&lt;a href=&quot;#listen函数&quot; class=&quot;headerlink&quot; title=&quot;listen函数&quot;&gt;&lt;/a&gt;listen函数&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;man 2 listen&lt;/code&gt;    &lt;code&gt;SOMAXCONN&lt;/code&gt;    查看此宏，是第二个参数，表示队列的最大值&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
     
     
     
@@ -141,13 +220,26 @@
     <updated>2022-01-19T13:19:37.306Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;day03&quot;&gt;&lt;a href=&quot;#day03&quot; class=&quot;headerlink&quot; title=&quot;day03&quot;&gt;&lt;/a&gt;day03&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;h1 id=&quot;day03&quot;&gt;&lt;a href=&quot;#day03&quot; class=&quot;headerlink&quot; title=&quot;day03&quot;&gt;&lt;/a&gt;day03&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot; title=&quot;本章目标&quot;&gt;&lt;/a&gt;本章目标&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;REUSEADDR&lt;/code&gt;，地址重复利用&lt;/li&gt;
+&lt;li&gt;处理多客户端连接(&lt;code&gt;process-per-conection&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;点对点聊天程序实现&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;REUSEADDR&quot;&gt;&lt;a href=&quot;#REUSEADDR&quot; class=&quot;headerlink&quot; title=&quot;REUSEADDR&quot;&gt;&lt;/a&gt;REUSEADDR&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;服务器端尽可能使用&lt;code&gt;REUSEADDR&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;在绑定之前尽可能调用&lt;code&gt;setsockopt&lt;/code&gt;来设置&lt;code&gt;REUSEADDR&lt;/code&gt;套接字选项。&lt;/li&gt;
+&lt;li&gt;使用&lt;code&gt;REUSEADDR&lt;/code&gt;选项可以使得不必等待&lt;code&gt;TIME——WAIT&lt;/code&gt;状态消失就可以重启服务器。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;process-per-connection&quot;&gt;&lt;a href=&quot;#process-per-connection&quot; class=&quot;headerlink&quot; title=&quot;process-per-connection&quot;&gt;&lt;/a&gt;process-per-connection&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;一个连接一个进程来处理并发，多进程处理多客户端的连接。&lt;/li&gt;
+&lt;li&gt;每一个客户端都有一个独立的进程，所以通信不会出现串线。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;点对点聊天程序实现&quot;&gt;&lt;a href=&quot;#点对点聊天程序实现&quot; class=&quot;headerlink&quot; title=&quot;点对点聊天程序实现&quot;&gt;&lt;/a&gt;点对点聊天程序实现&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;用多进程方式实现点对点聊天&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;getppid()&lt;/code&gt;获取父进程的&lt;code&gt;pid&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
     
     
     
@@ -166,13 +258,34 @@
     <updated>2022-01-19T13:19:37.306Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;day04&quot;&gt;&lt;a href=&quot;#day04&quot; class=&quot;headerlink&quot; title=&quot;day04&quot;&gt;&lt;/a&gt;day04&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;h1 id=&quot;day04&quot;&gt;&lt;a href=&quot;#day04&quot; class=&quot;headerlink&quot; title=&quot;day04&quot;&gt;&lt;/a&gt;day04&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot; title=&quot;本章目标&quot;&gt;&lt;/a&gt;本章目标&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;流协议与粘包：**&lt;code&gt;TCP&lt;/code&gt;是字节流协议会导致粘包问题的出现**&lt;/li&gt;
+&lt;li&gt;粘包产生的原因&lt;/li&gt;
+&lt;li&gt;粘包处理方案&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;readn&lt;/code&gt;、&lt;code&gt;writen&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;回射客户/服务器&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;TCP是字节流传输，信息无边界。&lt;/p&gt;
+&lt;p&gt;UDP是消息传输，传输的是报文，是具有边界的。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;粘包解决方案&quot;&gt;&lt;a href=&quot;#粘包解决方案&quot; class=&quot;headerlink&quot; title=&quot;粘包解决方案&quot;&gt;&lt;/a&gt;粘包解决方案&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;本质上是要在应用层维护消息与消息的边界&lt;ul&gt;
+&lt;li&gt;定包长&lt;/li&gt;
+&lt;li&gt;包尾加&lt;code&gt;\r\n&lt;/code&gt;(ftp协议处理方法)&lt;/li&gt;
+&lt;li&gt;包头加上包体长度&lt;/li&gt;
+&lt;li&gt;更复杂的应用层协议&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;readn-和writen函数&quot;&gt;&lt;a href=&quot;#readn-和writen函数&quot; class=&quot;headerlink&quot; title=&quot;readn 和writen函数&quot;&gt;&lt;/a&gt;readn 和writen函数&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;自定义通信协议，即为自定义数据包结构。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;readn&lt;/code&gt; 接收确切数目的读操作&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;write&lt;/code&gt;发送确切数目的写操作&lt;/li&gt;
+&lt;/ul&gt;
+</summary>
     
     
     
@@ -191,13 +304,26 @@
     <updated>2022-01-19T13:19:37.306Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;day05&quot;&gt;&lt;a href=&quot;#day05&quot; class=&quot;headerlink&quot; title=&quot;day05&quot;&gt;&lt;/a&gt;day05&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;h1 id=&quot;day05&quot;&gt;&lt;a href=&quot;#day05&quot; class=&quot;headerlink&quot; title=&quot;day05&quot;&gt;&lt;/a&gt;day05&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot; title=&quot;本章目标&quot;&gt;&lt;/a&gt;本章目标&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;read&lt;/code&gt;、&lt;code&gt;write&lt;/code&gt;与&lt;code&gt;recv&lt;/code&gt;、&lt;code&gt;send&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;readline&lt;/code&gt;实现&lt;/li&gt;
+&lt;li&gt;用&lt;code&gt;readline&lt;/code&gt;实现回射客户端/服务器&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;getsockname&lt;/code&gt;、&lt;code&gt;getpeername&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;gethostname&lt;/code&gt;、&lt;code&gt;gethostbyname&lt;/code&gt;、&lt;code&gt;gethostbyadr&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;read、write与recv、send函数&quot;&gt;&lt;a href=&quot;#read、write与recv、send函数&quot; class=&quot;headerlink&quot; title=&quot;read、write与recv、send函数&quot;&gt;&lt;/a&gt;read、write与recv、send函数&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;man recv&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;recv&lt;/code&gt;函数只能用于套接口的&lt;code&gt;I/O·&lt;/code&gt;    ,&lt;code&gt;read&lt;/code&gt;函数可以用于任何的&lt;code&gt;I/O&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;recv&lt;/code&gt;函数增加了可选参数&lt;code&gt;flgs&lt;/code&gt;，flags取值为&lt;code&gt;MSG_OOB&lt;/code&gt; ：接收紧急指针数据。&lt;code&gt;MSG_PEEK&lt;/code&gt;：接收数据但是不把缓冲区的数据清除。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;sys/types.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;sys/socket.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ssize_t recv(int sockfd, void *buf, size_t len, int flags);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ssize_t recvfrom(int sockfd, void *buf, size_t len, int flags, struct sockaddr *src_addr, socklen_t *addrlen);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ssize_t recvmsg(int sockfd, struct msghdr *msg, int flags);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;##flags标志：&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;MSG_OOB&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    This flag requests receipt of out-of-band data that would not be&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    received  in the normal data stream.  Some protocols place expe‐&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    dited data at the head of the normal data queue, and  thus  this&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    flag cannot be used with such protocols.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;MSG_PEEK&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    This  flag  causes the receive operation to return data from the&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    beginning of the receive queue without removing that  data  from&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    the queue.  Thus, a subsequent receive call will return the same&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    data.&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;readline实现&quot;&gt;&lt;a href=&quot;#readline实现&quot; class=&quot;headerlink&quot; title=&quot;readline实现&quot;&gt;&lt;/a&gt;readline实现&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;readline&lt;/code&gt;：是为了解决粘包问题。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
     
     
     
@@ -216,14 +342,32 @@
     <updated>2022-01-19T13:19:37.306Z</updated>
     
     
-      
-      
-        
-        
     <summary type="html">&lt;h1 id=&quot;day06&quot;&gt;&lt;a href=&quot;#day06&quot; class=&quot;headerlink&quot; title=&quot;day06&quot;&gt;&lt;/a&gt;day06&lt;/h1&gt;&lt;p&gt;参考链接：&lt;/p&gt;
-&lt;p&gt;&lt;a</summary>
-        
-      
+&lt;p&gt;&lt;a href=&quot;https://www.cnblogs.com/yuxingfirst/p/3165407.html&quot;&gt;https://www.cnblogs.com/yuxingfirst/p/3165407.html&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot; title=&quot;本章目标&quot;&gt;&lt;/a&gt;本章目标&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;TCP&lt;/code&gt;回射客户/服务器&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;TCP&lt;/code&gt;是个流协议&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;僵尸进程与&lt;code&gt;SIGCHLD&lt;/code&gt;信号&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;TCP是一个流协议&quot;&gt;&lt;a href=&quot;#TCP是一个流协议&quot; class=&quot;headerlink&quot; title=&quot;TCP是一个流协议&quot;&gt;&lt;/a&gt;TCP是一个流协议&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;TCP&lt;/code&gt;是&lt;strong&gt;基于字节流传输的&lt;/strong&gt;，只维护发送出去多少，确认收到了多少，没有维护消息与消息之间的边界，因而可能&lt;strong&gt;导致粘包问题&lt;/strong&gt;，所以需要自己维护。&lt;/li&gt;
+&lt;li&gt;粘包问题解决方法是&lt;strong&gt;在应用层维护消息边界&lt;/strong&gt;。&lt;ul&gt;
+&lt;li&gt;粘包问题&lt;ul&gt;
+&lt;li&gt;定长包&lt;/li&gt;
+&lt;li&gt;使用&lt;code&gt;\n&lt;/code&gt;作为区分消息和消息的边界&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;僵尸进程的避免&quot;&gt;&lt;a href=&quot;#僵尸进程的避免&quot; class=&quot;headerlink&quot; title=&quot;僵尸进程的避免&quot;&gt;&lt;/a&gt;僵尸进程的避免&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;僵尸进程：子进程死后，父进程未给子进程收尸，即父进程未回收子进程的资源&lt;/p&gt;
+&lt;p&gt;孤儿进程：父进程先于子进程死亡，子进程没有了父进程，成为了孤儿进程，而&lt;code&gt;linux&lt;/code&gt;操作系统有一个孤儿院，进程&lt;code&gt;ID为1的进程&lt;/code&gt;，会成为孤儿进程的父进程，使孤儿进程的资源可以让父进程回收&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[pip@localhost code]$ ps -ef | grep echosrv&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;pip       4213  4145  0 17:40 pts/1    00:00:00 vim echosrv.c&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;pip       5237  4240  0 18:11 pts/2    00:00:00 ./echosrv&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;pip       5240  5237  0 18:11 pts/2    00:00:00 [echosrv] &amp;lt;defunct&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;pip       5245  4289  0 18:11 pts/3    00:00:00 grep --color=auto echosrv&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
     
     
     
@@ -244,13 +388,31 @@
     <updated>2022-01-19T13:19:37.306Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;day07&quot;&gt;&lt;a href=&quot;#day07&quot; class=&quot;headerlink&quot; title=&quot;day07&quot;&gt;&lt;/a&gt;day07&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;h1 id=&quot;day07&quot;&gt;&lt;a href=&quot;#day07&quot; class=&quot;headerlink&quot; title=&quot;day07&quot;&gt;&lt;/a&gt;day07&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot; title=&quot;本章目标&quot;&gt;&lt;/a&gt;本章目标&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;TCP&lt;/code&gt; 11种状态&lt;/li&gt;
+&lt;li&gt;连接建立三次握手、连接终止四次握手&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;TIME_WAIT&lt;/code&gt;与&lt;code&gt;SO_REUSEADDR&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SIGPIPE&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;ACK、SYN和FIN&quot;&gt;&lt;a href=&quot;#ACK、SYN和FIN&quot; class=&quot;headerlink&quot; title=&quot;ACK、SYN和FIN&quot;&gt;&lt;/a&gt;ACK、SYN和FIN&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;参考文档：&lt;br&gt;&lt;a href=&quot;https://zhidao.baidu.com/question/27114298.html&quot;&gt;https://zhidao.baidu.com/question/27114298.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ACK&lt;/code&gt;：是一种确认应答，在数据通信传输中，接收站发给发送站的一种传输控制字符。它表示确认发来的数据已经接受无误。&lt;br&gt;&lt;code&gt;SYN&lt;/code&gt;：攻击属于&lt;code&gt;DOS&lt;/code&gt;攻击的一种，它利用&lt;code&gt;TCP协议&lt;/code&gt;缺陷，通过发送大量的&lt;code&gt;半连接请求&lt;/code&gt;，耗费CPU和内存资源。是最常见又最容易被利用的一种攻击手法。&lt;br&gt;&lt;code&gt;FIN&lt;/code&gt;：是用来扫描保留的端口，发送一个&lt;code&gt;FIN&lt;/code&gt;包（或者是任何没有ACK或SYN标记的包）到目标的一个开放的端口，然后等待回应。许多系统会返回一个复位标记。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;TCP-11种状态&quot;&gt;&lt;a href=&quot;#TCP-11种状态&quot; class=&quot;headerlink&quot; title=&quot;TCP 11种状态&quot;&gt;&lt;/a&gt;TCP 11种状态&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/2022/01/19/Socket/day07/tcp%E7%9A%8411%E7%A7%8D%E7%8A%B6%E6%80%81.png&quot; alt=&quot;tcp的11种状态&quot;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;貌似有点不对啊，不是说是11种状态吗？？？怎么只有10种，莫非打错字了？？？NO！！！NO！！！NO！！！&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第十一种状态为：&lt;code&gt;CLOSING&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;关闭请求由双方都可以主动的发起，图中为客户端发起的中断连接，也可以是服务器发起中断连接。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;TIME_WAIT&lt;/code&gt;：保留两倍的&lt;code&gt;MSL&lt;/code&gt;时间。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;参考：MSL，即 Maximum Segment Lifetime，一个数据分片（报文）在网络中能够生存的最长时间，在RFC793中定义MSL通常为2分钟，即超过两分钟即认为这个报文已经在网络中被丢弃了。对于一个TCP连接，在双方进入TIME_WAIT后，通常会等待2倍MSL时间后，再关闭掉连接，作用是为了防止由于FIN报文丢包，对端重发导致与后续的TCP连接请求产生顺序混乱，具体原理这里就不详细解释了，&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;参考链接：&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/qwertyupoiuytr/article/details/71436967&quot;&gt;https://blog.csdn.net/qwertyupoiuytr/article/details/71436967&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;CLOSING状态&quot;&gt;&lt;a href=&quot;#CLOSING状态&quot; class=&quot;headerlink&quot; title=&quot;CLOSING状态&quot;&gt;&lt;/a&gt;CLOSING状态&lt;/h3&gt;</summary>
     
     
     
@@ -271,13 +433,25 @@
     <updated>2022-01-19T13:19:37.306Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;day08&quot;&gt;&lt;a href=&quot;#day08&quot; class=&quot;headerlink&quot; title=&quot;day08&quot;&gt;&lt;/a&gt;day08&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;h1 id=&quot;day08&quot;&gt;&lt;a href=&quot;#day08&quot; class=&quot;headerlink&quot; title=&quot;day08&quot;&gt;&lt;/a&gt;day08&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot; title=&quot;本章目标&quot;&gt;&lt;/a&gt;本章目标&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;五种&lt;code&gt;I/O&lt;/code&gt;模型&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;select&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;用&lt;code&gt;select&lt;/code&gt;改进回射客户端程序&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;五种I-O模型&quot;&gt;&lt;a href=&quot;#五种I-O模型&quot; class=&quot;headerlink&quot; title=&quot;五种I/O模型&quot;&gt;&lt;/a&gt;五种I/O模型&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;阻塞&lt;code&gt;I/O&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;非阻塞&lt;code&gt;I/O&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;I/O&lt;/code&gt;复用(&lt;code&gt;select&lt;/code&gt;和&lt;code&gt;poll&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;信号驱动&lt;code&gt;I/O&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;异步&lt;code&gt;I/O&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;1、阻塞I-O模型&quot;&gt;&lt;a href=&quot;#1、阻塞I-O模型&quot; class=&quot;headerlink&quot; title=&quot;1、阻塞I/O模型&quot;&gt;&lt;/a&gt;1、阻塞I/O模型&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;阻塞等待数据到来。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;/2022/01/19/Socket/day08/%E9%98%BB%E5%A1%9EIO%E6%A8%A1%E5%9E%8B.png&quot; alt=&quot;阻塞IO模型&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;2、非阻塞I-O模型&quot;&gt;&lt;a href=&quot;#2、非阻塞I-O模型&quot; class=&quot;headerlink&quot; title=&quot;2、非阻塞I/O模型&quot;&gt;&lt;/a&gt;2、非阻塞I/O模型&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;**&lt;code&gt;忙等待&lt;/code&gt;**，用的很少，程序一直在等待数据，没有数据相当于死循环，占用CPU资源。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
     
     
     
@@ -298,13 +472,66 @@
     <updated>2022-01-19T13:19:37.306Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;day09&quot;&gt;&lt;a href=&quot;#day09&quot; class=&quot;headerlink&quot; title=&quot;day09&quot;&gt;&lt;/a&gt;day09&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;h1 id=&quot;day09&quot;&gt;&lt;a href=&quot;#day09&quot; class=&quot;headerlink&quot; title=&quot;day09&quot;&gt;&lt;/a&gt;day09&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot; title=&quot;本章目标&quot;&gt;&lt;/a&gt;本章目标&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;select&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;读、写、异常事件发生条件&lt;/li&gt;
+&lt;li&gt;用&lt;code&gt;select&lt;/code&gt;改进回射服务器程序&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;select&quot;&gt;&lt;a href=&quot;#select&quot; class=&quot;headerlink&quot; title=&quot;select&quot;&gt;&lt;/a&gt;select&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;再复习和补充一点&lt;code&gt;select&lt;/code&gt;的参数&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;sys/select.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/* According to earlier standards */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;sys/time.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;sys/types.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;unistd.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;int select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;void FD_CLR(int fd, fd_set *set);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;int  FD_ISSET(int fd, fd_set *set);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;void FD_SET(int fd, fd_set *set);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;void FD_ZERO(fd_set *set);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;sys/select.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;int pselect(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, const struct timespec *timeout, const sigset_t *sigmask);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;参数一：&lt;code&gt;int nfds&lt;/code&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;因为&lt;code&gt;select&lt;/code&gt;的对感兴趣的&lt;code&gt;fd&lt;/code&gt;取值范围为&lt;code&gt;[0, nfds)&lt;/code&gt;，前闭后开区间，所以需要最大的&lt;code&gt;文件描述符+1&lt;/code&gt;，才能覆盖整个感兴趣的文件描述符号的范围。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;参数二：&lt;code&gt;fd_set *readfds&lt;/code&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;可读事件集合，添加感兴趣可读&lt;code&gt;fd&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;参数三：&lt;code&gt;fd_set *writefds&lt;/code&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;可写事件集合，添加感兴趣可写&lt;code&gt;fd&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;参数四：&lt;code&gt;fd_set *exceptfds&lt;/code&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;异常事件集合&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;参数五：&lt;code&gt;struct timeval *timeout&lt;/code&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;超时时间，在响应的超时时间内没有发生任何一个&lt;code&gt;I/O事件&lt;/code&gt;(读/写事件)，则&lt;code&gt;select&lt;/code&gt;返回&lt;code&gt;0&lt;/code&gt;，指示超时。出现错误&lt;code&gt;select&lt;/code&gt;返回&lt;code&gt;-1&lt;/code&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;监测到多个事件，需要遍历，&lt;code&gt;readfds&lt;/code&gt;、&lt;code&gt;writefds&lt;/code&gt;、&lt;code&gt;exceptfds&lt;/code&gt;这些集合来一一处理这些事情，&lt;font color=&quot;read&quot;&gt;则将&lt;code&gt;select&lt;/code&gt;实现的服务器称为并发服务器&lt;/font&gt;。因为没有能力并行处理这些&lt;code&gt;I/O&lt;/code&gt;事件，只能一一遍历处理这些事件。所以称为并发服务器，而不是并行服务器。并发服务器不能长时间处理这些事件，因为长时间处理则不能去执行其他的动作。且事件间的处理间隔时间也不能太长。无法充分利用多核处理器。使用多进程&lt;code&gt;select&lt;/code&gt;或者多线程处理这些事件。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;select&lt;/code&gt;可以同时检测网络&lt;code&gt;I/O&lt;/code&gt;和标准&lt;code&gt;I/O&lt;/code&gt;事件。那个事件产生则处理那个事件。不会因为某一个阻塞导致另一个无法处理。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;读、写、异常事件发生条件&quot;&gt;&lt;a href=&quot;#读、写、异常事件发生条件&quot; class=&quot;headerlink&quot; title=&quot;读、写、异常事件发生条件&quot;&gt;&lt;/a&gt;读、写、异常事件发生条件&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;可读&lt;ul&gt;
+&lt;li&gt;套接口缓冲区有数据可读，底层本质：如果缓冲区的数据超过一定的范围才会通知有数据可读&lt;/li&gt;
+&lt;li&gt;连接的读一般关闭，即接收到&lt;code&gt;FIN&lt;/code&gt;段，读操作返回&lt;code&gt;0&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;如果是监听套接口，已完成连接队列不为空时。&lt;/li&gt;
+&lt;li&gt;套接口上发生了一个错误待处理，错误可以通过&lt;code&gt;getsockopt&lt;/code&gt;指定&lt;code&gt;SO_ERROR&lt;/code&gt;选项来获取&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;可写&lt;ul&gt;
+&lt;li&gt;套接口发送缓冲区有空间容纳数据&lt;/li&gt;
+&lt;li&gt;连接的写一半关闭，即收到&lt;code&gt;RST&lt;/code&gt;段之后，再次调用&lt;code&gt;write&lt;/code&gt;操作&lt;/li&gt;
+&lt;li&gt;套接口上发生一个错误待处理，错误可以通过&lt;code&gt;getsockopt&lt;/code&gt;指定&lt;code&gt;SO_ERROR&lt;/code&gt;选项来获取&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;异常&lt;ul&gt;
+&lt;li&gt;套接口存在带外数据。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</summary>
     
     
     
@@ -323,13 +550,31 @@
     <updated>2022-01-19T13:19:37.306Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;day10&quot;&gt;&lt;a href=&quot;#day10&quot; class=&quot;headerlink&quot; title=&quot;day10&quot;&gt;&lt;/a&gt;day10&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;h1 id=&quot;day10&quot;&gt;&lt;a href=&quot;#day10&quot; class=&quot;headerlink&quot; title=&quot;day10&quot;&gt;&lt;/a&gt;day10&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot; title=&quot;本章目标&quot;&gt;&lt;/a&gt;本章目标&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;close&lt;/code&gt;和&lt;code&gt;shutdown&lt;/code&gt;的区别&lt;/li&gt;
+&lt;li&gt;进一步改进回射客户端程序&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;close和shutdown&quot;&gt;&lt;a href=&quot;#close和shutdown&quot; class=&quot;headerlink&quot; title=&quot;close和shutdown&quot;&gt;&lt;/a&gt;close和shutdown&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;close&lt;/code&gt;终止了数据传送的两个方向&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;shutdown&lt;/code&gt;可以有选择的终止某个方向的数据传送或者终止数据传送的两个方向&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;shutdown how=1&lt;/code&gt;就可以保证对等方接收到一个&lt;code&gt;EOF&lt;/code&gt;字符，而不管其他进程是否已经打开了套接字，即不关心引用计数。而&lt;code&gt;close&lt;/code&gt;不能保证一定给对等方发送&lt;code&gt;EOF&lt;/code&gt;，而是直到套接字引用计数减为&lt;code&gt;0&lt;/code&gt;时才发送，也就是说直到所有的进程都关闭了套接字。才是真的关闭了套接字。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;FIN&lt;/code&gt;：是用来扫描保留的端口，发送一个FIN包（或者是任何没有&lt;code&gt;ACK&lt;/code&gt;或&lt;code&gt;SYN&lt;/code&gt;标记的包）到目标的一个开放的端口，然后等待回应。许多系统会返回一个复位标记。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;当客户端(或者服务器)发送消息后，另一端没有读取消息，消息还在管道中，但是客户端(或者服务器)使用&lt;code&gt;close&lt;/code&gt;关闭了套接字，那么另一端就不能把未读取的数据读取出来。所以需要&lt;code&gt;shutdown&lt;/code&gt;，终止某个方向的数据传送。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;关于&lt;code&gt;shutdown&lt;/code&gt;和&lt;code&gt;close&lt;/code&gt;参考文档：&lt;a href=&quot;https://blog.csdn.net/lgp88/article/details/7176509&quot;&gt;https://blog.csdn.net/lgp88/article/details/7176509&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;shutdown&quot;&gt;&lt;a href=&quot;#shutdown&quot; class=&quot;headerlink&quot; title=&quot;shutdown&quot;&gt;&lt;/a&gt;shutdown&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;man 2 shutdown&lt;/code&gt;查看帮助，这个是一个函数，和&lt;code&gt;linux&lt;/code&gt;命令一样但是… …，这俩不一样&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;假设客户端使用了&lt;code&gt;close(fd)&lt;/code&gt;，那么客户端的其他进程如果也使用了这个套接字(即：引用计数 &amp;gt; 1)，则只是引用计数减一操作，其他的进程仍然可以通过这个套接字与服务器进行通信。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;假设客户端如果使用了&lt;code&gt;shutdown(fd, SHUT_RD)&lt;/code&gt;，则直接关闭读端(不管引用计数为多少)，其他进程则不能通过读端再进行数据的读取了，同理可得&lt;code&gt;SHUT_WR&lt;/code&gt;：关闭写端，&lt;code&gt;SHUT_RDWR&lt;/code&gt;：读端和写端都关闭。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;sys/socket.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;int shutdown(int sockfd, int how);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DESCRIPTION&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	The  shutdown() call causes all or part of a full-duplex connection on the socket associated with sockfd to be shut down. If how is SHUT_RD, further receptions will be disallowed.  If how is SHUT_WR, further transmissions will  be  disallowed. If how is SHUT_RDWR, further receptions and transmissions will be disallowed.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;RETURN VALUE&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	On success, zero is returned.  On error, -1 is returned, and errno is set appropriately.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ERRORS&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	EBADF  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		sockfd is not a valid descriptor.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	EINVAL &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		An invalid value was specified in how (but see BUGS).&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	ENOTCONN&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		The specified socket is not connected.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	ENOTSOCK&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		sockfd is a file, not a socket.&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
     
     
     
@@ -348,13 +593,47 @@
     <updated>2022-01-19T13:19:37.307Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;day11&quot;&gt;&lt;a href=&quot;#day11&quot; class=&quot;headerlink&quot; title=&quot;day11&quot;&gt;&lt;/a&gt;day11&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;h1 id=&quot;day11&quot;&gt;&lt;a href=&quot;#day11&quot; class=&quot;headerlink&quot; title=&quot;day11&quot;&gt;&lt;/a&gt;day11&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot; title=&quot;本章目标&quot;&gt;&lt;/a&gt;本章目标&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;套接字&lt;code&gt;I/O&lt;/code&gt;超时设置方法&lt;/li&gt;
+&lt;li&gt;用&lt;code&gt;select&lt;/code&gt;实现超时&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;read_timeout&lt;/code&gt;函数封装&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;write_timeout&lt;/code&gt;函数封装&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;accept_timeout&lt;/code&gt;函数封装&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;connect_timeout&lt;/code&gt;函数封装&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;套接字I-O超时设置方法&quot;&gt;&lt;a href=&quot;#套接字I-O超时设置方法&quot; class=&quot;headerlink&quot; title=&quot;套接字I/O超时设置方法&quot;&gt;&lt;/a&gt;套接字I/O超时设置方法&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;一共有三种方法&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;alarm&lt;/code&gt;：闹钟定时&lt;/li&gt;
+&lt;li&gt;套接字选项：移植性比较差&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;SO_SNDTIMEO&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SO_RCVTIMEO&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;select&lt;/code&gt;：&lt;strong&gt;优&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;用select实现超时&quot;&gt;&lt;a href=&quot;#用select实现超时&quot; class=&quot;headerlink&quot; title=&quot;用select实现超时&quot;&gt;&lt;/a&gt;用select实现超时&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;自定义&lt;code&gt;read_timeout&lt;/code&gt;、&lt;code&gt;write_timeout&lt;/code&gt;、&lt;code&gt;accept_timeout&lt;/code&gt;和&lt;code&gt;connect_timeout&lt;/code&gt;函数对&lt;code&gt;select&lt;/code&gt;函数进行了封装，所需要参数为&lt;code&gt;文件描述符&lt;/code&gt;和&lt;code&gt;时间长度&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;   int select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout);&lt;/p&gt;
+&lt;p&gt;   The timeout&lt;br&gt;       The time structures involved are defined in &amp;lt;sys/time.h&amp;gt; and look like&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;   struct timeval &amp;#123;
+       long    tv_sec;         /* seconds */
+       long    tv_usec;        /* microseconds */
+   &amp;#125;;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;   and&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;   struct timespec &amp;#123;
+       long    tv_sec;         /* seconds */
+       long    tv_nsec;        /* nanoseconds */
+   &amp;#125;;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;##errno.h头文件&lt;/p&gt;</summary>
     
     
     
@@ -373,13 +652,35 @@
     <updated>2022-01-19T13:19:37.307Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;day12&quot;&gt;&lt;a href=&quot;#day12&quot; class=&quot;headerlink&quot; title=&quot;day12&quot;&gt;&lt;/a&gt;day12&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;h1 id=&quot;day12&quot;&gt;&lt;a href=&quot;#day12&quot; class=&quot;headerlink&quot; title=&quot;day12&quot;&gt;&lt;/a&gt;day12&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot; title=&quot;本章目标&quot;&gt;&lt;/a&gt;本章目标&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;select&lt;/code&gt;限制&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;poll&lt;/code&gt;，也是&lt;code&gt;I/O&lt;/code&gt;复用函数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;select限制&quot;&gt;&lt;a href=&quot;#select限制&quot; class=&quot;headerlink&quot; title=&quot;select限制&quot;&gt;&lt;/a&gt;select限制&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;用&lt;code&gt;select&lt;/code&gt;实现的并发服务器，能达到的并发数，受两方面的限制&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;一个进程所能打开的最大文件描述符限制，可以通过调整内核参数来改变，&lt;code&gt;ulimit -n&lt;/code&gt;查看能打开的文件描描述符的大小，通过&lt;code&gt;ulimit -n num&lt;/code&gt;：通过这条命令修改一个文件所能打开的最大文件描述符的限制，&lt;code&gt;num&lt;/code&gt;为改变之后的最大文件描述符。这个命令只是临时修改，如果需要开机的时候改变的话则需要修改配置文件。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;发现几个&lt;code&gt;ulimit&lt;/code&gt;的小坑，以下皆为个人猜想，有一定的实践操作佐证。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ulimit -n num&lt;/code&gt;：如果是普通用户每次修改的文件描述符的&lt;code&gt;num&lt;/code&gt;必须小于&lt;code&gt;ulimit -n&lt;/code&gt;的数值的大小，否则会报错误&lt;code&gt;bash: ulimit: open files: cannot modify limit: Operation not permitted&lt;/code&gt;，权限不够，emmm。如果是管理员则不会出现这个错误，可以修改成功。&lt;/p&gt;
+&lt;p&gt;即：管理员可以随意的改大改小，而普通用户只能不断的改小，不能改的比原来的最大能打开的文件描述符数量大。但是可以越改越小… …。&lt;/p&gt;
+&lt;p&gt;今天下午又试了一次发现普通用户也可以把最大能打开的文件描述符数量增大。… …. &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;select&lt;/code&gt;中的&lt;code&gt;fd_set&lt;/code&gt;集合容量的限制(FD_SETSIZE，一般为1024)，这个需要重新编译内核。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;这里是一条插播的关于vim内容&quot;&gt;&lt;a href=&quot;#这里是一条插播的关于vim内容&quot; class=&quot;headerlink&quot; title=&quot;这里是一条插播的关于vim内容&quot;&gt;&lt;/a&gt;这里是一条插播的关于vim内容&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;参考文档：&lt;/p&gt;
+&lt;p&gt;​    &lt;a href=&quot;https://baike.1688.com/doc/view-d36947406.html&quot;&gt;https://baike.1688.com/doc/view-d36947406.html&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;TAB就是制表符,单独拿出来做一节是因为这个东西确实很有用.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;gt;                 输入此命令则光标所在行向右移动一个tab.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    5&amp;gt;&amp;gt;                输入此命令则光标后5行向右移动一个tab.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    :12,24&amp;gt;            此命令将12行到14行的数据都向右移动一个tab.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    :12,24&amp;gt;&amp;gt;           此命令将12行到14行的数据都向右移动两个tab.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    那么如何定义tab的大小呢?有人愿意使用8个空格位,有人用4个,有的用2个.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    有的人希望tab完全用空格代替,也有的人希望tab就是tab.没关系,vim能&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    帮助您.以下的配置一般也都先写入配置文档中,免得老敲.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    :set shiftwidth=4  配置自动缩进4个空格,当然要设自动缩进先.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    :set sts=4         即配置softtabstop为4.输入tab后就跳了4格.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    :set tabstop=4     实际的tab即为4个空格,而不是缺省的8个.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    :set expandtab     在输入tab后,vim用恰当的空格来填充这个tab.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;命令模式&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  	dG从前行一直删除到文件末尾。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	u：撤销操作，类似win的ctrl + z&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	ctrl + r:重做上一个操作&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;getrlimit和setrlimit&quot;&gt;&lt;a href=&quot;#getrlimit和setrlimit&quot; class=&quot;headerlink&quot; title=&quot;getrlimit和setrlimit&quot;&gt;&lt;/a&gt;getrlimit和setrlimit&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;获取一个进程所能打开的最大文件描述符数目。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
     
     
     
@@ -398,13 +699,47 @@
     <updated>2022-01-19T13:19:37.307Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;day13&quot;&gt;&lt;a href=&quot;#day13&quot; class=&quot;headerlink&quot; title=&quot;day13&quot;&gt;&lt;/a&gt;day13&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;h1 id=&quot;day13&quot;&gt;&lt;a href=&quot;#day13&quot; class=&quot;headerlink&quot; title=&quot;day13&quot;&gt;&lt;/a&gt;day13&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot; title=&quot;本章目标&quot;&gt;&lt;/a&gt;本章目标&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;epoll&lt;/code&gt;使用&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;epoll&lt;/code&gt;与&lt;code&gt;select&lt;/code&gt;、&lt;code&gt;poll&lt;/code&gt;区别&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;epoll LR/ET&lt;/code&gt;模式&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;复习select和poll&quot;&gt;&lt;a href=&quot;#复习select和poll&quot; class=&quot;headerlink&quot; title=&quot;复习select和poll&quot;&gt;&lt;/a&gt;复习select和poll&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;select&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一个进程能打开的最大文件描述符个数是有限的&lt;/li&gt;
+&lt;li&gt;FD_SETSIZE的限制&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;poll&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;一个进程能打开的最大文件描述符个数是有限的，系统能打开的最大文件描述符个数是有限的，与系统内存有关&lt;code&gt;cat /proc/sys/fs/file-max&lt;/code&gt;，查看系统能打开的最大的文件描述符的个数。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;ulimit -n num&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;共同点：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;内核需要遍历所有的文件描述符，直到找到发生事件的文件描述符。—&amp;gt;提高效率点，&lt;code&gt;epoll&lt;/code&gt;对此进行了优化&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;epoll相关函数&quot;&gt;&lt;a href=&quot;#epoll相关函数&quot; class=&quot;headerlink&quot; title=&quot;epoll相关函数&quot;&gt;&lt;/a&gt;epoll相关函数&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;int epoll_create(int size);&lt;/code&gt;//创建一个&lt;code&gt;epoll&lt;/code&gt;实例,使用哈希表存储的,size是内部创建的哈希表大小&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int epoll_create1(int flags);&lt;/code&gt;//同上,使用的是红黑数,所以不再需要指定大小了.—&amp;gt;优先选择使用.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event);&lt;/code&gt;//把一个套接字添加到实例中,进行管理&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int epoll_wait(int epfd, struct epoll_event *events, int maxevents, int timeout);&lt;/code&gt;//等待事件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;man 2 epoll_create&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;SYNOPSIS&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    #include &amp;lt;sys/epoll.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    int epoll_create(int size);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    int epoll_create1(int flags);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DESCRIPTION&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	epoll_create()  creates  an  epoll(7)  instance.   Since  Linux 2.6.8, the size argument is ignored, but must be greater than zero; see NOTES below.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	epoll_create() returns a file descriptor referring to the new epoll  instance.   This  file descriptor  is  used  for  all the subsequent calls to the epoll interface.  When no longer required, the file  descriptor  returned  by  epoll_create()  should  be  closed  by  using close(2).   When  all file descriptors referring to an epoll instance have been closed, the kernel destroys the instance and releases the associated resources for reuse.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;epoll_create1()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	If flags is 0, then, other than the fact  that  the  obsolete  size  argument  is  dropped, epoll_create1()  is  the  same  as  epoll_create().  The following value can be included in flags to obtain different behavior:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;EPOLL_CLOEXEC&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	Set the close-on-exec (FD_CLOEXEC)  flag  on  the  new  file  descriptor.   See  the description of the O_CLOEXEC flag in open(2) for reasons why this may be useful.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;RETURN VALUE&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	On  success,  these  system  calls  return  a nonnegative file descriptor.  On error, -1 is returned, and errno is set to indicate the error.&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;man 2 epoll_ctl&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
     
     
     
@@ -425,13 +760,31 @@
     <updated>2022-01-19T13:19:37.307Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;day14&quot;&gt;&lt;a href=&quot;#day14&quot; class=&quot;headerlink&quot; title=&quot;day14&quot;&gt;&lt;/a&gt;day14&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;h1 id=&quot;day14&quot;&gt;&lt;a href=&quot;#day14&quot; class=&quot;headerlink&quot; title=&quot;day14&quot;&gt;&lt;/a&gt;day14&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot; title=&quot;本章目标&quot;&gt;&lt;/a&gt;本章目标&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;UDP&lt;/code&gt;特点&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;UDP&lt;/code&gt;客户/服务基本模型&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;UDP&lt;/code&gt;回射客户/服务器&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;UDP&lt;/code&gt;注意点&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;UDP特点&quot;&gt;&lt;a href=&quot;#UDP特点&quot; class=&quot;headerlink&quot; title=&quot;UDP特点&quot;&gt;&lt;/a&gt;UDP特点&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;无连接&lt;/li&gt;
+&lt;li&gt;基于消息的数据传输服务，理解为数据包之间有边界。&lt;/li&gt;
+&lt;li&gt;不可靠&lt;/li&gt;
+&lt;li&gt;一般情况下UDP更加高效&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;UDP注意点&quot;&gt;&lt;a href=&quot;#UDP注意点&quot; class=&quot;headerlink&quot; title=&quot;UDP注意点&quot;&gt;&lt;/a&gt;UDP注意点&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;UDP&lt;/code&gt;报文可能会丢失、重复&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;UDP&lt;/code&gt;报文可能会乱序&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;UDP&lt;/code&gt;缺乏流量控制&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;UDP&lt;/code&gt;协议数据报文截断&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;recvfrom&lt;/code&gt;返回为0，不代表连接关闭，因为&lt;code&gt;UDP是无连接的&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ICMP&lt;/code&gt;异步错误&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;UDP connect&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;UDP&lt;/code&gt;外出接口的确定&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;echosrv-c&quot;&gt;&lt;a href=&quot;#echosrv-c&quot; class=&quot;headerlink&quot; title=&quot;echosrv.c&quot;&gt;&lt;/a&gt;echosrv.c&lt;/h2&gt;&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;47&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;48&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;49&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;50&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;51&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;52&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;53&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;54&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;55&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;56&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;57&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;58&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;59&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;stdlib.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;unistd.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;errno.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;sys/types.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;sys/socket.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;arpa/inet.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;netinet/in.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;string.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#define ERR_EXIT(x) do&amp;#123;perror(x); exit(EXIT_FAILURE);&amp;#125;while(0)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;void echo_srv(int sock)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	int ret = 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	char recvbuf[1024] = &amp;#123;0&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	struct sockaddr_in peeraddr;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	socklen_t peerlen = sizeof(peeraddr);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	while(1)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		memset(recvbuf, 0, sizeof(recvbuf));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		ret = recvfrom(sock, recvbuf, 1024, 0, (struct sockaddr *)&amp;amp;peeraddr, &amp;amp;peerlen);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		if(ret &amp;lt; 0)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			if(errno == EINTR)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				continue;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			ERR_EXIT(&amp;quot;recvfrom&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		else if(ret &amp;gt; 0)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			fputs(recvbuf, stdout);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			sendto(sock, recvbuf, strlen(recvbuf), 0, (struct sockaddr *)&amp;amp;peeraddr, peerlen);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	close(sock);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;int main()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	int sock = 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	sock = socket(PF_INET, SOCK_DGRAM, 0);//参数一表示为IPV4地址家族，第二个参数IPV4对应的UDP套接口，第三个参数0表示内核自动选择协议根据前两个可以确定通信协议为UDP的&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	if(sock &amp;lt; 0)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		ERR_EXIT(&amp;quot;socket&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	struct sockaddr_in servaddr;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	memset(&amp;amp;servaddr, 0, sizeof(servaddr));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	servaddr.sin_family = AF_INET;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	servaddr.sin_port = 6000;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	//servaddr.sin_addr = htonl(&amp;quot;127.0.0.1&amp;quot;);//和下面的一样作用，绑定指定的地址，和绑定任意一个地址。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	servaddr.sin_addr.s_addr = htonl(INADDR_ANY);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	if(bind(sock, (struct sockaddr *)&amp;amp;servaddr, sizeof(servaddr)) &amp;lt; 0)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		ERR_EXIT(&amp;quot;bind&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	//不需要监听，直接连接的。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	echo_srv(sock);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	return 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;echocli-c&quot;&gt;&lt;a href=&quot;#echocli-c&quot; class=&quot;headerlink&quot; title=&quot;echocli.c&quot;&gt;&lt;/a&gt;echocli.c&lt;/h2&gt;</summary>
     
     
     
@@ -452,13 +805,26 @@
     <updated>2022-01-19T13:19:37.307Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;day16&quot;&gt;&lt;a href=&quot;#day16&quot; class=&quot;headerlink&quot; title=&quot;day16&quot;&gt;&lt;/a&gt;day16&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;h1 id=&quot;day16&quot;&gt;&lt;a href=&quot;#day16&quot; class=&quot;headerlink&quot; title=&quot;day16&quot;&gt;&lt;/a&gt;day16&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot; title=&quot;本章目标&quot;&gt;&lt;/a&gt;本章目标&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;UNIX&lt;/code&gt;域协议特点&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;UNIX&lt;/code&gt;域地址结构&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;UNIX&lt;/code&gt;域字节流回射客户/服务&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;UNIX&lt;/code&gt;域套接字编程注意点&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;UNIX域协议特点&quot;&gt;&lt;a href=&quot;#UNIX域协议特点&quot; class=&quot;headerlink&quot; title=&quot;UNIX域协议特点&quot;&gt;&lt;/a&gt;UNIX域协议特点&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;UNIX&lt;/code&gt;域套接字与&lt;code&gt;TCP&lt;/code&gt;套接字相比较，在同一台主机的传输速度前者是后者的两倍。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;UNIX&lt;/code&gt;域套接字可以在同一台主机上各进程之间传递描述符。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;UNIX&lt;/code&gt;域套接字与传统套接字的区别是用路径名来表示协议族的描述。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;UNIX域地址结构&quot;&gt;&lt;a href=&quot;#UNIX域地址结构&quot; class=&quot;headerlink&quot; title=&quot;UNIX域地址结构&quot;&gt;&lt;/a&gt;UNIX域地址结构&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;man unix&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#define UNIX_PATH_MAX 108&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;struct sockaddr_un&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    sa_family_t sun_family; //为AF_UNIX&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    char sun_path[UNIX_PATH_MAX]; //pathname&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;##UNIX域字节流回射客户/服务&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;echosrv.c&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
     
     
     
@@ -477,13 +843,37 @@
     <updated>2022-01-19T13:19:37.307Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;day17&quot;&gt;&lt;a href=&quot;#day17&quot; class=&quot;headerlink&quot; title=&quot;day17&quot;&gt;&lt;/a&gt;day17&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;h1 id=&quot;day17&quot;&gt;&lt;a href=&quot;#day17&quot; class=&quot;headerlink&quot; title=&quot;day17&quot;&gt;&lt;/a&gt;day17&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot; title=&quot;本章目标&quot;&gt;&lt;/a&gt;本章目标&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;socketpair&lt;/code&gt;：全双工的流管道&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sendmsg&lt;/code&gt;和&lt;code&gt;recvmsg&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;UNIX&lt;/code&gt;域套接字传递描述符字&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;socketpair&quot;&gt;&lt;a href=&quot;#socketpair&quot; class=&quot;headerlink&quot; title=&quot;socketpair&quot;&gt;&lt;/a&gt;socketpair&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;功能：创建一个全双工的流管道，只能用于亲缘进程通信。&lt;/li&gt;
+&lt;li&gt;原型&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;int socketpair(int domain, int type, int protocol, intsv[2]);&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;参数&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;domain&lt;/code&gt;：协议家族&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;type&lt;/code&gt;：套接字类型&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;protocol&lt;/code&gt;：协议类型&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sv&lt;/code&gt;：返回套接字对，两个套接字可读可写。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;返回值：成功返回&lt;code&gt;0&lt;/code&gt;，失败返回&lt;code&gt;-1&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;sendmsg和recvmsg&quot;&gt;&lt;a href=&quot;#sendmsg和recvmsg&quot; class=&quot;headerlink&quot; title=&quot;sendmsg和recvmsg&quot;&gt;&lt;/a&gt;sendmsg和recvmsg&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;sendmsg&lt;/code&gt;：&lt;code&gt;ssize_t sendmsg(int sockfd, const struct msghdr *msg, int flags);&lt;/code&gt;&lt;br&gt;&lt;code&gt;recvmsg&lt;/code&gt;：&lt;code&gt; ssize_t recvmsg(int sockfd, struct msghdr *msg, int flags);&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;主要为了用&lt;code&gt;UNIX&lt;/code&gt;域协议传递套接字，&lt;code&gt;sockfd&lt;/code&gt;只能套接字，不能是文件描述符。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;struct iovec *msg_iov;        /* scatter/gather array */与readv和writev有关，真正所发送的数据。&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;由于存在字节对齐，所以可能会有填充字节。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;struct msghdr &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    void         *msg_name;       /* optional address */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    socklen_t     msg_namelen;    /* size of address */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    struct iovec *msg_iov;        /* scatter/gather array */与readv和writev有关，真正所发送的数据。struct iovec&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    size_t        msg_iovlen;     /* # elements in msg_iov */发送的iovec()的个数&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    void         *msg_control;    /* ancillary data, see below */辅助控制信息，为struct cmsghdr&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    size_t        msg_controllen; /* ancillary data buffer len */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    int           msg_flags;      /* flags on received message */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;struct msghdr&lt;/code&gt;的成员变量结构体。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;// struct iovec *msg_iov;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;struct iovec &amp;#123;                    /* Scatter/gather array items */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    void  *iov_base;              /* Starting address */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    size_t iov_len;               /* Number of bytes to transfer */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//void	*msg_control;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;struct cmsghdr &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    size_t cmsg_len;    /* Data byte count, including header (type is socklen_t in POSIX) */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    int    cmsg_level;  /* Originating protocol */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    int    cmsg_type;   /* Protocol-specific type */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    /* followed by &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    unsigned char cmsg_data[]; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
     
     
     
@@ -502,13 +892,7 @@
     <updated>2021-11-14T13:25:22.540Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;01-Go初识&quot;&gt;&lt;a href=&quot;#01-Go初识&quot; class=&quot;headerlink&quot; title=&quot;01 Go初识&quot;&gt;&lt;/a&gt;01 Go初识&lt;/h1&gt;&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
-        
-      
+    <summary type="html">&lt;h1 id=&quot;01-Go初识&quot;&gt;&lt;a href=&quot;#01-Go初识&quot; class=&quot;headerlink&quot; title=&quot;01 Go初识&quot;&gt;&lt;/a&gt;01 Go初识&lt;/h1&gt;&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;package main&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;import &amp;quot;fmt&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/*&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; * 三种不同的打印语句&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; * 1. fmt.Println()，可以打印字符串和变量，输出后自动增加一个换行&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; * 2. fmt.Printf()，格式化输出&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; * 3. fmt.Print()，打印字符串常量&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; **/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;func main() &amp;#123; // &amp;#123; 不能单独放一行&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	var i int&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	for i = 1; i &amp;lt;= 9; i++ &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		for j := 1; j &amp;lt;= i ; j++ &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			// fmt.Print(i, &amp;quot;*&amp;quot;, j, &amp;quot;=&amp;quot;, i*j, &amp;quot;  &amp;quot;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			fmt.Printf(&amp;quot;%d * %d =%2d &amp;quot;, i, j, i*j)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			// fmt.Println(i, &amp;quot;*&amp;quot;, j, &amp;quot;=&amp;quot;, i*j, &amp;quot;  &amp;quot;) // 最后会换行，无法格式打印9x9乘法表&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		fmt.Println()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
     
     
     

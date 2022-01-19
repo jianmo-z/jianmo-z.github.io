@@ -96,12 +96,12 @@
 
 
 
-<meta name="description" content="day08本章目标 五种I&#x2F;O模型 select 用select改进回射客户端程序  五种I&#x2F;O模型 阻塞I&#x2F;O 非阻塞I&#x2F;O I&#x2F;O复用(select和poll) 信号驱动I&#x2F;O 异步I&#x2F;O  1、阻塞I&#x2F;O模型 阻塞等待数据到来。   2、非阻塞I&#x2F;O模型 **忙等待**，用的很少，程序一直在等待数据，没有数据相当于死循环，占用CPU资源。    fcntl(fd, F_SETFL, flag">
+<meta name="description" content="day08本章目标 五种I&#x2F;O模型 select 用select改进回射客户端程序  五种I&#x2F;O模型 阻塞I&#x2F;O 非阻塞I&#x2F;O I&#x2F;O复用(select和poll) 信号驱动I&#x2F;O 异步I&#x2F;O  1、阻塞I&#x2F;O模型 阻塞等待数据到来。   2、非阻塞I&#x2F;O模型 **忙等待**，用的很少，程序一直在等待数据，没有数据相当于死循环，占用CPU资源。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="08 五种I&#x2F;O模型&amp;select模型">
 <meta property="og:url" content="http://ainihu.github.io/2022/01/19/Socket/day08/index.html">
 <meta property="og:site_name" content="缄默">
-<meta property="og:description" content="day08本章目标 五种I&#x2F;O模型 select 用select改进回射客户端程序  五种I&#x2F;O模型 阻塞I&#x2F;O 非阻塞I&#x2F;O I&#x2F;O复用(select和poll) 信号驱动I&#x2F;O 异步I&#x2F;O  1、阻塞I&#x2F;O模型 阻塞等待数据到来。   2、非阻塞I&#x2F;O模型 **忙等待**，用的很少，程序一直在等待数据，没有数据相当于死循环，占用CPU资源。    fcntl(fd, F_SETFL, flag">
+<meta property="og:description" content="day08本章目标 五种I&#x2F;O模型 select 用select改进回射客户端程序  五种I&#x2F;O模型 阻塞I&#x2F;O 非阻塞I&#x2F;O I&#x2F;O复用(select和poll) 信号驱动I&#x2F;O 异步I&#x2F;O  1、阻塞I&#x2F;O模型 阻塞等待数据到来。   2、非阻塞I&#x2F;O模型 **忙等待**，用的很少，程序一直在等待数据，没有数据相当于死循环，占用CPU资源。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://ainihu.github.io/2022/01/19/Socket/day08/%E9%98%BB%E5%A1%9EIO%E6%A8%A1%E5%9E%8B.png">
 <meta property="og:image" content="http://ainihu.github.io/2022/01/19/Socket/day08/%E9%9D%9E%E9%98%BB%E5%A1%9EIO%E6%A8%A1%E5%9E%8B.png">

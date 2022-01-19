@@ -410,6 +410,20 @@
 
   
   <url>
+    <loc>http://ainihu.github.io/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2022-01-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://ainihu.github.io/tags/Linux%E5%AE%89%E8%A3%85WPS/</loc>
+    <lastmod>2022-01-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://ainihu.github.io/tags/vim/</loc>
     <lastmod>2022-01-19</lastmod>
     <changefreq>daily</changefreq>
@@ -453,20 +467,6 @@
   
   <url>
     <loc>http://ainihu.github.io/tags/%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/</loc>
-    <lastmod>2022-01-19</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://ainihu.github.io/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/</loc>
-    <lastmod>2022-01-19</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://ainihu.github.io/tags/Linux%E5%AE%89%E8%A3%85WPS/</loc>
     <lastmod>2022-01-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
