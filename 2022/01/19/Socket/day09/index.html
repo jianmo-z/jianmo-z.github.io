@@ -392,7 +392,7 @@
 </li>
 </ul>
 <blockquote>
-<p>监测到多个事件，需要遍历，<code>readfds</code>、<code>writefds</code>、<code>exceptfds</code>这些集合来一一处理这些事情，<font color="read">则将<code>select</code>实现的服务器称为并发服务器</font>。因为没有能力并行处理这些<code>I/O</code>事件，只能一一遍历处理这些事件。所以称为并发服务器，而不是并行服务器。并发服务器不能长时间处理这些事件，因为长时间处理则不能去执行其他的动作。且事件间的处理间隔时间也不能太长。无法充分利用多核处理器。使用多进程<code>select</code>或者多线程处理这些事件。</p>
+<p>监测到多个事件，需要遍历，<code>readfds</code>、<code>writefds</code>、<code>exceptfds</code>这些集合来一一处理这些事情，<font color=read>则将<code>select</code>实现的服务器称为并发服务器</font>。因为没有能力并行处理这些<code>I/O</code>事件，只能一一遍历处理这些事件。所以称为并发服务器，而不是并行服务器。并发服务器不能长时间处理这些事件，因为长时间处理则不能去执行其他的动作。且事件间的处理间隔时间也不能太长。无法充分利用多核处理器。使用多进程<code>select</code>或者多线程处理这些事件。</p>
 <p><code>select</code>可以同时检测网络<code>I/O</code>和标准<code>I/O</code>事件。那个事件产生则处理那个事件。不会因为某一个阻塞导致另一个无法处理。</p>
 </blockquote>
 <h2 id="读、写、异常事件发生条件"><a href="#读、写、异常事件发生条件" class="headerlink" title="读、写、异常事件发生条件"></a>读、写、异常事件发生条件</h2><ul>

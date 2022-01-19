@@ -615,7 +615,7 @@
       
         
           <h1 id="UDP-TCP文件传输"><a href="#UDP-TCP文件传输" class="headerlink" title="UDP/TCP文件传输"></a>UDP/TCP文件传输</h1><h2 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h2><blockquote>
-<p><img src="/2022/01/19/Socket/01%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/TCP_UDP%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93.png" alt="文件结构"></p>
+<p><img src="./Picture/TCP_UDP%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93.png" alt="文件结构"></p>
 </blockquote>
 
           <!--noindex-->
@@ -1395,171 +1395,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2022/01/19/Socket/day05/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="缄默">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2022/01/19/Socket/day05/" itemprop="url">05 readline实现、get*name系列函数</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-01-19T00:00:00-05:00">
-                2022-01-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Socket/" itemprop="url" rel="index">
-                    <span itemprop="name">Socket</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="day05"><a href="#day05" class="headerlink" title="day05"></a>day05</h1><h2 id="本章目标"><a href="#本章目标" class="headerlink" title="本章目标"></a>本章目标</h2><ul>
-<li><code>read</code>、<code>write</code>与<code>recv</code>、<code>send</code></li>
-<li><code>readline</code>实现</li>
-<li>用<code>readline</code>实现回射客户端/服务器</li>
-<li><code>getsockname</code>、<code>getpeername</code></li>
-<li><code>gethostname</code>、<code>gethostbyname</code>、<code>gethostbyadr</code></li>
-</ul>
-<h2 id="read、write与recv、send函数"><a href="#read、write与recv、send函数" class="headerlink" title="read、write与recv、send函数"></a>read、write与recv、send函数</h2><blockquote>
-<p><code>man recv</code></p>
-<p><code>recv</code>函数只能用于套接口的<code>I/O·</code>    ,<code>read</code>函数可以用于任何的<code>I/O</code></p>
-<p><code>recv</code>函数增加了可选参数<code>flgs</code>，flags取值为<code>MSG_OOB</code> ：接收紧急指针数据。<code>MSG_PEEK</code>：接收数据但是不把缓冲区的数据清除。</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;sys/types.h&gt;</span><br><span class="line">#include &lt;sys/socket.h&gt;</span><br><span class="line"></span><br><span class="line">ssize_t recv(int sockfd, void *buf, size_t len, int flags);</span><br><span class="line">ssize_t recvfrom(int sockfd, void *buf, size_t len, int flags, struct sockaddr *src_addr, socklen_t *addrlen);</span><br><span class="line">ssize_t recvmsg(int sockfd, struct msghdr *msg, int flags);</span><br></pre></td></tr></table></figure>
-
-<p>##flags标志：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">MSG_OOB</span><br><span class="line">    This flag requests receipt of out-of-band data that would not be</span><br><span class="line">    received  in the normal data stream.  Some protocols place expe‐</span><br><span class="line">    dited data at the head of the normal data queue, and  thus  this</span><br><span class="line">    flag cannot be used with such protocols.</span><br><span class="line"></span><br><span class="line">MSG_PEEK</span><br><span class="line">    This  flag  causes the receive operation to return data from the</span><br><span class="line">    beginning of the receive queue without removing that  data  from</span><br><span class="line">    the queue.  Thus, a subsequent receive call will return the same</span><br><span class="line">    data.</span><br></pre></td></tr></table></figure>
-
-<h2 id="readline实现"><a href="#readline实现" class="headerlink" title="readline实现"></a>readline实现</h2><blockquote>
-<p><code>readline</code>：是为了解决粘包问题。</p>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2022/01/19/Socket/day05/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2022/01/19/Socket/day06/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1731,6 +1566,171 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2022/01/19/Socket/day05/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="缄默">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/01/19/Socket/day05/" itemprop="url">05 readline实现、get*name系列函数</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-01-19T00:00:00-05:00">
+                2022-01-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Socket/" itemprop="url" rel="index">
+                    <span itemprop="name">Socket</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="day05"><a href="#day05" class="headerlink" title="day05"></a>day05</h1><h2 id="本章目标"><a href="#本章目标" class="headerlink" title="本章目标"></a>本章目标</h2><ul>
+<li><code>read</code>、<code>write</code>与<code>recv</code>、<code>send</code></li>
+<li><code>readline</code>实现</li>
+<li>用<code>readline</code>实现回射客户端/服务器</li>
+<li><code>getsockname</code>、<code>getpeername</code></li>
+<li><code>gethostname</code>、<code>gethostbyname</code>、<code>gethostbyadr</code></li>
+</ul>
+<h2 id="read、write与recv、send函数"><a href="#read、write与recv、send函数" class="headerlink" title="read、write与recv、send函数"></a>read、write与recv、send函数</h2><blockquote>
+<p><code>man recv</code></p>
+<p><code>recv</code>函数只能用于套接口的<code>I/O·</code>    ,<code>read</code>函数可以用于任何的<code>I/O</code></p>
+<p><code>recv</code>函数增加了可选参数<code>flgs</code>，flags取值为<code>MSG_OOB</code> ：接收紧急指针数据。<code>MSG_PEEK</code>：接收数据但是不把缓冲区的数据清除。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;sys/types.h&gt;</span><br><span class="line">#include &lt;sys/socket.h&gt;</span><br><span class="line"></span><br><span class="line">ssize_t recv(int sockfd, void *buf, size_t len, int flags);</span><br><span class="line">ssize_t recvfrom(int sockfd, void *buf, size_t len, int flags, struct sockaddr *src_addr, socklen_t *addrlen);</span><br><span class="line">ssize_t recvmsg(int sockfd, struct msghdr *msg, int flags);</span><br></pre></td></tr></table></figure>
+
+<p>##flags标志：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">MSG_OOB</span><br><span class="line">    This flag requests receipt of out-of-band data that would not be</span><br><span class="line">    received  in the normal data stream.  Some protocols place expe‐</span><br><span class="line">    dited data at the head of the normal data queue, and  thus  this</span><br><span class="line">    flag cannot be used with such protocols.</span><br><span class="line"></span><br><span class="line">MSG_PEEK</span><br><span class="line">    This  flag  causes the receive operation to return data from the</span><br><span class="line">    beginning of the receive queue without removing that  data  from</span><br><span class="line">    the queue.  Thus, a subsequent receive call will return the same</span><br><span class="line">    data.</span><br></pre></td></tr></table></figure>
+
+<h2 id="readline实现"><a href="#readline实现" class="headerlink" title="readline实现"></a>readline实现</h2><blockquote>
+<p><code>readline</code>：是为了解决粘包问题。</p>
+</blockquote>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2022/01/19/Socket/day05/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2022/01/19/Socket/day07/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1833,7 +1833,7 @@
 <p>参考文档：<br><a target="_blank" rel="noopener" href="https://zhidao.baidu.com/question/27114298.html">https://zhidao.baidu.com/question/27114298.html</a></p>
 <p><code>ACK</code>：是一种确认应答，在数据通信传输中，接收站发给发送站的一种传输控制字符。它表示确认发来的数据已经接受无误。<br><code>SYN</code>：攻击属于<code>DOS</code>攻击的一种，它利用<code>TCP协议</code>缺陷，通过发送大量的<code>半连接请求</code>，耗费CPU和内存资源。是最常见又最容易被利用的一种攻击手法。<br><code>FIN</code>：是用来扫描保留的端口，发送一个<code>FIN</code>包（或者是任何没有ACK或SYN标记的包）到目标的一个开放的端口，然后等待回应。许多系统会返回一个复位标记。</p>
 </blockquote>
-<h2 id="TCP-11种状态"><a href="#TCP-11种状态" class="headerlink" title="TCP 11种状态"></a>TCP 11种状态</h2><p><img src="/2022/01/19/Socket/day07/tcp%E7%9A%8411%E7%A7%8D%E7%8A%B6%E6%80%81.png" alt="tcp的11种状态"></p>
+<h2 id="TCP-11种状态"><a href="#TCP-11种状态" class="headerlink" title="TCP 11种状态"></a>TCP 11种状态</h2><p><img src="./Picture/tcp%E7%9A%8411%E7%A7%8D%E7%8A%B6%E6%80%81.png" alt="tcp的11种状态"></p>
 <blockquote>
 <p><strong>貌似有点不对啊，不是说是11种状态吗？？？怎么只有10种，莫非打错字了？？？NO！！！NO！！！NO！！！</strong></p>
 <p><strong>第十一种状态为：<code>CLOSING</code></strong></p>
@@ -2008,7 +2008,7 @@
 <h2 id="1、阻塞I-O模型"><a href="#1、阻塞I-O模型" class="headerlink" title="1、阻塞I/O模型"></a>1、阻塞I/O模型</h2><blockquote>
 <p>阻塞等待数据到来。</p>
 </blockquote>
-<p><img src="/2022/01/19/Socket/day08/%E9%98%BB%E5%A1%9EIO%E6%A8%A1%E5%9E%8B.png" alt="阻塞IO模型"></p>
+<p><img src="./Picture/%E9%98%BB%E5%A1%9EIO%E6%A8%A1%E5%9E%8B.png" alt="阻塞IO模型"></p>
 <h2 id="2、非阻塞I-O模型"><a href="#2、非阻塞I-O模型" class="headerlink" title="2、非阻塞I/O模型"></a>2、非阻塞I/O模型</h2><blockquote>
 <p>**<code>忙等待</code>**，用的很少，程序一直在等待数据，没有数据相当于死循环，占用CPU资源。</p>
 </blockquote>

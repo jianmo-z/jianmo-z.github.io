@@ -67,7 +67,7 @@
     
     
     <summary type="html">&lt;h1 id=&quot;UDP-TCP文件传输&quot;&gt;&lt;a href=&quot;#UDP-TCP文件传输&quot; class=&quot;headerlink&quot; title=&quot;UDP/TCP文件传输&quot;&gt;&lt;/a&gt;UDP/TCP文件传输&lt;/h1&gt;&lt;h2 id=&quot;文件结构&quot;&gt;&lt;a href=&quot;#文件结构&quot; class=&quot;headerlink&quot; title=&quot;文件结构&quot;&gt;&lt;/a&gt;文件结构&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;&lt;img src=&quot;/2022/01/19/Socket/01%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/TCP_UDP%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93.png&quot; alt=&quot;文件结构&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./Picture/TCP_UDP%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93.png&quot; alt=&quot;文件结构&quot;&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 </summary>
     
@@ -297,44 +297,6 @@
   </entry>
   
   <entry>
-    <title>05 readline实现、get*name系列函数</title>
-    <link href="http://ainihu.github.io/2022/01/19/Socket/day05/"/>
-    <id>http://ainihu.github.io/2022/01/19/Socket/day05/</id>
-    <published>2022-01-19T05:00:00.000Z</published>
-    <updated>2022-01-19T13:19:37.306Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;day05&quot;&gt;&lt;a href=&quot;#day05&quot; class=&quot;headerlink&quot; title=&quot;day05&quot;&gt;&lt;/a&gt;day05&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot; title=&quot;本章目标&quot;&gt;&lt;/a&gt;本章目标&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;read&lt;/code&gt;、&lt;code&gt;write&lt;/code&gt;与&lt;code&gt;recv&lt;/code&gt;、&lt;code&gt;send&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;readline&lt;/code&gt;实现&lt;/li&gt;
-&lt;li&gt;用&lt;code&gt;readline&lt;/code&gt;实现回射客户端/服务器&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;getsockname&lt;/code&gt;、&lt;code&gt;getpeername&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;gethostname&lt;/code&gt;、&lt;code&gt;gethostbyname&lt;/code&gt;、&lt;code&gt;gethostbyadr&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;read、write与recv、send函数&quot;&gt;&lt;a href=&quot;#read、write与recv、send函数&quot; class=&quot;headerlink&quot; title=&quot;read、write与recv、send函数&quot;&gt;&lt;/a&gt;read、write与recv、send函数&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;&lt;code&gt;man recv&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;recv&lt;/code&gt;函数只能用于套接口的&lt;code&gt;I/O·&lt;/code&gt;    ,&lt;code&gt;read&lt;/code&gt;函数可以用于任何的&lt;code&gt;I/O&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;recv&lt;/code&gt;函数增加了可选参数&lt;code&gt;flgs&lt;/code&gt;，flags取值为&lt;code&gt;MSG_OOB&lt;/code&gt; ：接收紧急指针数据。&lt;code&gt;MSG_PEEK&lt;/code&gt;：接收数据但是不把缓冲区的数据清除。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;sys/types.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;sys/socket.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ssize_t recv(int sockfd, void *buf, size_t len, int flags);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ssize_t recvfrom(int sockfd, void *buf, size_t len, int flags, struct sockaddr *src_addr, socklen_t *addrlen);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ssize_t recvmsg(int sockfd, struct msghdr *msg, int flags);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;p&gt;##flags标志：&lt;/p&gt;
-&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;MSG_OOB&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    This flag requests receipt of out-of-band data that would not be&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    received  in the normal data stream.  Some protocols place expe‐&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    dited data at the head of the normal data queue, and  thus  this&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    flag cannot be used with such protocols.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;MSG_PEEK&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    This  flag  causes the receive operation to return data from the&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    beginning of the receive queue without removing that  data  from&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    the queue.  Thus, a subsequent receive call will return the same&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    data.&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;h2 id=&quot;readline实现&quot;&gt;&lt;a href=&quot;#readline实现&quot; class=&quot;headerlink&quot; title=&quot;readline实现&quot;&gt;&lt;/a&gt;readline实现&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;&lt;code&gt;readline&lt;/code&gt;：是为了解决粘包问题。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="Socket" scheme="http://ainihu.github.io/categories/Socket/"/>
-    
-    
-    <category term="socketReadline" scheme="http://ainihu.github.io/tags/socketReadline/"/>
-    
-  </entry>
-  
-  <entry>
     <title>06 TCP回射C/S&amp;僵尸进程&amp;SIGCHLD信号</title>
     <link href="http://ainihu.github.io/2022/01/19/Socket/day06/"/>
     <id>http://ainihu.github.io/2022/01/19/Socket/day06/</id>
@@ -381,6 +343,44 @@
   </entry>
   
   <entry>
+    <title>05 readline实现、get*name系列函数</title>
+    <link href="http://ainihu.github.io/2022/01/19/Socket/day05/"/>
+    <id>http://ainihu.github.io/2022/01/19/Socket/day05/</id>
+    <published>2022-01-19T05:00:00.000Z</published>
+    <updated>2022-01-19T13:19:37.306Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;day05&quot;&gt;&lt;a href=&quot;#day05&quot; class=&quot;headerlink&quot; title=&quot;day05&quot;&gt;&lt;/a&gt;day05&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot; title=&quot;本章目标&quot;&gt;&lt;/a&gt;本章目标&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;read&lt;/code&gt;、&lt;code&gt;write&lt;/code&gt;与&lt;code&gt;recv&lt;/code&gt;、&lt;code&gt;send&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;readline&lt;/code&gt;实现&lt;/li&gt;
+&lt;li&gt;用&lt;code&gt;readline&lt;/code&gt;实现回射客户端/服务器&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;getsockname&lt;/code&gt;、&lt;code&gt;getpeername&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;gethostname&lt;/code&gt;、&lt;code&gt;gethostbyname&lt;/code&gt;、&lt;code&gt;gethostbyadr&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;read、write与recv、send函数&quot;&gt;&lt;a href=&quot;#read、write与recv、send函数&quot; class=&quot;headerlink&quot; title=&quot;read、write与recv、send函数&quot;&gt;&lt;/a&gt;read、write与recv、send函数&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;man recv&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;recv&lt;/code&gt;函数只能用于套接口的&lt;code&gt;I/O·&lt;/code&gt;    ,&lt;code&gt;read&lt;/code&gt;函数可以用于任何的&lt;code&gt;I/O&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;recv&lt;/code&gt;函数增加了可选参数&lt;code&gt;flgs&lt;/code&gt;，flags取值为&lt;code&gt;MSG_OOB&lt;/code&gt; ：接收紧急指针数据。&lt;code&gt;MSG_PEEK&lt;/code&gt;：接收数据但是不把缓冲区的数据清除。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;sys/types.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;sys/socket.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ssize_t recv(int sockfd, void *buf, size_t len, int flags);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ssize_t recvfrom(int sockfd, void *buf, size_t len, int flags, struct sockaddr *src_addr, socklen_t *addrlen);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ssize_t recvmsg(int sockfd, struct msghdr *msg, int flags);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;##flags标志：&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;MSG_OOB&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    This flag requests receipt of out-of-band data that would not be&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    received  in the normal data stream.  Some protocols place expe‐&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    dited data at the head of the normal data queue, and  thus  this&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    flag cannot be used with such protocols.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;MSG_PEEK&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    This  flag  causes the receive operation to return data from the&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    beginning of the receive queue without removing that  data  from&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    the queue.  Thus, a subsequent receive call will return the same&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    data.&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;readline实现&quot;&gt;&lt;a href=&quot;#readline实现&quot; class=&quot;headerlink&quot; title=&quot;readline实现&quot;&gt;&lt;/a&gt;readline实现&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;readline&lt;/code&gt;：是为了解决粘包问题。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="Socket" scheme="http://ainihu.github.io/categories/Socket/"/>
+    
+    
+    <category term="socketReadline" scheme="http://ainihu.github.io/tags/socketReadline/"/>
+    
+  </entry>
+  
+  <entry>
     <title>07 TCP的11种状态、SIGPIPE信号</title>
     <link href="http://ainihu.github.io/2022/01/19/Socket/day07/"/>
     <id>http://ainihu.github.io/2022/01/19/Socket/day07/</id>
@@ -398,7 +398,7 @@
 &lt;p&gt;参考文档：&lt;br&gt;&lt;a href=&quot;https://zhidao.baidu.com/question/27114298.html&quot;&gt;https://zhidao.baidu.com/question/27114298.html&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;ACK&lt;/code&gt;：是一种确认应答，在数据通信传输中，接收站发给发送站的一种传输控制字符。它表示确认发来的数据已经接受无误。&lt;br&gt;&lt;code&gt;SYN&lt;/code&gt;：攻击属于&lt;code&gt;DOS&lt;/code&gt;攻击的一种，它利用&lt;code&gt;TCP协议&lt;/code&gt;缺陷，通过发送大量的&lt;code&gt;半连接请求&lt;/code&gt;，耗费CPU和内存资源。是最常见又最容易被利用的一种攻击手法。&lt;br&gt;&lt;code&gt;FIN&lt;/code&gt;：是用来扫描保留的端口，发送一个&lt;code&gt;FIN&lt;/code&gt;包（或者是任何没有ACK或SYN标记的包）到目标的一个开放的端口，然后等待回应。许多系统会返回一个复位标记。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h2 id=&quot;TCP-11种状态&quot;&gt;&lt;a href=&quot;#TCP-11种状态&quot; class=&quot;headerlink&quot; title=&quot;TCP 11种状态&quot;&gt;&lt;/a&gt;TCP 11种状态&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/2022/01/19/Socket/day07/tcp%E7%9A%8411%E7%A7%8D%E7%8A%B6%E6%80%81.png&quot; alt=&quot;tcp的11种状态&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;TCP-11种状态&quot;&gt;&lt;a href=&quot;#TCP-11种状态&quot; class=&quot;headerlink&quot; title=&quot;TCP 11种状态&quot;&gt;&lt;/a&gt;TCP 11种状态&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;./Picture/tcp%E7%9A%8411%E7%A7%8D%E7%8A%B6%E6%80%81.png&quot; alt=&quot;tcp的11种状态&quot;&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;貌似有点不对啊，不是说是11种状态吗？？？怎么只有10种，莫非打错字了？？？NO！！！NO！！！NO！！！&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;第十一种状态为：&lt;code&gt;CLOSING&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
@@ -448,7 +448,7 @@
 &lt;h2 id=&quot;1、阻塞I-O模型&quot;&gt;&lt;a href=&quot;#1、阻塞I-O模型&quot; class=&quot;headerlink&quot; title=&quot;1、阻塞I/O模型&quot;&gt;&lt;/a&gt;1、阻塞I/O模型&lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;阻塞等待数据到来。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&quot;/2022/01/19/Socket/day08/%E9%98%BB%E5%A1%9EIO%E6%A8%A1%E5%9E%8B.png&quot; alt=&quot;阻塞IO模型&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./Picture/%E9%98%BB%E5%A1%9EIO%E6%A8%A1%E5%9E%8B.png&quot; alt=&quot;阻塞IO模型&quot;&gt;&lt;/p&gt;
 &lt;h2 id=&quot;2、非阻塞I-O模型&quot;&gt;&lt;a href=&quot;#2、非阻塞I-O模型&quot; class=&quot;headerlink&quot; title=&quot;2、非阻塞I/O模型&quot;&gt;&lt;/a&gt;2、非阻塞I/O模型&lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;**&lt;code&gt;忙等待&lt;/code&gt;**，用的很少，程序一直在等待数据，没有数据相当于死循环，占用CPU资源。&lt;/p&gt;
 &lt;/blockquote&gt;</summary>
