@@ -59,6 +59,31 @@
   </entry>
   
   <entry>
+    <title>UDP/TCP文件传输</title>
+    <link href="http://ainihu.github.io/2022/01/19/Socket/01%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/"/>
+    <id>http://ainihu.github.io/2022/01/19/Socket/01%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/</id>
+    <published>2022-01-19T05:00:00.000Z</published>
+    <updated>2022-01-19T13:19:37.301Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;UDP-TCP文件传输&quot;&gt;&lt;a href=&quot;#UDP-TCP文件传输&quot; class=&quot;headerlink&quot; title=&quot;UDP/TCP文件传输&quot;&gt;&lt;/a&gt;UDP/TCP文件传输&lt;/h1&gt;&lt;h2 id=&quot;文件结构&quot;&gt;&lt;a href=&quot;#文件结构&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Socket" scheme="http://ainihu.github.io/categories/Socket/"/>
+    
+    
+    <category term="socket" scheme="http://ainihu.github.io/tags/socket/"/>
+    
+  </entry>
+  
+  <entry>
     <title>01 socket 字节序&amp;地址转换函数&amp;套接字类型</title>
     <link href="http://ainihu.github.io/2022/01/19/Socket/day01/"/>
     <id>http://ainihu.github.io/2022/01/19/Socket/day01/</id>
@@ -155,31 +180,6 @@
     
     
     <category term="TCP粘包问题" scheme="http://ainihu.github.io/tags/TCP%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>UDP/TCP文件传输</title>
-    <link href="http://ainihu.github.io/2022/01/19/Socket/01%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/"/>
-    <id>http://ainihu.github.io/2022/01/19/Socket/01%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/</id>
-    <published>2022-01-19T05:00:00.000Z</published>
-    <updated>2022-01-19T13:19:37.301Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;UDP-TCP文件传输&quot;&gt;&lt;a href=&quot;#UDP-TCP文件传输&quot; class=&quot;headerlink&quot; title=&quot;UDP/TCP文件传输&quot;&gt;&lt;/a&gt;UDP/TCP文件传输&lt;/h1&gt;&lt;h2 id=&quot;文件结构&quot;&gt;&lt;a href=&quot;#文件结构&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="Socket" scheme="http://ainihu.github.io/categories/Socket/"/>
-    
-    
-    <category term="socket" scheme="http://ainihu.github.io/tags/socket/"/>
     
   </entry>
   
