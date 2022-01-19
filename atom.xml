@@ -297,6 +297,44 @@
   </entry>
   
   <entry>
+    <title>05 readline实现、get*name系列函数</title>
+    <link href="http://ainihu.github.io/2022/01/19/Socket/day05/"/>
+    <id>http://ainihu.github.io/2022/01/19/Socket/day05/</id>
+    <published>2022-01-19T05:00:00.000Z</published>
+    <updated>2022-01-19T13:19:37.306Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;day05&quot;&gt;&lt;a href=&quot;#day05&quot; class=&quot;headerlink&quot; title=&quot;day05&quot;&gt;&lt;/a&gt;day05&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot; title=&quot;本章目标&quot;&gt;&lt;/a&gt;本章目标&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;read&lt;/code&gt;、&lt;code&gt;write&lt;/code&gt;与&lt;code&gt;recv&lt;/code&gt;、&lt;code&gt;send&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;readline&lt;/code&gt;实现&lt;/li&gt;
+&lt;li&gt;用&lt;code&gt;readline&lt;/code&gt;实现回射客户端/服务器&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;getsockname&lt;/code&gt;、&lt;code&gt;getpeername&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;gethostname&lt;/code&gt;、&lt;code&gt;gethostbyname&lt;/code&gt;、&lt;code&gt;gethostbyadr&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;read、write与recv、send函数&quot;&gt;&lt;a href=&quot;#read、write与recv、send函数&quot; class=&quot;headerlink&quot; title=&quot;read、write与recv、send函数&quot;&gt;&lt;/a&gt;read、write与recv、send函数&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;man recv&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;recv&lt;/code&gt;函数只能用于套接口的&lt;code&gt;I/O·&lt;/code&gt;    ,&lt;code&gt;read&lt;/code&gt;函数可以用于任何的&lt;code&gt;I/O&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;recv&lt;/code&gt;函数增加了可选参数&lt;code&gt;flgs&lt;/code&gt;，flags取值为&lt;code&gt;MSG_OOB&lt;/code&gt; ：接收紧急指针数据。&lt;code&gt;MSG_PEEK&lt;/code&gt;：接收数据但是不把缓冲区的数据清除。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;sys/types.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;sys/socket.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ssize_t recv(int sockfd, void *buf, size_t len, int flags);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ssize_t recvfrom(int sockfd, void *buf, size_t len, int flags, struct sockaddr *src_addr, socklen_t *addrlen);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ssize_t recvmsg(int sockfd, struct msghdr *msg, int flags);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;##flags标志：&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;MSG_OOB&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    This flag requests receipt of out-of-band data that would not be&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    received  in the normal data stream.  Some protocols place expe‐&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    dited data at the head of the normal data queue, and  thus  this&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    flag cannot be used with such protocols.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;MSG_PEEK&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    This  flag  causes the receive operation to return data from the&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    beginning of the receive queue without removing that  data  from&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    the queue.  Thus, a subsequent receive call will return the same&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    data.&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;readline实现&quot;&gt;&lt;a href=&quot;#readline实现&quot; class=&quot;headerlink&quot; title=&quot;readline实现&quot;&gt;&lt;/a&gt;readline实现&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;readline&lt;/code&gt;：是为了解决粘包问题。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="Socket" scheme="http://ainihu.github.io/categories/Socket/"/>
+    
+    
+    <category term="socketReadline" scheme="http://ainihu.github.io/tags/socketReadline/"/>
+    
+  </entry>
+  
+  <entry>
     <title>06 TCP回射C/S&amp;僵尸进程&amp;SIGCHLD信号</title>
     <link href="http://ainihu.github.io/2022/01/19/Socket/day06/"/>
     <id>http://ainihu.github.io/2022/01/19/Socket/day06/</id>
@@ -339,44 +377,6 @@
     <category term="僵尸进程" scheme="http://ainihu.github.io/tags/%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B/"/>
     
     <category term="SIGCHLD信号" scheme="http://ainihu.github.io/tags/SIGCHLD%E4%BF%A1%E5%8F%B7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>05 readline实现、get*name系列函数</title>
-    <link href="http://ainihu.github.io/2022/01/19/Socket/day05/"/>
-    <id>http://ainihu.github.io/2022/01/19/Socket/day05/</id>
-    <published>2022-01-19T05:00:00.000Z</published>
-    <updated>2022-01-19T13:19:37.306Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;day05&quot;&gt;&lt;a href=&quot;#day05&quot; class=&quot;headerlink&quot; title=&quot;day05&quot;&gt;&lt;/a&gt;day05&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot; title=&quot;本章目标&quot;&gt;&lt;/a&gt;本章目标&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;read&lt;/code&gt;、&lt;code&gt;write&lt;/code&gt;与&lt;code&gt;recv&lt;/code&gt;、&lt;code&gt;send&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;readline&lt;/code&gt;实现&lt;/li&gt;
-&lt;li&gt;用&lt;code&gt;readline&lt;/code&gt;实现回射客户端/服务器&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;getsockname&lt;/code&gt;、&lt;code&gt;getpeername&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;gethostname&lt;/code&gt;、&lt;code&gt;gethostbyname&lt;/code&gt;、&lt;code&gt;gethostbyadr&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;read、write与recv、send函数&quot;&gt;&lt;a href=&quot;#read、write与recv、send函数&quot; class=&quot;headerlink&quot; title=&quot;read、write与recv、send函数&quot;&gt;&lt;/a&gt;read、write与recv、send函数&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;&lt;code&gt;man recv&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;recv&lt;/code&gt;函数只能用于套接口的&lt;code&gt;I/O·&lt;/code&gt;    ,&lt;code&gt;read&lt;/code&gt;函数可以用于任何的&lt;code&gt;I/O&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;recv&lt;/code&gt;函数增加了可选参数&lt;code&gt;flgs&lt;/code&gt;，flags取值为&lt;code&gt;MSG_OOB&lt;/code&gt; ：接收紧急指针数据。&lt;code&gt;MSG_PEEK&lt;/code&gt;：接收数据但是不把缓冲区的数据清除。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;sys/types.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;sys/socket.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ssize_t recv(int sockfd, void *buf, size_t len, int flags);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ssize_t recvfrom(int sockfd, void *buf, size_t len, int flags, struct sockaddr *src_addr, socklen_t *addrlen);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ssize_t recvmsg(int sockfd, struct msghdr *msg, int flags);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;p&gt;##flags标志：&lt;/p&gt;
-&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;MSG_OOB&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    This flag requests receipt of out-of-band data that would not be&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    received  in the normal data stream.  Some protocols place expe‐&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    dited data at the head of the normal data queue, and  thus  this&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    flag cannot be used with such protocols.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;MSG_PEEK&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    This  flag  causes the receive operation to return data from the&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    beginning of the receive queue without removing that  data  from&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    the queue.  Thus, a subsequent receive call will return the same&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    data.&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;h2 id=&quot;readline实现&quot;&gt;&lt;a href=&quot;#readline实现&quot; class=&quot;headerlink&quot; title=&quot;readline实现&quot;&gt;&lt;/a&gt;readline实现&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;&lt;code&gt;readline&lt;/code&gt;：是为了解决粘包问题。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="Socket" scheme="http://ainihu.github.io/categories/Socket/"/>
-    
-    
-    <category term="socketReadline" scheme="http://ainihu.github.io/tags/socketReadline/"/>
     
   </entry>
   

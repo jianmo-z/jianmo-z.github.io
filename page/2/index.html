@@ -1,1384 +1,705 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next muse use-motion" lang="zh-CN">
+<html lang=zh>
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-<meta name="theme-color" content="#222">
-
-
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="Hexo, NexT" />
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="缄默" type="application/atom+xml" />
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
-
-
-
-
-
-
-<meta property="og:type" content="website">
+  <title>Hexo</title>
+  <meta property="og:type" content="website">
 <meta property="og:title" content="缄默">
 <meta property="og:url" content="http://ainihu.github.io/page/2/index.html">
 <meta property="og:site_name" content="缄默">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="Zhanghui">
 <meta name="twitter:card" content="summary">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '',
-    scheme: 'Muse',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: true,
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-
-  <link rel="canonical" href="http://ainihu.github.io/page/2/"/>
-
-
-
-
-
-  <title>缄默</title>
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://ainihu.github.io/page/2/index.html">
   
+    <link rel="alternate" href="/atom.xml" title="缄默" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
+  
+  
+    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
+  
+  
 <meta name="generator" content="Hexo 5.4.0"></head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
-  
-  
-    
-  
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/ainihu" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">缄默</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">每一个不曾起舞的日子，都是对生命的辜负。</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Beijing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">缄默</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
     </div>
-      
-        <p class="site-subtitle"></p>
-      
-  </div>
-
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
-  
-    <ul id="menu" class="menu">
-      
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
         
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
+          <a href="/.">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            <i class="icon icon-home-fill"></i>
             
-            Home
+            <span class="menu-title">首页</span>
           </a>
         </li>
-      
+        
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
+          <a href="/archives">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            <i class="icon icon-archives-fill"></i>
             
-            Archives
+            <span class="menu-title">归档</span>
           </a>
         </li>
-      
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
+          <a href="/tags">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            <i class="icon icon-tags"></i>
             
-            Tags
+            <span class="menu-title">标签</span>
           </a>
         </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
       
-
-      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/ainihu" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/ainihu" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/jianmo_pip" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
     </ul>
-  
+
+    </nav>
+  </div>
+</header>
 
   
-</nav>
-
-
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-  <section id="posts" class="posts-expand">
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2021/12/14/Golang/12%E8%8C%83%E5%9B%B4Range/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="缄默">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/12/14/Golang/12%E8%8C%83%E5%9B%B4Range/" itemprop="url">12 Golang范围Range</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-12-14T00:00:00-05:00">
-                2021-12-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Golang%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
-                    <span itemprop="name">Golang基础</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="12-范围Range"><a href="#12-范围Range" class="headerlink" title="12 范围Range"></a>12 范围Range</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import	&quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">	range关键字用于for循环中迭代数组(array)、切片(slice)、通道(channel)或集合(map)</span><br><span class="line">的元素。</span><br><span class="line">	返回值：</span><br><span class="line">		第一个表示下标</span><br><span class="line">		第二个表示值</span><br><span class="line">	如果是map：</span><br><span class="line">		第一个表示key</span><br><span class="line">		第二个表示value</span><br><span class="line"></span><br><span class="line">	用 &#x27;_&#x27;去接收一个变量表示不关心这个变量的值，起到占位的作用，该位置的值会被抛弃掉</span><br><span class="line">*/</span><br><span class="line">func main() &#123;</span><br><span class="line">	a := [] int&#123;1, 2, 4, 5&#125;</span><br><span class="line">	m := map[int]string&#123;1:&quot;hello&quot;, 2:&quot;world&quot;, 3:&quot;hi&quot;&#125;</span><br><span class="line">	fmt.Println(a)</span><br><span class="line"></span><br><span class="line">	for index, num := range a &#123; // 如果不关心下标，可以设置为 &#x27;_&#x27;</span><br><span class="line">		fmt.Println(&quot;index =&quot;, index, &quot;num =&quot;, num)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	for key, value := range m&#123;</span><br><span class="line">		fmt.Println(&quot;key =&quot;, key, &quot; value =&quot;, value)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/12/14/Golang/12%E8%8C%83%E5%9B%B4Range/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
     </div>
-    
-    
-    
+</div>
 
     
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a><span class="category-list-count">21</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Socket/">Socket</a><span class="category-list-count">17</span></li></ul>
+    </div>
+  </div>
+
 
     
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LVM%E5%8D%B7/" rel="tag">LVM卷</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" rel="tag">Linux基础命令</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%AE%89%E8%A3%85WPS/" rel="tag">Linux安装WPS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%97%A5%E5%BF%97/" rel="tag">Linux日志</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" rel="tag">Linux用户管理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" rel="tag">Linux磁盘管理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E8%BF%9B%E7%A8%8B/" rel="tag">Linux进程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REUSEADDR/" rel="tag">REUSEADDR</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SIGCHLD%E4%BF%A1%E5%8F%B7/" rel="tag">SIGCHLD信号</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SIGPIPPE%E4%BF%A1%E5%8F%B7/" rel="tag">SIGPIPPE信号</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket-I-O%E6%A8%A1%E5%9E%8B/" rel="tag">Socket I/O模型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP%E7%9A%8411%E7%A7%8D%E7%8A%B6%E6%80%81/" rel="tag">TCP的11种状态</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98/" rel="tag">TCP粘包问题</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UDP%E5%9B%9E%E5%B0%84%E5%AE%A2%E6%88%B7%E7%AB%AF/" rel="tag">UDP回射客户端</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UDP%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">UDP服务器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UNIX%E5%9F%9F%E5%8D%8F%E8%AE%AE/" rel="tag">UNIX域协议</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/close%E5%87%BD%E6%95%B0-shutdown%E5%87%BD%E6%95%B0/" rel="tag">close函数 - shutdown函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/epoll%E4%BD%BF%E7%94%A8/" rel="tag">epoll使用</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ftp/" rel="tag">ftp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select-poll-epoll/" rel="tag">select&poll&epoll</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select%E5%87%BD%E6%95%B0/" rel="tag">select函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">select服务器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select%E6%A8%A1%E5%9E%8B/" rel="tag">select模型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket/" rel="tag">socket</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socketReadline/" rel="tag">socketReadline</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socketpair/" rel="tag">socketpair</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0/" rel="tag">socket相关函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/" rel="tag">ssh</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/" rel="tag">vim</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yum%E7%AE%A1%E7%90%86/" rel="tag">yum管理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B/" rel="tag">僵尸进程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1/" rel="tag">延时任务</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" rel="tag">文件传输</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/" rel="tag">权限控制</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E7%9B%98%E6%8C%82%E8%BD%BD/" rel="tag">硬盘挂载</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" rel="tag">网络配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/" rel="tag">虚拟机安装</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="tag">进程管理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%82%AE%E4%BB%B6%E7%AE%A1%E7%90%86/" rel="tag">邮件管理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" rel="tag">防火墙</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
 
     
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/LVM%E5%8D%B7/" style="font-size: 13px;">LVM卷</a> <a href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" style="font-size: 13px;">Linux基础命令</a> <a href="/tags/Linux%E5%AE%89%E8%A3%85WPS/" style="font-size: 13px;">Linux安装WPS</a> <a href="/tags/Linux%E6%97%A5%E5%BF%97/" style="font-size: 13px;">Linux日志</a> <a href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" style="font-size: 13px;">Linux用户管理</a> <a href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" style="font-size: 13px;">Linux磁盘管理</a> <a href="/tags/Linux%E8%BF%9B%E7%A8%8B/" style="font-size: 13px;">Linux进程</a> <a href="/tags/REUSEADDR/" style="font-size: 13px;">REUSEADDR</a> <a href="/tags/SIGCHLD%E4%BF%A1%E5%8F%B7/" style="font-size: 13px;">SIGCHLD信号</a> <a href="/tags/SIGPIPPE%E4%BF%A1%E5%8F%B7/" style="font-size: 13px;">SIGPIPPE信号</a> <a href="/tags/Socket-I-O%E6%A8%A1%E5%9E%8B/" style="font-size: 13px;">Socket I/O模型</a> <a href="/tags/TCP%E7%9A%8411%E7%A7%8D%E7%8A%B6%E6%80%81/" style="font-size: 13px;">TCP的11种状态</a> <a href="/tags/TCP%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98/" style="font-size: 13px;">TCP粘包问题</a> <a href="/tags/UDP%E5%9B%9E%E5%B0%84%E5%AE%A2%E6%88%B7%E7%AB%AF/" style="font-size: 13px;">UDP回射客户端</a> <a href="/tags/UDP%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 13px;">UDP服务器</a> <a href="/tags/UNIX%E5%9F%9F%E5%8D%8F%E8%AE%AE/" style="font-size: 13px;">UNIX域协议</a> <a href="/tags/close%E5%87%BD%E6%95%B0-shutdown%E5%87%BD%E6%95%B0/" style="font-size: 13px;">close函数 - shutdown函数</a> <a href="/tags/epoll%E4%BD%BF%E7%94%A8/" style="font-size: 13px;">epoll使用</a> <a href="/tags/ftp/" style="font-size: 13px;">ftp</a> <a href="/tags/select-poll-epoll/" style="font-size: 13px;">select&poll&epoll</a> <a href="/tags/select%E5%87%BD%E6%95%B0/" style="font-size: 13px;">select函数</a> <a href="/tags/select%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 13px;">select服务器</a> <a href="/tags/select%E6%A8%A1%E5%9E%8B/" style="font-size: 13px;">select模型</a> <a href="/tags/socket/" style="font-size: 14px;">socket</a> <a href="/tags/socketReadline/" style="font-size: 13px;">socketReadline</a> <a href="/tags/socketpair/" style="font-size: 13px;">socketpair</a> <a href="/tags/socket%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0/" style="font-size: 13px;">socket相关函数</a> <a href="/tags/ssh/" style="font-size: 13px;">ssh</a> <a href="/tags/vim/" style="font-size: 13px;">vim</a> <a href="/tags/yum%E7%AE%A1%E7%90%86/" style="font-size: 13px;">yum管理</a> <a href="/tags/%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B/" style="font-size: 13px;">僵尸进程</a> <a href="/tags/%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1/" style="font-size: 13px;">延时任务</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" style="font-size: 13px;">文件传输</a> <a href="/tags/%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/" style="font-size: 13px;">权限控制</a> <a href="/tags/%E7%A1%AC%E7%9B%98%E6%8C%82%E8%BD%BD/" style="font-size: 13px;">硬盘挂载</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" style="font-size: 13px;">网络配置</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/" style="font-size: 13px;">虚拟机安装</a> <a href="/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" style="font-size: 13px;">进程管理</a> <a href="/tags/%E9%82%AE%E4%BB%B6%E7%AE%A1%E7%90%86/" style="font-size: 13px;">邮件管理</a> <a href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" style="font-size: 13px;">防火墙</a>
+    </div>
+  </div>
 
-    <footer class="post-footer">
+    
       
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a><span class="archive-list-count">10</span></li></ul>
+    </div>
+  </div>
 
-      
 
+    
       
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled ">
+        
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/2022/01/19/Socket/day15/" class="thumb">
+    
+    
+        <span class="thumb-image thumb-none"></span>
+    
+</a>
 
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2022/01/19/Socket/day15/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-01-19T13:19:37.307Z" itemprop="datePublished">2022-01-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/2022/01/19/Socket/epollsrv/" class="thumb">
+    
+    
+        <span class="thumb-image thumb-none"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2022/01/19/Socket/epollsrv/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-01-19T13:19:37.307Z" itemprop="datePublished">2022-01-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/2022/01/19/Socket/01%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" class="thumb">
+    
+    
+        <span class="thumb-image thumb-none"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Socket/">Socket</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/01/19/Socket/01%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" class="title">UDP/TCP文件传输</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-01-19T05:00:00.000Z" itemprop="datePublished">2022-01-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/2022/01/19/Socket/day01/" class="thumb">
+    
+    
+        <span class="thumb-image thumb-none"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Socket/">Socket</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/01/19/Socket/day01/" class="title">01 socket 字节序&amp;地址转换函数&amp;套接字类型</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-01-19T05:00:00.000Z" itemprop="datePublished">2022-01-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/2022/01/19/Socket/day02/" class="thumb">
+    
+    
+        <span class="thumb-image thumb-none"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Socket/">Socket</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/01/19/Socket/day02/" class="title">02 C/S模型、socket相关函数</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-01-19T05:00:00.000Z" itemprop="datePublished">2022-01-19</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
   </div>
   
-  
-  
-  </article>
-
 
     
-      
+  </div>
+</aside>
 
   
-
+  <main class="main" role="main">
   
+  <div class="content article-list">
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
   
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/12/14/Golang/12%E8%8C%83%E5%9B%B4Range/">12 Golang范围Range</a>
+    </h1>
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2021/12/14/Golang/13map%E9%9B%86%E5%90%88/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="缄默">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/12/14/Golang/13map%E9%9B%86%E5%90%88/" itemprop="url">13 Golang map集合</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-12-14T00:00:00-05:00">
-                2021-12-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Golang%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
-                    <span itemprop="name">Golang基础</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="13-map集合"><a href="#13-map集合" class="headerlink" title="13 map集合"></a>13 map集合</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">map是一个内建函数make可以使用map关键字来定义Map</span><br><span class="line"></span><br><span class="line">定义map</span><br><span class="line">	方法一：</span><br><span class="line">		var map_variable map[key_data_type]value_data_type</span><br><span class="line">	方法二：</span><br><span class="line">		map_variable := make(map[key_data_type]value_data_type)</span><br><span class="line"></span><br><span class="line">插入元素：</span><br><span class="line">	map_variable[new_key] = value</span><br><span class="line"></span><br><span class="line">查找元素:</span><br><span class="line">	value, ok := map_variable[key]</span><br><span class="line">	如果存在ok为true，并且value为key所对应的值，如果不存在则为false</span><br><span class="line"></span><br><span class="line">如果不初始化map，就会创建一个nil map, nil map 不能用来存放键值对</span><br><span class="line"></span><br><span class="line">delete()函数：如果要删除的值不存在则不操作</span><br><span class="line">	delete(map_variable, key)</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">/*</span><br><span class="line">	//如果不初始化map，就会创建一个nil map, nil map 不能用来存放键值对</span><br><span class="line">	var dic map[int]string	      // 没有初始化</span><br><span class="line">	var dic  = map[int]string&#123;&#125;   // 初始化了，但是为空</span><br><span class="line"></span><br><span class="line">	dic[1] = &quot;hello&quot;</span><br><span class="line">	dic[2] = &quot;hi&quot;</span><br><span class="line">	dic[3] = &quot;world&quot;</span><br><span class="line">*/</span><br><span class="line">	var dic  = map[int]string&#123;&#125;</span><br><span class="line"></span><br><span class="line">	dic[1] = &quot;hello&quot;</span><br><span class="line">	dic[2] = &quot;hi&quot;</span><br><span class="line">	dic[3] = &quot;world&quot;</span><br><span class="line"></span><br><span class="line">	value, ok := dic[3]</span><br><span class="line">	if ok &#123; // 如果存在</span><br><span class="line">		fmt.Println(&quot;vaule =&quot;, value)</span><br><span class="line">	&#125;else &#123;</span><br><span class="line">		fmt.Println(&quot;Not exist&quot;)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(&quot;map的值为:&quot;, dic)</span><br><span class="line"></span><br><span class="line">	delete(dic, 5) // 要删除的key不存在所以不操作</span><br><span class="line"></span><br><span class="line">	delete(dic, 3)</span><br><span class="line">	fmt.Println(&quot;map的值为:&quot;, dic)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/12/14/Golang/13map%E9%9B%86%E5%90%88/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
   
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2021/12/14/Golang/14%E9%80%92%E5%BD%92/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="缄默">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/12/14/Golang/14%E9%80%92%E5%BD%92/" itemprop="url">14 Golang递归</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-12-14T00:00:00-05:00">
-                2021-12-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Golang%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
-                    <span itemprop="name">Golang基础</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="14-递归"><a href="#14-递归" class="headerlink" title="14 递归"></a>14 递归</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;unsafe&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">Go语言的函数也可以递归调用</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">// 如果返回值是一个参数则不需要带括号</span><br><span class="line">// 如果是两个参数需要带括号</span><br><span class="line">func Factorial(n int) int&#123;</span><br><span class="line">	if n &lt;= 1&#123;</span><br><span class="line">		return 1</span><br><span class="line">	&#125;</span><br><span class="line">	return n * Factorial(n - 1)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var n = 20</span><br><span class="line">	fmt.Println(&quot;n的阶乘为:&quot;, Factorial(n))</span><br><span class="line">	fmt.Println(&quot;sizeof(n):&quot;, unsafe.Sizeof(n))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/12/14/Golang/14%E9%80%92%E5%BD%92/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="12-范围Range"><a href="#12-范围Range" class="headerlink" title="12 范围Range"></a>12 范围Range</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import	&quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">	range关键字用于for循环中迭代数组(array)、切片(slice)、通道(channel)或集合(map)</span><br><span class="line">的元素。</span><br><span class="line">	返回值：</span><br><span class="line">		第一个表示下标</span><br><span class="line">		第二个表示值</span><br><span class="line">	如果是map：</span><br><span class="line">		第一个表示key</span><br><span class="line">		第二个表示value</span><br><span class="line"></span><br><span class="line">	用 &#x27;_&#x27;去接收一个变量表示不关心这个变量的值，起到占位的作用，该位置的值会被抛弃掉</span><br><span class="line">*/</span><br><span class="line">func main() &#123;</span><br><span class="line">	a := [] int&#123;1, 2, 4, 5&#125;</span><br><span class="line">	m := map[int]string&#123;1:&quot;hello&quot;, 2:&quot;world&quot;, 3:&quot;hi&quot;&#125;</span><br><span class="line">	fmt.Println(a)</span><br><span class="line"></span><br><span class="line">	for index, num := range a &#123; // 如果不关心下标，可以设置为 &#x27;_&#x27;</span><br><span class="line">		fmt.Println(&quot;index =&quot;, index, &quot;num =&quot;, num)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	for key, value := range m&#123;</span><br><span class="line">		fmt.Println(&quot;key =&quot;, key, &quot; value =&quot;, value)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
   </div>
   
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/12/14/Golang/12%E8%8C%83%E5%9B%B4Range/" class="article-date">
+	  <time datetime="2021-12-14T05:00:00.000Z" itemprop="datePublished">12月 14</time>
+	</a>
+</span>
+    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a>
+  </span>
+
+    
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/14/Golang/12%E8%8C%83%E5%9B%B4Range/#comments" class="article-comment-link">评论</a></span>
+    
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 188(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
+	
+
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
   
-  
-  </article>
-
-
-    
-      
-
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/12/14/Golang/13map%E9%9B%86%E5%90%88/">13 Golang map集合</a>
+    </h1>
   
 
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2021/12/14/Golang/15%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="缄默">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/12/14/Golang/15%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/" itemprop="url">15 Golang类型转换</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-12-14T00:00:00-05:00">
-                2021-12-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Golang%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
-                    <span itemprop="name">Golang基础</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="15-类型转换"><a href="#15-类型转换" class="headerlink" title="15 类型转换"></a>15 类型转换</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">// refactor重构</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">类型转换: 和C语言一样</span><br><span class="line">	typename()</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">func main()  &#123;</span><br><span class="line">	var a = 97</span><br><span class="line"></span><br><span class="line">	b := string(a)  // 成功</span><br><span class="line">	//c := float32(int(b)) // 失败</span><br><span class="line"></span><br><span class="line">	fmt.Println(b)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/12/14/Golang/15%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
   
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2021/12/14/Golang/16%E6%8E%A5%E5%8F%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="缄默">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/12/14/Golang/16%E6%8E%A5%E5%8F%A3/" itemprop="url">16 Golang接口</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-12-14T00:00:00-05:00">
-                2021-12-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Golang%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
-                    <span itemprop="name">Golang基础</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="16接口"><a href="#16接口" class="headerlink" title="16接口"></a>16接口</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">// method 方法</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">	接口是一种数据类型，它把所有的具有共性的方法定义在一起，</span><br><span class="line">任何其他类型只要实现了这些方法就是实现了这个接口。</span><br><span class="line"></span><br><span class="line">接口的定义:</span><br><span class="line">	type interface_name interface&#123;</span><br><span class="line">		method_name1 [return_type]</span><br><span class="line">		method_name2 [return_type]</span><br><span class="line">		method_name3 [return_type]</span><br><span class="line">		...</span><br><span class="line">		method_namen [return_type]</span><br><span class="line">	&#125;</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">type Animal interface &#123;</span><br><span class="line">	call()    // 无参数，无返回值</span><br><span class="line">	eat() int // 无参数，有返回值</span><br><span class="line">	sleep(int) int // 有参数，有返回值</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">type Dog struct &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (dog Dog) call()&#123;</span><br><span class="line">	fmt.Println(&quot;汪汪&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (dog Dog) eat() int&#123;</span><br><span class="line">	return 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (dog Dog) sleep(n int) int&#123;</span><br><span class="line">	fmt.Printf(&quot;sleep %d\n&quot;, n)</span><br><span class="line">	return n</span><br><span class="line">&#125;</span><br><span class="line">func main() &#123;</span><br><span class="line"></span><br><span class="line">	// 类似于C++的基类指针指向子类对象，接口的方法都需要实现</span><br><span class="line">	// 继承虚基类就要实现虚基类的所有方法</span><br><span class="line">	var dog Animal</span><br><span class="line">	dog = new(Dog)</span><br><span class="line"></span><br><span class="line">	fmt.Println(dog.eat())</span><br><span class="line">	dog.sleep(23)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/12/14/Golang/16%E6%8E%A5%E5%8F%A3/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="13-map集合"><a href="#13-map集合" class="headerlink" title="13 map集合"></a>13 map集合</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">map是一个内建函数make可以使用map关键字来定义Map</span><br><span class="line"></span><br><span class="line">定义map</span><br><span class="line">	方法一：</span><br><span class="line">		var map_variable map[key_data_type]value_data_type</span><br><span class="line">	方法二：</span><br><span class="line">		map_variable := make(map[key_data_type]value_data_type)</span><br><span class="line"></span><br><span class="line">插入元素：</span><br><span class="line">	map_variable[new_key] = value</span><br><span class="line"></span><br><span class="line">查找元素:</span><br><span class="line">	value, ok := map_variable[key]</span><br><span class="line">	如果存在ok为true，并且value为key所对应的值，如果不存在则为false</span><br><span class="line"></span><br><span class="line">如果不初始化map，就会创建一个nil map, nil map 不能用来存放键值对</span><br><span class="line"></span><br><span class="line">delete()函数：如果要删除的值不存在则不操作</span><br><span class="line">	delete(map_variable, key)</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">/*</span><br><span class="line">	//如果不初始化map，就会创建一个nil map, nil map 不能用来存放键值对</span><br><span class="line">	var dic map[int]string	      // 没有初始化</span><br><span class="line">	var dic  = map[int]string&#123;&#125;   // 初始化了，但是为空</span><br><span class="line"></span><br><span class="line">	dic[1] = &quot;hello&quot;</span><br><span class="line">	dic[2] = &quot;hi&quot;</span><br><span class="line">	dic[3] = &quot;world&quot;</span><br><span class="line">*/</span><br><span class="line">	var dic  = map[int]string&#123;&#125;</span><br><span class="line"></span><br><span class="line">	dic[1] = &quot;hello&quot;</span><br><span class="line">	dic[2] = &quot;hi&quot;</span><br><span class="line">	dic[3] = &quot;world&quot;</span><br><span class="line"></span><br><span class="line">	value, ok := dic[3]</span><br><span class="line">	if ok &#123; // 如果存在</span><br><span class="line">		fmt.Println(&quot;vaule =&quot;, value)</span><br><span class="line">	&#125;else &#123;</span><br><span class="line">		fmt.Println(&quot;Not exist&quot;)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(&quot;map的值为:&quot;, dic)</span><br><span class="line"></span><br><span class="line">	delete(dic, 5) // 要删除的key不存在所以不操作</span><br><span class="line"></span><br><span class="line">	delete(dic, 3)</span><br><span class="line">	fmt.Println(&quot;map的值为:&quot;, dic)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
   </div>
   
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/12/14/Golang/13map%E9%9B%86%E5%90%88/" class="article-date">
+	  <time datetime="2021-12-14T05:00:00.000Z" itemprop="datePublished">12月 14</time>
+	</a>
+</span>
+    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a>
+  </span>
+
+    
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/14/Golang/13map%E9%9B%86%E5%90%88/#comments" class="article-comment-link">评论</a></span>
+    
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 283(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
+	
+
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
   
-  
-  </article>
-
-
-    
-      
-
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/12/14/Golang/15%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/">15 Golang类型转换</a>
+    </h1>
   
 
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2021/12/14/Golang/17%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="缄默">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/12/14/Golang/17%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/" itemprop="url">17 Golang错误处理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-12-14T00:00:00-05:00">
-                2021-12-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Golang%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
-                    <span itemprop="name">Golang基础</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="17-错误处理"><a href="#17-错误处理" class="headerlink" title="17 错误处理"></a>17 错误处理</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;errors&quot;</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">Go通过内置的错误接口提供了非常简单的错误处理机制</span><br><span class="line"></span><br><span class="line">内部定义为:</span><br><span class="line">	type error interface &#123;</span><br><span class="line">		Error() string</span><br><span class="line">	&#125;</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">// 内置的错误处理接口</span><br><span class="line">func driv(a, b int)(float32, error)  &#123;</span><br><span class="line">	if b == 0&#123;</span><br><span class="line">		return 0, errors.New(&quot;分母不能为0&quot;)</span><br><span class="line">	&#125;</span><br><span class="line">	return float32(a)/float32(b), errors.New(&quot;success&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	result, err := driv(3, 4)</span><br><span class="line">	fmt.Println(&quot;result =&quot;, result, &quot; err =&quot;, err)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/12/14/Golang/17%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
   
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2021/12/14/Golang/18%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E5%90%8E%E7%BC%80%E5%B9%B6%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%98%E5%82%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="缄默">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/12/14/Golang/18%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E5%90%8E%E7%BC%80%E5%B9%B6%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%98%E5%82%A8/" itemprop="url">18 Golang批量修改文件后缀并格式化存储</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-12-14T00:00:00-05:00">
-                2021-12-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Golang%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
-                    <span itemprop="name">Golang基础</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="18-批量修改文件后缀并格式化存储"><a href="#18-批量修改文件后缀并格式化存储" class="headerlink" title="18 批量修改文件后缀并格式化存储"></a>18 批量修改文件后缀并格式化存储</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;io&quot;</span><br><span class="line">	&quot;os&quot;</span><br><span class="line">	&quot;path/filepath&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	dir := &quot;C:/Users/Pip/Desktop/Go初识/&quot;</span><br><span class="line"></span><br><span class="line">	// 改变路径</span><br><span class="line">	err := os.Chdir(dir)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		fmt.Println(&quot;打开文件失败&quot;)</span><br><span class="line">		os.Exit(1)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	// 获取文件列表</span><br><span class="line">	fileList, err := filepath.Glob(&quot;*&quot;)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		fmt.Println(&quot;获取失败&quot;)</span><br><span class="line">		os.Exit(1)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(fileList)</span><br><span class="line"></span><br><span class="line">	// 遍历文件列表修改后缀并新建文件</span><br><span class="line">	for _, name := range fileList &#123;</span><br><span class="line">		// 跳过.md文件</span><br><span class="line">		if string(name[len(name) - 3:]) == &quot;.md&quot;&#123;</span><br><span class="line">			continue</span><br><span class="line">		&#125;</span><br><span class="line">		newName := name[:len(name) - 3] + &quot;.md&quot;</span><br><span class="line"></span><br><span class="line">		// 打开.go文件</span><br><span class="line">		oldfile, err := os.OpenFile(name, os.O_RDWR, 0666)</span><br><span class="line">		if err != nil &#123;</span><br><span class="line">			fmt.Printf(&quot;打开文件%s失败\n&quot;, newName)</span><br><span class="line">			os.Exit(1)</span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Println(&quot;Open file:&quot;, name, &quot;success&quot;)</span><br><span class="line"></span><br><span class="line">		// 打开.md文件不存在则新建</span><br><span class="line">		newfile, err := os.OpenFile(newName, os.O_CREATE | os.O_RDWR, 0666)</span><br><span class="line">		if err != nil &#123;</span><br><span class="line">			fmt.Printf(&quot;Open file: %s failed\n&quot;, newName)</span><br><span class="line">			os.Exit(1)</span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Println(&quot;Open file:&quot;, newName, &quot;success&quot;)</span><br><span class="line"></span><br><span class="line">		// 修改格式写入另一个文件</span><br><span class="line">		_, err = newfile.WriteString(&quot;# &quot; + name[:len(name)-3] + &quot;\n```\n&quot;)</span><br><span class="line">		if err != nil&#123;</span><br><span class="line">			fmt.Println(&quot;Write &quot;, newName, &quot;failed&quot;)</span><br><span class="line">			os.Exit(1)</span><br><span class="line">		&#125;</span><br><span class="line">		var fileContent = make([] byte, 1024)</span><br><span class="line">		for ;;&#123;</span><br><span class="line">			n, err := oldfile.Read(fileContent)</span><br><span class="line">			if err != nil &amp;&amp; err != io.EOF&#123;</span><br><span class="line">				fmt.Println(&quot;Write to&quot;, newName, &quot;failed&quot;)</span><br><span class="line">				os.Exit(1)</span><br><span class="line">			&#125;else if n == 0 &#123;</span><br><span class="line">				break</span><br><span class="line">			&#125;</span><br><span class="line">			newfile.WriteString(string(fileContent)[:n])</span><br><span class="line">		&#125;</span><br><span class="line">		_, err = newfile.WriteString(&quot;\n```&quot;)</span><br><span class="line">		if err != nil &#123;</span><br><span class="line">			fmt.Println(&quot;Write to&quot;, newName, &quot;failed&quot;)</span><br><span class="line">			os.Exit(1)</span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Println(&quot;Write to&quot;, string(newName), &quot;success\n&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		//newfile.Sync() // 立即同步,即将内容写入数据</span><br><span class="line">		newfile.Close() // 关闭文件或者程序终止内容才会写入文件</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/12/14/Golang/18%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E5%90%8E%E7%BC%80%E5%B9%B6%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%98%E5%82%A8/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="15-类型转换"><a href="#15-类型转换" class="headerlink" title="15 类型转换"></a>15 类型转换</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">// refactor重构</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">类型转换: 和C语言一样</span><br><span class="line">	typename()</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">func main()  &#123;</span><br><span class="line">	var a = 97</span><br><span class="line"></span><br><span class="line">	b := string(a)  // 成功</span><br><span class="line">	//c := float32(int(b)) // 失败</span><br><span class="line"></span><br><span class="line">	fmt.Println(b)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
   </div>
   
-  
-  
-  </article>
-
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/12/14/Golang/15%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/" class="article-date">
+	  <time datetime="2021-12-14T05:00:00.000Z" itemprop="datePublished">12月 14</time>
+	</a>
+</span>
+    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a>
+  </span>
 
     
-      
 
-  
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/14/Golang/15%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/#comments" class="article-comment-link">评论</a></span>
+    
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 45(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
+	
 
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2021/12/14/Golang/19Go%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8C%E5%88%87%E7%89%87/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="缄默">
-    </span>
+  </p>
+</article>
 
     
-      <header class="post-header">
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/12/14/Golang/16%E6%8E%A5%E5%8F%A3/">16 Golang接口</a>
+    </h1>
+  
 
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/12/14/Golang/19Go%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8C%E5%88%87%E7%89%87/" itemprop="url">19 Golang数组和切片</a></h1>
-        
+  </div>
+  
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="16接口"><a href="#16接口" class="headerlink" title="16接口"></a>16接口</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">// method 方法</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">	接口是一种数据类型，它把所有的具有共性的方法定义在一起，</span><br><span class="line">任何其他类型只要实现了这些方法就是实现了这个接口。</span><br><span class="line"></span><br><span class="line">接口的定义:</span><br><span class="line">	type interface_name interface&#123;</span><br><span class="line">		method_name1 [return_type]</span><br><span class="line">		method_name2 [return_type]</span><br><span class="line">		method_name3 [return_type]</span><br><span class="line">		...</span><br><span class="line">		method_namen [return_type]</span><br><span class="line">	&#125;</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">type Animal interface &#123;</span><br><span class="line">	call()    // 无参数，无返回值</span><br><span class="line">	eat() int // 无参数，有返回值</span><br><span class="line">	sleep(int) int // 有参数，有返回值</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">type Dog struct &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (dog Dog) call()&#123;</span><br><span class="line">	fmt.Println(&quot;汪汪&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (dog Dog) eat() int&#123;</span><br><span class="line">	return 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (dog Dog) sleep(n int) int&#123;</span><br><span class="line">	fmt.Printf(&quot;sleep %d\n&quot;, n)</span><br><span class="line">	return n</span><br><span class="line">&#125;</span><br><span class="line">func main() &#123;</span><br><span class="line"></span><br><span class="line">	// 类似于C++的基类指针指向子类对象，接口的方法都需要实现</span><br><span class="line">	// 继承虚基类就要实现虚基类的所有方法</span><br><span class="line">	var dog Animal</span><br><span class="line">	dog = new(Dog)</span><br><span class="line"></span><br><span class="line">	fmt.Println(dog.eat())</span><br><span class="line">	dog.sleep(23)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/12/14/Golang/16%E6%8E%A5%E5%8F%A3/" class="article-date">
+	  <time datetime="2021-12-14T05:00:00.000Z" itemprop="datePublished">12月 14</time>
+	</a>
+</span>
+    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a>
+  </span>
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-12-14T00:00:00-05:00">
-                2021-12-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Golang%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
-                    <span itemprop="name">Golang基础</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
     
 
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/14/Golang/16%E6%8E%A5%E5%8F%A3/#comments" class="article-comment-link">评论</a></span>
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 214(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
+	
 
-      
-      
+  </p>
+</article>
 
-      
-        
-          <h1 id="19-Go的数组和切片"><a href="#19-Go的数组和切片" class="headerlink" title="19 Go的数组和切片"></a>19 Go的数组和切片</h1><blockquote>
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/12/14/Golang/14%E9%80%92%E5%BD%92/">14 Golang递归</a>
+    </h1>
+  
+
+  </div>
+  
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="14-递归"><a href="#14-递归" class="headerlink" title="14 递归"></a>14 递归</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;unsafe&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">Go语言的函数也可以递归调用</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">// 如果返回值是一个参数则不需要带括号</span><br><span class="line">// 如果是两个参数需要带括号</span><br><span class="line">func Factorial(n int) int&#123;</span><br><span class="line">	if n &lt;= 1&#123;</span><br><span class="line">		return 1</span><br><span class="line">	&#125;</span><br><span class="line">	return n * Factorial(n - 1)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var n = 20</span><br><span class="line">	fmt.Println(&quot;n的阶乘为:&quot;, Factorial(n))</span><br><span class="line">	fmt.Println(&quot;sizeof(n):&quot;, unsafe.Sizeof(n))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/12/14/Golang/14%E9%80%92%E5%BD%92/" class="article-date">
+	  <time datetime="2021-12-14T05:00:00.000Z" itemprop="datePublished">12月 14</time>
+	</a>
+</span>
+    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a>
+  </span>
+
+    
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/14/Golang/14%E9%80%92%E5%BD%92/#comments" class="article-comment-link">评论</a></span>
+    
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 100(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
+	
+
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/12/14/Golang/17%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/">17 Golang错误处理</a>
+    </h1>
+  
+
+  </div>
+  
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="17-错误处理"><a href="#17-错误处理" class="headerlink" title="17 错误处理"></a>17 错误处理</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;errors&quot;</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">Go通过内置的错误接口提供了非常简单的错误处理机制</span><br><span class="line"></span><br><span class="line">内部定义为:</span><br><span class="line">	type error interface &#123;</span><br><span class="line">		Error() string</span><br><span class="line">	&#125;</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">// 内置的错误处理接口</span><br><span class="line">func driv(a, b int)(float32, error)  &#123;</span><br><span class="line">	if b == 0&#123;</span><br><span class="line">		return 0, errors.New(&quot;分母不能为0&quot;)</span><br><span class="line">	&#125;</span><br><span class="line">	return float32(a)/float32(b), errors.New(&quot;success&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	result, err := driv(3, 4)</span><br><span class="line">	fmt.Println(&quot;result =&quot;, result, &quot; err =&quot;, err)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/12/14/Golang/17%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/" class="article-date">
+	  <time datetime="2021-12-14T05:00:00.000Z" itemprop="datePublished">12月 14</time>
+	</a>
+</span>
+    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a>
+  </span>
+
+    
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/14/Golang/17%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/#comments" class="article-comment-link">评论</a></span>
+    
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 113(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
+	
+
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/12/14/Golang/18%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E5%90%8E%E7%BC%80%E5%B9%B6%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%98%E5%82%A8/">18 Golang批量修改文件后缀并格式化存储</a>
+    </h1>
+  
+
+  </div>
+  
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="18-批量修改文件后缀并格式化存储"><a href="#18-批量修改文件后缀并格式化存储" class="headerlink" title="18 批量修改文件后缀并格式化存储"></a>18 批量修改文件后缀并格式化存储</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;io&quot;</span><br><span class="line">	&quot;os&quot;</span><br><span class="line">	&quot;path/filepath&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	dir := &quot;C:/Users/Pip/Desktop/Go初识/&quot;</span><br><span class="line"></span><br><span class="line">	// 改变路径</span><br><span class="line">	err := os.Chdir(dir)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		fmt.Println(&quot;打开文件失败&quot;)</span><br><span class="line">		os.Exit(1)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	// 获取文件列表</span><br><span class="line">	fileList, err := filepath.Glob(&quot;*&quot;)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		fmt.Println(&quot;获取失败&quot;)</span><br><span class="line">		os.Exit(1)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(fileList)</span><br><span class="line"></span><br><span class="line">	// 遍历文件列表修改后缀并新建文件</span><br><span class="line">	for _, name := range fileList &#123;</span><br><span class="line">		// 跳过.md文件</span><br><span class="line">		if string(name[len(name) - 3:]) == &quot;.md&quot;&#123;</span><br><span class="line">			continue</span><br><span class="line">		&#125;</span><br><span class="line">		newName := name[:len(name) - 3] + &quot;.md&quot;</span><br><span class="line"></span><br><span class="line">		// 打开.go文件</span><br><span class="line">		oldfile, err := os.OpenFile(name, os.O_RDWR, 0666)</span><br><span class="line">		if err != nil &#123;</span><br><span class="line">			fmt.Printf(&quot;打开文件%s失败\n&quot;, newName)</span><br><span class="line">			os.Exit(1)</span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Println(&quot;Open file:&quot;, name, &quot;success&quot;)</span><br><span class="line"></span><br><span class="line">		// 打开.md文件不存在则新建</span><br><span class="line">		newfile, err := os.OpenFile(newName, os.O_CREATE | os.O_RDWR, 0666)</span><br><span class="line">		if err != nil &#123;</span><br><span class="line">			fmt.Printf(&quot;Open file: %s failed\n&quot;, newName)</span><br><span class="line">			os.Exit(1)</span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Println(&quot;Open file:&quot;, newName, &quot;success&quot;)</span><br><span class="line"></span><br><span class="line">		// 修改格式写入另一个文件</span><br><span class="line">		_, err = newfile.WriteString(&quot;# &quot; + name[:len(name)-3] + &quot;\n```\n&quot;)</span><br><span class="line">		if err != nil&#123;</span><br><span class="line">			fmt.Println(&quot;Write &quot;, newName, &quot;failed&quot;)</span><br><span class="line">			os.Exit(1)</span><br><span class="line">		&#125;</span><br><span class="line">		var fileContent = make([] byte, 1024)</span><br><span class="line">		for ;;&#123;</span><br><span class="line">			n, err := oldfile.Read(fileContent)</span><br><span class="line">			if err != nil &amp;&amp; err != io.EOF&#123;</span><br><span class="line">				fmt.Println(&quot;Write to&quot;, newName, &quot;failed&quot;)</span><br><span class="line">				os.Exit(1)</span><br><span class="line">			&#125;else if n == 0 &#123;</span><br><span class="line">				break</span><br><span class="line">			&#125;</span><br><span class="line">			newfile.WriteString(string(fileContent)[:n])</span><br><span class="line">		&#125;</span><br><span class="line">		_, err = newfile.WriteString(&quot;\n```&quot;)</span><br><span class="line">		if err != nil &#123;</span><br><span class="line">			fmt.Println(&quot;Write to&quot;, newName, &quot;failed&quot;)</span><br><span class="line">			os.Exit(1)</span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Println(&quot;Write to&quot;, string(newName), &quot;success\n&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		//newfile.Sync() // 立即同步,即将内容写入数据</span><br><span class="line">		newfile.Close() // 关闭文件或者程序终止内容才会写入文件</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/12/14/Golang/18%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E5%90%8E%E7%BC%80%E5%B9%B6%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%98%E5%82%A8/" class="article-date">
+	  <time datetime="2021-12-14T05:00:00.000Z" itemprop="datePublished">12月 14</time>
+	</a>
+</span>
+    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a>
+  </span>
+
+    
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/14/Golang/18%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E5%90%8E%E7%BC%80%E5%B9%B6%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%98%E5%82%A8/#comments" class="article-comment-link">评论</a></span>
+    
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 402(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2(分)</span>
+	
+
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/12/14/Golang/19Go%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8C%E5%88%87%E7%89%87/">19 Golang数组和切片</a>
+    </h1>
+  
+
+  </div>
+  
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="19-Go的数组和切片"><a href="#19-Go的数组和切片" class="headerlink" title="19 Go的数组和切片"></a>19 Go的数组和切片</h1><blockquote>
 <p>且看官网文档：</p>
 <ul>
 <li>  数组：<a target="_blank" rel="noopener" href="https://wizardforcel.gitbooks.io/golang-doc/content/37.html">https://wizardforcel.gitbooks.io/golang-doc/content/37.html</a></li>
@@ -1434,300 +755,94 @@
 <h2 id="代码论证"><a href="#代码论证" class="headerlink" title="代码论证"></a>代码论证</h2><blockquote>
 <p>  由于Go的数组</p>
 </blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/12/14/Golang/19Go%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8C%E5%88%87%E7%89%87/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
   
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/12/14/Golang/19Go%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8C%E5%88%87%E7%89%87/" class="article-date">
+	  <time datetime="2021-12-14T05:00:00.000Z" itemprop="datePublished">12月 14</time>
+	</a>
+</span>
+    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a>
+  </span>
+
+    
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/14/Golang/19Go%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8C%E5%88%87%E7%89%87/#comments" class="article-comment-link">评论</a></span>
+    
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 393(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
+	
+
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
   
-  
-  </article>
-
-
-    
-      
-
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/12/14/Golang/20%E6%8C%87%E9%92%88%E6%95%B0%E7%BB%84VS%E6%95%B0%E7%BB%84%E6%8C%87%E9%92%88/">20 Golang数组指针VS指针数组</a>
+    </h1>
   
 
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2021/12/14/Golang/20%E6%8C%87%E9%92%88%E6%95%B0%E7%BB%84VS%E6%95%B0%E7%BB%84%E6%8C%87%E9%92%88/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="缄默">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/12/14/Golang/20%E6%8C%87%E9%92%88%E6%95%B0%E7%BB%84VS%E6%95%B0%E7%BB%84%E6%8C%87%E9%92%88/" itemprop="url">20 Golang数组指针VS指针数组</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-12-14T00:00:00-05:00">
-                2021-12-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Golang%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
-                    <span itemprop="name">Golang基础</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="20-数组指针VS指针数组"><a href="#20-数组指针VS指针数组" class="headerlink" title="20 数组指针VS指针数组"></a>20 数组指针VS指针数组</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var a = [3]int&#123;1, 1, 1&#125; // 数组</span><br><span class="line"></span><br><span class="line">	var i, j ,k int = 2, 2, 2</span><br><span class="line">	var c [3] * int = [3]* int &#123;&amp;i, &amp;j, &amp;k&#125; // 指针数组，这是一个数组，里面存的都是指针</span><br><span class="line">	var d * [3] int = &amp;a  	// 数组指针，这是一个指针，指向一个 [3]int 类型的数组</span><br><span class="line">	// 必须制定数组长度否则会 =&gt; cannot use &amp;a (type *[3]int) as type *[]int in assignment</span><br><span class="line">	</span><br><span class="line">	var e ** [3] int = &amp;d  	// 数组指针的指针，指向一个 [3]int 类型的数组指针</span><br><span class="line">	</span><br><span class="line">	fmt.Println(&quot;c[0] =&quot;, c[0], &quot;c[1] =&quot;, c[1],&quot;c[2] =&quot;, c[2])</span><br><span class="line">	fmt.Println(&quot;*c[0] =&quot;, *c[0], &quot;*c[1] =&quot;, *c[1],&quot;*c[2] =&quot;, *c[2])</span><br><span class="line">	</span><br><span class="line">	fmt.Println(&quot;d =&quot;, d)</span><br><span class="line">	fmt.Println(&quot;*d =&quot;, *d)</span><br><span class="line">	fmt.Println(&quot;d[0] =&quot;, d[0], &quot;d[1] =&quot;, d[1],&quot;d[2] =&quot;, d[2])</span><br><span class="line">	fmt.Println(&quot;(*d)[0] =&quot;, (*d)[0], &quot;(*d)[1] =&quot;, (*d)[1],&quot;(*d)[2] =&quot;, (*d)[2])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	fmt.Println(&quot;e =&quot;, e)</span><br><span class="line">	fmt.Println(&quot;*e =&quot;, *e)</span><br><span class="line">	fmt.Println(&quot;**e =&quot;, **e)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/12/14/Golang/20%E6%8C%87%E9%92%88%E6%95%B0%E7%BB%84VS%E6%95%B0%E7%BB%84%E6%8C%87%E9%92%88/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
   
-  
-  
-  </article>
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="20-数组指针VS指针数组"><a href="#20-数组指针VS指针数组" class="headerlink" title="20 数组指针VS指针数组"></a>20 数组指针VS指针数组</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var a = [3]int&#123;1, 1, 1&#125; // 数组</span><br><span class="line"></span><br><span class="line">	var i, j ,k int = 2, 2, 2</span><br><span class="line">	var c [3] * int = [3]* int &#123;&amp;i, &amp;j, &amp;k&#125; // 指针数组，这是一个数组，里面存的都是指针</span><br><span class="line">	var d * [3] int = &amp;a  	// 数组指针，这是一个指针，指向一个 [3]int 类型的数组</span><br><span class="line">	// 必须制定数组长度否则会 =&gt; cannot use &amp;a (type *[3]int) as type *[]int in assignment</span><br><span class="line">	</span><br><span class="line">	var e ** [3] int = &amp;d  	// 数组指针的指针，指向一个 [3]int 类型的数组指针</span><br><span class="line">	</span><br><span class="line">	fmt.Println(&quot;c[0] =&quot;, c[0], &quot;c[1] =&quot;, c[1],&quot;c[2] =&quot;, c[2])</span><br><span class="line">	fmt.Println(&quot;*c[0] =&quot;, *c[0], &quot;*c[1] =&quot;, *c[1],&quot;*c[2] =&quot;, *c[2])</span><br><span class="line">	</span><br><span class="line">	fmt.Println(&quot;d =&quot;, d)</span><br><span class="line">	fmt.Println(&quot;*d =&quot;, *d)</span><br><span class="line">	fmt.Println(&quot;d[0] =&quot;, d[0], &quot;d[1] =&quot;, d[1],&quot;d[2] =&quot;, d[2])</span><br><span class="line">	fmt.Println(&quot;(*d)[0] =&quot;, (*d)[0], &quot;(*d)[1] =&quot;, (*d)[1],&quot;(*d)[2] =&quot;, (*d)[2])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	fmt.Println(&quot;e =&quot;, e)</span><br><span class="line">	fmt.Println(&quot;*e =&quot;, *e)</span><br><span class="line">	fmt.Println(&quot;**e =&quot;, **e)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/12/14/Golang/20%E6%8C%87%E9%92%88%E6%95%B0%E7%BB%84VS%E6%95%B0%E7%BB%84%E6%8C%87%E9%92%88/" class="article-date">
+	  <time datetime="2021-12-14T05:00:00.000Z" itemprop="datePublished">12月 14</time>
+	</a>
+</span>
+    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a>
+  </span>
 
     
-      
 
-  
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/14/Golang/20%E6%8C%87%E9%92%88%E6%95%B0%E7%BB%84VS%E6%95%B0%E7%BB%84%E6%8C%87%E9%92%88/#comments" class="article-comment-link">评论</a></span>
+    
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 256(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
+	
 
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2021/12/14/Golang/21Go%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E%E5%91%A8%E6%9C%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="缄默">
-    </span>
+  </p>
+</article>
 
     
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/12/14/Golang/21Go%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E%E5%91%A8%E6%9C%9F/" itemprop="url">21 Golang语言变量生命周期</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-12-14T00:00:00-05:00">
-                2021-12-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Golang%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
-                    <span itemprop="name">Golang基础</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
     
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/12/14/Golang/21Go%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E%E5%91%A8%E6%9C%9F/">21 Golang语言变量生命周期</a>
+    </h1>
+  
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="21-Go语言变量生命周期"><a href="#21-Go语言变量生命周期" class="headerlink" title="21 Go语言变量生命周期"></a>21 Go语言变量生命周期</h1><h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><blockquote>
+  </div>
+  
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="21-Go语言变量生命周期"><a href="#21-Go语言变量生命周期" class="headerlink" title="21 Go语言变量生命周期"></a>21 Go语言变量生命周期</h1><h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><blockquote>
 <p>   <a target="_blank" rel="noopener" href="https://blog.csdn.net/FX677588/article/details/78421334">https://blog.csdn.net/FX677588/article/details/78421334</a></p>
 </blockquote>
 <h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2><ul>
@@ -1747,152 +862,49 @@
 </ul>
 </blockquote>
 
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/12/14/Golang/21Go%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E%E5%91%A8%E6%9C%9F/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
   
-  
-  
-  </article>
-
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/12/14/Golang/21Go%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E%E5%91%A8%E6%9C%9F/" class="article-date">
+	  <time datetime="2021-12-14T05:00:00.000Z" itemprop="datePublished">12月 14</time>
+	</a>
+</span>
+    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a>
+  </span>
 
     
-      
 
-  
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/14/Golang/21Go%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E%E5%91%A8%E6%9C%9F/#comments" class="article-comment-link">评论</a></span>
+    
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 583(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2(分)</span>
+	
 
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2021/11/13/Linux/01linux%E5%9F%BA%E7%A1%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="缄默">
-    </span>
+  </p>
+</article>
 
     
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/11/13/Linux/01linux%E5%9F%BA%E7%A1%80/" itemprop="url">01 Linux基础知识--基础命令&安装wps</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-11-13T00:00:00-05:00">
-                2021-11-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
     
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/11/13/Linux/01linux%E5%9F%BA%E7%A1%80/">01 Linux基础知识--基础命令&amp;安装wps</a>
+    </h1>
+  
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="01-Linux基础知识–基础命令-amp-安装wps"><a href="#01-Linux基础知识–基础命令-amp-安装wps" class="headerlink" title="01 Linux基础知识–基础命令&amp;安装wps"></a>01 Linux基础知识–基础命令&amp;安装wps</h1><h2 id="添加系统语言设置"><a href="#添加系统语言设置" class="headerlink" title="添加系统语言设置"></a>添加系统语言设置</h2><blockquote>
+  </div>
+  
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="01-Linux基础知识–基础命令-amp-安装wps"><a href="#01-Linux基础知识–基础命令-amp-安装wps" class="headerlink" title="01 Linux基础知识–基础命令&amp;安装wps"></a>01 Linux基础知识–基础命令&amp;安装wps</h1><h2 id="添加系统语言设置"><a href="#添加系统语言设置" class="headerlink" title="添加系统语言设置"></a>添加系统语言设置</h2><blockquote>
 <p>   <code>Application</code>   —&gt; <code>System Tools</code> —&gt;  <code>Settings</code> —&gt; <code>Region &amp; Language</code></p>
 <p>   点击<code>加号</code>选择添加的输入法，找到中文输入法后，选择点击右上角的添加即可。</p>
 </blockquote>
@@ -1901,152 +913,54 @@
 <p><code>Ctrl + Alt + F2 ~ F6</code>进入图形界面</p>
 <p>通过<code>man  init </code>可以查看系统运行的等级。</p>
 <h2 id="命令补齐Tab"><a href="#命令补齐Tab" class="headerlink" title="命令补齐Tab"></a>命令补齐Tab</h2><p><code>linux</code>的神兵利器，不仅可以提高打印命令的效率，还可以提高命令的正确率。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/11/13/Linux/01linux%E5%9F%BA%E7%A1%80/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
   
-  
-  
-  </article>
-
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/11/13/Linux/01linux%E5%9F%BA%E7%A1%80/" class="article-date">
+	  <time datetime="2021-11-13T05:00:00.000Z" itemprop="datePublished">11月 13</time>
+	</a>
+</span>
+    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </span>
 
     
-      
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" rel="tag">Linux基础命令</a>, <a class="article-tag-link-link" href="/tags/Linux%E5%AE%89%E8%A3%85WPS/" rel="tag">Linux安装WPS</a>
+  </span>
 
-  
 
-  
-  
-  
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/11/13/Linux/01linux%E5%9F%BA%E7%A1%80/#comments" class="article-comment-link">评论</a></span>
+    
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2.1k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 7(分)</span>
+	
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2021/11/13/Linux/02linux%E5%9F%BA%E7%A1%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="缄默">
-    </span>
+  </p>
+</article>
 
     
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/11/13/Linux/02linux%E5%9F%BA%E7%A1%80/" itemprop="url">02 Linux基础知识--vim&用户管理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-11-13T00:00:00-05:00">
-                2021-11-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
     
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/11/13/Linux/02linux%E5%9F%BA%E7%A1%80/">02 Linux基础知识--vim&amp;用户管理</a>
+    </h1>
+  
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="02-Linux基础知识–vim学习-amp-用户管理"><a href="#02-Linux基础知识–vim学习-amp-用户管理" class="headerlink" title="02 Linux基础知识–vim学习&amp;用户管理"></a>02 Linux基础知识–vim学习&amp;用户管理</h1><h2 id="vim模式"><a href="#vim模式" class="headerlink" title="vim模式"></a>vim模式</h2><ul>
+  </div>
+  
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="02-Linux基础知识–vim学习-amp-用户管理"><a href="#02-Linux基础知识–vim学习-amp-用户管理" class="headerlink" title="02 Linux基础知识–vim学习&amp;用户管理"></a>02 Linux基础知识–vim学习&amp;用户管理</h1><h2 id="vim模式"><a href="#vim模式" class="headerlink" title="vim模式"></a>vim模式</h2><ul>
 <li>  普通模式：浏览文件</li>
 <li>  插入模式：对文件内容进行编辑，输入<code>i</code></li>
 <li>  命令模式：临时更改vim的工作方式，对字符批量处理，输入<code>:</code></li>
@@ -2072,327 +986,54 @@
 <li>  <code>/</code>：从上向下搜索</li>
 <li>  <code>?</code>：从下向上搜索</li>
 </ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/11/13/Linux/02linux%E5%9F%BA%E7%A1%80/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
   
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/11/13/Linux/02linux%E5%9F%BA%E7%A1%80/" class="article-date">
+	  <time datetime="2021-11-13T05:00:00.000Z" itemprop="datePublished">11月 13</time>
+	</a>
+</span>
+    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </span>
+
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" rel="tag">Linux用户管理</a>, <a class="article-tag-link-link" href="/tags/vim/" rel="tag">vim</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/11/13/Linux/02linux%E5%9F%BA%E7%A1%80/#comments" class="article-comment-link">评论</a></span>
+    
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2.1k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 7(分)</span>
+	
+
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
   
-  
-  </article>
-
-
-    
-      
-
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/11/13/Linux/04linux%E5%9F%BA%E7%A1%80/">04 Linux基础知识--进程监控&amp;ssh&amp;文件传输</a>
+    </h1>
   
 
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2021/11/13/Linux/03linux%E5%9F%BA%E7%A1%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="缄默">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/11/13/Linux/03linux%E5%9F%BA%E7%A1%80/" itemprop="url">03 Linux基础知识--权限控制&进程管理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-11-13T00:00:00-05:00">
-                2021-11-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="03-Linux基础知识-权限控制-amp-进程管理"><a href="#03-Linux基础知识-权限控制-amp-进程管理" class="headerlink" title="03 Linux基础知识-权限控制&amp;进程管理"></a>03 Linux基础知识-权限控制&amp;进程管理</h1><h2 id="umask"><a href="#umask" class="headerlink" title="umask"></a>umask</h2><p>当用户的<code>UID</code>小于199，并且用户名和用户组名相同时，<code>umaks</code>的值为<code>022</code>。否则的话<code>umask</code>的值为<code>002</code>，当创建文件夹时默认的权限为<code>0777 - umask</code>，当创建文件时默认的权限为<code>0777 - umaks - 0111</code>，文件默认取消执行权限，因为执行权限对文件影响大</p>
-<p>配置文件</p>
-<ul>
-<li>  系统配置文件：<code>/etc/profile</code></li>
-<li>  <code>shell</code>配置文件：<code>/etc/bashrc</code></li>
-<li>  某一个用户的<code>shell</code>配置文件：<code>~/.bashrc</code></li>
-<li>  使配置文件生效：<code>source 要生效的文件</code>，即让系统重新读取该文件，否则需要内核自举。</li>
-</ul>
-<h2 id="特殊权限"><a href="#特殊权限" class="headerlink" title="特殊权限"></a>特殊权限</h2><ul>
-<li>粘滞位(<code>sticky</code>)<ul>
-<li>  只针对目录生效，当一个目录有<code>sticky</code>权限时，在这个目录中的文件只能被文件的所有者删除。</li>
-<li>  设置：<code>chmod o+t 目录</code>或<code>chmod 1xxx 目录</code></li>
-</ul>
-</li>
-<li>强制位(<code>sgid</code>)<ul>
-<li>  对文件作用：只针对二进制可执行文件，当文件有<code>sgid</code>时，任何人执行此文件产生的进程都属于文件的组</li>
-<li>  对目录：当目录有<code>sgid</code>时，任何人在此目录中建立的文件都属于目录。</li>
-<li>  <code>chmod g+s 二进制文件/目录</code>或<code>chmod 2xxx 二进制文件/目录</code></li>
-</ul>
-</li>
-<li>冒险位(<code>suid</code>)<ul>
-<li>  对文件，任何人执行二进制文件，进程都属于进程的所有人。对文件的权限进行降级操作，避免<code>rm -rf /*</code>的误操作，对<code>rm</code>文件的权限进行降级。</li>
-<li>  <code>chmod u+s 文件</code>或<code>chmod 4xxx 文件</code></li>
-</ul>
-</li>
-</ul>
-<h2 id="acl权限"><a href="#acl权限" class="headerlink" title="acl权限"></a>acl权限</h2><blockquote>
-<p>学会使用<code>man setfcal</code></p>
-</blockquote>
-<p>设置：<code>setfcal -m u:username:rwx dir</code></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/11/13/Linux/03linux%E5%9F%BA%E7%A1%80/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
   
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2021/11/13/Linux/04linux%E5%9F%BA%E7%A1%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="缄默">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/11/13/Linux/04linux%E5%9F%BA%E7%A1%80/" itemprop="url">04 Linux基础知识--进程监控&ssh&文件传输</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-11-13T00:00:00-05:00">
-                2021-11-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="04-Linux基础–进程监控-amp-ssh-amp-文件传输"><a href="#04-Linux基础–进程监控-amp-ssh-amp-文件传输" class="headerlink" title="04 Linux基础–进程监控&amp;ssh&amp;文件传输"></a>04 Linux基础–进程监控&amp;ssh&amp;文件传输</h1><h2 id="进程动态监控"><a href="#进程动态监控" class="headerlink" title="进程动态监控"></a>进程动态监控</h2><p><code>top</code>：动态查看进程</p>
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="04-Linux基础–进程监控-amp-ssh-amp-文件传输"><a href="#04-Linux基础–进程监控-amp-ssh-amp-文件传输" class="headerlink" title="04 Linux基础–进程监控&amp;ssh&amp;文件传输"></a>04 Linux基础–进程监控&amp;ssh&amp;文件传输</h1><h2 id="进程动态监控"><a href="#进程动态监控" class="headerlink" title="进程动态监控"></a>进程动态监控</h2><p><code>top</code>：动态查看进程</p>
 <ul>
 <li>  按<code>1</code>显示CPU每个核的负载</li>
 <li>  按<code>s</code>修改刷新频率</li>
@@ -2463,152 +1104,131 @@
 </li>
 </ul>
 <h2 id="linux查看本机ip"><a href="#linux查看本机ip" class="headerlink" title="linux查看本机ip"></a>linux查看本机ip</h2>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/11/13/Linux/04linux%E5%9F%BA%E7%A1%80/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
   
-  
-  
-  </article>
-
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/11/13/Linux/04linux%E5%9F%BA%E7%A1%80/" class="article-date">
+	  <time datetime="2021-11-13T05:00:00.000Z" itemprop="datePublished">11月 13</time>
+	</a>
+</span>
+    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </span>
 
     
-      
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/Linux%E8%BF%9B%E7%A8%8B/" rel="tag">Linux进程</a>, <a class="article-tag-link-link" href="/tags/ssh/" rel="tag">ssh</a>, <a class="article-tag-link-link" href="/tags/%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" rel="tag">文件传输</a>
+  </span>
 
-  
 
-  
-  
-  
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/11/13/Linux/04linux%E5%9F%BA%E7%A1%80/#comments" class="article-comment-link">评论</a></span>
+    
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.3k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 4(分)</span>
+	
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2021/11/13/Linux/05linux%E5%9F%BA%E7%A1%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="缄默">
-    </span>
+  </p>
+</article>
 
     
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/11/13/Linux/05linux%E5%9F%BA%E7%A1%80/" itemprop="url">05 Linux基础知识–-日志&网络配置</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-11-13T00:00:00-05:00">
-                2021-11-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
     
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/11/13/Linux/03linux%E5%9F%BA%E7%A1%80/">03 Linux基础知识--权限控制&amp;进程管理</a>
+    </h1>
+  
+
+  </div>
+  
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="03-Linux基础知识-权限控制-amp-进程管理"><a href="#03-Linux基础知识-权限控制-amp-进程管理" class="headerlink" title="03 Linux基础知识-权限控制&amp;进程管理"></a>03 Linux基础知识-权限控制&amp;进程管理</h1><h2 id="umask"><a href="#umask" class="headerlink" title="umask"></a>umask</h2><p>当用户的<code>UID</code>小于199，并且用户名和用户组名相同时，<code>umaks</code>的值为<code>022</code>。否则的话<code>umask</code>的值为<code>002</code>，当创建文件夹时默认的权限为<code>0777 - umask</code>，当创建文件时默认的权限为<code>0777 - umaks - 0111</code>，文件默认取消执行权限，因为执行权限对文件影响大</p>
+<p>配置文件</p>
+<ul>
+<li>  系统配置文件：<code>/etc/profile</code></li>
+<li>  <code>shell</code>配置文件：<code>/etc/bashrc</code></li>
+<li>  某一个用户的<code>shell</code>配置文件：<code>~/.bashrc</code></li>
+<li>  使配置文件生效：<code>source 要生效的文件</code>，即让系统重新读取该文件，否则需要内核自举。</li>
+</ul>
+<h2 id="特殊权限"><a href="#特殊权限" class="headerlink" title="特殊权限"></a>特殊权限</h2><ul>
+<li>粘滞位(<code>sticky</code>)<ul>
+<li>  只针对目录生效，当一个目录有<code>sticky</code>权限时，在这个目录中的文件只能被文件的所有者删除。</li>
+<li>  设置：<code>chmod o+t 目录</code>或<code>chmod 1xxx 目录</code></li>
+</ul>
+</li>
+<li>强制位(<code>sgid</code>)<ul>
+<li>  对文件作用：只针对二进制可执行文件，当文件有<code>sgid</code>时，任何人执行此文件产生的进程都属于文件的组</li>
+<li>  对目录：当目录有<code>sgid</code>时，任何人在此目录中建立的文件都属于目录。</li>
+<li>  <code>chmod g+s 二进制文件/目录</code>或<code>chmod 2xxx 二进制文件/目录</code></li>
+</ul>
+</li>
+<li>冒险位(<code>suid</code>)<ul>
+<li>  对文件，任何人执行二进制文件，进程都属于进程的所有人。对文件的权限进行降级操作，避免<code>rm -rf /*</code>的误操作，对<code>rm</code>文件的权限进行降级。</li>
+<li>  <code>chmod u+s 文件</code>或<code>chmod 4xxx 文件</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="acl权限"><a href="#acl权限" class="headerlink" title="acl权限"></a>acl权限</h2><blockquote>
+<p>学会使用<code>man setfcal</code></p>
+</blockquote>
+<p>设置：<code>setfcal -m u:username:rwx dir</code></p>
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/11/13/Linux/03linux%E5%9F%BA%E7%A1%80/" class="article-date">
+	  <time datetime="2021-11-13T05:00:00.000Z" itemprop="datePublished">11月 13</time>
+	</a>
+</span>
+    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </span>
 
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/" rel="tag">权限控制</a>, <a class="article-tag-link-link" href="/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="tag">进程管理</a>
+  </span>
 
-      
-      
 
-      
-        
-          <h1 id="05-Linux基础–-日志-amp-网络配置"><a href="#05-Linux基础–-日志-amp-网络配置" class="headerlink" title="05 Linux基础–-日志&amp;网络配置"></a>05 Linux基础–-日志&amp;网络配置</h1><h2 id="日志采集服务"><a href="#日志采集服务" class="headerlink" title="日志采集服务"></a>日志采集服务</h2><p>查看日志状态：<code>systemctl status rsyslog.service</code></p>
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/11/13/Linux/03linux%E5%9F%BA%E7%A1%80/#comments" class="article-comment-link">评论</a></span>
+    
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.3k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 4(分)</span>
+	
+
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/11/13/Linux/05linux%E5%9F%BA%E7%A1%80/">05 Linux基础知识–-日志&amp;网络配置</a>
+    </h1>
+  
+
+  </div>
+  
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="05-Linux基础–-日志-amp-网络配置"><a href="#05-Linux基础–-日志-amp-网络配置" class="headerlink" title="05 Linux基础–-日志&amp;网络配置"></a>05 Linux基础–-日志&amp;网络配置</h1><h2 id="日志采集服务"><a href="#日志采集服务" class="headerlink" title="日志采集服务"></a>日志采集服务</h2><p>查看日志状态：<code>systemctl status rsyslog.service</code></p>
 <p><strong>获取配置文件的帮助信息：<code>man 5 rsyslog.conf</code></strong></p>
 <p>日志：<code>*.*</code>：第一个<code>*</code>表示什么类型，第二个<code>*</code>表示该服务程序的日志级别</p>
 <ul>
@@ -2656,152 +1276,54 @@
 <li>  服务端(日志接收方)：<code>$ModLoad imudp</code>、<code>$UDPServerRun 514</code>，开启接收的模块，并且打开接收的端口</li>
 <li>  设置防火墙可以通过客户端的日志 / 关闭防火墙</li>
 </ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/11/13/Linux/05linux%E5%9F%BA%E7%A1%80/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
   
-  
-  
-  </article>
-
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/11/13/Linux/05linux%E5%9F%BA%E7%A1%80/" class="article-date">
+	  <time datetime="2021-11-13T05:00:00.000Z" itemprop="datePublished">11月 13</time>
+	</a>
+</span>
+    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </span>
 
     
-      
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/Linux%E6%97%A5%E5%BF%97/" rel="tag">Linux日志</a>, <a class="article-tag-link-link" href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" rel="tag">网络配置</a>
+  </span>
 
-  
 
-  
-  
-  
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/11/13/Linux/05linux%E5%9F%BA%E7%A1%80/#comments" class="article-comment-link">评论</a></span>
+    
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2.1k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 8(分)</span>
+	
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2021/11/13/Linux/06linux%E5%9F%BA%E7%A1%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="缄默">
-    </span>
+  </p>
+</article>
 
     
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/11/13/Linux/06linux%E5%9F%BA%E7%A1%80/" itemprop="url">06 Linux基础知识–-虚拟机安装</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-11-13T00:00:00-05:00">
-                2021-11-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
     
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/11/13/Linux/06linux%E5%9F%BA%E7%A1%80/">06 Linux基础知识–-虚拟机安装</a>
+    </h1>
+  
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="06-Linux基础–-虚拟机安装"><a href="#06-Linux基础–-虚拟机安装" class="headerlink" title="06 Linux基础–-虚拟机安装"></a>06 Linux基础–-虚拟机安装</h1><h2 id="虚拟机的安装"><a href="#虚拟机的安装" class="headerlink" title="虚拟机的安装"></a>虚拟机的安装</h2><blockquote>
+  </div>
+  
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="06-Linux基础–-虚拟机安装"><a href="#06-Linux基础–-虚拟机安装" class="headerlink" title="06 Linux基础–-虚拟机安装"></a>06 Linux基础–-虚拟机安装</h1><h2 id="虚拟机的安装"><a href="#虚拟机的安装" class="headerlink" title="虚拟机的安装"></a>虚拟机的安装</h2><blockquote>
 <p>  关于这部分我不想写，个人觉得没必要，多踩坑多百度，自然就能解决。本人装系统已经装吐了，所以真的不想写了，请自行百度。</p>
 </blockquote>
 <h2 id="虚拟机管理命令"><a href="#虚拟机管理命令" class="headerlink" title="虚拟机管理命令"></a>虚拟机管理命令</h2><ul>
@@ -2831,152 +1353,54 @@
 </ul>
 <h2 id="脚本安装虚拟机"><a href="#脚本安装虚拟机" class="headerlink" title="脚本安装虚拟机"></a>脚本安装虚拟机</h2><p>以<code>.sh</code>结尾</p>
 <p>第一行<code>#!/bin/bash</code>指定解释器</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/11/13/Linux/06linux%E5%9F%BA%E7%A1%80/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
   
-  
-  
-  </article>
-
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/11/13/Linux/06linux%E5%9F%BA%E7%A1%80/" class="article-date">
+	  <time datetime="2021-11-13T05:00:00.000Z" itemprop="datePublished">11月 13</time>
+	</a>
+</span>
+    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </span>
 
     
-      
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/" rel="tag">虚拟机安装</a>
+  </span>
 
-  
 
-  
-  
-  
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/11/13/Linux/06linux%E5%9F%BA%E7%A1%80/#comments" class="article-comment-link">评论</a></span>
+    
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 616(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2(分)</span>
+	
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2021/11/13/Linux/07linux%E5%9F%BA%E7%A1%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="缄默">
-    </span>
+  </p>
+</article>
 
     
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/11/13/Linux/07linux%E5%9F%BA%E7%A1%80/" itemprop="url">07 Linux基础知识–-硬盘挂载&yum管理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-11-13T00:00:00-05:00">
-                2021-11-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
     
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/11/13/Linux/07linux%E5%9F%BA%E7%A1%80/">07 Linux基础知识–-硬盘挂载&amp;yum管理</a>
+    </h1>
+  
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="07-Linux基础–-硬盘挂载-amp-yum管理"><a href="#07-Linux基础–-硬盘挂载-amp-yum管理" class="headerlink" title="07 Linux基础–-硬盘挂载&amp;yum管理"></a>07 Linux基础–-硬盘挂载&amp;yum管理</h1><h2 id="netstat命令"><a href="#netstat命令" class="headerlink" title="netstat命令"></a>netstat命令</h2><p>常用组合<code>netstat -antlpe</code></p>
+  </div>
+  
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="07-Linux基础–-硬盘挂载-amp-yum管理"><a href="#07-Linux基础–-硬盘挂载-amp-yum管理" class="headerlink" title="07 Linux基础–-硬盘挂载&amp;yum管理"></a>07 Linux基础–-硬盘挂载&amp;yum管理</h1><h2 id="netstat命令"><a href="#netstat命令" class="headerlink" title="netstat命令"></a>netstat命令</h2><p>常用组合<code>netstat -antlpe</code></p>
 <ul>
 <li>  <code>-a</code>：显示所有信息</li>
 <li>  <code>-n</code>：显示数字地址</li>
@@ -3027,152 +1451,54 @@
 <p>例：<code>baseurl</code>不同的主机和不同的路径</p>
 </li>
 </ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/11/13/Linux/07linux%E5%9F%BA%E7%A1%80/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
   
-  
-  
-  </article>
-
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/11/13/Linux/07linux%E5%9F%BA%E7%A1%80/" class="article-date">
+	  <time datetime="2021-11-13T05:00:00.000Z" itemprop="datePublished">11月 13</time>
+	</a>
+</span>
+    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </span>
 
     
-      
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/yum%E7%AE%A1%E7%90%86/" rel="tag">yum管理</a>, <a class="article-tag-link-link" href="/tags/%E7%A1%AC%E7%9B%98%E6%8C%82%E8%BD%BD/" rel="tag">硬盘挂载</a>
+  </span>
 
-  
 
-  
-  
-  
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/11/13/Linux/07linux%E5%9F%BA%E7%A1%80/#comments" class="article-comment-link">评论</a></span>
+    
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 919(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 3(分)</span>
+	
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2021/11/13/Linux/08linux%E5%9F%BA%E7%A1%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="缄默">
-    </span>
+  </p>
+</article>
 
     
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/11/13/Linux/08linux%E5%9F%BA%E7%A1%80/" itemprop="url">08 Linux基础知识–-延时任务&邮件管理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-11-13T00:00:00-05:00">
-                2021-11-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
     
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/11/13/Linux/08linux%E5%9F%BA%E7%A1%80/">08 Linux基础知识–-延时任务&amp;邮件管理</a>
+    </h1>
+  
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="08-Linux基础知识–-延时任务-amp-邮件管理"><a href="#08-Linux基础知识–-延时任务-amp-邮件管理" class="headerlink" title="08 Linux基础知识–-延时任务&amp;邮件管理"></a>08 Linux基础知识–-延时任务&amp;邮件管理</h1><h2 id="kickstart自动安装系统脚本"><a href="#kickstart自动安装系统脚本" class="headerlink" title="kickstart自动安装系统脚本"></a>kickstart自动安装系统脚本</h2><ul>
+  </div>
+  
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="08-Linux基础知识–-延时任务-amp-邮件管理"><a href="#08-Linux基础知识–-延时任务-amp-邮件管理" class="headerlink" title="08 Linux基础知识–-延时任务&amp;邮件管理"></a>08 Linux基础知识–-延时任务&amp;邮件管理</h1><h2 id="kickstart自动安装系统脚本"><a href="#kickstart自动安装系统脚本" class="headerlink" title="kickstart自动安装系统脚本"></a>kickstart自动安装系统脚本</h2><ul>
 <li>  第一步：<code>yum install -y system-config-kickstart httpd</code>安装服务</li>
 <li>  第二步：<code>system-config-kickstart</code>，配置安装文件</li>
 <li>  第三步：给<code>ks.cfg</code>添加安装的脚本，即安装系统基础安装包和配置yum等</li>
@@ -3198,152 +1524,54 @@
 </li>
 </ul>
 <h2 id="定时任务"><a href="#定时任务" class="headerlink" title="定时任务"></a>定时任务</h2><p><code>systemctl status crond</code>，查看定时任务控制服务</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/11/13/Linux/08linux%E5%9F%BA%E7%A1%80/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
   
-  
-  
-  </article>
-
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/11/13/Linux/08linux%E5%9F%BA%E7%A1%80/" class="article-date">
+	  <time datetime="2021-11-13T05:00:00.000Z" itemprop="datePublished">11月 13</time>
+	</a>
+</span>
+    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </span>
 
     
-      
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1/" rel="tag">延时任务</a>, <a class="article-tag-link-link" href="/tags/%E9%82%AE%E4%BB%B6%E7%AE%A1%E7%90%86/" rel="tag">邮件管理</a>
+  </span>
 
-  
 
-  
-  
-  
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/11/13/Linux/08linux%E5%9F%BA%E7%A1%80/#comments" class="article-comment-link">评论</a></span>
+    
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 993(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 4(分)</span>
+	
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2021/11/13/Linux/09linux%E5%9F%BA%E7%A1%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="缄默">
-    </span>
+  </p>
+</article>
 
     
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/11/13/Linux/09linux%E5%9F%BA%E7%A1%80/" itemprop="url">09 Linux基础知识--磁盘管理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-11-13T00:00:00-05:00">
-                2021-11-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
     
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/11/13/Linux/09linux%E5%9F%BA%E7%A1%80/">09 Linux基础知识--磁盘管理</a>
+    </h1>
+  
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="09-Linux基础–磁盘管理"><a href="#09-Linux基础–磁盘管理" class="headerlink" title="09 Linux基础–磁盘管理"></a>09 Linux基础–磁盘管理</h1><h2 id="磁盘管理"><a href="#磁盘管理" class="headerlink" title="磁盘管理"></a>磁盘管理</h2><ul>
+  </div>
+  
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="09-Linux基础–磁盘管理"><a href="#09-Linux基础–磁盘管理" class="headerlink" title="09 Linux基础–磁盘管理"></a>09 Linux基础–磁盘管理</h1><h2 id="磁盘管理"><a href="#磁盘管理" class="headerlink" title="磁盘管理"></a>磁盘管理</h2><ul>
 <li>  <code>df -h</code>：查看已经挂载的设备</li>
 <li>  <code>fdisk -l</code>：查看系统中所有的设备，包括未识别的</li>
 <li><code>cat /proc/partitions</code>：参看系统已经挂载的硬盘<ul>
@@ -3420,152 +1648,54 @@
 <li><code>mount -a</code>：挂载<code>/etc/fstab</code>的文件重新执行</li>
 </ul>
 <h2 id="SWAP分区管理"><a href="#SWAP分区管理" class="headerlink" title="SWAP分区管理"></a>SWAP分区管理</h2>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/11/13/Linux/09linux%E5%9F%BA%E7%A1%80/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
   
-  
-  
-  </article>
-
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/11/13/Linux/09linux%E5%9F%BA%E7%A1%80/" class="article-date">
+	  <time datetime="2021-11-13T05:00:00.000Z" itemprop="datePublished">11月 13</time>
+	</a>
+</span>
+    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </span>
 
     
-      
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" rel="tag">Linux磁盘管理</a>
+  </span>
 
-  
 
-  
-  
-  
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/11/13/Linux/09linux%E5%9F%BA%E7%A1%80/#comments" class="article-comment-link">评论</a></span>
+    
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 733(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2(分)</span>
+	
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2021/11/13/Linux/10linux%E5%9F%BA%E7%A1%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="缄默">
-    </span>
+  </p>
+</article>
 
     
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/11/13/Linux/10linux%E5%9F%BA%E7%A1%80/" itemprop="url">10 Linux基础知识–LVM卷&ftp&防火墙</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-11-13T00:00:00-05:00">
-                2021-11-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
     
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/11/13/Linux/10linux%E5%9F%BA%E7%A1%80/">10 Linux基础知识–LVM卷&amp;ftp&amp;防火墙</a>
+    </h1>
+  
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="10-Linux基础知识–LVM卷-amp-ftp-amp-防火墙"><a href="#10-Linux基础知识–LVM卷-amp-ftp-amp-防火墙" class="headerlink" title="10 Linux基础知识–LVM卷&amp;ftp&amp;防火墙"></a>10 Linux基础知识–LVM卷&amp;ftp&amp;防火墙</h1><h2 id="LVM逻辑卷"><a href="#LVM逻辑卷" class="headerlink" title="LVM逻辑卷"></a>LVM逻辑卷</h2><ul>
+  </div>
+  
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="10-Linux基础知识–LVM卷-amp-ftp-amp-防火墙"><a href="#10-Linux基础知识–LVM卷-amp-ftp-amp-防火墙" class="headerlink" title="10 Linux基础知识–LVM卷&amp;ftp&amp;防火墙"></a>10 Linux基础知识–LVM卷&amp;ftp&amp;防火墙</h1><h2 id="LVM逻辑卷"><a href="#LVM逻辑卷" class="headerlink" title="LVM逻辑卷"></a>LVM逻辑卷</h2><ul>
 <li>  <code>pv</code>物理卷，被<code>lv</code>命令处理过的物理分区</li>
 <li>  <code>vg</code>物理卷组，被组装到一起的物理卷</li>
 <li>  <code>pe</code>物理扩展，<code>lvm</code>设备的最小单元，<code>lvm</code>是<code>pe</code>的最小单元</li>
@@ -3602,319 +1732,156 @@
 <p>针对ext文件系统的设备拉伸和缩减，只能热拉伸不能热缩减</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">umont /mnt</span><br><span class="line">mkfs.ext4 /dev/vg0/lv0</span><br><span class="line">mount /dev/vg0/lv0 /mnt</span><br></pre></td></tr></table></figure>
 </blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/11/13/Linux/10linux%E5%9F%BA%E7%A1%80/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
   
-  
-  
-  </article>
-
-
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/11/13/Linux/10linux%E5%9F%BA%E7%A1%80/" class="article-date">
+	  <time datetime="2021-11-13T05:00:00.000Z" itemprop="datePublished">11月 13</time>
+	</a>
+</span>
     
-  </section>
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/">&lt;i class&#x3D;&quot;fa fa-angle-left&quot;&gt;&lt;&#x2F;i&gt;</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-  </nav>
-
-
-
-          </div>
-          
-
-
-          
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-
-      <section class="site-overview sidebar-panel sidebar-panel-active">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/avatar.gif"
-               alt="" />
-          <p class="site-author-name" itemprop="name"></p>
-           
-              <p class="site-description motion-element" itemprop="description"></p>
-          
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives/">
-                <span class="site-state-item-count">50</span>
-                <span class="site-state-item-name">posts</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-              
-                <span class="site-state-item-count">3</span>
-                <span class="site-state-item-name">categories</span>
-              
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              
-                <span class="site-state-item-count">40</span>
-                <span class="site-state-item-name">tags</span>
-              
-            </div>
-          
-
-        </nav>
-
-        
-          <div class="feed-link motion-element">
-            <a href="/atom.xml" rel="alternate">
-              <i class="fa fa-rss"></i>
-              RSS
-            </a>
-          </div>
-        
-
-        <div class="links-of-author motion-element">
-          
-        </div>
-
-        
-        
-
-        
-        
-
-        
-
-
-      </section>
-
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy; 
-  <span itemprop="copyrightYear">2022</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
   </span>
-  <span class="author" itemprop="copyrightHolder">Zhanghui</span>
-</div>
-
-
-<div class="powered-by">
-  Powered by <a class="theme-link" target="_blank" rel="noopener" href="https://hexo.io">Hexo</a>
-</div>
-
-<div class="theme-info">
-  Theme -
-  <a class="theme-link" target="_blank" rel="noopener" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Muse
-  </a>
-</div>
-
-
-        
-
-        
-      </div>
-    </footer>
 
     
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/LVM%E5%8D%B7/" rel="tag">LVM卷</a>, <a class="article-tag-link-link" href="/tags/ftp/" rel="tag">ftp</a>, <a class="article-tag-link-link" href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" rel="tag">防火墙</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/11/13/Linux/10linux%E5%9F%BA%E7%A1%80/#comments" class="article-comment-link">评论</a></span>
     
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
-
-
-
-  
-  
-
-  
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
-
-  
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
-
-
-
-  
-
-
-  
-
-
-
-
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.3k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 5(分)</span>
 	
 
+  </p>
+</article>
 
-
-
-
-  
-
-
-
-
+    
+  </div>
 
   
+    
+    <nav class="bar bar-footer clearfix" data-stick-bottom>
+        <div class="bar-inner">
+        <div class="pager pull-left">
+            
+            <a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+            
+            <a class="next disabled" href="javascript:;">下一页</a>
+            
+        </div>
+        <div class="total-article bar-right">Page 2 of 2</div>
+        </div>
+    </nav>
+    
+ 
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/ainihu" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/ainihu" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/jianmo_pip" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
 
 
 
 
 
 
-  
+   
 
 
 
 
 
-  
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.js"></script>
+  <script>
+  //利用 FancyBox 实现点击图片放大
+  $(document).ready(function() {
+    $('article img').not('[hidden]').not('.panel-body img').each(function() {
+      var $image = $(this);
+      var imageCaption = $image.attr('alt');
+      var $imageWrapLink = $image.parent('a');
+      if ($imageWrapLink.length < 1) {
+        var src = this.getAttribute('src');
+        var idx = src.lastIndexOf('?');
+        if (idx != -1) {
+          src = src.substring(0, idx);
+        }
+        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+      }
+      $imageWrapLink.attr('data-fancybox', 'images');
+      if (imageCaption) {
+        $imageWrapLink.attr('data-caption', imageCaption);
+      }
+    });
+    $().fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+    });
+  });
+  </script>
 
-  
 
-  
 
-  
 
-  
-
-  
 
 </body>
 </html>
