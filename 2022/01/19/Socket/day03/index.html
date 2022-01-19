@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="REUSEADDR," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="缄默" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="day03本章目标 REUSEADDR，地址重复利用 处理多客户端连接(process-per-conection) 点对点聊天程序实现  REUSEADDR 服务器端尽可能使用REUSEADDR。 在绑定之前尽可能调用setsockopt来设置REUSEADDR套接字选项。 使用REUSEADDR选项可以使得不必等待TIME——WAIT状态消失就可以重启服务器。  process-per-con">
+<meta property="og:type" content="article">
+<meta property="og:title" content="03 地址重复利用、处理多客户端的连接">
+<meta property="og:url" content="http://ainihu.github.io/2022/01/19/Socket/day03/index.html">
+<meta property="og:site_name" content="缄默">
+<meta property="og:description" content="day03本章目标 REUSEADDR，地址重复利用 处理多客户端连接(process-per-conection) 点对点聊天程序实现  REUSEADDR 服务器端尽可能使用REUSEADDR。 在绑定之前尽可能调用setsockopt来设置REUSEADDR套接字选项。 使用REUSEADDR选项可以使得不必等待TIME——WAIT状态消失就可以重启服务器。  process-per-con">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-19T05:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-19T13:19:37.306Z">
+<meta property="article:author" content="Zhanghui">
+<meta property="article:tag" content="REUSEADDR">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ainihu.github.io/2022/01/19/Socket/day03/"/>
+
+
+
+
+
+  <title>03 地址重复利用、处理多客户端的连接 | 缄默</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">缄默</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2022/01/19/Socket/day03/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="缄默">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">03 地址重复利用、处理多客户端的连接</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-01-19T00:00:00-05:00">
+                2022-01-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Socket/" itemprop="url" rel="index">
+                    <span itemprop="name">Socket</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="day03"><a href="#day03" class="headerlink" title="day03"></a>day03</h1><h2 id="本章目标"><a href="#本章目标" class="headerlink" title="本章目标"></a>本章目标</h2><ul>
+<li><code>REUSEADDR</code>，地址重复利用</li>
+<li>处理多客户端连接(<code>process-per-conection</code>)</li>
+<li>点对点聊天程序实现</li>
+</ul>
+<h2 id="REUSEADDR"><a href="#REUSEADDR" class="headerlink" title="REUSEADDR"></a>REUSEADDR</h2><ul>
+<li>服务器端尽可能使用<code>REUSEADDR</code>。</li>
+<li>在绑定之前尽可能调用<code>setsockopt</code>来设置<code>REUSEADDR</code>套接字选项。</li>
+<li>使用<code>REUSEADDR</code>选项可以使得不必等待<code>TIME——WAIT</code>状态消失就可以重启服务器。</li>
+</ul>
+<h2 id="process-per-connection"><a href="#process-per-connection" class="headerlink" title="process-per-connection"></a>process-per-connection</h2><ul>
+<li>一个连接一个进程来处理并发，多进程处理多客户端的连接。</li>
+<li>每一个客户端都有一个独立的进程，所以通信不会出现串线。</li>
+</ul>
+<h2 id="点对点聊天程序实现"><a href="#点对点聊天程序实现" class="headerlink" title="点对点聊天程序实现"></a>点对点聊天程序实现</h2><ul>
+<li>用多进程方式实现点对点聊天</li>
+</ul>
+<blockquote>
+<p><code>getppid()</code>获取父进程的<code>pid</code></p>
+</blockquote>
+<h2 id="echosrv-c源文件"><a href="#echosrv-c源文件" class="headerlink" title="echosrv.c源文件"></a>echosrv.c源文件</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;sys/types.h&gt;          /* See NOTES */</span><br><span class="line">#include &lt;sys/socket.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;errno.h&gt;</span><br><span class="line">#include &lt;netinet/in.h&gt;</span><br><span class="line">#include &lt;arpa/inet.h&gt;</span><br><span class="line">#include &lt;arpa/inet.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;signal.h&gt;</span><br><span class="line"></span><br><span class="line">void handle(int sign)</span><br><span class="line">&#123;</span><br><span class="line">	printf(&quot;sign = %d\n&quot;, sign);</span><br><span class="line">	exit(EXIT_SUCCESS);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int listenfd;</span><br><span class="line">	struct sockaddr_in servaddr;//一个服务器的地址</span><br><span class="line">	//listenfd = socket(AF_INET, SOCK_STREAM, 0);</span><br><span class="line">	////和下面的一样,第三个参数为0表示自动获取协议。</span><br><span class="line">	</span><br><span class="line">	listenfd = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);</span><br><span class="line">	if(listenfd &lt; 0)</span><br><span class="line">	&#123;</span><br><span class="line">		perror(&quot;创建scoket失败\n&quot;);</span><br><span class="line">		exit(EXIT_FAILURE);//退出程序</span><br><span class="line">	&#125;</span><br><span class="line">		</span><br><span class="line">	memset(&amp;servaddr, 0, sizeof(servaddr));//初始化地址</span><br><span class="line">	servaddr.sin_family = AF_INET;//地址族</span><br><span class="line">	servaddr.sin_port = htons(5188);//端口号，网络字节序转化为主机字节序</span><br><span class="line">	</span><br><span class="line">	servaddr.sin_addr.s_addr = htonl(INADDR_ANY);//表示绑定本机的任意地址(返回一个主机字节序)---&gt;和下面的两个一样作用绑定IP地址</span><br><span class="line">	//servaddr.sin_addr.s_addr = inet_addr(&quot;127.0.0.1&quot;);//(和上面的一样的意思)指定网络地址---&gt; 真实的情况下表示本机的ip地址</span><br><span class="line">	//inet_aton(&quot;127.0.0.1&quot;, &amp;servaddr.sin_addr);//绑定IP地址</span><br><span class="line"></span><br><span class="line">	int on = 1;</span><br><span class="line">	on = setsockopt(listenfd, SOL_SOCKET, SO_REUSEADDR, &amp;on, sizeof(on));</span><br><span class="line">	if(on &lt; 0)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;端口重复利用失败\n&quot;);</span><br><span class="line">		exit(EXIT_FAILURE);</span><br><span class="line">	&#125;	</span><br><span class="line">	</span><br><span class="line">	if(bind(listenfd, (struct sockaddr *)&amp;servaddr, sizeof(servaddr)) &lt; 0)</span><br><span class="line">	&#123;</span><br><span class="line">		perror(&quot;绑定本地地址到套接字失败\n&quot;);</span><br><span class="line">		exit(EXIT_FAILURE);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	if(listen(listenfd, SOMAXCONN) &lt; 0)</span><br><span class="line">	&#123;</span><br><span class="line">		perror(&quot;绑定本地地址到套接字失败\n&quot;);</span><br><span class="line">		exit(EXIT_FAILURE);</span><br><span class="line">	&#125;	</span><br><span class="line">	</span><br><span class="line">	struct sockaddr_in peeraddr;</span><br><span class="line">	socklen_t peerlen = sizeof(peeraddr);//必须有初始值，否则accept会失败</span><br><span class="line"></span><br><span class="line">	int conn = -1;</span><br><span class="line">	if((conn = accept(listenfd, (struct sockaddr *)&amp;peeraddr, &amp;peerlen) )&lt; 0)</span><br><span class="line">	&#123;</span><br><span class="line">		perror(&quot;接收连接失败\n&quot;);</span><br><span class="line">		exit(EXIT_FAILURE);</span><br><span class="line">	&#125;</span><br><span class="line">	pid_t pid;</span><br><span class="line">	pid = fork();</span><br><span class="line">	if(pid &lt; 0)</span><br><span class="line">	&#123;</span><br><span class="line">		perror(&quot;创建进程失败\n&quot;);</span><br><span class="line">		exit(EXIT_FAILURE);</span><br><span class="line">	&#125;</span><br><span class="line">	else if(pid ==  0)//子进程发送数据</span><br><span class="line">	&#123;</span><br><span class="line"></span><br><span class="line">		signal(SIGUSR1, handle);</span><br><span class="line">		char sendbuf[1024] = &#123;0&#125;;</span><br><span class="line">		while(fgets(sendbuf, sizeof(sendbuf), stdin) != NULL)</span><br><span class="line">		&#123;</span><br><span class="line">			write(conn, sendbuf, strlen(sendbuf));</span><br><span class="line">			memset(sendbuf, 0, sizeof(sendbuf));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	else//父进程接收数据</span><br><span class="line">	&#123;</span><br><span class="line">		char recvbuf[1024] = &#123;0&#125;;</span><br><span class="line">		while(1)</span><br><span class="line">		&#123;</span><br><span class="line">			fflush(stdin);</span><br><span class="line">			memset(recvbuf, 0, sizeof(recvbuf));</span><br><span class="line">			int ret = read(conn, recvbuf, sizeof(recvbuf));</span><br><span class="line"></span><br><span class="line">			if(ret == -1)</span><br><span class="line">			&#123;</span><br><span class="line">				printf(&quot;获取客户端的数据失败\n&quot;);</span><br><span class="line">				break;</span><br><span class="line">				//exit(EXIT_FAILURE);</span><br><span class="line">			&#125;</span><br><span class="line">			else if(ret == 0)</span><br><span class="line">			&#123;</span><br><span class="line">				printf(&quot;客户端关闭连接\n&quot;);</span><br><span class="line">				break;</span><br><span class="line">				//exit(EXIT_SUCCESS);</span><br><span class="line">			&#125;</span><br><span class="line">			printf(&quot;服务器接收到的数据:&quot;);</span><br><span class="line">			fputs(recvbuf, stdout);</span><br><span class="line">			//write(conn, recvbuf, ret);</span><br><span class="line">		&#125;</span><br><span class="line">		close(conn);</span><br><span class="line">		printf(&quot;parent die\n&quot;);</span><br><span class="line">		kill(pid, SIGUSR1);</span><br><span class="line">		exit(EXIT_SUCCESS);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	close(listenfd);</span><br><span class="line">	close(conn);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;		</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="echocli-c源文件"><a href="#echocli-c源文件" class="headerlink" title="echocli.c源文件"></a>echocli.c源文件</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;sys/types.h&gt;          /* See NOTES */</span><br><span class="line">#include &lt;sys/socket.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;errno.h&gt;</span><br><span class="line">#include &lt;netinet/in.h&gt;</span><br><span class="line">#include &lt;arpa/inet.h&gt;</span><br><span class="line">#include &lt;arpa/inet.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;signal.h&gt;</span><br><span class="line"></span><br><span class="line">void handle(int sign)</span><br><span class="line">&#123;</span><br><span class="line">	printf(&quot;sign = %d\n&quot;, sign);</span><br><span class="line">	exit(EXIT_SUCCESS);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int sock;</span><br><span class="line">	struct sockaddr_in servaddr;//一个服务器的地址</span><br><span class="line">	//sock = socket(AF_INET, SOCK_STREAM, 0);</span><br><span class="line">	////和下面的一样,第三个参数为0表示自动获取协议。</span><br><span class="line">	</span><br><span class="line">	sock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);</span><br><span class="line">	if(sock &lt; 0)</span><br><span class="line">	&#123;</span><br><span class="line">		perror(&quot;创建scoket失败\n&quot;);</span><br><span class="line">		exit(EXIT_FAILURE);//退出程序</span><br><span class="line">	&#125;</span><br><span class="line">	memset(&amp;servaddr, 0, sizeof(servaddr));//初始化地址</span><br><span class="line">	servaddr.sin_family = AF_INET;//地址族</span><br><span class="line">	servaddr.sin_port = htons(5188);//端口号，网络字节序转化为主机字节序</span><br><span class="line">	servaddr.sin_addr.s_addr = inet_addr(&quot;127.0.0.1&quot;);//指定服务端的地址</span><br><span class="line">	</span><br><span class="line">	int conn = -1;</span><br><span class="line">	if((conn = connect(sock, (struct sockaddr *)&amp;servaddr, sizeof(servaddr)) &lt; 0))</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;连接服务器失败\n&quot;);</span><br><span class="line">		exit(EXIT_FAILURE);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	pid_t pid;</span><br><span class="line">	pid = fork();</span><br><span class="line">	if(pid &lt; 0)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;创建进程失败\n&quot;);</span><br><span class="line">		exit(EXIT_FAILURE);</span><br><span class="line">	&#125;</span><br><span class="line">	else if(pid &gt;  0)//父进程接收数据</span><br><span class="line">	&#123;</span><br><span class="line">		char recvbuf[1024] = &#123;0&#125;;</span><br><span class="line">		while(1)</span><br><span class="line">		&#123;</span><br><span class="line">			fflush(stdin);</span><br><span class="line">			memset(recvbuf, 0, sizeof(recvbuf));</span><br><span class="line">			int ret = read(sock, recvbuf, sizeof(recvbuf));</span><br><span class="line">			if(ret == -1)</span><br><span class="line">			&#123;</span><br><span class="line">				printf(&quot;客户端接收从服务器的数据失败\n&quot;);</span><br><span class="line">				//:close(sock);</span><br><span class="line">				break;</span><br><span class="line">				//exit(EXIT_FAILURE);</span><br><span class="line">			&#125;</span><br><span class="line">			else if(ret == 0)</span><br><span class="line">			&#123;</span><br><span class="line">				printf(&quot;服务器断开了连接\n&quot;);</span><br><span class="line">				//close(sock);</span><br><span class="line">				break;</span><br><span class="line">				//exit(EXIT_SUCCESS);</span><br><span class="line">			&#125;</span><br><span class="line">			printf(&quot;客户端接收到的数据:&quot;);</span><br><span class="line">			fputs(recvbuf, stdout);</span><br><span class="line">		&#125;</span><br><span class="line">		close(sock);</span><br><span class="line">		printf(&quot;parent die\n&quot;);</span><br><span class="line">		kill(pid, SIGUSR1);//getppid(),获取父进程的pid</span><br><span class="line">		exit(EXIT_SUCCESS);</span><br><span class="line">	&#125;</span><br><span class="line">	else//子进程发送数据</span><br><span class="line">	&#123;</span><br><span class="line">		char sendbuf[1024] = &#123;0&#125;;</span><br><span class="line">		signal(SIGUSR1, handle);</span><br><span class="line">		while(fgets(sendbuf, sizeof(sendbuf), stdin) != NULL)</span><br><span class="line">		&#123;</span><br><span class="line">			write(sock, sendbuf, strlen(sendbuf));</span><br><span class="line">			memset(sendbuf, 0, sizeof(sendbuf));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	close(sock);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/REUSEADDR/" rel="tag"># REUSEADDR</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/01/19/Socket/day04/" rel="next" title="04 TCP粘包问题原因及解决">
+                <i class="fa fa-chevron-left"></i> 04 TCP粘包问题原因及解决
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/01/19/Socket/day02/" rel="prev" title="02 C/S模型、socket相关函数">
+                02 C/S模型、socket相关函数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="" />
+          <p class="site-author-name" itemprop="name"></p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#day03"><span class="nav-number">1.</span> <span class="nav-text">day03</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E7%AB%A0%E7%9B%AE%E6%A0%87"><span class="nav-number">1.1.</span> <span class="nav-text">本章目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#REUSEADDR"><span class="nav-number">1.2.</span> <span class="nav-text">REUSEADDR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#process-per-connection"><span class="nav-number">1.3.</span> <span class="nav-text">process-per-connection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%82%B9%E5%AF%B9%E7%82%B9%E8%81%8A%E5%A4%A9%E7%A8%8B%E5%BA%8F%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.4.</span> <span class="nav-text">点对点聊天程序实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#echosrv-c%E6%BA%90%E6%96%87%E4%BB%B6"><span class="nav-number">1.5.</span> <span class="nav-text">echosrv.c源文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#echocli-c%E6%BA%90%E6%96%87%E4%BB%B6"><span class="nav-number">1.6.</span> <span class="nav-text">echocli.c源文件</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhanghui</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" target="_blank" rel="noopener" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" target="_blank" rel="noopener" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="socketpair," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="缄默" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="day17本章目标 socketpair：全双工的流管道 sendmsg和recvmsg UNIX域套接字传递描述符字  socketpair 功能：创建一个全双工的流管道，只能用于亲缘进程通信。 原型 int socketpair(int domain, int type, int protocol, intsv[2]);   参数 domain：协议家族 type：套接字类型 protocol">
+<meta property="og:type" content="article">
+<meta property="og:title" content="17 socketpair、全双工流管道">
+<meta property="og:url" content="http://ainihu.github.io/2022/01/19/Socket/day17/index.html">
+<meta property="og:site_name" content="缄默">
+<meta property="og:description" content="day17本章目标 socketpair：全双工的流管道 sendmsg和recvmsg UNIX域套接字传递描述符字  socketpair 功能：创建一个全双工的流管道，只能用于亲缘进程通信。 原型 int socketpair(int domain, int type, int protocol, intsv[2]);   参数 domain：协议家族 type：套接字类型 protocol">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-19T05:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-19T13:19:37.307Z">
+<meta property="article:author" content="Zhanghui">
+<meta property="article:tag" content="socketpair">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ainihu.github.io/2022/01/19/Socket/day17/"/>
+
+
+
+
+
+  <title>17 socketpair、全双工流管道 | 缄默</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">缄默</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2022/01/19/Socket/day17/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="缄默">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">17 socketpair、全双工流管道</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-01-19T00:00:00-05:00">
+                2022-01-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Socket/" itemprop="url" rel="index">
+                    <span itemprop="name">Socket</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="day17"><a href="#day17" class="headerlink" title="day17"></a>day17</h1><h2 id="本章目标"><a href="#本章目标" class="headerlink" title="本章目标"></a>本章目标</h2><ul>
+<li><code>socketpair</code>：全双工的流管道</li>
+<li><code>sendmsg</code>和<code>recvmsg</code></li>
+<li><code>UNIX</code>域套接字传递描述符字</li>
+</ul>
+<h2 id="socketpair"><a href="#socketpair" class="headerlink" title="socketpair"></a>socketpair</h2><ul>
+<li>功能：创建一个全双工的流管道，只能用于亲缘进程通信。</li>
+<li>原型<ul>
+<li><code>int socketpair(int domain, int type, int protocol, intsv[2]);</code></li>
+</ul>
+</li>
+<li>参数<ul>
+<li><code>domain</code>：协议家族</li>
+<li><code>type</code>：套接字类型</li>
+<li><code>protocol</code>：协议类型</li>
+<li><code>sv</code>：返回套接字对，两个套接字可读可写。</li>
+</ul>
+</li>
+<li>返回值：成功返回<code>0</code>，失败返回<code>-1</code>。</li>
+</ul>
+<h2 id="sendmsg和recvmsg"><a href="#sendmsg和recvmsg" class="headerlink" title="sendmsg和recvmsg"></a>sendmsg和recvmsg</h2><blockquote>
+<p><code>sendmsg</code>：<code>ssize_t sendmsg(int sockfd, const struct msghdr *msg, int flags);</code><br><code>recvmsg</code>：<code> ssize_t recvmsg(int sockfd, struct msghdr *msg, int flags);</code></p>
+<p>主要为了用<code>UNIX</code>域协议传递套接字，<code>sockfd</code>只能套接字，不能是文件描述符。</p>
+<p><code>struct iovec *msg_iov;        /* scatter/gather array */与readv和writev有关，真正所发送的数据。</code></p>
+<p><strong>由于存在字节对齐，所以可能会有填充字节。</strong></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">struct msghdr &#123;</span><br><span class="line">    void         *msg_name;       /* optional address */</span><br><span class="line">    socklen_t     msg_namelen;    /* size of address */</span><br><span class="line">    struct iovec *msg_iov;        /* scatter/gather array */与readv和writev有关，真正所发送的数据。struct iovec</span><br><span class="line">    size_t        msg_iovlen;     /* # elements in msg_iov */发送的iovec()的个数</span><br><span class="line">    void         *msg_control;    /* ancillary data, see below */辅助控制信息，为struct cmsghdr</span><br><span class="line">    size_t        msg_controllen; /* ancillary data buffer len */</span><br><span class="line">    int           msg_flags;      /* flags on received message */</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>struct msghdr</code>的成员变量结构体。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// struct iovec *msg_iov;  </span><br><span class="line">struct iovec &#123;                    /* Scatter/gather array items */</span><br><span class="line">    void  *iov_base;              /* Starting address */</span><br><span class="line">    size_t iov_len;               /* Number of bytes to transfer */</span><br><span class="line">&#125;;</span><br><span class="line">//void	*msg_control;</span><br><span class="line">struct cmsghdr &#123;</span><br><span class="line">    size_t cmsg_len;    /* Data byte count, including header (type is socklen_t in POSIX) */</span><br><span class="line">    int    cmsg_level;  /* Originating protocol */</span><br><span class="line">    int    cmsg_type;   /* Protocol-specific type */</span><br><span class="line">    /* followed by </span><br><span class="line">    unsigned char cmsg_data[]; </span><br><span class="line">    */</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>readv</code>和<code>writev</code>与<code>struct iovec</code>有关。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssize_t readv(int fd, const struct iovec *iov, int iovcnt);</span><br><span class="line">ssize_t writev(int fd, const struct iovec *iov, int iovcnt);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>man CMSG_FIRSTHDR</code></p>
+<p>参考文档：</p>
+<p>​    <a target="_blank" rel="noopener" href="https://blog.csdn.net/sparkliang/article/details/5486069">https://blog.csdn.net/sparkliang/article/details/5486069</a></p>
+<p>非亲缘进程之间传递套接字。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;sys/socket.h&gt;</span><br><span class="line"></span><br><span class="line">struct cmsghdr *CMSG_FIRSTHDR(struct msghdr *msgh);</span><br><span class="line">struct cmsghdr *CMSG_NXTHDR(struct msghdr *msgh, struct cmsghdr *cmsg);</span><br><span class="line">size_t CMSG_ALIGN(size_t length);</span><br><span class="line">size_t CMSG_SPACE(size_t length);</span><br><span class="line">size_t CMSG_LEN(size_t length);</span><br><span class="line">unsigned char *CMSG_DATA(struct cmsghdr *cmsg);</span><br><span class="line"></span><br><span class="line">struct cmsghdr &#123;</span><br><span class="line">    size_t cmsg_len;    /* Data byte count, including header</span><br><span class="line">    (type is socklen_t in POSIX) */</span><br><span class="line">    int    cmsg_level;  /* Originating protocol */</span><br><span class="line">    int    cmsg_type;   /* Protocol-specific type */</span><br><span class="line">    /* followed by</span><br><span class="line">    unsigned char cmsg_data[]; */</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="插播一个vim"><a href="#插播一个vim" class="headerlink" title="插播一个vim"></a>插播一个vim</h2><blockquote>
+<p>在<code>vim</code>的插入模式下按<code>insert</code>键，可以进入<code>replace</code>模式</p>
+<p>参考文档：<a target="_blank" rel="noopener" href="https://blog.csdn.net/overstack/article/details/9174693">https://blog.csdn.net/overstack/article/details/9174693</a></p>
+<p>多行复制：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">例如要将第5到10行黏贴到第15行后面可以这么写：5,10 copy 15 这个方法适合有大量的行数情况。</span><br><span class="line">move：5,10 move 15是移动，类似剪切+复制</span><br><span class="line">delete为删除：5,10 delete删除5到10行</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="sendmsg和recvmsg应用代码"><a href="#sendmsg和recvmsg应用代码" class="headerlink" title="sendmsg和recvmsg应用代码"></a>sendmsg和recvmsg应用代码</h2><blockquote>
+<p><code>sendmsg</code>和<code>recvmsg</code>是在父子进程间传递文件描述符的，不能只通过传递文件描述符的数值来传递给别的进程，因为你虽然传递了‘文件描述符’，但是这个只是数值上和文件描述符相等，并不代表真的传递过去了一个文件描述符，<strong>举个简单的例子</strong>：大学都需要考英语四级证书，如果说有人考过了四级，你没有去参加考试，你去把那个人的四级证书复制了一份改成你的名字了，那么不代表你也通过了大学英语四级考试，你只是有一个英语四级证书，而在存储英语四级证书通过人的数据库里面没有你的信息存在。所以你并没有通过四级考试，同理，进程间传递文件描述符，也不能只是简简单单的传递一个<code>fd</code>(这里指那个fd数字)，在你看来<code>fd</code>代表了这个文件，其实不然，在这个<code>fd</code>的背后有着系统对这个<code>fd</code>的一些系列服务的内容，比如你打开了一个文件那么系统就为了维护了这个文件的相关信息，而数字<code>fd</code>系统不过是提供了一个友好的接口来让你方便操作你的那个文件。</p>
+<p>且不能通过<code>TCP</code>、<code>UCP</code>传递文件描述符。非亲缘进程的文件描述符的传递只能通过<code>UNIX</code>域协议来传递。</p>
+<p>父子进程可以通过<code>socketpair</code>来传递，下面的代码是父子进程通过<code>socketpair</code>来传递文件描述符的。</p>
+</blockquote>
+<blockquote>
+<p><code>send_recv_msg.h</code></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;errno.h&gt;</span><br><span class="line">#include &lt;sys/types.h&gt;</span><br><span class="line">#include &lt;sys/socket.h&gt;</span><br><span class="line">#include &lt;arpa/inet.h&gt;</span><br><span class="line">#include &lt;netinet/in.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;sys/un.h&gt;</span><br><span class="line">#include &lt;sys/types.h&gt;</span><br><span class="line">#include &lt;sys/stat.h&gt;</span><br><span class="line">#include &lt;fcntl.h&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#define ERR_EXIT(x) do&#123;perror(x); exit(EXIT_FAILURE);&#125;while(0)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">void send_fd(int sock_fd, int send_fd)</span><br><span class="line">&#123;</span><br><span class="line">	int ret;</span><br><span class="line">	struct msghdr msg;</span><br><span class="line">	struct cmsghdr *p_cmsg;//struct msghdr的第五个成员变量msg_control的辅助控制信息,p_cmsg需要指向一块缓冲区</span><br><span class="line">	struct iovec vec;</span><br><span class="line">	char cmsgbuf[CMSG_SPACE(sizeof(send_fd))];//使用send_fd通过CMSG_SPACE算出来辅助空间的大小，CMEG_SPACE是一个宏.</span><br><span class="line">	int * p_fds;</span><br><span class="line">	char sendchar = 0;</span><br><span class="line"></span><br><span class="line">	msg.msg_control = cmsgbuf;//将msg_control指向cmsgbuf辅助数据</span><br><span class="line">	msg.msg_controllen = sizeof(cmsgbuf);//长度为sizeof(cmsgbuf)</span><br><span class="line"></span><br><span class="line">	p_cmsg = CMSG_FIRSTHDR(&amp;msg);//通过宏CMSG_FIRSTHDR获取msg里面的第一个消息,通过CMSGNXTHDR获取第二个消息，特此说明：是CMSGNXTHDR不是CMSGNEXTHDR这个宏的NEXT没有E。</span><br><span class="line">	p_cmsg-&gt;cmsg_level = SOL_SOCKET;//和下面一句共同表示传递的是文件描述字</span><br><span class="line">	p_cmsg-&gt;cmsg_type = SCM_RIGHTS;</span><br><span class="line">	p_cmsg-&gt;cmsg_len = CMSG_LEN(sizeof(send_fd));//通过宏得到长度</span><br><span class="line">	p_fds = (int *)CMSG_DATA(p_cmsg);//得到数据的首地址</span><br><span class="line">	*p_fds = send_fd;//真正的存放数据的步骤。</span><br><span class="line">	</span><br><span class="line">	//填充struct msghdr结构体变量msg</span><br><span class="line">	msg.msg_name = NULL;</span><br><span class="line">	msg.msg_namelen = 0;</span><br><span class="line">	msg.msg_iov = &amp;vec;</span><br><span class="line">	msg.msg_iovlen = 1;//发送一个字符所以为1</span><br><span class="line">	msg.msg_flags = 0;</span><br><span class="line"></span><br><span class="line">	//填充struct iovec结构体变量vec</span><br><span class="line">	vec.iov_base = &amp;sendchar;//因为只发送一个字符</span><br><span class="line">	vec.iov_len = sizeof(sendchar);//大小为一个字节</span><br><span class="line"></span><br><span class="line">	//数据终于在这里填充完毕了，可以发送数据了</span><br><span class="line">	ret = sendmsg(sock_fd, &amp;msg, 0);</span><br><span class="line">	if(ret != 1)</span><br><span class="line">	&#123;</span><br><span class="line">		ERR_EXIT(&quot;sendmsg&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int  recv_fd(int sock_fd)</span><br><span class="line">&#123;</span><br><span class="line">	int ret;</span><br><span class="line">	struct msghdr msg;</span><br><span class="line">	char recvchar;</span><br><span class="line">	struct iovec vec;</span><br><span class="line">	int recv_fd;</span><br><span class="line">	char cmsgbuf[CMSG_SPACE(sizeof(send_fd))];//使用send_fd通过CMSG_SPACE算出来辅助空间的大小，CMEG_SPACE是一个宏.</span><br><span class="line">	struct cmsghdr *p_cmsg;//struct msghdr的第五个成员变量msg_control的辅助控制信息,p_cmsg需要指向一块缓冲区</span><br><span class="line">	int * p_fds;</span><br><span class="line"></span><br><span class="line">	//填充struct iovec结构体变量vec</span><br><span class="line">	vec.iov_base = &amp;recvchar;//因为只发送一个字符</span><br><span class="line">	vec.iov_len = sizeof(recvchar);//大小为一个字节</span><br><span class="line"></span><br><span class="line">	//填充struct msghdr结构体变量msg</span><br><span class="line">	msg.msg_name = NULL;</span><br><span class="line">	msg.msg_namelen = 0;</span><br><span class="line">	msg.msg_iov = &amp;vec;</span><br><span class="line">	msg.msg_iovlen = 1;//发送一个字符所以为1</span><br><span class="line">	msg.msg_flags = 0;</span><br><span class="line">	msg.msg_control = cmsgbuf;//将msg_control指向cmsgbuf辅助数据</span><br><span class="line">	msg.msg_controllen = sizeof(cmsgbuf);//长度为sizeof(cmsgbuf)</span><br><span class="line">	msg.msg_flags = 0;</span><br><span class="line"></span><br><span class="line">	p_fds = (int *)(CMSG_DATA(CMSG_FIRSTHDR(&amp;msg)));//得到数据的首地址</span><br><span class="line">	*p_fds = -1;//真正的存放数据的步骤。</span><br><span class="line"></span><br><span class="line">	//数据终于在这里填充完毕了，可以接收数据了</span><br><span class="line">	ret = recvmsg(sock_fd, &amp;msg, 0);</span><br><span class="line">	if(ret != 1)</span><br><span class="line">	&#123;</span><br><span class="line">		ERR_EXIT(&quot;recvmsg&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	p_cmsg = CMSG_FIRSTHDR(&amp;msg);</span><br><span class="line">	if(p_cmsg == NULL)</span><br><span class="line">	&#123;</span><br><span class="line">		-ERR_EXIT(&quot;CMSG_FIRSTHDR&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	p_fds = (int *)CMSG_DATA(p_cmsg);</span><br><span class="line">	recv_fd = *p_fds;</span><br><span class="line">	if(recv_fd == -1)</span><br><span class="line">	&#123;</span><br><span class="line">		ERR_EXIT(&quot;CMSG_DATA&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	return recv_fd;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h2><blockquote>
+<p><code>send_recv_msg.c</code></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;errno.h&gt;</span><br><span class="line">#include &lt;sys/types.h&gt;</span><br><span class="line">#include &lt;sys/socket.h&gt;</span><br><span class="line">#include &lt;arpa/inet.h&gt;</span><br><span class="line">#include &lt;netinet/in.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;sys/un.h&gt;</span><br><span class="line">#include &quot;sendmsg.h&quot;</span><br><span class="line">#include &lt;sys/types.h&gt;</span><br><span class="line">#include &lt;sys/stat.h&gt;</span><br><span class="line">#include &lt;fcntl.h&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#define ERR_EXIT(x) do&#123;perror(x); exit(EXIT_FAILURE);&#125;while(0)</span><br><span class="line"></span><br><span class="line">void send_fd(int sock_fd, int send_fd);</span><br><span class="line">int  recv_fd(int sock_fd);</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int sockfds[2];</span><br><span class="line">	if(socketpair(PF_UNIX, SOCK_STREAM, 0, sockfds) &lt; 0)</span><br><span class="line">		ERR_EXIT(&quot;sockfdsetpair&quot;);</span><br><span class="line">	pid_t pid;</span><br><span class="line">	pid = fork();</span><br><span class="line">	if(pid &lt; 0)</span><br><span class="line">	&#123;</span><br><span class="line">		ERR_EXIT(&quot;fork&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	else if(pid == 0)</span><br><span class="line">	&#123;</span><br><span class="line">		//close(sockfds[1]);</span><br><span class="line">		int fd;</span><br><span class="line">		fd = open(&quot;text.txt&quot;, O_RDONLY);</span><br><span class="line">		if(fd == -1)</span><br><span class="line">		&#123;</span><br><span class="line">			ERR_EXIT(&quot;open&quot;);	</span><br><span class="line">		&#125;</span><br><span class="line">		send_fd(sockfds[0], fd);</span><br><span class="line">	&#125;</span><br><span class="line">	else</span><br><span class="line">	&#123;</span><br><span class="line">		char buf[1024];</span><br><span class="line">		//close(sockfds[0]);</span><br><span class="line">		int fd = recv_fd(sockfds[1]);</span><br><span class="line">		read(fd, buf, sizeof(buf));</span><br><span class="line">		printf(&quot;buf = %s\n&quot;, buf);</span><br><span class="line">	&#125;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/socketpair/" rel="tag"># socketpair</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/12/14/Golang/01Go%E5%88%9D%E8%AF%86/" rel="next" title="01 Golang初识">
+                <i class="fa fa-chevron-left"></i> 01 Golang初识
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/01/19/Socket/day16/" rel="prev" title="16 UNIX域协议学习">
+                16 UNIX域协议学习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="" />
+          <p class="site-author-name" itemprop="name"></p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#day17"><span class="nav-number">1.</span> <span class="nav-text">day17</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E7%AB%A0%E7%9B%AE%E6%A0%87"><span class="nav-number">1.1.</span> <span class="nav-text">本章目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#socketpair"><span class="nav-number">1.2.</span> <span class="nav-text">socketpair</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sendmsg%E5%92%8Crecvmsg"><span class="nav-number">1.3.</span> <span class="nav-text">sendmsg和recvmsg</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%92%E6%92%AD%E4%B8%80%E4%B8%AAvim"><span class="nav-number">1.4.</span> <span class="nav-text">插播一个vim</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sendmsg%E5%92%8Crecvmsg%E5%BA%94%E7%94%A8%E4%BB%A3%E7%A0%81"><span class="nav-number">1.5.</span> <span class="nav-text">sendmsg和recvmsg应用代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81"><span class="nav-number">1.6.</span> <span class="nav-text">测试代码</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhanghui</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" target="_blank" rel="noopener" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" target="_blank" rel="noopener" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

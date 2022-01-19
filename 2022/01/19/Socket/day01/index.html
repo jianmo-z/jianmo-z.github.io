@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="socket," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="缄默" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="day01本章目标 什么是socket? IPv4套接口地址结构 网络字节序 地址转换函数 套接字类型  什么是socket? socket可以看成是用户进程与内核网络协议栈的编程接口； socket不仅可以用于本机的进程间通信，还可以用于网络上不同主机的进程通信。 套接口通信是全双工通信。 socket可以异构通信，通信双方的软件、硬件可以不同。  IPv4套接口地址结构 IPv4套接口地址结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="01 socket 字节序&amp;地址转换函数&amp;套接字类型">
+<meta property="og:url" content="http://ainihu.github.io/2022/01/19/Socket/day01/index.html">
+<meta property="og:site_name" content="缄默">
+<meta property="og:description" content="day01本章目标 什么是socket? IPv4套接口地址结构 网络字节序 地址转换函数 套接字类型  什么是socket? socket可以看成是用户进程与内核网络协议栈的编程接口； socket不仅可以用于本机的进程间通信，还可以用于网络上不同主机的进程通信。 套接口通信是全双工通信。 socket可以异构通信，通信双方的软件、硬件可以不同。  IPv4套接口地址结构 IPv4套接口地址结构">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-19T05:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-19T13:19:37.306Z">
+<meta property="article:author" content="Zhanghui">
+<meta property="article:tag" content="socket">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ainihu.github.io/2022/01/19/Socket/day01/"/>
+
+
+
+
+
+  <title>01 socket 字节序&地址转换函数&套接字类型 | 缄默</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">缄默</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2022/01/19/Socket/day01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="缄默">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">01 socket 字节序&地址转换函数&套接字类型</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-01-19T00:00:00-05:00">
+                2022-01-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Socket/" itemprop="url" rel="index">
+                    <span itemprop="name">Socket</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="day01"><a href="#day01" class="headerlink" title="day01"></a>day01</h1><h2 id="本章目标"><a href="#本章目标" class="headerlink" title="本章目标"></a>本章目标</h2><ul>
+<li>什么是<code>socket</code>?</li>
+<li>IPv4套接口地址结构</li>
+<li>网络字节序</li>
+<li>地址转换函数</li>
+<li>套接字类型</li>
+</ul>
+<h2 id="什么是socket"><a href="#什么是socket" class="headerlink" title="什么是socket?"></a>什么是socket?</h2><blockquote>
+<p><code>socket</code>可以看成是用户进程与内核网络协议栈的编程接口；</p>
+<p><code>socket</code>不仅可以用于本机的进程间通信，还可以用于网络上不同主机的进程通信。</p>
+<p>套接口通信是全双工通信。</p>
+<p><code>socket</code>可以异构通信，通信双方的软件、硬件可以不同。</p>
+</blockquote>
+<h2 id="IPv4套接口地址结构"><a href="#IPv4套接口地址结构" class="headerlink" title="IPv4套接口地址结构"></a>IPv4套接口地址结构</h2><blockquote>
+<p>IPv4套接口地址结构通常也称为”网际套接字地址结构”，它以”sockaddr_in”命名，定义在头文件&lt;netinet/in.h&gt;中****</p>
+<p><strong><code>man 7 ip</code>查看<code>sockaddr_in</code>结构体，<code>sockaddr_in</code>仅仅应用于<code>IPv4</code>地址结构</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">struct sockaddr_in</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&gt;​		uint8_t sin_len;</span><br><span class="line"></span><br><span class="line">&gt;​		sa_family_t sin_family;</span><br><span class="line"></span><br><span class="line">&gt;​		in_port_t sin_port;</span><br><span class="line"></span><br><span class="line">&gt;​		struct in_addr sin_addr;</span><br><span class="line"></span><br><span class="line">&gt;​		char sin_zero[8];</span><br><span class="line"></span><br><span class="line">&gt;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>sin_len</code>：整个<code>sockaddr_in</code>结构体的长度,在4.3BSD-Reno版本之前的第一个成员是<code>sin_family</code>；</p>
+<p><code>sin_family</code>：指定该地址家族，在这里必须设为<code>AF_INET</code>；</p>
+<p><code>sin_port</code>：端口；</p>
+<p><code>sin_addr</code>：IPv4的地址；</p>
+<p><code>sin_zero</code>：暂不使用，一般将其设置为0。</p>
+</blockquote>
+<h2 id="通用地址结构"><a href="#通用地址结构" class="headerlink" title="通用地址结构"></a>通用地址结构</h2><blockquote>
+<p>通用地址结构用来指定套接字关联的地址，<code>sockaddr</code>可以应用于所有的协议的套接口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt;struct sockaddr</span><br><span class="line"></span><br><span class="line">&gt;&#123;</span><br><span class="line"></span><br><span class="line">&gt;​	uint8_t sin_len;</span><br><span class="line"></span><br><span class="line">&gt;​	sa_family_t sin_family;</span><br><span class="line"></span><br><span class="line">&gt;​	char sa_data[14];</span><br><span class="line"></span><br><span class="line">&gt;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>sin_len</code>：整个<code>sockaddr</code>结构体的长度；</p>
+<p><code>sin_family</code>：指定该地址家族；</p>
+<p><code>sa_data</code>：由<code>sin_family</code>决定它的形式。</p>
+</blockquote>
+<h2 id="网络字节序"><a href="#网络字节序" class="headerlink" title="网络字节序"></a>网络字节序</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/gremount/p/8830707.html">https://www.cnblogs.com/gremount/p/8830707.html</a></p>
+</blockquote>
+<ul>
+<li><p>字节序</p>
+<ul>
+<li><p>大端字节序(Big Endian)</p>
+<blockquote>
+<p>最高有效位(MSB: Most Significant Bit)存储于最低内存地址处，最低有效位(LSB: Lowest Significant Bit)存储于最高内存地址处。</p>
+</blockquote>
+</li>
+<li><p>小端字节序(Little Endian)</p>
+<blockquote>
+<p>最高有效位(MSB:Most Significant Bit)存储于最高内存地址处，最低有效位(LSB: Lowest Significant Bit)存储于最低内存地址处。</p>
+</blockquote>
+<p><strong>假设有字节序<code>0x12345678</code></strong></p>
+<table>
+<thead>
+<tr>
+<th>内存地址</th>
+<th>低地址</th>
+<th>–&gt;</th>
+<th>–&gt;</th>
+<th>高地址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>大端字节序(0x)</td>
+<td>12</td>
+<td>34</td>
+<td>56</td>
+<td>78</td>
+</tr>
+<tr>
+<td>小端字节序(0x)</td>
+<td>78</td>
+<td>56</td>
+<td>34</td>
+<td>12</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+</li>
+<li><p>主机字节序</p>
+<blockquote>
+<p>不同的主机有不同的字节序，如<code>x86</code>为小端字节序，<code>Motorola 6800</code>为大端字节序，<code>ARM</code>字节序是可配置的。</p>
+</blockquote>
+</li>
+<li><p>网络字节序</p>
+<blockquote>
+<p>网络字节序规定为<strong>大端字节序</strong>。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="为什么有字节序"><a href="#为什么有字节序" class="headerlink" title="为什么有字节序"></a>为什么有字节序</h3><blockquote>
+<p>计算机电路先处理低位字节，效率比较高，因为计算都是从低位开始的。所以，计算机的内部处理都是小端字节序。但是，人类还是习惯读写大端字节序。所以，除了计算机的内部处理，其他的场合几乎都是大端字节序，比如网络传输和文件储存。</p>
+</blockquote>
+<h2 id="字节序转换函数"><a href="#字节序转换函数" class="headerlink" title="字节序转换函数"></a>字节序转换函数</h2><blockquote>
+<p>man 3 byteorder   查询字节序转换函数</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;arpa/inet.h&gt;</span><br><span class="line"></span><br><span class="line">uint32_t htonl(uint32_t hostlong);//host to network long 四个字节</span><br><span class="line"></span><br><span class="line">uint16_t htons(uint16_t hostshort);//host to network short 两个字节</span><br><span class="line"></span><br><span class="line">uint32_t ntohl(uint32_t netlong);</span><br><span class="line"></span><br><span class="line">uint16_t ntohs(uint16_t netshort);</span><br><span class="line"></span><br><span class="line">注：在上述的函数中，h 代表 host; n 代表 network; s 代表 short; l 代表 long</span><br></pre></td></tr></table></figure>
+
+<h2 id="地址转换函数"><a href="#地址转换函数" class="headerlink" title="地址转换函数"></a>地址转换函数</h2><blockquote>
+<p><code>man 3 inet</code> 查询地址转换函数</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"> #include &lt;sys/socket.h&gt;</span><br><span class="line"> #include &lt;netinet/in.h&gt;</span><br><span class="line"> #include &lt;arpa/inet.h&gt;</span><br><span class="line"></span><br><span class="line">int inet_aton(const char *cp, struct in_addr *inp);</span><br><span class="line"></span><br><span class="line">in_addr_t inet_network(const char *cp);//点分十进制的地址转化为32位无符号长整形</span><br><span class="line"></span><br><span class="line">char *inet_ntoa(struct in_addr in);//32位无符号长整形转化位点分十进制</span><br><span class="line"></span><br><span class="line">typedef uint32_t in_addr_t;</span><br><span class="line">struct in_addr</span><br><span class="line">&#123;</span><br><span class="line">	in_addr_t s_addr;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="套接字类型"><a href="#套接字类型" class="headerlink" title="套接字类型"></a>套接字类型</h2><ul>
+<li><p>流式套接字(SOCK_STREAM) —&gt; <code>TCP/IP协议</code>    </p>
+<blockquote>
+<p>提供面向<strong>连接的、可靠的数据传输服务，数据无差错，无重复的发送，且按发送顺序接收。</strong></p>
+</blockquote>
+</li>
+<li><p>数据报式套接字(SOCK_DGRAM)</p>
+<blockquote>
+<p>提供<strong>无连接服务，不提供无错保证，数据可能丢失或重复，并且接收顺序混乱。</strong></p>
+</blockquote>
+</li>
+<li><p>原始套接字(SOCK_RAW)</p>
+<blockquote>
+<p>跨越传输层，直接对<code>IP</code>层进行数据封装的套接字，通过原始套接字，将应用层的数据封装成<code>IP</code>    层能够认识的套接字。</p>
+</blockquote>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/socket/" rel="tag"># socket</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/01/19/Socket/day02/" rel="next" title="02 C/S模型、socket相关函数">
+                <i class="fa fa-chevron-left"></i> 02 C/S模型、socket相关函数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/01/19/Socket/epollsrv/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="" />
+          <p class="site-author-name" itemprop="name"></p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#day01"><span class="nav-number">1.</span> <span class="nav-text">day01</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E7%AB%A0%E7%9B%AE%E6%A0%87"><span class="nav-number">1.1.</span> <span class="nav-text">本章目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFsocket"><span class="nav-number">1.2.</span> <span class="nav-text">什么是socket?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IPv4%E5%A5%97%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.</span> <span class="nav-text">IPv4套接口地址结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E5%9C%B0%E5%9D%80%E7%BB%93%E6%9E%84"><span class="nav-number">1.4.</span> <span class="nav-text">通用地址结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%AD%97%E8%8A%82%E5%BA%8F"><span class="nav-number">1.5.</span> <span class="nav-text">网络字节序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E5%AD%97%E8%8A%82%E5%BA%8F"><span class="nav-number">1.5.1.</span> <span class="nav-text">为什么有字节序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E8%8A%82%E5%BA%8F%E8%BD%AC%E6%8D%A2%E5%87%BD%E6%95%B0"><span class="nav-number">1.6.</span> <span class="nav-text">字节序转换函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E5%87%BD%E6%95%B0"><span class="nav-number">1.7.</span> <span class="nav-text">地址转换函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A5%97%E6%8E%A5%E5%AD%97%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.8.</span> <span class="nav-text">套接字类型</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhanghui</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" target="_blank" rel="noopener" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" target="_blank" rel="noopener" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

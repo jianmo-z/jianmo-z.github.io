@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="select服务器," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="缄默" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="day09本章目标 select 读、写、异常事件发生条件 用select改进回射服务器程序  select 再复习和补充一点select的参数  1234567891011121314151617#include &lt;sys&#x2F;select.h&gt;&#x2F;* According to earlier standards *&#x2F;#include &lt;sys&#x2F;time.h&gt;#include">
+<meta property="og:type" content="article">
+<meta property="og:title" content="09 select并发服务器">
+<meta property="og:url" content="http://ainihu.github.io/2022/01/19/Socket/day09/index.html">
+<meta property="og:site_name" content="缄默">
+<meta property="og:description" content="day09本章目标 select 读、写、异常事件发生条件 用select改进回射服务器程序  select 再复习和补充一点select的参数  1234567891011121314151617#include &lt;sys&#x2F;select.h&gt;&#x2F;* According to earlier standards *&#x2F;#include &lt;sys&#x2F;time.h&gt;#include">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-19T05:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-19T13:19:37.306Z">
+<meta property="article:author" content="Zhanghui">
+<meta property="article:tag" content="select服务器">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ainihu.github.io/2022/01/19/Socket/day09/"/>
+
+
+
+
+
+  <title>09 select并发服务器 | 缄默</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">缄默</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2022/01/19/Socket/day09/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="缄默">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">09 select并发服务器</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-01-19T00:00:00-05:00">
+                2022-01-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Socket/" itemprop="url" rel="index">
+                    <span itemprop="name">Socket</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="day09"><a href="#day09" class="headerlink" title="day09"></a>day09</h1><h2 id="本章目标"><a href="#本章目标" class="headerlink" title="本章目标"></a>本章目标</h2><ul>
+<li><code>select</code></li>
+<li>读、写、异常事件发生条件</li>
+<li>用<code>select</code>改进回射服务器程序</li>
+</ul>
+<h2 id="select"><a href="#select" class="headerlink" title="select"></a>select</h2><blockquote>
+<p>再复习和补充一点<code>select</code>的参数</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;sys/select.h&gt;</span><br><span class="line"></span><br><span class="line">/* According to earlier standards */</span><br><span class="line">#include &lt;sys/time.h&gt;</span><br><span class="line">#include &lt;sys/types.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line"></span><br><span class="line">int select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout);</span><br><span class="line"></span><br><span class="line">void FD_CLR(int fd, fd_set *set);</span><br><span class="line">int  FD_ISSET(int fd, fd_set *set);</span><br><span class="line">void FD_SET(int fd, fd_set *set);</span><br><span class="line">void FD_ZERO(fd_set *set);</span><br><span class="line"></span><br><span class="line">#include &lt;sys/select.h&gt;</span><br><span class="line"></span><br><span class="line">int pselect(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, const struct timespec *timeout, const sigset_t *sigmask);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>参数一：<code>int nfds</code></p>
+<blockquote>
+<p>因为<code>select</code>的对感兴趣的<code>fd</code>取值范围为<code>[0, nfds)</code>，前闭后开区间，所以需要最大的<code>文件描述符+1</code>，才能覆盖整个感兴趣的文件描述符号的范围。</p>
+</blockquote>
+</li>
+<li><p>参数二：<code>fd_set *readfds</code></p>
+<blockquote>
+<p>可读事件集合，添加感兴趣可读<code>fd</code></p>
+</blockquote>
+</li>
+<li><p>参数三：<code>fd_set *writefds</code></p>
+<blockquote>
+<p>可写事件集合，添加感兴趣可写<code>fd</code></p>
+</blockquote>
+</li>
+<li><p>参数四：<code>fd_set *exceptfds</code></p>
+<blockquote>
+<p>异常事件集合</p>
+</blockquote>
+</li>
+<li><p>参数五：<code>struct timeval *timeout</code></p>
+<blockquote>
+<p>超时时间，在响应的超时时间内没有发生任何一个<code>I/O事件</code>(读/写事件)，则<code>select</code>返回<code>0</code>，指示超时。出现错误<code>select</code>返回<code>-1</code>.</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>监测到多个事件，需要遍历，<code>readfds</code>、<code>writefds</code>、<code>exceptfds</code>这些集合来一一处理这些事情，<font color="read">则将<code>select</code>实现的服务器称为并发服务器</font>。因为没有能力并行处理这些<code>I/O</code>事件，只能一一遍历处理这些事件。所以称为并发服务器，而不是并行服务器。并发服务器不能长时间处理这些事件，因为长时间处理则不能去执行其他的动作。且事件间的处理间隔时间也不能太长。无法充分利用多核处理器。使用多进程<code>select</code>或者多线程处理这些事件。</p>
+<p><code>select</code>可以同时检测网络<code>I/O</code>和标准<code>I/O</code>事件。那个事件产生则处理那个事件。不会因为某一个阻塞导致另一个无法处理。</p>
+</blockquote>
+<h2 id="读、写、异常事件发生条件"><a href="#读、写、异常事件发生条件" class="headerlink" title="读、写、异常事件发生条件"></a>读、写、异常事件发生条件</h2><ul>
+<li>可读<ul>
+<li>套接口缓冲区有数据可读，底层本质：如果缓冲区的数据超过一定的范围才会通知有数据可读</li>
+<li>连接的读一般关闭，即接收到<code>FIN</code>段，读操作返回<code>0</code></li>
+<li>如果是监听套接口，已完成连接队列不为空时。</li>
+<li>套接口上发生了一个错误待处理，错误可以通过<code>getsockopt</code>指定<code>SO_ERROR</code>选项来获取</li>
+</ul>
+</li>
+<li>可写<ul>
+<li>套接口发送缓冲区有空间容纳数据</li>
+<li>连接的写一半关闭，即收到<code>RST</code>段之后，再次调用<code>write</code>操作</li>
+<li>套接口上发生一个错误待处理，错误可以通过<code>getsockopt</code>指定<code>SO_ERROR</code>选项来获取</li>
+</ul>
+</li>
+<li>异常<ul>
+<li>套接口存在带外数据。</li>
+</ul>
+</li>
+</ul>
+<h2 id="并发服务器"><a href="#并发服务器" class="headerlink" title="并发服务器"></a>并发服务器</h2><blockquote>
+<p>对上一次的服务器端通过<code>select</code>使用一个进程实现。并发服务器的连接客户端的限制，<code>FD_SETSZIE</code>大小和一个进程当中能够打开的<code>I/O</code>的最大数目。<code>FD_SETSIZE</code>不能被更改(非要更改，需要更改内核代码，并进行重新编译)，而一个进程的可以打开的最大的<code>I/O</code>数目可以更改，通过<code>ulimit -n 1000</code>命令更改一个进程可以打开的最大<code>I/O</code>数目为<code>1000</code>。<code>FD_SETSIZE</code>默认情况下和进程能够打开的最大<code>I/O</code>数目为<code>1024</code>个。</p>
+</blockquote>
+<blockquote>
+<p>核心代码(<strong>部分代码</strong>)</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line">int i = 0;</span><br><span class="line">int num = 0;</span><br><span class="line">int maxi = 0; //最大不空闲的套接口下标</span><br><span class="line">int nready = 0;</span><br><span class="line">int maxfd = listenfd;</span><br><span class="line">int conn[FD_SETSIZE] = &#123;0&#125;;</span><br><span class="line">fd_set rset;</span><br><span class="line">fd_set allset;</span><br><span class="line">FD_ZERO(&amp;rset);</span><br><span class="line">FD_ZERO(&amp;allset);</span><br><span class="line">FD_SET(listenfd, &amp;allset);</span><br><span class="line">struct sockaddr_in sockname;</span><br><span class="line">socklen_t addrlen = sizeof(sockname);//一定要有初始值，为结构体大小，输入输出型参数。</span><br><span class="line">for(i = 0; i &lt; FD_SETSIZE; i++)//初始化conn数组</span><br><span class="line">&#123;</span><br><span class="line">        conn[i] = -1;</span><br><span class="line">&#125;</span><br><span class="line">while(1)//一个进程处理并发</span><br><span class="line">&#123;</span><br><span class="line">        rset = allset;</span><br><span class="line">        nready = select(maxfd + 1, &amp;rset, NULL, NULL, NULL);</span><br><span class="line">        if(nready == -1)</span><br><span class="line">        &#123;</span><br><span class="line">                //errno 是记录系统的最后一次错误代码。</span><br><span class="line">                //EINTR错误的产生：当阻塞于某个慢系统调用的一个进程捕获某个信号且相应信号处理函数返回时，该系统调用可能返回一个EINTR错误。</span><br><span class="line">                if(errno == EINTR)//如果被信号中断则继续</span><br><span class="line">                        continue;</span><br><span class="line">                ERR_EXIT(&quot;select&quot;);//其他错误退出</span><br><span class="line">        &#125;</span><br><span class="line">        else if(nready == 0)</span><br><span class="line">        &#123;</span><br><span class="line">                //时间超时,因为这里没有设置超时时间，理论不会出现nready == 0的情况</span><br><span class="line">                continue;</span><br><span class="line">        &#125;</span><br><span class="line">        if(FD_ISSET(listenfd, &amp;rset))//判断监听套接口是否在集合当中,处理监听套接口的数据</span><br><span class="line">        &#123;</span><br><span class="line">                int ret = -1;</span><br><span class="line">                if((ret = accept(listenfd, (struct sockaddr *)&amp;peeraddr, (socklen_t *)&amp;peerlen)) &lt; 0)</span><br><span class="line">                &#123;</span><br><span class="line">                        ERR_EXIT(&quot;accept&quot;);</span><br><span class="line">                &#125;</span><br><span class="line">                for(i = 0; i &lt; FD_SETSIZE; i++)</span><br><span class="line">                &#123;</span><br><span class="line">                        if(conn[i] &lt; 0)</span><br><span class="line">                        &#123;</span><br><span class="line">                                conn[i] = ret;</span><br><span class="line">                                if(i &gt; maxi)</span><br><span class="line">                                        maxi = i;//最大不空闲套接口下标，优化遍历时间，提高效率</span><br><span class="line">                                break;</span><br><span class="line">                        &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                if(i == FD_SETSIZE)</span><br><span class="line">                &#123;</span><br><span class="line">                        //stderr标准错误</span><br><span class="line">                        fprintf(stderr, &quot;链接的客户端太多了... ...&quot;);</span><br><span class="line">                        exit(EXIT_FAILURE);</span><br><span class="line">                &#125;</span><br><span class="line">                //获取远程的地址</span><br><span class="line">                if(0 &gt; getpeername(ret , (struct sockaddr *)&amp;sockname, (socklen_t*)&amp;addrlen))</span><br><span class="line">                &#123;</span><br><span class="line">                        perror(&quot;getsockname&quot;);</span><br><span class="line">                        exit(EXIT_FAILURE);//退出程序</span><br><span class="line">                &#125;</span><br><span class="line">                printf(&quot;远程的IP: %s, Port: %d\n&quot;, inet_ntoa(sockname.sin_addr), ntohs(sockname.sin_port));</span><br><span class="line">                FD_SET(ret, &amp;allset);//添加新的套接口到allset中下一次select会检测这个套接口</span><br><span class="line">                if(maxfd &lt; ret)//需要更新最大描述符</span><br><span class="line">                        maxfd = ret;</span><br><span class="line">                if(--nready &lt;= 0)//已经处理完了监听套接口的事件，把nready减一操作，如果等于零，说明没有要处理的事件了，为了提高效率直接continue,如果不小于等于零，说明还有其他事件，即为连接客户端的事件，&gt;然后对客户端的事件进行处理，</span><br><span class="line">                        continue;</span><br><span class="line">        &#125;</span><br><span class="line">        for(i = 0; i &lt;= maxi; i++)</span><br><span class="line">        &#123;</span><br><span class="line">                if(conn[i] == -1)</span><br><span class="line">                        continue;</span><br><span class="line">                if(FD_ISSET(conn[i], &amp;rset))//判断是否在读的集合当中</span><br><span class="line">                &#123;</span><br><span class="line">                        //读取数据</span><br><span class="line">                        char recvbuf[1024] = &#123;0&#125;;</span><br><span class="line">                        int ret = readline(conn[i], recvbuf, 1024);</span><br><span class="line">                        if(ret == -1)</span><br><span class="line">                        &#123;</span><br><span class="line">                                ERR_EXIT(&quot;readline&quot;);</span><br><span class="line">                        &#125;</span><br><span class="line">                        if(0 == ret)</span><br><span class="line">                        &#123;</span><br><span class="line">                                printf(&quot;对方关闭了Socket readline\n&quot;);</span><br><span class="line">                                FD_CLR(conn[i], &amp;allset);//从allset中清除</span><br><span class="line">                                conn[i] = -1;//标志为-1</span><br><span class="line">                                continue;</span><br><span class="line">                        &#125;</span><br><span class="line">                        printf(&quot;服务器接收到的数据:&quot;);</span><br><span class="line">                        fputs(recvbuf, stdout);</span><br><span class="line">                        writen(conn[i], recvbuf, strlen(recvbuf));//数据回射回去:</span><br><span class="line">                        if(--nready &lt;= 0)</span><br><span class="line">                                break;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        FD_ZERO(&amp;rset);//清空rset</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/select%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag"># select服务器</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/01/19/Socket/day10/" rel="next" title="10 close和shutdown函数">
+                <i class="fa fa-chevron-left"></i> 10 close和shutdown函数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/01/19/Socket/day08/" rel="prev" title="08 五种I/O模型&select模型">
+                08 五种I/O模型&select模型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="" />
+          <p class="site-author-name" itemprop="name"></p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#day09"><span class="nav-number">1.</span> <span class="nav-text">day09</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E7%AB%A0%E7%9B%AE%E6%A0%87"><span class="nav-number">1.1.</span> <span class="nav-text">本章目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#select"><span class="nav-number">1.2.</span> <span class="nav-text">select</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%BB%E3%80%81%E5%86%99%E3%80%81%E5%BC%82%E5%B8%B8%E4%BA%8B%E4%BB%B6%E5%8F%91%E7%94%9F%E6%9D%A1%E4%BB%B6"><span class="nav-number">1.3.</span> <span class="nav-text">读、写、异常事件发生条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">1.4.</span> <span class="nav-text">并发服务器</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhanghui</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" target="_blank" rel="noopener" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" target="_blank" rel="noopener" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

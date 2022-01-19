@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="UNIX域协议," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="缄默" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="day16本章目标 UNIX域协议特点 UNIX域地址结构 UNIX域字节流回射客户&#x2F;服务 UNIX域套接字编程注意点  UNIX域协议特点 UNIX域套接字与TCP套接字相比较，在同一台主机的传输速度前者是后者的两倍。 UNIX域套接字可以在同一台主机上各进程之间传递描述符。 UNIX域套接字与传统套接字的区别是用路径名来表示协议族的描述。  UNIX域地址结构 man unix  123456">
+<meta property="og:type" content="article">
+<meta property="og:title" content="16 UNIX域协议学习">
+<meta property="og:url" content="http://ainihu.github.io/2022/01/19/Socket/day16/index.html">
+<meta property="og:site_name" content="缄默">
+<meta property="og:description" content="day16本章目标 UNIX域协议特点 UNIX域地址结构 UNIX域字节流回射客户&#x2F;服务 UNIX域套接字编程注意点  UNIX域协议特点 UNIX域套接字与TCP套接字相比较，在同一台主机的传输速度前者是后者的两倍。 UNIX域套接字可以在同一台主机上各进程之间传递描述符。 UNIX域套接字与传统套接字的区别是用路径名来表示协议族的描述。  UNIX域地址结构 man unix  123456">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-19T05:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-19T13:19:37.307Z">
+<meta property="article:author" content="Zhanghui">
+<meta property="article:tag" content="UNIX域协议">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ainihu.github.io/2022/01/19/Socket/day16/"/>
+
+
+
+
+
+  <title>16 UNIX域协议学习 | 缄默</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">缄默</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2022/01/19/Socket/day16/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="缄默">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">16 UNIX域协议学习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-01-19T00:00:00-05:00">
+                2022-01-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Socket/" itemprop="url" rel="index">
+                    <span itemprop="name">Socket</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="day16"><a href="#day16" class="headerlink" title="day16"></a>day16</h1><h2 id="本章目标"><a href="#本章目标" class="headerlink" title="本章目标"></a>本章目标</h2><ul>
+<li><code>UNIX</code>域协议特点</li>
+<li><code>UNIX</code>域地址结构</li>
+<li><code>UNIX</code>域字节流回射客户/服务</li>
+<li><code>UNIX</code>域套接字编程注意点</li>
+</ul>
+<h2 id="UNIX域协议特点"><a href="#UNIX域协议特点" class="headerlink" title="UNIX域协议特点"></a>UNIX域协议特点</h2><ul>
+<li><code>UNIX</code>域套接字与<code>TCP</code>套接字相比较，在同一台主机的传输速度前者是后者的两倍。</li>
+<li><code>UNIX</code>域套接字可以在同一台主机上各进程之间传递描述符。</li>
+<li><code>UNIX</code>域套接字与传统套接字的区别是用路径名来表示协议族的描述。</li>
+</ul>
+<h2 id="UNIX域地址结构"><a href="#UNIX域地址结构" class="headerlink" title="UNIX域地址结构"></a>UNIX域地址结构</h2><blockquote>
+<p><code>man unix</code></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#define UNIX_PATH_MAX 108</span><br><span class="line">struct sockaddr_un</span><br><span class="line">&#123;</span><br><span class="line">    sa_family_t sun_family; //为AF_UNIX</span><br><span class="line">    char sun_path[UNIX_PATH_MAX]; //pathname</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>##UNIX域字节流回射客户/服务</p>
+<blockquote>
+<p><code>echosrv.c</code></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;errno.h&gt;</span><br><span class="line">#include &lt;sys/types.h&gt;</span><br><span class="line">#include &lt;sys/socket.h&gt;</span><br><span class="line">#include &lt;arpa/inet.h&gt;</span><br><span class="line">#include &lt;netinet/in.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;sys/un.h&gt;</span><br><span class="line"></span><br><span class="line">#define ERR_EXIT(x) do&#123;perror(x); exit(EXIT_FAILURE);&#125;while(0)</span><br><span class="line"></span><br><span class="line">void echo_srv(int conn)</span><br><span class="line">&#123;</span><br><span class="line">	int ret = 0;</span><br><span class="line">	char recvbuf[1024] = &#123;0&#125;;</span><br><span class="line">	while(1)</span><br><span class="line">	&#123;</span><br><span class="line">		memset(recvbuf, 0, sizeof(recvbuf));</span><br><span class="line">		ret = read(conn, recvbuf, sizeof(recvbuf));</span><br><span class="line">		if(ret &lt; 0)</span><br><span class="line">		&#123;</span><br><span class="line">			if(errno = EINTR)</span><br><span class="line">				continue;</span><br><span class="line">			 ERR_EXIT(&quot;read&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		else if(ret == 0)</span><br><span class="line">		&#123;</span><br><span class="line">			printf(&quot;对方关闭连接&quot;);</span><br><span class="line">			break;</span><br><span class="line">		&#125;</span><br><span class="line">		fputs(recvbuf, stdout);</span><br><span class="line">		ret = write(conn, recvbuf, strlen(recvbuf));</span><br><span class="line">	&#125;</span><br><span class="line">	close(conn);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int conn;</span><br><span class="line">	int listenfd;</span><br><span class="line">	unlink(&quot;test_socket&quot;);//删除一个文件的目录项并减少它的链接数，若成功则返回0，否则返回-1，错误原因存于error。如果想通过调用这个函数来成功删除文件，你就必须拥有这个文件的所属目录的写和执行权</span><br><span class="line">	if((listenfd = socket(PF_UNIX, SOCK_STREAM, 0)) &lt; 0)</span><br><span class="line">		ERR_EXIT(&quot;socket&quot;);</span><br><span class="line">	struct sockaddr_un servaddr;</span><br><span class="line">	memset(&amp;servaddr, 0, sizeof(servaddr));</span><br><span class="line">	servaddr.sun_family = AF_UNIX;</span><br><span class="line">	strcpy(servaddr.sun_path, &quot;test_socket&quot;);</span><br><span class="line">	if(bind(listenfd, (struct sockaddr *)&amp;servaddr, sizeof(servaddr)) &lt; 0)	</span><br><span class="line">		ERR_EXIT(&quot;bind&quot;);</span><br><span class="line">	if(listen(listenfd, SOMAXCONN) &lt; 0)</span><br><span class="line">		ERR_EXIT(&quot;listen&quot;);</span><br><span class="line">	</span><br><span class="line">	pid_t pid;</span><br><span class="line">	while(1)</span><br><span class="line">	&#123;</span><br><span class="line">		conn = accept(listenfd, NULL, NULL);	</span><br><span class="line">		if(conn == -1)</span><br><span class="line">		&#123;</span><br><span class="line">			//用户态资源并没有准备好，返回EINTR错误。以便用户态可以做出自己的决定。</span><br><span class="line">			if(errno = EINTR)</span><br><span class="line">				continue;</span><br><span class="line">			ERR_EXIT(&quot;accept&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		pid = fork();</span><br><span class="line">		if(pid &lt; 0)</span><br><span class="line">			ERR_EXIT(&quot;fork&quot;);</span><br><span class="line">		else if(pid == 0)//子进程处理新的连接</span><br><span class="line">		&#123;</span><br><span class="line">			close(listenfd);//子进程不需要处理监听</span><br><span class="line">			echo_srv(conn);</span><br><span class="line">			exit(EXIT_SUCCESS);</span><br><span class="line">		&#125;</span><br><span class="line">		close(conn);//父进程不需要处理连接</span><br><span class="line">	&#125;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>echocli.c</code></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;errno.h&gt;</span><br><span class="line">#include &lt;sys/types.h&gt;</span><br><span class="line">#include &lt;sys/socket.h&gt;</span><br><span class="line">#include &lt;arpa/inet.h&gt;</span><br><span class="line">#include &lt;netinet/in.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;sys/un.h&gt;</span><br><span class="line"></span><br><span class="line">#define ERR_EXIT(x) do&#123;perror(x); exit(EXIT_FAILURE);&#125;while(0)</span><br><span class="line"></span><br><span class="line">void echo_cli(int sock)</span><br><span class="line">&#123;</span><br><span class="line">	int ret = 0;</span><br><span class="line">	char sendbuf[1024] = &#123;0&#125;;</span><br><span class="line">	char recvbuf[1024] = &#123;0&#125;;</span><br><span class="line">	while(fgets(sendbuf, sizeof(sendbuf), stdin) != NULL)</span><br><span class="line">	&#123;</span><br><span class="line">		ret = write(sock, sendbuf, sizeof(sendbuf));</span><br><span class="line">		ret = read(sock, recvbuf, sizeof(recvbuf));</span><br><span class="line">		fputs(recvbuf, stdout);</span><br><span class="line">		memset(sendbuf, 0, sizeof(sendbuf));</span><br><span class="line">		memset(recvbuf, 0, sizeof(recvbuf));</span><br><span class="line">	&#125;</span><br><span class="line">	close(sock);</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int sock;</span><br><span class="line">	if((sock = socket(PF_UNIX, SOCK_STREAM, 0)) &lt; 0)</span><br><span class="line">		ERR_EXIT(&quot;socket&quot;);</span><br><span class="line">	struct sockaddr_un servaddr;</span><br><span class="line">	memset(&amp;servaddr, 0, sizeof(servaddr));</span><br><span class="line">	servaddr.sun_family = AF_UNIX;</span><br><span class="line">	strcpy(servaddr.sun_path, &quot;test_socket&quot;);</span><br><span class="line">	if(connect(sock, (struct sockaddr *)&amp;servaddr, sizeof(servaddr)) &lt; 0)</span><br><span class="line">		ERR_EXIT(&quot;connect&quot;);</span><br><span class="line">	</span><br><span class="line">	echo_cli(sock);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>##UNIX套接字编程注意点</p>
+<ul>
+<li><code>bind</code>成功将会创建一个文件，权限为<code>0777&amp;umask</code></li>
+<li><code>sun_path</code>最好用一个绝对路径，一般定到<code>tmp</code>目录下。</li>
+<li><code>UNIX</code>域协议支持流式接口<code>SOCK_STREAM</code>与报式套接口<code>SOCK_DGRAM</code></li>
+<li><code>UNIX</code>域流式套接字<code>connect</code>发现监听队列满时，会立即返回一个<code>ECONNERFUSED</code>，这和<code>TCP</code>不同，如果监听套接字队列满，会忽略到来的<code>SYN</code>，导致对方重发<code>SYN</code>。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/UNIX%E5%9F%9F%E5%8D%8F%E8%AE%AE/" rel="tag"># UNIX域协议</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/01/19/Socket/day17/" rel="next" title="17 socketpair、全双工流管道">
+                <i class="fa fa-chevron-left"></i> 17 socketpair、全双工流管道
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/01/19/Socket/day14/" rel="prev" title="14 UDP服务器">
+                14 UDP服务器 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="" />
+          <p class="site-author-name" itemprop="name"></p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#day16"><span class="nav-number">1.</span> <span class="nav-text">day16</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E7%AB%A0%E7%9B%AE%E6%A0%87"><span class="nav-number">1.1.</span> <span class="nav-text">本章目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UNIX%E5%9F%9F%E5%8D%8F%E8%AE%AE%E7%89%B9%E7%82%B9"><span class="nav-number">1.2.</span> <span class="nav-text">UNIX域协议特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UNIX%E5%9F%9F%E5%9C%B0%E5%9D%80%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.</span> <span class="nav-text">UNIX域地址结构</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhanghui</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" target="_blank" rel="noopener" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" target="_blank" rel="noopener" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

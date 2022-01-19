@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="缄默" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="epollsrv.cpp epollsrv.cpp文件源代码，epoll只是服务器发生了变化而客户端不需要变化。  1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757">
+<meta property="og:type" content="article">
+<meta property="og:title" content="缄默">
+<meta property="og:url" content="http://ainihu.github.io/2022/01/19/Socket/epollsrv/index.html">
+<meta property="og:site_name" content="缄默">
+<meta property="og:description" content="epollsrv.cpp epollsrv.cpp文件源代码，epoll只是服务器发生了变化而客户端不需要变化。  1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-19T13:19:37.307Z">
+<meta property="article:modified_time" content="2022-01-19T13:19:37.307Z">
+<meta property="article:author" content="Zhanghui">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ainihu.github.io/2022/01/19/Socket/epollsrv/"/>
+
+
+
+
+
+  <title> | 缄默</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">缄默</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2022/01/19/Socket/epollsrv/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="缄默">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-01-19T08:19:37-05:00">
+                2022-01-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="epollsrv-cpp"><a href="#epollsrv-cpp" class="headerlink" title="epollsrv.cpp"></a>epollsrv.cpp</h1><blockquote>
+<p><code>epollsrv.cpp</code>文件源代码，<code>epoll</code>只是服务器发生了变化而客户端不需要变化。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;sys/types.h&gt;          /* See NOTES */</span><br><span class="line">#include &lt;sys/socket.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;errno.h&gt;</span><br><span class="line">#include &lt;netinet/in.h&gt;</span><br><span class="line">#include &lt;arpa/inet.h&gt;</span><br><span class="line">#include &lt;arpa/inet.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;signal.h&gt;</span><br><span class="line">#include &lt;poll.h&gt;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">#include &lt;algorithm&gt;</span><br><span class="line">#include &lt;sys/wait.h&gt;</span><br><span class="line">#include &lt;sys/select.h&gt;</span><br><span class="line">#include &lt;sys/epoll.h&gt;</span><br><span class="line">#include &lt;fcntl.h&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#define ERR_EXIT(err) &#123;perror(err); exit(EXIT_FAILURE);&#125;</span><br><span class="line"></span><br><span class="line">typedef std::vector&lt;struct epoll_event&gt; EventList;</span><br><span class="line"></span><br><span class="line">typedef struct package</span><br><span class="line">&#123;</span><br><span class="line">	unsigned int len;</span><br><span class="line">	char data[1024];</span><br><span class="line">&#125;package;</span><br><span class="line"></span><br><span class="line">void handle(int sign)</span><br><span class="line">&#123;</span><br><span class="line">	printf(&quot;sign = %d\n&quot;, sign);</span><br><span class="line">	exit(EXIT_SUCCESS);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//size_t read(int fd, void *buf, size_t count);</span><br><span class="line">//ssize_t 无符号整数</span><br><span class="line">//size_t 有符号整数</span><br><span class="line">ssize_t readn(int fd, void * buf, size_t count)</span><br><span class="line">&#123;</span><br><span class="line">	size_t nleft = count;</span><br><span class="line">	ssize_t nread = 0;</span><br><span class="line">	char * bufp = static_cast&lt;char *&gt;(buf);</span><br><span class="line">	while(nleft &gt; 0)</span><br><span class="line">	&#123;</span><br><span class="line">		if((nread = read(fd, bufp, nleft)) &lt; 0)</span><br><span class="line">		&#123;</span><br><span class="line">			if(errno == EINTR)//如果信号被中断，仍然要继续发送数据。</span><br><span class="line">				continue;</span><br><span class="line">			//return 0;</span><br><span class="line">			return -1;</span><br><span class="line">		&#125;</span><br><span class="line">		else if(nread == 0)</span><br><span class="line">			return count - nleft;</span><br><span class="line">		bufp += nread;</span><br><span class="line">		nleft -= nread;</span><br><span class="line">	&#125;</span><br><span class="line">	return count;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//ssize_t write(int fd, const void *buf, size_t count);</span><br><span class="line">//ssize_t 无符号整数</span><br><span class="line">//size_t 有符号整数</span><br><span class="line">ssize_t writen(int fd, void * buf, size_t count)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">	size_t nleft = count;</span><br><span class="line">	ssize_t nwrite;</span><br><span class="line">	char * bufp = static_cast&lt;char *&gt;(buf);</span><br><span class="line">	while(nleft &gt; 0)</span><br><span class="line">	&#123;</span><br><span class="line">		if((nwrite = write(fd, bufp, nleft)) &lt; 0)</span><br><span class="line">		&#123;</span><br><span class="line">			if(errno == EINTR)//如果信号被中断，仍然要继续发送数据。</span><br><span class="line">				continue;</span><br><span class="line">			return -1;</span><br><span class="line">		&#125;</span><br><span class="line">		else if(nwrite == 0)</span><br><span class="line">			continue;</span><br><span class="line">		bufp += nwrite;</span><br><span class="line">		nleft -= nwrite;</span><br><span class="line">	&#125;</span><br><span class="line">	return count;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ssize_t recv_peek(int sockfd, void * buf, size_t len)</span><br><span class="line">&#123;</span><br><span class="line">	while(1)</span><br><span class="line">	&#123;	//recv读取数据但是不会把数据从缓冲区移除</span><br><span class="line">		int ret = recv(sockfd, buf, len, MSG_PEEK);//有数据返回，无数据阻塞，对方套接口关闭，返回零，信号中断返回-1</span><br><span class="line">		if(ret == -1 &amp;&amp; errno == EINTR)//信号终止，继续进行操作</span><br><span class="line">		&#123;</span><br><span class="line">			continue;</span><br><span class="line">		&#125;</span><br><span class="line">		return ret;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">ssize_t readline(int sockfd, void * buf, size_t maxline)</span><br><span class="line">&#123;</span><br><span class="line">	int ret;</span><br><span class="line">	int nread;</span><br><span class="line">	char * bufp = static_cast&lt;char *&gt;(buf);</span><br><span class="line">	int nleft = maxline;</span><br><span class="line">	while(1)</span><br><span class="line">	&#123;</span><br><span class="line">		ret = recv_peek(sockfd, buf, nleft);</span><br><span class="line">		if(ret &lt; 0)</span><br><span class="line">			return ret;</span><br><span class="line">		else if(ret == 0)//表示对方关闭了套接口</span><br><span class="line">			return ret;</span><br><span class="line">		nread = ret;//接收到的字节数</span><br><span class="line">		int i;</span><br><span class="line">		for(i = 0; i &lt; nread; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			if(bufp[i] == &#x27;\n&#x27;)</span><br><span class="line">			&#123;</span><br><span class="line">				ret = readn(sockfd, bufp, i+1);//取出数据并从缓冲区移除</span><br><span class="line">				if(ret != i + 1)//接收数据失败，直接返回</span><br><span class="line">				&#123;</span><br><span class="line">					printf(&quot;接收数据失败&quot;);</span><br><span class="line">					exit(EXIT_FAILURE);</span><br><span class="line">				&#125;</span><br><span class="line">				return ret;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		if(nread &gt; nleft)//没有遇到&#x27;\n&#x27;把数据拿出来</span><br><span class="line">		&#123;</span><br><span class="line">			printf(&quot;没有遇到回车换&quot;);</span><br><span class="line">			exit(EXIT_FAILURE);</span><br><span class="line">		&#125;</span><br><span class="line">		nleft -= nread;</span><br><span class="line">		ret = readn(sockfd, bufp, nread);</span><br><span class="line">		if(ret != nread)//接收数据失败，直接返回</span><br><span class="line">		&#123;</span><br><span class="line">			printf(&quot;接收数据失败&quot;);</span><br><span class="line">			exit(EXIT_FAILURE);</span><br><span class="line">		&#125;</span><br><span class="line">		bufp += nread;//指针偏移，如果遇到&#x27;\n&#x27;指针已经偏移</span><br><span class="line">	&#125;</span><br><span class="line">	return -1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void activate_nonblock(int fd)</span><br><span class="line">&#123;</span><br><span class="line">	int ret = 0;</span><br><span class="line">	int flags = fcntl(fd, F_GETFL);//获取文件描述符的状态</span><br><span class="line">	if(fd == -1)</span><br><span class="line">	&#123;</span><br><span class="line">		ERR_EXIT(&quot;fcntl:1&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	flags |= O_NONBLOCK;//不阻塞模式</span><br><span class="line">	ret = fcntl(fd, F_SETFL, flags);//设置文件描述符的状态</span><br><span class="line">	if(ret == -1)</span><br><span class="line">	&#123;</span><br><span class="line">		ERR_EXIT(&quot;fcntl:2&quot;);	</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">void deactivate_nonblock(int fd)</span><br><span class="line">&#123;</span><br><span class="line">	int ret = 0;</span><br><span class="line">	int flags = fcntl(fd, F_GETFL);</span><br><span class="line">	if(flags == -1)</span><br><span class="line">	&#123;</span><br><span class="line">		ERR_EXIT(&quot;fcntl:1&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	flags &amp;= ~O_NONBLOCK;//不阻塞，位操作,~按位取反</span><br><span class="line">	ret = fcntl(fd, F_SETFL, flags);</span><br><span class="line">	if(ret == -1)</span><br><span class="line">	&#123;</span><br><span class="line">		ERR_EXIT(&quot;fcntl:1&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void signal_handle(int sign)</span><br><span class="line">&#123;</span><br><span class="line">	//wait(NULL);</span><br><span class="line">	//waitpid(-1, NULL, WNOHANG);//可能会有僵尸进程的存在，因为进程发送了SIGCHLD信号但是没有接收到，无法处理导致了僵尸进程的存在</span><br><span class="line">	while(waitpid(-1, NULL, WNOHANG) &gt; 0);//如果没有子进程退出循环,避免僵尸进程</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void signpipe(int sign)</span><br><span class="line">&#123;</span><br><span class="line">	printf(&quot;SIGPIPE = %d\n&quot;, sign);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	//int conn = -1;</span><br><span class="line">	int listenfd;</span><br><span class="line">	struct sockaddr_in servaddr;//一个服务器的地址</span><br><span class="line">	signal(SIGPIPE, signpipe);//信号	</span><br><span class="line">	//signal(SIGCHLD, SIG_IGN);//忽略信号	</span><br><span class="line">	signal(SIGCHLD, signal_handle);//忽略信号	</span><br><span class="line">	listenfd = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);</span><br><span class="line">	if(listenfd &lt; 0)</span><br><span class="line">	&#123;</span><br><span class="line">		perror(&quot;创建scoket失败\n&quot;);</span><br><span class="line">		exit(EXIT_FAILURE);//退出程序</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	memset(&amp;servaddr, 0, sizeof(servaddr));//初始化地址</span><br><span class="line">	servaddr.sin_family = AF_INET;//地址族</span><br><span class="line">	servaddr.sin_port = htons(6000);//端口号，网络字节序转化为主机字节序</span><br><span class="line"></span><br><span class="line">	servaddr.sin_addr.s_addr = htonl(INADDR_ANY);//表示绑定本机的任意地址(返回一个主机字节序)---&gt;和下面的两个一样作用绑定IP地址</span><br><span class="line">	//servaddr.sin_addr.s_addr = inet_addr(&quot;127.0.0.1&quot;);//(和上面的一样的意思)指定网络地址---&gt; 真实的情况下表示本机的ip地址</span><br><span class="line">	//inet_aton(&quot;127.0.0.1&quot;, &amp;servaddr.sin_addr);//绑定IP地址</span><br><span class="line"></span><br><span class="line">	int on = 1;</span><br><span class="line">	on = setsockopt(listenfd, SOL_SOCKET, SO_REUSEADDR, &amp;on, sizeof(on));</span><br><span class="line">	if(on &lt; 0)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;端口重复利用失败\n&quot;);</span><br><span class="line">		exit(EXIT_FAILURE);</span><br><span class="line">	&#125;	</span><br><span class="line"></span><br><span class="line">	if(bind(listenfd, (struct sockaddr *)&amp;servaddr, sizeof(servaddr)) &lt; 0)</span><br><span class="line">	&#123;</span><br><span class="line">		perror(&quot;绑定本地地址到套接字失败\n&quot;);</span><br><span class="line">		exit(EXIT_FAILURE);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	if(listen(listenfd, SOMAXCONN) &lt; 0)</span><br><span class="line">	&#123;</span><br><span class="line">		perror(&quot;绑定本地地址到套接字失败\n&quot;);</span><br><span class="line">		exit(EXIT_FAILURE);</span><br><span class="line">	&#125;	</span><br><span class="line"></span><br><span class="line">	struct sockaddr_in peeraddr;</span><br><span class="line">	socklen_t peerlen = sizeof(peeraddr);//必须有初始值，否则accept会失败</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	std::vector&lt;int&gt; clients;</span><br><span class="line">	int epollfd;</span><br><span class="line">	epollfd = epoll_create1(EPOLL_CLOEXEC);//创建一个实例</span><br><span class="line">	</span><br><span class="line">	struct epoll_event event;</span><br><span class="line">	event.data.fd = listenfd;</span><br><span class="line">	event.events = EPOLLIN | EPOLLET;//EPOLLIN监听，EPOLLET边沿方式触发</span><br><span class="line">	</span><br><span class="line">	epoll_ctl(epollfd, EPOLL_CTL_ADD, listenfd, &amp;event);//添加一个套接字到epoll</span><br><span class="line">	</span><br><span class="line">	EventList events(16);</span><br><span class="line">	struct sockaddr_in perraddr;</span><br><span class="line">	socklen_t perrlen;</span><br><span class="line">	int conn;</span><br><span class="line">	int count = 0;</span><br><span class="line">	int i;</span><br><span class="line">	int nready;</span><br><span class="line"></span><br><span class="line">	while(1)</span><br><span class="line">	&#123;</span><br><span class="line">		//检测那个套接字产生的事件。 //&amp;*：迭代器解绑定的感觉... ...</span><br><span class="line">		nready = epoll_wait(epollfd, &amp;(*events.begin()), static_cast&lt;int&gt;(events.size()), -1);</span><br><span class="line">		if(nready == -1)</span><br><span class="line">		&#123;</span><br><span class="line">			if(errno == EINTR)</span><br><span class="line">				continue;</span><br><span class="line">			ERR_EXIT(&quot;epoll_wait&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		if(nready == 0)</span><br><span class="line">			continue;</span><br><span class="line">		if((ssize_t)nready == events.size())</span><br><span class="line">			if(events.size() &gt; 4096)</span><br><span class="line">				events.resize(events.size() + 2048);</span><br><span class="line">			else</span><br><span class="line">				events.resize(events.size() * 2);</span><br><span class="line">		for(i = 0; i &lt; nready; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			if(events[i].data.fd == listenfd)</span><br><span class="line">			&#123;</span><br><span class="line">				perrlen = sizeof(perraddr);</span><br><span class="line">				conn = accept(listenfd, (struct sockaddr *)&amp;peeraddr, &amp;perrlen);</span><br><span class="line">				if(conn == -1)</span><br><span class="line">					ERR_EXIT(&quot;accept&quot;);</span><br><span class="line">				printf(&quot;peer:ip = %s, port = %d\n&quot;, inet_ntoa(perraddr.sin_addr), ntohs(perraddr.sin_port));</span><br><span class="line">				printf(&quot;count = %d\n&quot;, ++count);</span><br><span class="line">				clients.push_back(conn);</span><br><span class="line">				activate_nonblock(conn);//设置为非阻塞模式</span><br><span class="line">				</span><br><span class="line">				//添加新的套接字到event中</span><br><span class="line">				event.data.fd = conn;</span><br><span class="line">				event.events = EPOLLIN | EPOLLET;</span><br><span class="line">				epoll_ctl(epollfd, EPOLL_CTL_ADD, conn, &amp;event);</span><br><span class="line">			&#125;</span><br><span class="line">			else if(events[i].events &amp; EPOLLIN)</span><br><span class="line">			&#123;</span><br><span class="line">				conn = events[i].data.fd;</span><br><span class="line">				if(conn &lt; 0)</span><br><span class="line">					continue;</span><br><span class="line">				char recvbuf[1024] = &#123;0&#125;;</span><br><span class="line">				int ret = readline(conn, recvbuf, 1024);</span><br><span class="line"></span><br><span class="line">				if(ret == -1)</span><br><span class="line">					ERR_EXIT(&quot;readline&quot;)</span><br><span class="line">				else if(ret == 0)</span><br><span class="line">				&#123;</span><br><span class="line">					count --;</span><br><span class="line">					printf(&quot;client closed\n&quot;);</span><br><span class="line">					close(conn);</span><br><span class="line">					event = events[i];</span><br><span class="line">					epoll_ctl(epollfd, EPOLL_CTL_DEL, conn, &amp;event);</span><br><span class="line">					clients.erase(std::remove(clients.begin(), clients.end(), conn), clients.end());//删除已经断开的客户端的套接字</span><br><span class="line">				&#125;</span><br><span class="line">				fputs(recvbuf, stdout);</span><br><span class="line">				writen(conn, recvbuf, strlen(recvbuf));</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/01/19/Socket/day01/" rel="next" title="01 socket 字节序&地址转换函数&套接字类型">
+                <i class="fa fa-chevron-left"></i> 01 socket 字节序&地址转换函数&套接字类型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/01/19/Socket/day15/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="" />
+          <p class="site-author-name" itemprop="name"></p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#epollsrv-cpp"><span class="nav-number">1.</span> <span class="nav-text">epollsrv.cpp</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhanghui</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" target="_blank" rel="noopener" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" target="_blank" rel="noopener" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

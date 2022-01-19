@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Linux日志,网络配置," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="缄默" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="05 Linux基础–-日志&amp;网络配置日志采集服务查看日志状态：systemctl status rsyslog.service 获取配置文件的帮助信息：man 5 rsyslog.conf 日志：*.*：第一个*表示什么类型，第二个*表示该服务程序的日志级别  日志的位置：&#x2F;var&#x2F;log&#x2F;   &#x2F;var&#x2F;log&#x2F;messages：服务信息日志   &#x2F;var&#x2F;log&#x2F;secure：系统登">
+<meta property="og:type" content="article">
+<meta property="og:title" content="05 Linux基础知识–-日志&amp;网络配置">
+<meta property="og:url" content="http://ainihu.github.io/2021/11/13/Linux/05linux%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="缄默">
+<meta property="og:description" content="05 Linux基础–-日志&amp;网络配置日志采集服务查看日志状态：systemctl status rsyslog.service 获取配置文件的帮助信息：man 5 rsyslog.conf 日志：*.*：第一个*表示什么类型，第二个*表示该服务程序的日志级别  日志的位置：&#x2F;var&#x2F;log&#x2F;   &#x2F;var&#x2F;log&#x2F;messages：服务信息日志   &#x2F;var&#x2F;log&#x2F;secure：系统登">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-11-13T05:00:00.000Z">
+<meta property="article:modified_time" content="2021-11-14T08:25:54.458Z">
+<meta property="article:author" content="Zhanghui">
+<meta property="article:tag" content="Linux日志">
+<meta property="article:tag" content="网络配置">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ainihu.github.io/2021/11/13/Linux/05linux基础/"/>
+
+
+
+
+
+  <title>05 Linux基础知识–-日志&网络配置 | 缄默</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">缄默</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2021/11/13/Linux/05linux%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="缄默">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">05 Linux基础知识–-日志&网络配置</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-11-13T00:00:00-05:00">
+                2021-11-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="05-Linux基础–-日志-amp-网络配置"><a href="#05-Linux基础–-日志-amp-网络配置" class="headerlink" title="05 Linux基础–-日志&amp;网络配置"></a>05 Linux基础–-日志&amp;网络配置</h1><h2 id="日志采集服务"><a href="#日志采集服务" class="headerlink" title="日志采集服务"></a>日志采集服务</h2><p>查看日志状态：<code>systemctl status rsyslog.service</code></p>
+<p><strong>获取配置文件的帮助信息：<code>man 5 rsyslog.conf</code></strong></p>
+<p>日志：<code>*.*</code>：第一个<code>*</code>表示什么类型，第二个<code>*</code>表示该服务程序的日志级别</p>
+<ul>
+<li>日志的位置：<code>/var/log/</code><ul>
+<li>  <code>/var/log/messages</code>：服务信息日志</li>
+<li>  <code>/var/log/secure</code>：系统登录日志</li>
+<li>  <code>/var/log/cron</code>：定时任务日志</li>
+<li>  <code>/var/log/maillog</code>：邮件日志</li>
+<li>  <code>/var/log/boot.log</code>：系统启动日志</li>
+</ul>
+</li>
+<li>日志的类型：<ul>
+<li>  <code>auth</code>：pam产生的日志</li>
+<li>  <code>authpriv</code>：ssh，ftp等登录信息的验证信息</li>
+<li>  <code>cron</code>：时间任务相关</li>
+<li>  <code>kern</code>：内核</li>
+<li>  <code>lpr</code>：打印</li>
+<li>  <code>mail</code>：邮件</li>
+<li>  <code>mark(syslog)-rsyslog</code>：服务内部的信息，时间标识</li>
+<li>  <code>news</code>：新闻组</li>
+<li>  <code>user</code>：用户程序产生的相关信息</li>
+<li>  <code>uucp</code>：unix tounix copy，unix主机之间相关的通讯</li>
+<li>  <code>local 1-7</code>：自定义的日志系统</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>日志级别：记录的内容逐次减少<ol>
+<li> <code>debug</code>调试信息：有调式信息的，日志信息最多</li>
+<li> <code>info</code>重要事件 ：一般信息的日志，最常用</li>
+<li> <code>notice</code>重要通知：最具有重要性的普通条件的信息</li>
+<li> <code>warning</code>警报：警告级别</li>
+<li> <code>err</code>错误：错误级别，阻止某个功能或者模块不能正常工作的信息 </li>
+<li> <code>crit</code>临界：严重级别，阻止整个系统或者整个软件哎能不能正常工作的信息</li>
+<li> <code>alert</code>：需要立即修改的信息</li>
+<li> <code>emerg</code>系统不可用：内核崩溃等严重信息</li>
+<li> <code>none</code>：什么都不记录</li>
+</ol>
+</li>
+<li>  例：<code>*.*;mail.none    /var/log/message</code>，把所有服务的所有日志信息保存到<code>/var/log/meesage</code>文件中，不保存<code>mail</code>的信息。</li>
+</ul>
+<h2 id="日志同步"><a href="#日志同步" class="headerlink" title="日志同步"></a>日志同步</h2><p>配置文件<code>/etc/rsyslog.conf</code>，修改完重启服务<code>systemctl restart rsyslog</code></p>
+<ul>
+<li>  客户端(日志发送方)：<code>*.*    @ipaddr</code>：一个<code>@</code>表示使用<code>udp</code>协议，两个<code>@</code>表示使用<code>tcp</code>协议</li>
+<li>  服务端(日志接收方)：<code>$ModLoad imudp</code>、<code>$UDPServerRun 514</code>，开启接收的模块，并且打开接收的端口</li>
+<li>  设置防火墙可以通过客户端的日志 / 关闭防火墙</li>
+</ul>
+<p>  日志采集的格式：<code>/etc/rsyslog.conf</code></p>
+<ul>
+<li><p>```<br>$template LOGFMT, “%timegenerated% %FROMHOST-IP% %syslogtag% %msg% \n”<br><em>.</em>    /var/log/test;LOGFMT</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  * `LOGFMT`：相当于定义了一个变量</span><br><span class="line"></span><br><span class="line">  * `%timegenerated%`：显示日志时间</span><br><span class="line"></span><br><span class="line">  * `%FROMHOST-IP%`：显示主机IP</span><br><span class="line"></span><br><span class="line">  * `%syslogtag%`：日志记录目标</span><br><span class="line"></span><br><span class="line">  * `%msg%`：日志内容</span><br><span class="line"></span><br><span class="line">## 时间同步</span><br><span class="line"></span><br><span class="line">配置文件`/etc/chrony.conf`、服务程序</span><br><span class="line"></span><br><span class="line"> * 服务端(时间源)：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>allow 172.25.254.0/24 ##允许那些客户端来同步本机时间，在配置文件的22行<br>local stratum 10 ##本机不同步任何主机的时间，本机作为时间源，在配置文件的29行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* 客户端(同步时间源)：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>server 172.25.254.100 iburst ##本机立即同步172.25.254.100这台主机的时间</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"> 设置完后需要重启同步时间服务：`systemctl restart chronyd.service`</span><br><span class="line"></span><br><span class="line"> 查看时间同步源：`chronyc sources -v`</span><br><span class="line"></span><br><span class="line">## 查看系统时间</span><br><span class="line"></span><br><span class="line">`timedatectl`：查看系统详细</span><br><span class="line"></span><br><span class="line">`timedatectl list-timezones `：查看时区列表</span><br><span class="line"></span><br><span class="line">`timedatectl set-timezones Asia/Shanghai`：设置时区</span><br><span class="line"></span><br><span class="line">`timedatectl set-time  &quot;2018-11-11 11:11&quot;`：设置时间</span><br><span class="line"></span><br><span class="line">`timedatectl set-local-rtc 0/1` ：是否使用UTC时间</span><br><span class="line"></span><br><span class="line">*   `0`设置为UTC时间，`1`设置为LOCAL时间</span><br><span class="line"></span><br><span class="line">`cat /etc/adjtime`：查看时间</span><br><span class="line"></span><br><span class="line">## 日志查看</span><br><span class="line"></span><br><span class="line">`journalctl`：日志查看工具</span><br><span class="line"></span><br><span class="line">*   `-n 3`：查看最近三条日志</span><br><span class="line">*   `-p err`：查看错误日志</span><br><span class="line">*   `-o verbose _PID=pid _COMM=command`：查看指定pid的日志，该进程可以是已经死亡的</span><br><span class="line">*   `--since &quot;2018-10-13 12:00&quot;`：查看从什么时间开始的日志</span><br><span class="line">*   `` --until &quot;2018-10-14 12:00&quot; `：查看从什么时间结束的日志</span><br><span class="line"></span><br><span class="line">使用`systemd-journal`保存系统日志</span><br><span class="line"></span><br><span class="line">1.  `mkdir /var/log/journal`建立一个目录保存`journal`日志</span><br><span class="line">2.  `chgrp systemd-journal /var/log/journal`</span><br><span class="line">3.  `chmod g+s /var/log/journal`</span><br><span class="line">4.  `ps aux | grep systemd-journald`</span><br><span class="line">5.  `killall -1 systemd-journald-pid`</span><br><span class="line">6.  `ls /var/log/journal`，查看保存的文件</span><br><span class="line"></span><br><span class="line">## 网络配置</span><br><span class="line"></span><br><span class="line">1.  IP：由32位bit位组成</span><br><span class="line"></span><br><span class="line">2.  子网掩码：用来划分网络区域。</span><br><span class="line"></span><br><span class="line">3.  IP通信判定：网络位一致，主机位不一致</span><br><span class="line"></span><br><span class="line">4.  网络通信工具：`ping`</span><br><span class="line"></span><br><span class="line">5.  `ifconfig`</span><br><span class="line"></span><br><span class="line">    *   `ifconfig device ip/24`：设置ip地址和子网掩码</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    *   关闭网卡接口：`ifconfig 网卡名 down`</span><br><span class="line">    *   开启网卡接口：`ifconfig 网卡 up`</span><br><span class="line">    *   查看网卡所有的`ip`：`ip addr show`</span><br><span class="line"></span><br><span class="line">6. 修改ip</span><br><span class="line"></span><br><span class="line">   * 图形修改</span><br><span class="line"></span><br><span class="line">     *   图形界面设置` nm-connection-editor `</span><br><span class="line">     *   命令模式下图形修改`nmtui`</span><br><span class="line"></span><br><span class="line">   * 命令修改</span><br><span class="line"></span><br><span class="line">     *   `nmcli `：后面可以加参数对网卡进行配置和连接与断开，`NetworkManager`服务必须开启，`device_name`为网卡名</span><br><span class="line">         *   `nmcli device show`：查看网卡信息</span><br><span class="line">         *   `nmcli device status device_name`：查看网卡服务接口状态信息</span><br><span class="line">         *   `nmcli device connect device_name`：启用网卡</span><br><span class="line">         *   `nmcli device disconnect device_name`：关闭网卡接口</span><br><span class="line">         *   `nmcli connection show`：查看网卡配置信息</span><br><span class="line">         *   `nmcli connection down device_name`：关闭网卡</span><br><span class="line">         *   `nmcli connection up device_name`：开启网卡</span><br><span class="line">         *   `nmcli connection delete device_name`：删除网卡信息</span><br><span class="line"></span><br><span class="line">   * 修改配置文件：`/etc/sysconfig/network-scripts/device_name`，`device_name`为网卡的配置文件名字，自行替换`redhat7/centos7`一般为`ifcfg-eth0`，配置的文件名为`ifcfg-`开头。</span><br><span class="line"></span><br><span class="line">     *   `DEVICE=eth0`：网卡的设备名</span><br><span class="line">     *   `ONBOOT=yes`：开机是否自启</span><br><span class="line">     *   `BOOTPROTO=dhcp/static/none`：三个中的一个，`dhcp`动态分配，`static`静态IP，`none`类似`static`</span><br><span class="line">     *   `IPADDR=172.25.254.108`：`IP`地址</span><br><span class="line">         *   配置多个`IP`，`IPADDR0`、`IPADDR1`、... ...</span><br><span class="line">     *   `PREFIX=24`/`NETMASK=255.255.255.0`：子网掩码</span><br><span class="line">         *   配置多个子网掩码对应`IP`，`PREFIX0`、`PREFIX1`、... ...</span><br><span class="line">     *   `NAME=eth0`：配置名字</span><br><span class="line"></span><br><span class="line">     示例：</span><br><span class="line"></span><br><span class="line">     单个IP配置</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p> DEVICE=eth0<br> ONBOOT=yes<br> BOOTPROTO=static<br> IPADDR=172.25.254.108 #IP设置仅供参考，不同情况，不同IP<br> PREFIX=24<br> GATEWAY=172.25.254.111 # 网关配置，见下面<br> NAME=eth0</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">多个IP配置</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p> DEVICE=eth0<br> ONBOOT=yes<br> BOOTPROTO=static<br> IPADDR0=172.25.254.108 #IP设置仅供参考，不同情况，不同IP<br> PREFIX0=24<br> GATEWAY0=172.25.254.111 # 网关配置，见下面<br> IPADDR1=172.25.0.108 #IP设置仅供参考，不同情况，不同IP<br> PREFIX1=24<br> GATEWAY1=172.25.254.222 # 网关配置，见下面<br> NAME=eth0</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">7. lo回环接口</span><br><span class="line"></span><br><span class="line">   &gt;   可以用来测试本机的通信协议是否完好，用于本机内部的通信。</span><br><span class="line"></span><br><span class="line">8. 网关配置</span><br><span class="line"></span><br><span class="line">   &gt;   `vim /etc/sysconfig/network`，全局网关，针对没有设定网关的网卡配置文件</span><br><span class="line">   &gt;</span><br><span class="line">   &gt;   查看防火墙策略：`firewall-cmd --list-all`</span><br><span class="line">   &gt;</span><br><span class="line">   &gt;   添加防火墙策略：`firewall-cmd --permanent --add-masquerade`，主机作路由转换</span><br><span class="line">   &gt;</span><br><span class="line">   &gt;   重新加载服务：`firewall-cmd --list-all`</span><br><span class="line"></span><br><span class="line">9. DNS解析配置</span><br><span class="line"></span><br><span class="line">   &gt;   `vim /etc/resolv.conf`，配置文件位置，`DNS`服务器`nameserver 114.114.114.114`，也可以在网卡的配置文件中设置`DNS1=IP`。</span><br><span class="line">   &gt;</span><br><span class="line">   &gt;   `/etc/hosts`，本机暂存域名和IP的键值对，本地解析文件`IP 域名`</span><br><span class="line">   &gt;</span><br><span class="line">   &gt;   </span><br><span class="line">   &gt;</span><br><span class="line">   &gt;   在网络配置文件中可以添加`DNS1=8.8.8.8`或者其他的`IP`地址</span><br><span class="line">   &gt;</span><br><span class="line">   &gt;   如果远程的`dns`和本地的`host`域名解析冲突，通过修改`/etc/nsswitch.conf`来设置优先级别，在第39行。</span><br><span class="line"></span><br><span class="line">10. dhcp服务设置自己的DNS</span><br><span class="line"></span><br><span class="line">   &gt;   当网卡使用`dhcp`模式的时候网卡会使用`dhcp`服务器的`DNS`，如果不需要`dhcp`的DNS提供的信息，把`/etc/sysconfig/network-scripts/ifcfg-eth0`里面加上`PEERDNS=no`，使用自己的`DNS`不使用`dhcp`提供的服务</span><br><span class="line"></span><br><span class="line">11. man手册的帮助文档</span><br><span class="line"></span><br><span class="line">    &gt;   `/usr/share/doc/initscripts-9.49.37/sysconfig.txt`，其中的数字会不同版本号的原因，按`Tab`补齐就可以了。</span><br><span class="line"></span><br><span class="line">## dhcp服务</span><br><span class="line"></span><br><span class="line">配置文件`/etc/dhcp/dhcpd.conf`拷贝模板配置文件`cp /usr/share/doc/dhcp-4.2.5/dhcpd.conf.example /etc/dhcp/dhcpd.conf`</span><br><span class="line"></span><br><span class="line">*   `yum install -y dhcp`，安装`dhcp`服务</span><br><span class="line"></span><br><span class="line">*   `cp /usr/share/doc/dhcp-4.2.5/dhcpd.conf.example /etc/dhcp/dhcpd.conf`</span><br><span class="line"></span><br><span class="line">*   `vim /etc/dhcp/dhcpd.conf`，编辑配置文件</span><br><span class="line"></span><br><span class="line">    *   `subnet`：分配的IP地址</span><br><span class="line">    *   `netmark`：子网掩码</span><br><span class="line">    *   `range IP1 IP2;`：分配的IP池范围</span><br><span class="line">    *   `option routers IP;`：网关</span><br><span class="line"></span><br><span class="line">*   完整配置文件示例</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="dhcpd-conf"><a href="#dhcpd-conf" class="headerlink" title="dhcpd.conf"></a>dhcpd.conf</h1><h1 id><a href="#" class="headerlink" title></a></h1><h1 id="Sample-configuration-file-for-ISC-dhcpd"><a href="#Sample-configuration-file-for-ISC-dhcpd" class="headerlink" title="Sample configuration file for ISC dhcpd"></a>Sample configuration file for ISC dhcpd</h1><h1 id="-1"><a href="#-1" class="headerlink" title></a></h1><h1 id="option-definitions-common-to-all-supported-networks…"><a href="#option-definitions-common-to-all-supported-networks…" class="headerlink" title="option definitions common to all supported networks…"></a>option definitions common to all supported networks…</h1><p>option domain-name “example.org”;<br>option domain-name-servers ns1.example.org, ns2.example.org;</p>
+<p>default-lease-time 600;<br>max-lease-time 7200;</p>
+<h1 id="Use-this-to-enble-disable-dynamic-dns-updates-globally"><a href="#Use-this-to-enble-disable-dynamic-dns-updates-globally" class="headerlink" title="Use this to enble / disable dynamic dns updates globally."></a>Use this to enble / disable dynamic dns updates globally.</h1><p>#ddns-update-style none;</p>
+<h1 id="If-this-DHCP-server-is-the-official-DHCP-server-for-the-local"><a href="#If-this-DHCP-server-is-the-official-DHCP-server-for-the-local" class="headerlink" title="If this DHCP server is the official DHCP server for the local"></a>If this DHCP server is the official DHCP server for the local</h1><h1 id="network-the-authoritative-directive-should-be-uncommented"><a href="#network-the-authoritative-directive-should-be-uncommented" class="headerlink" title="network, the authoritative directive should be uncommented."></a>network, the authoritative directive should be uncommented.</h1><p>#authoritative;</p>
+<h1 id="Use-this-to-send-dhcp-log-messages-to-a-different-log-file-you-also"><a href="#Use-this-to-send-dhcp-log-messages-to-a-different-log-file-you-also" class="headerlink" title="Use this to send dhcp log messages to a different log file (you also"></a>Use this to send dhcp log messages to a different log file (you also</h1><h1 id="have-to-hack-syslog-conf-to-complete-the-redirection"><a href="#have-to-hack-syslog-conf-to-complete-the-redirection" class="headerlink" title="have to hack syslog.conf to complete the redirection)."></a>have to hack syslog.conf to complete the redirection).</h1><p>log-facility local7;</p>
+<h1 id="No-service-will-be-given-on-this-subnet-but-declaring-it-helps-the"><a href="#No-service-will-be-given-on-this-subnet-but-declaring-it-helps-the" class="headerlink" title="No service will be given on this subnet, but declaring it helps the"></a>No service will be given on this subnet, but declaring it helps the</h1><h1 id="DHCP-server-to-understand-the-network-topology"><a href="#DHCP-server-to-understand-the-network-topology" class="headerlink" title="DHCP server to understand the network topology."></a>DHCP server to understand the network topology.</h1></li>
+</ul>
+<pre><code># This is a very basic subnet declaration.
+
+subnet 172.25.254.0 netmask 255.255.255.0 &#123;
+  range 172.25.254.50 172.25.254.80;
+  option routers 172.25.254.250;
+&#125;
+</code></pre>
+<pre><code>
+*   服务端：`/var/lib/dhcpd/dhcpd.leases`
+
+*   客户端：`/var/log/message`
+</code></pre>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux%E6%97%A5%E5%BF%97/" rel="tag"># Linux日志</a>
+          
+            <a href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" rel="tag"># 网络配置</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/11/13/Linux/06linux%E5%9F%BA%E7%A1%80/" rel="next" title="06 Linux基础知识–-虚拟机安装">
+                <i class="fa fa-chevron-left"></i> 06 Linux基础知识–-虚拟机安装
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/11/13/Linux/04linux%E5%9F%BA%E7%A1%80/" rel="prev" title="04 Linux基础知识--进程监控&ssh&文件传输">
+                04 Linux基础知识--进程监控&ssh&文件传输 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="" />
+          <p class="site-author-name" itemprop="name"></p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#05-Linux%E5%9F%BA%E7%A1%80%E2%80%93-%E6%97%A5%E5%BF%97-amp-%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">05 Linux基础–-日志&amp;网络配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.1.</span> <span class="nav-text">日志采集服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A5%E5%BF%97%E5%90%8C%E6%AD%A5"><span class="nav-number">1.2.</span> <span class="nav-text">日志同步</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dhcpd-conf"><span class="nav-number">2.</span> <span class="nav-text">dhcpd.conf</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Sample-configuration-file-for-ISC-dhcpd"><span class="nav-number">4.</span> <span class="nav-text">Sample configuration file for ISC dhcpd</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#-1"><span class="nav-number">5.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#option-definitions-common-to-all-supported-networks%E2%80%A6"><span class="nav-number">6.</span> <span class="nav-text">option definitions common to all supported networks…</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Use-this-to-enble-disable-dynamic-dns-updates-globally"><span class="nav-number">7.</span> <span class="nav-text">Use this to enble &#x2F; disable dynamic dns updates globally.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#If-this-DHCP-server-is-the-official-DHCP-server-for-the-local"><span class="nav-number">8.</span> <span class="nav-text">If this DHCP server is the official DHCP server for the local</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#network-the-authoritative-directive-should-be-uncommented"><span class="nav-number">9.</span> <span class="nav-text">network, the authoritative directive should be uncommented.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Use-this-to-send-dhcp-log-messages-to-a-different-log-file-you-also"><span class="nav-number">10.</span> <span class="nav-text">Use this to send dhcp log messages to a different log file (you also</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#have-to-hack-syslog-conf-to-complete-the-redirection"><span class="nav-number">11.</span> <span class="nav-text">have to hack syslog.conf to complete the redirection).</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#No-service-will-be-given-on-this-subnet-but-declaring-it-helps-the"><span class="nav-number">12.</span> <span class="nav-text">No service will be given on this subnet, but declaring it helps the</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DHCP-server-to-understand-the-network-topology"><span class="nav-number">13.</span> <span class="nav-text">DHCP server to understand the network topology.</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhanghui</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" target="_blank" rel="noopener" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" target="_blank" rel="noopener" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

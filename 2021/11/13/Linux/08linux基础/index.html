@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="延时任务,邮件管理," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="缄默" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="08 Linux基础知识–-延时任务&amp;邮件管理kickstart自动安装系统脚本   第一步：yum install -y system-config-kickstart httpd安装服务   第二步：system-config-kickstart，配置安装文件   第三步：给ks.cfg添加安装的脚本，即安装系统基础安装包和配置yum等   第三步：使用ksvalidator对配置文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="08 Linux基础知识–-延时任务&amp;邮件管理">
+<meta property="og:url" content="http://ainihu.github.io/2021/11/13/Linux/08linux%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="缄默">
+<meta property="og:description" content="08 Linux基础知识–-延时任务&amp;邮件管理kickstart自动安装系统脚本   第一步：yum install -y system-config-kickstart httpd安装服务   第二步：system-config-kickstart，配置安装文件   第三步：给ks.cfg添加安装的脚本，即安装系统基础安装包和配置yum等   第三步：使用ksvalidator对配置文件">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-11-13T05:00:00.000Z">
+<meta property="article:modified_time" content="2021-11-14T08:25:54.459Z">
+<meta property="article:author" content="Zhanghui">
+<meta property="article:tag" content="延时任务">
+<meta property="article:tag" content="邮件管理">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ainihu.github.io/2021/11/13/Linux/08linux基础/"/>
+
+
+
+
+
+  <title>08 Linux基础知识–-延时任务&邮件管理 | 缄默</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">缄默</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2021/11/13/Linux/08linux%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="缄默">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">08 Linux基础知识–-延时任务&邮件管理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-11-13T00:00:00-05:00">
+                2021-11-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="08-Linux基础知识–-延时任务-amp-邮件管理"><a href="#08-Linux基础知识–-延时任务-amp-邮件管理" class="headerlink" title="08 Linux基础知识–-延时任务&amp;邮件管理"></a>08 Linux基础知识–-延时任务&amp;邮件管理</h1><h2 id="kickstart自动安装系统脚本"><a href="#kickstart自动安装系统脚本" class="headerlink" title="kickstart自动安装系统脚本"></a>kickstart自动安装系统脚本</h2><ul>
+<li>  第一步：<code>yum install -y system-config-kickstart httpd</code>安装服务</li>
+<li>  第二步：<code>system-config-kickstart</code>，配置安装文件</li>
+<li>  第三步：给<code>ks.cfg</code>添加安装的脚本，即安装系统基础安装包和配置yum等</li>
+<li>  第三步：使用<code>ksvalidator</code>对配置文件进行检测</li>
+<li>  第四步：共享配置文件，使用<code>httpd</code>服务共享文件</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">virt-install \</span><br><span class="line">--name $1 \</span><br><span class="line">--ram 1024 \</span><br><span class="line">--cpus 1 \</span><br><span class="line">--disk /var/lib/libvirt/images/$1.qcow2,bus=virtio,size=10 \</span><br><span class="line">--network bridge=br0,model=virtio \</span><br><span class="line">--location http://172.25.254.8/yum/ \</span><br><span class="line">--extra-args ks=http://172.25.254.8/ks.cfg &amp;</span><br></pre></td></tr></table></figure>
+
+<p>ks.cfg的配置文件，需要添加安装包文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">#platform=x86, AMD64, 或 Intel EM64T</span><br><span class="line">#version=DEVEL</span><br><span class="line"># Install OS instead of upgrade</span><br><span class="line">install</span><br><span class="line"># Keyboard layouts</span><br><span class="line">keyboard &#x27;us&#x27;</span><br><span class="line"># Root password</span><br><span class="line">rootpw --iscrypted $1$Jpz4OVkL$kzqAMWU4j3iXUZMZOX.nA.</span><br><span class="line"># Use network installation</span><br><span class="line">url --url=&quot;http://172.25.254.8/yum/&quot;</span><br><span class="line"># System language</span><br><span class="line">lang en_US</span><br><span class="line"># Firewall configuration</span><br><span class="line">firewall --disabled</span><br><span class="line"># System authorization information</span><br><span class="line">auth  --useshadow  --passalgo=sha512</span><br><span class="line"># Use graphical install</span><br><span class="line">graphical</span><br><span class="line">firstboot --disable</span><br><span class="line"># SELinux configuration</span><br><span class="line">selinux --disabled</span><br><span class="line"></span><br><span class="line"># Network information</span><br><span class="line">network  --bootproto=dhcp --device=eth0</span><br><span class="line"># Reboot after installation</span><br><span class="line">reboot</span><br><span class="line"># System timezone</span><br><span class="line">timezone Africa/Abidjan</span><br><span class="line"># System bootloader configuration</span><br><span class="line">bootloader --location=mbr</span><br><span class="line"># Clear the Master Boot Record</span><br><span class="line">zerombr</span><br><span class="line"># Partition clearing information</span><br><span class="line">clearpart --all --initlabel</span><br><span class="line"># Disk partitioning information</span><br><span class="line">part swap --fstype=&quot;swap&quot; --size=1024</span><br><span class="line">part /boot --fstype=&quot;xfs&quot; --size=400</span><br><span class="line">part / --fstype=&quot;xfs&quot; --grow --size=1</span><br><span class="line"></span><br><span class="line">%packages</span><br><span class="line">@base</span><br><span class="line">lftp</span><br><span class="line">%end</span><br><span class="line"></span><br><span class="line">%post</span><br><span class="line">cat &gt;&gt; /etc/yum/yum.repo.d/rhel.repo &lt;&lt; EOF</span><br><span class="line">[rhel]</span><br><span class="line"></span><br><span class="line">nam=pip</span><br><span class="line">baseurl=http://172.25.254.8/yum/</span><br><span class="line">gpgcheck=0</span><br><span class="line">%end</span><br></pre></td></tr></table></figure>
+
+<h2 id="延时任务"><a href="#延时任务" class="headerlink" title="延时任务"></a>延时任务</h2><ul>
+<li>  <code>at 14:27</code>：定时任务，在某一格式执行什么命令，<code>Ctrl + d</code>发起任务</li>
+<li>  <code>at now+1min</code>：一分钟后执行任务</li>
+<li>  <code>at -l</code>：查看任务列表</li>
+<li>  <code>at -c ID</code>：查看任务的内容</li>
+<li>  <code>at -r ID</code>：取消任务执行</li>
+<li>  当任务有输出时，输出会以邮件的形式发送给at任务的发起者，例<code>echo hello</code></li>
+<li><code>at</code>的黑白名单<ul>
+<li>  <code>/etc/at.deny</code>：<code>at</code>命令的黑名单中的用户无法执行定时任务</li>
+<li>  <code>/etc/at.allow</code>：<code>at</code>命令的白名单，之有名单中出现的用户才可以执行at命令，优先级高于黑名单，当白名单存在黑名单失效。如果 不存在则新建。</li>
+</ul>
+</li>
+</ul>
+<h2 id="定时任务"><a href="#定时任务" class="headerlink" title="定时任务"></a>定时任务</h2><p><code>systemctl status crond</code>，查看定时任务控制服务</p>
+<ul>
+<li>  <code>crontab -e -u root</code>：编辑定时任务</li>
+<li>  定时任务格式：<code>分、时、日、月、周</code>。</li>
+<li>   <code>* * * * * </code>表示每分钟执行一次</li>
+<li>  <code>*/2 * * * *</code>：每两分钟执行一次</li>
+<li>  <code>*/2 09-17 * * *</code>：每9点到17点每隔两分钟执行一次</li>
+<li>  <code>*/2 */2 * * *</code>：每过两小时零两分钟执行一次</li>
+<li>  <code>*/2 09-17 1 3,5 5</code>：三月和五月的每周周五和三月一日、五月一日，9点到17点每两分钟执行一次</li>
+<li>  <code>*/2 09-17 * * 5</code>：每周周五09点到17点每隔两分钟执行一次</li>
+<li>  当程序开启时定时任务生效</li>
+</ul>
+<blockquote>
+<p>  配置文件路径<code>/var/spool/cron/username</code>最后一个为用户名</p>
+<ul>
+<li><code>crontab</code><ul>
+<li>  <code>crontab -e -u</code>：编辑指定用户的定时任务表</li>
+<li>  <code>crontab -l -u</code>：查看指定用户的定时任务</li>
+<li>  <code>crontab -r -u</code>：删除指定用户的定时任务</li>
+</ul>
+</li>
+<li>自定义定时配置文件，该方式的定时任务使用<code>crontab -l</code>不能查看<ul>
+<li>  <code>/etc/cron.d/</code>在该目录下新建文件就可<code>* * * * *  root  action</code></li>
+</ul>
+</li>
+<li>黑白名单<ul>
+<li>  <code>/etc/cron.deny</code>：黑名单中的用户无法执行定时任务</li>
+<li>  <code>/etc/cron.allow</code>：命令的白名单，之有名单中出现的用户才可以执行at命令，优先级高于黑名单，当白名单存在黑名单失效。如果 不存在则新建。</li>
+<li>  这两个名单都不会影响<code>/etc/cron.d/</code>目录中的定时任务的发起和执行</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="查看邮件"><a href="#查看邮件" class="headerlink" title="查看邮件"></a>查看邮件</h2><ul>
+<li>  <code>mail -u root</code>：查看指定用户的邮件，不指定则查看当前用户的邮件</li>
+<li>  <code>1</code>：查看第一封邮件</li>
+<li>  <code>q</code>：退出</li>
+<li>  <code>&gt; /var/spool/mail/root</code>：清空邮箱 </li>
+</ul>
+<h2 id="系统临时文件的管理"><a href="#系统临时文件的管理" class="headerlink" title="系统临时文件的管理"></a>系统临时文件的管理</h2><ul>
+<li>  临时文件的存储位置：<code>/tmp/</code></li>
+<li>临时文件的配置文件：<code>/usr/lib/tmpfile.d/tmp.conf</code><ul>
+<li>  自定义清理文件<code>westos</code>：<code>d /mnt/westos 777 root root 5s</code></li>
+</ul>
+</li>
+<li>  生成文件的<code>systemd-tmpfiles --create /usr/lib/tmpfile.d/</code>读取目录里所有文件并按照其规则去建立</li>
+<li>  清理文件的<code>systemd-tmpfiles --clean /usr/lib/tmpfile.d/tmp.conf</code></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1/" rel="tag"># 延时任务</a>
+          
+            <a href="/tags/%E9%82%AE%E4%BB%B6%E7%AE%A1%E7%90%86/" rel="tag"># 邮件管理</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/11/13/Linux/09linux%E5%9F%BA%E7%A1%80/" rel="next" title="09 Linux基础知识--磁盘管理">
+                <i class="fa fa-chevron-left"></i> 09 Linux基础知识--磁盘管理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/11/13/Linux/07linux%E5%9F%BA%E7%A1%80/" rel="prev" title="07 Linux基础知识–-硬盘挂载&yum管理">
+                07 Linux基础知识–-硬盘挂载&yum管理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="" />
+          <p class="site-author-name" itemprop="name"></p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#08-Linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E2%80%93-%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1-amp-%E9%82%AE%E4%BB%B6%E7%AE%A1%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">08 Linux基础知识–-延时任务&amp;邮件管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#kickstart%E8%87%AA%E5%8A%A8%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F%E8%84%9A%E6%9C%AC"><span class="nav-number">1.1.</span> <span class="nav-text">kickstart自动安装系统脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1"><span class="nav-number">1.2.</span> <span class="nav-text">延时任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1"><span class="nav-number">1.3.</span> <span class="nav-text">定时任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E9%82%AE%E4%BB%B6"><span class="nav-number">1.4.</span> <span class="nav-text">查看邮件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6%E7%9A%84%E7%AE%A1%E7%90%86"><span class="nav-number">1.5.</span> <span class="nav-text">系统临时文件的管理</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhanghui</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" target="_blank" rel="noopener" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" target="_blank" rel="noopener" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

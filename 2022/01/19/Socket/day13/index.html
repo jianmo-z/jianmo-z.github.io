@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="epoll使用,select&poll&epoll," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="缄默" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="day13本章目标 epoll使用 epoll与select、poll区别 epoll LR&#x2F;ET模式  复习select和poll select  一个进程能打开的最大文件描述符个数是有限的 FD_SETSIZE的限制   poll  一个进程能打开的最大文件描述符个数是有限的，系统能打开的最大文件描述符个数是有限的，与系统内存有关cat &#x2F;proc&#x2F;sys&#x2F;fs&#x2F;file-max，查看系统能打">
+<meta property="og:type" content="article">
+<meta property="og:title" content="13 epoll相关函数、select、epoll和poll区别">
+<meta property="og:url" content="http://ainihu.github.io/2022/01/19/Socket/day13/index.html">
+<meta property="og:site_name" content="缄默">
+<meta property="og:description" content="day13本章目标 epoll使用 epoll与select、poll区别 epoll LR&#x2F;ET模式  复习select和poll select  一个进程能打开的最大文件描述符个数是有限的 FD_SETSIZE的限制   poll  一个进程能打开的最大文件描述符个数是有限的，系统能打开的最大文件描述符个数是有限的，与系统内存有关cat &#x2F;proc&#x2F;sys&#x2F;fs&#x2F;file-max，查看系统能打">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-19T05:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-19T13:19:37.307Z">
+<meta property="article:author" content="Zhanghui">
+<meta property="article:tag" content="epoll使用">
+<meta property="article:tag" content="select&amp;poll&amp;epoll">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ainihu.github.io/2022/01/19/Socket/day13/"/>
+
+
+
+
+
+  <title>13 epoll相关函数、select、epoll和poll区别 | 缄默</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">缄默</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2022/01/19/Socket/day13/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="缄默">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">13 epoll相关函数、select、epoll和poll区别</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-01-19T00:00:00-05:00">
+                2022-01-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Socket/" itemprop="url" rel="index">
+                    <span itemprop="name">Socket</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="day13"><a href="#day13" class="headerlink" title="day13"></a>day13</h1><h2 id="本章目标"><a href="#本章目标" class="headerlink" title="本章目标"></a>本章目标</h2><ul>
+<li><code>epoll</code>使用</li>
+<li><code>epoll</code>与<code>select</code>、<code>poll</code>区别</li>
+<li><code>epoll LR/ET</code>模式</li>
+</ul>
+<h2 id="复习select和poll"><a href="#复习select和poll" class="headerlink" title="复习select和poll"></a>复习select和poll</h2><ul>
+<li><p><code>select</code></p>
+<ul>
+<li>一个进程能打开的最大文件描述符个数是有限的</li>
+<li>FD_SETSIZE的限制</li>
+</ul>
+</li>
+<li><p><code>poll</code></p>
+<ul>
+<li><p>一个进程能打开的最大文件描述符个数是有限的，系统能打开的最大文件描述符个数是有限的，与系统内存有关<code>cat /proc/sys/fs/file-max</code>，查看系统能打开的最大的文件描述符的个数。</p>
+<blockquote>
+<p><code>ulimit -n num</code></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>共同点：</p>
+<blockquote>
+<p>内核需要遍历所有的文件描述符，直到找到发生事件的文件描述符。—&gt;提高效率点，<code>epoll</code>对此进行了优化</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="epoll相关函数"><a href="#epoll相关函数" class="headerlink" title="epoll相关函数"></a>epoll相关函数</h2><ul>
+<li><code>int epoll_create(int size);</code>//创建一个<code>epoll</code>实例,使用哈希表存储的,size是内部创建的哈希表大小</li>
+<li><code>int epoll_create1(int flags);</code>//同上,使用的是红黑数,所以不再需要指定大小了.—&gt;优先选择使用.</li>
+<li><code>int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event);</code>//把一个套接字添加到实例中,进行管理</li>
+<li><code>int epoll_wait(int epfd, struct epoll_event *events, int maxevents, int timeout);</code>//等待事件</li>
+</ul>
+<blockquote>
+<p><code>man 2 epoll_create</code></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">SYNOPSIS</span><br><span class="line">    #include &lt;sys/epoll.h&gt;</span><br><span class="line"></span><br><span class="line">    int epoll_create(int size);</span><br><span class="line">    int epoll_create1(int flags);</span><br><span class="line"></span><br><span class="line">DESCRIPTION</span><br><span class="line">	epoll_create()  creates  an  epoll(7)  instance.   Since  Linux 2.6.8, the size argument is ignored, but must be greater than zero; see NOTES below.</span><br><span class="line">	epoll_create() returns a file descriptor referring to the new epoll  instance.   This  file descriptor  is  used  for  all the subsequent calls to the epoll interface.  When no longer required, the file  descriptor  returned  by  epoll_create()  should  be  closed  by  using close(2).   When  all file descriptors referring to an epoll instance have been closed, the kernel destroys the instance and releases the associated resources for reuse.</span><br><span class="line"></span><br><span class="line">epoll_create1()</span><br><span class="line">	If flags is 0, then, other than the fact  that  the  obsolete  size  argument  is  dropped, epoll_create1()  is  the  same  as  epoll_create().  The following value can be included in flags to obtain different behavior:</span><br><span class="line"></span><br><span class="line">EPOLL_CLOEXEC</span><br><span class="line">	Set the close-on-exec (FD_CLOEXEC)  flag  on  the  new  file  descriptor.   See  the description of the O_CLOEXEC flag in open(2) for reasons why this may be useful.</span><br><span class="line"></span><br><span class="line">RETURN VALUE</span><br><span class="line">	On  success,  these  system  calls  return  a nonnegative file descriptor.  On error, -1 is returned, and errno is set to indicate the error.</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>man 2 epoll_ctl</code></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">SYNOPSIS</span><br><span class="line">       #include &lt;sys/epoll.h&gt;</span><br><span class="line"></span><br><span class="line">       int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event);</span><br><span class="line"></span><br><span class="line">DESCRIPTION</span><br><span class="line">       This system call performs control operations on the epoll(7) instance referred to by the file descriptor epfd.  It requests that the operation op be performed for the target file descriptor, fd.</span><br><span class="line"></span><br><span class="line">Valid values for the op argument are :</span><br><span class="line"></span><br><span class="line">EPOLL_CTL_ADD</span><br><span class="line">	Register the target file descriptor fd on the epoll instance referred to by the  file  descriptor epfd and associate the event event with the internal file linked to fd.</span><br><span class="line"></span><br><span class="line">EPOLL_CTL_MOD</span><br><span class="line">	Change the event event associated with the target file descriptor fd.</span><br><span class="line"></span><br><span class="line">EPOLL_CTL_DEL</span><br><span class="line">	Remove  (deregister)  the  target file descriptor fd from the epoll instance referred to by epfd. The event is ignored and can be NULL (but see BUGS below). The event argument describes the object linked to the file descriptor fd.   The  struct  epoll_event  is defined as :</span><br><span class="line">	</span><br><span class="line">    typedef union epoll_data &#123;</span><br><span class="line">        void        *ptr;</span><br><span class="line">        int          fd;</span><br><span class="line">        uint32_t     u32;</span><br><span class="line">        uint64_t     u64;</span><br><span class="line">    &#125; epoll_data_t;</span><br><span class="line"></span><br><span class="line">    struct epoll_event &#123;</span><br><span class="line">        uint32_t     events;      /* Epoll events */</span><br><span class="line">        epoll_data_t data;        /* User data variable */</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">//epoll_event成员events的参数</span><br><span class="line">The events member is a bit set composed using the following available event types:</span><br><span class="line"></span><br><span class="line">EPOLLIN</span><br><span class="line">	The associated file is available for read(2) operations.</span><br><span class="line"></span><br><span class="line">EPOLLOUT</span><br><span class="line">	The associated file is available for write(2) operations.</span><br><span class="line"></span><br><span class="line">EPOLLRDHUP (since Linux 2.6.17)</span><br><span class="line">	Stream  socket  peer  closed  connection, or shut down writing half of connection.  (This flag is especially useful for writing simple code to detect peer shutdown when using Edge Triggered monitoring.)</span><br><span class="line"></span><br><span class="line">EPOLLPRI</span><br><span class="line">	There is urgent data available for read(2) operations.</span><br><span class="line"></span><br><span class="line">EPOLLERR</span><br><span class="line">	Error  condition  happened on the associated file descriptor.  epoll_wait(2) will always wait for this event; it is not necessary to set it in events.</span><br><span class="line"></span><br><span class="line">EPOLLHUP</span><br><span class="line">	Hang up happened on the associated file descriptor.  epoll_wait(2)  will  always  wait  for  this event; it is not necessary to set it in events.</span><br><span class="line"></span><br><span class="line">EPOLLET</span><br><span class="line">	Sets  the  Edge  Triggered behavior for the associated file descriptor.  The default behavior for epoll is Level Triggered.  See epoll(7) for more detailed information about Edge and Level  Triggered event distribution architectures.</span><br><span class="line"></span><br><span class="line">EPOLLONESHOT (since Linux 2.6.2)</span><br><span class="line">	Sets the one-shot behavior for the associated file descriptor.  This means that after an event is pulled out with epoll_wait(2) the associated file descriptor is internally disabled and no  other events  will  be  reported  by  the  epoll  interface.   The  user  must  call  epoll_ctl()  with EPOLL_CTL_MOD to rearm the file descriptor with a new event mask.</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p><code>man 2 epoll_wait</code></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">SYNOPSIS</span><br><span class="line">	#include &lt;sys/epoll.h&gt;</span><br><span class="line"></span><br><span class="line">	int epoll_wait(int epfd, struct epoll_event *events, int maxevents, int timeout);</span><br><span class="line">	int epoll_pwait(int epfd, struct epoll_event *events,int maxevents, int timeout, const sigset_t *sigmask);</span><br><span class="line"></span><br><span class="line">DESCRIPTION</span><br><span class="line">	The  epoll_wait()  system call waits for events on the epoll(7) instance referred to by the file descriptor epfd.  The memory area pointed to by events will contain  the  events  that will  be available for the caller.  Up to maxevents are returned by epoll_wait().  The maxevents argument must be greater than zero.</span><br><span class="line"></span><br><span class="line">	The timeout argument specifies the minimum number of milliseconds  that  epoll_wait()  will block.   (This  interval  will  be  rounded  up to the system clock granularity, and kernel scheduling delays mean that the blocking interval may overrun by a small amount.)  Specifying  a  timeout of -1 causes epoll_wait() to block indefinitely, while specifying a timeout equal to zero cause epoll_wait() to return immediately, even if no events are available.</span><br><span class="line"></span><br><span class="line">The struct epoll_event is defined as :</span><br><span class="line"></span><br><span class="line">    typedef union epoll_data &#123;</span><br><span class="line">        void    *ptr;</span><br><span class="line">        int      fd;</span><br><span class="line">        uint32_t u32;</span><br><span class="line">        uint64_t u64;</span><br><span class="line">    &#125; epoll_data_t;</span><br><span class="line"></span><br><span class="line">    struct epoll_event &#123;</span><br><span class="line">        uint32_t     events;    /* Epoll events */</span><br><span class="line">        epoll_data_t data;      /* User data variable */</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">	The data of each returned structure will contain  the  same  data  the  user  set  with  an epoll_ctl(2)  (EPOLL_CTL_ADD,EPOLL_CTL_MOD)  while  the  events  member  will  contain  the returned event bit field.</span><br></pre></td></tr></table></figure>
+
+<h2 id="epoll实现并发服务器—-gt-优"><a href="#epoll实现并发服务器—-gt-优" class="headerlink" title="epoll实现并发服务器—&gt;优"></a>epoll实现并发服务器—&gt;优</h2><blockquote>
+<p><code>epoll</code>实现服务器会占用五个套接字，<code>标准输入</code>、<code>标准输出</code>、<code>标准错误</code>、<code>服务器监听套接字</code>和<code>epoll的句柄</code>。剩下的，所以当进程的``最大套接字的个数 - 5<code>，就是</code>epoll<code>可以连接的最大客户端个数了。</code>epoll<code>比</code>poll`效率要高。 </p>
+<p><font size="5"><a href="./epollsrv.md">点击查看epollsrv代码</a></font></p>
+</blockquote>
+<h2 id="epoll、select和poll的区别"><a href="#epoll、select和poll的区别" class="headerlink" title="epoll、select和poll的区别"></a>epoll、select和poll的区别</h2><ul>
+<li><p>相比于<code>select</code>与<code>poll</code>、<code>epoll</code>最大的好处载于它不会随着监听套接字<code>fd</code>数目的增多而降低效率。</p>
+</li>
+<li><p>内核中的<code>select</code>与<code>poll</code>的实现是采用轮询来处理的，轮询的<code>fd</code>数目越多，自然消耗时间越长</p>
+</li>
+<li><p><code>epoll</code>的实现是基于回调的，如果<code>fd</code>有期望的事件发生就通过回调函数将其加入<code>epoll</code>就绪队列中，也就是说它只关心<code>活跃</code>的fd，与<code>fd</code>的数目无关。</p>
+</li>
+<li><p><code>内核/用户空间</code> 内存拷贝问题，如何让内核把<code>fd</code>消息通知给用户空间呢？</p>
+<blockquote>
+<p>在这个问题上<code>select/poll</code>采用了内存拷贝方法，而<code>epoll</code>采用了共享内存的方法。</p>
+</blockquote>
+</li>
+<li><p><code>epoll</code>不仅会告诉应用程序有<code>I/O</code>事件，还会告诉应用程序相关的信息，这些信息是应用程序填充的，因此根据这些信息应用程序就能直接定位到事件，而不必遍历整个<code>fd</code>集合了。</p>
+</li>
+</ul>
+<blockquote>
+<p>学后感！！！</p>
+<p>个人感觉<code>epoll</code>的机制和<code>Qt的信号和槽</code>的处理机制很有共同点，这里说的是思想方面，不是底层代码的实现和一些细节性的问题，比如说Qt的信号和槽的设计思想，当有信号时，才会去调用槽(槽就是一回调函数的，入口指针)，节省了不停的轮巡遍历的操作，大大节省了CPU和内存的资源，因为你活跃起来了我再去处理你，否则的话，你就老老实实的待在哪里等信号。个人观点如有理解错误，请多多包含，同时希望可以指正。</p>
+</blockquote>
+<p>##epoll LT/ET模式</p>
+<ul>
+<li><code>EPOLLLT</code>：电平触发模式</li>
+<li><code>EPOLLET</code>：边沿触发模式，效率高。</li>
+</ul>
+<h2 id="EPOLLLT模式"><a href="#EPOLLLT模式" class="headerlink" title="EPOLLLT模式"></a>EPOLLLT模式</h2><blockquote>
+<p>电平/水平触发模式，完全靠<code>kernel epoll</code>驱动，应用程序只需要处理从<code>epoll_wait</code>返回的fds，这些<code>fds</code>我们认为它们处于就绪状态</p>
+</blockquote>
+<h2 id="EPOLLET模式"><a href="#EPOLLET模式" class="headerlink" title="EPOLLET模式"></a>EPOLLET模式</h2><blockquote>
+<p>边沿触发模式，是一把双刃剑，如果处理不当可能会导致效率不如，<code>LT模式</code>。如果需要高效率，则程序员则需要更高的要求，来维护<code>ET模式</code></p>
+<p>​    此模式下，系统仅通知应用程序那些<code>fds</code>变成了就绪状态，一旦<code>fd</code>变成就绪状态，<code>epoll</code>将不再关注这个<code>fd</code>的任何状态信息(从<code>epoll</code>队列中移除)，直到应用程序通过读写操作触发<code>EAGAIN</code>状态，<code>epoll</code>认为这个<code>fd</code>又变为空闲状态，那么<code>epoll</code>又重新关注这个<code>fd</code>的状态变话(添加到<code>epoll</code>队列中)</p>
+<p>​    随着<code>epoll_wait</code>的返回，队列中的<code>fds</code>是在减少的，所以在大并发的系统中，<code>EPOLLET</code>模式更具有优势，但是对程序员的要求也变高了。（emmm， 这是什么鬼啊），程序员需要对程序维护，避免读取一部分数据后剩下数据无法读出导致阻塞。</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/epoll%E4%BD%BF%E7%94%A8/" rel="tag"># epoll使用</a>
+          
+            <a href="/tags/select-poll-epoll/" rel="tag"># select&poll&epoll</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/01/19/Socket/day14/" rel="next" title="14 UDP服务器">
+                <i class="fa fa-chevron-left"></i> 14 UDP服务器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/01/19/Socket/day12/" rel="prev" title="12 select函数&getrlimit&setrlimit&poll函数">
+                12 select函数&getrlimit&setrlimit&poll函数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="" />
+          <p class="site-author-name" itemprop="name"></p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#day13"><span class="nav-number">1.</span> <span class="nav-text">day13</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E7%AB%A0%E7%9B%AE%E6%A0%87"><span class="nav-number">1.1.</span> <span class="nav-text">本章目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E4%B9%A0select%E5%92%8Cpoll"><span class="nav-number">1.2.</span> <span class="nav-text">复习select和poll</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#epoll%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.</span> <span class="nav-text">epoll相关函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#epoll%E5%AE%9E%E7%8E%B0%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E2%80%94-gt-%E4%BC%98"><span class="nav-number">1.4.</span> <span class="nav-text">epoll实现并发服务器—&gt;优</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#epoll%E3%80%81select%E5%92%8Cpoll%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.5.</span> <span class="nav-text">epoll、select和poll的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EPOLLLT%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.6.</span> <span class="nav-text">EPOLLLT模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EPOLLET%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.7.</span> <span class="nav-text">EPOLLET模式</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhanghui</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" target="_blank" rel="noopener" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" target="_blank" rel="noopener" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

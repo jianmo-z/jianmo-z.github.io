@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="僵尸进程,SIGCHLD信号," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="缄默" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="day06参考链接： https:&#x2F;&#x2F;www.cnblogs.com&#x2F;yuxingfirst&#x2F;p&#x2F;3165407.html 本章目标 TCP回射客户&#x2F;服务器  TCP是个流协议  僵尸进程与SIGCHLD信号   TCP是一个流协议 TCP是基于字节流传输的，只维护发送出去多少，确认收到了多少，没有维护消息与消息之间的边界，因而可能导致粘包问题，所以需要自己维护。 粘包问题解决方法是在应用层维护消">
+<meta property="og:type" content="article">
+<meta property="og:title" content="06 TCP回射C&#x2F;S&amp;僵尸进程&amp;SIGCHLD信号">
+<meta property="og:url" content="http://ainihu.github.io/2022/01/19/Socket/day06/index.html">
+<meta property="og:site_name" content="缄默">
+<meta property="og:description" content="day06参考链接： https:&#x2F;&#x2F;www.cnblogs.com&#x2F;yuxingfirst&#x2F;p&#x2F;3165407.html 本章目标 TCP回射客户&#x2F;服务器  TCP是个流协议  僵尸进程与SIGCHLD信号   TCP是一个流协议 TCP是基于字节流传输的，只维护发送出去多少，确认收到了多少，没有维护消息与消息之间的边界，因而可能导致粘包问题，所以需要自己维护。 粘包问题解决方法是在应用层维护消">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-19T05:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-19T13:19:37.306Z">
+<meta property="article:author" content="Zhanghui">
+<meta property="article:tag" content="僵尸进程">
+<meta property="article:tag" content="SIGCHLD信号">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ainihu.github.io/2022/01/19/Socket/day06/"/>
+
+
+
+
+
+  <title>06 TCP回射C/S&僵尸进程&SIGCHLD信号 | 缄默</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">缄默</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2022/01/19/Socket/day06/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="缄默">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">06 TCP回射C/S&僵尸进程&SIGCHLD信号</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-01-19T00:00:00-05:00">
+                2022-01-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Socket/" itemprop="url" rel="index">
+                    <span itemprop="name">Socket</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="day06"><a href="#day06" class="headerlink" title="day06"></a>day06</h1><p>参考链接：</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yuxingfirst/p/3165407.html">https://www.cnblogs.com/yuxingfirst/p/3165407.html</a></p>
+<h2 id="本章目标"><a href="#本章目标" class="headerlink" title="本章目标"></a>本章目标</h2><ul>
+<li><p><code>TCP</code>回射客户/服务器</p>
+</li>
+<li><p><code>TCP</code>是个流协议</p>
+</li>
+<li><p>僵尸进程与<code>SIGCHLD</code>信号</p>
+</li>
+</ul>
+<h2 id="TCP是一个流协议"><a href="#TCP是一个流协议" class="headerlink" title="TCP是一个流协议"></a>TCP是一个流协议</h2><ul>
+<li><code>TCP</code>是<strong>基于字节流传输的</strong>，只维护发送出去多少，确认收到了多少，没有维护消息与消息之间的边界，因而可能<strong>导致粘包问题</strong>，所以需要自己维护。</li>
+<li>粘包问题解决方法是<strong>在应用层维护消息边界</strong>。<ul>
+<li>粘包问题<ul>
+<li>定长包</li>
+<li>使用<code>\n</code>作为区分消息和消息的边界</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="僵尸进程的避免"><a href="#僵尸进程的避免" class="headerlink" title="僵尸进程的避免"></a>僵尸进程的避免</h2><blockquote>
+<p>僵尸进程：子进程死后，父进程未给子进程收尸，即父进程未回收子进程的资源</p>
+<p>孤儿进程：父进程先于子进程死亡，子进程没有了父进程，成为了孤儿进程，而<code>linux</code>操作系统有一个孤儿院，进程<code>ID为1的进程</code>，会成为孤儿进程的父进程，使孤儿进程的资源可以让父进程回收</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[pip@localhost code]$ ps -ef | grep echosrv</span><br><span class="line">pip       4213  4145  0 17:40 pts/1    00:00:00 vim echosrv.c</span><br><span class="line">pip       5237  4240  0 18:11 pts/2    00:00:00 ./echosrv</span><br><span class="line">pip       5240  5237  0 18:11 pts/2    00:00:00 [echosrv] &lt;defunct&gt;</span><br><span class="line">pip       5245  4289  0 18:11 pts/3    00:00:00 grep --color=auto echosrv</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>第三行即为僵尸进程。</p>
+</blockquote>
+<ul>
+<li><code>SIGCHLD</code>信号</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">singal(SIGCHLD, SIG_IGN)；//忽略SIGCHLD信号</span><br><span class="line">signal(SIGCHLD, handle_signld);//捕捉SIGCHLD信号，并对其进行处理，handle_signld是一个函数指针，用来处理SIGCHLD信号，返回值为零，参数为int型</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>wait()</code>函数</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;sys/types.h&gt;</span><br><span class="line">#include &lt;sys/wait.h&gt;</span><br><span class="line"></span><br><span class="line">pid_t wait(int *status);</span><br><span class="line">pid_t waitpid(pid_t pid, int *status, int options);</span><br><span class="line">int waitid(idtype_t idtype, id_t id, siginfo_t *infop, int options);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>pid_t wait(int *status);</code>获取子进程的状态，传入<code>NULL</code>即为不关心子进程状态。</p>
+</blockquote>
+<ul>
+<li><p>第一种处理结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip       4213  4145  0 17:40 pts/1    00:00:01 vim echosrv.c</span><br><span class="line">pip       5378  4240  0 18:13 pts/2    00:00:00 ./echosrv</span><br><span class="line">pip       5386  4289  0 18:13 pts/3    00:00:00 grep --color=auto echosrv</span><br></pre></td></tr></table></figure></li>
+<li><p>第二种处理结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip       4213  4145  0 17:40 pts/1    00:00:01 vim echosrv.c</span><br><span class="line">pip       5446  4240  0 18:15 pts/2    00:00:00 ./echosrv</span><br><span class="line">pip       5454  4289  0 18:15 pts/3    00:00:00 grep --color=auto echosrv</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>由上两种处理结果发现僵尸进程都不存在了，则使用``SIGCHLD`可以避免僵尸进程的出现。</p>
+</blockquote>
+<blockquote>
+<p>如果有多个子进程那么就会出现问题，<code>wait</code>只会处理第一个返回的子进程，然后返回，如果需要处理多个子进程需要使用<code>waitpid</code>等待指定的只进程返回。</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="http://39.106.165.33/#!./blog/C/3.C%E8%AF%AD%E8%A8%80%E7%9A%84%E5%A4%9A%E8%BF%9B%E7%A8%8B.md">点击查看相关博客</a></p>
+</li>
+</ul>
+<h2 id="多个子进程的僵尸进程处理"><a href="#多个子进程的僵尸进程处理" class="headerlink" title="多个子进程的僵尸进程处理"></a>多个子进程的僵尸进程处理</h2><blockquote>
+<p>如果有多个子进程的话，上述两种方式都可能会产生僵尸进程，相信如果是第一种情况对于多个子进程处理是肯定有僵尸进程的，因为<code>wait</code>只等待一个子进程就退出了，<strong>而虽然<code>waitpid</code>可以等待多个子进程，但是如果子进程同时发送<code>SIGCHLD</code>信号，那么父进程可能不能接收到子进程的<code>SIGCHLD</code>信号，导致不能对子进程的资源进行回收。使子进程成为了僵尸进程。</strong></p>
+</blockquote>
+<ul>
+<li><p>更加好的回收的子进程资源的方式出现了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">void signal_handle(int sign)</span><br><span class="line">&#123;</span><br><span class="line">	//wait(NULL);//只接受一个子进程的的SIGCHLD然后直接返回</span><br><span class="line">	//waitpid(-1, NULL, WNOHANG);//可能会有僵尸进程的存在，因为进程发送了SIGCHLD信号但是没有接收到，无法处理导致了僵尸进程的存在</span><br><span class="line">	while(waitpid(-1, NULL, WNOHANG) &gt; 0);//如果没有子进程退出循环,彻底避免僵尸进程</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>RETURN VALUE//返回值</strong></p>
+<pre><code>  **wait():** on success, returns the process ID of the terminated child; on error, -1 is returned.
+  **waitpid():**  on  success, returns the process ID of the child whose state has changed; if WNOHANG was specified and one or more child(ren) specified by pid exist, but have not yet changed state, then 0 is returned.  On error, -1 is returned.
+</code></pre>
+</blockquote>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B/" rel="tag"># 僵尸进程</a>
+          
+            <a href="/tags/SIGCHLD%E4%BF%A1%E5%8F%B7/" rel="tag"># SIGCHLD信号</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/01/19/Socket/day07/" rel="next" title="07 TCP的11种状态、SIGPIPE信号">
+                <i class="fa fa-chevron-left"></i> 07 TCP的11种状态、SIGPIPE信号
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/01/19/Socket/day05/" rel="prev" title="05 readline实现、get*name系列函数">
+                05 readline实现、get*name系列函数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="" />
+          <p class="site-author-name" itemprop="name"></p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#day06"><span class="nav-number">1.</span> <span class="nav-text">day06</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E7%AB%A0%E7%9B%AE%E6%A0%87"><span class="nav-number">1.1.</span> <span class="nav-text">本章目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP%E6%98%AF%E4%B8%80%E4%B8%AA%E6%B5%81%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.2.</span> <span class="nav-text">TCP是一个流协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E7%9A%84%E9%81%BF%E5%85%8D"><span class="nav-number">1.3.</span> <span class="nav-text">僵尸进程的避免</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E4%B8%AA%E5%AD%90%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E5%A4%84%E7%90%86"><span class="nav-number">1.4.</span> <span class="nav-text">多个子进程的僵尸进程处理</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhanghui</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" target="_blank" rel="noopener" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" target="_blank" rel="noopener" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

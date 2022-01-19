@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="socket," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="缄默" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="day11本章目标 套接字I&#x2F;O超时设置方法 用select实现超时 read_timeout函数封装 write_timeout函数封装 accept_timeout函数封装 connect_timeout函数封装    套接字I&#x2F;O超时设置方法 一共有三种方法   alarm：闹钟定时 套接字选项：移植性比较差 SO_SNDTIMEO SO_RCVTIMEO   select：优  用sele">
+<meta property="og:type" content="article">
+<meta property="og:title" content="11 套接字IO超时设置&amp;errno&amp;fcntl&amp;getsockopt">
+<meta property="og:url" content="http://ainihu.github.io/2022/01/19/Socket/day11/index.html">
+<meta property="og:site_name" content="缄默">
+<meta property="og:description" content="day11本章目标 套接字I&#x2F;O超时设置方法 用select实现超时 read_timeout函数封装 write_timeout函数封装 accept_timeout函数封装 connect_timeout函数封装    套接字I&#x2F;O超时设置方法 一共有三种方法   alarm：闹钟定时 套接字选项：移植性比较差 SO_SNDTIMEO SO_RCVTIMEO   select：优  用sele">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-19T05:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-19T13:19:37.307Z">
+<meta property="article:author" content="Zhanghui">
+<meta property="article:tag" content="socket">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ainihu.github.io/2022/01/19/Socket/day11/"/>
+
+
+
+
+
+  <title>11 套接字IO超时设置&errno&fcntl&getsockopt | 缄默</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">缄默</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ainihu.github.io/2022/01/19/Socket/day11/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="缄默">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">11 套接字IO超时设置&errno&fcntl&getsockopt</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-01-19T00:00:00-05:00">
+                2022-01-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Socket/" itemprop="url" rel="index">
+                    <span itemprop="name">Socket</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="day11"><a href="#day11" class="headerlink" title="day11"></a>day11</h1><h2 id="本章目标"><a href="#本章目标" class="headerlink" title="本章目标"></a>本章目标</h2><ul>
+<li>套接字<code>I/O</code>超时设置方法</li>
+<li>用<code>select</code>实现超时<ul>
+<li><code>read_timeout</code>函数封装</li>
+<li><code>write_timeout</code>函数封装</li>
+<li><code>accept_timeout</code>函数封装</li>
+<li><code>connect_timeout</code>函数封装</li>
+</ul>
+</li>
+</ul>
+<h2 id="套接字I-O超时设置方法"><a href="#套接字I-O超时设置方法" class="headerlink" title="套接字I/O超时设置方法"></a>套接字I/O超时设置方法</h2><blockquote>
+<p>一共有三种方法</p>
+</blockquote>
+<ul>
+<li><code>alarm</code>：闹钟定时</li>
+<li>套接字选项：移植性比较差<ul>
+<li><code>SO_SNDTIMEO</code></li>
+<li><code>SO_RCVTIMEO</code></li>
+</ul>
+</li>
+<li><code>select</code>：<strong>优</strong></li>
+</ul>
+<h2 id="用select实现超时"><a href="#用select实现超时" class="headerlink" title="用select实现超时"></a>用select实现超时</h2><blockquote>
+<p>自定义<code>read_timeout</code>、<code>write_timeout</code>、<code>accept_timeout</code>和<code>connect_timeout</code>函数对<code>select</code>函数进行了封装，所需要参数为<code>文件描述符</code>和<code>时间长度</code></p>
+</blockquote>
+<blockquote>
+<p>   int select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout);</p>
+<p>   The timeout<br>       The time structures involved are defined in &lt;sys/time.h&gt; and look like</p>
+<pre><code>   struct timeval &#123;
+       long    tv_sec;         /* seconds */
+       long    tv_usec;        /* microseconds */
+   &#125;;
+</code></pre>
+<p>   and</p>
+<pre><code>   struct timespec &#123;
+       long    tv_sec;         /* seconds */
+       long    tv_nsec;        /* nanoseconds */
+   &#125;;
+</code></pre>
+</blockquote>
+<p>##errno.h头文件</p>
+<blockquote>
+<p>里面设置了很多的错误信息，可以通过错误信息来对函数的成功与否，以及错误原因进行详细的接收。</p>
+<p>参考文档：</p>
+<p>​    <a target="_blank" rel="noopener" href="http://blog.163.com/wangxun_2233/blog/static/5511009120094795756775">http://blog.163.com/wangxun_2233/blog/static/5511009120094795756775</a></p>
+<p>这个博客写的很详细，不过这个没必须记，会查就行了</p>
+</blockquote>
+<h2 id="getsockopt函数"><a href="#getsockopt函数" class="headerlink" title="getsockopt函数"></a>getsockopt函数</h2><blockquote>
+<p>参考文档：</p>
+<p>​    <a target="_blank" rel="noopener" href="https://blog.csdn.net/daiyudong2020/article/details/51893399">https://blog.csdn.net/daiyudong2020/article/details/51893399</a></p>
+<p><code>level</code>：设置为<code>SOL_SOCKET</code>和<code>IPPROTO_TCP</code>，详情参考上面的链接，一般设置为<code>SOL_SOCKET</code>。</p>
+<p><code>optname</code>：参数<code>SO_ERROR</code>获取待处理错误并清除。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">NAME</span><br><span class="line">       getsockopt, setsockopt - get and set options on sockets</span><br><span class="line"></span><br><span class="line">SYNOPSIS</span><br><span class="line">       #include &lt;sys/types.h&gt;          /* See NOTES */</span><br><span class="line">       #include &lt;sys/socket.h&gt;</span><br><span class="line"></span><br><span class="line">       int getsockopt(int sockfd, int level, int optname,</span><br><span class="line">                      void *optval, socklen_t *optlen);</span><br><span class="line">       int setsockopt(int sockfd, int level, int optname,</span><br><span class="line">                      const void *optval, socklen_t optlen);</span><br><span class="line"></span><br><span class="line">DESCRIPTION</span><br><span class="line">	getsockopt()  and setsockopt() manipulate options for the socket referred to by the file descriptor sockfd.  Options may exist at multiple protocol levels; they are always present at the uppermost socket level.</span><br><span class="line">	When manipulating socket options, the level at which the option resides and the name of the option  must  be  specified.   To  manipulate options at the sockets API level, level is specified as SOL_SOCKET.  To manipulate options at any other level the protocol number of the appropriate protocol controlling the option is supplied.  For example, to indicate that an option is to be interpreted by the TCP protocol, level should be set to the protocol number of TCP; see getprotoent(3).</span><br><span class="line">	The arguments optval and optlen are used to access option values for setsockopt().  For getsockopt() they identify a buffer  in  which  the  value  for the requested option(s) are to be returned.  For getsockopt(), optlen is a valueresult argument, initially containing the size of the buffer pointed to by optval, and modified on return  to  indicate the actual size of the value returned.  If no option value is to be supplied or returned, optval may be NULL.</span><br><span class="line">	Optname  and  any  specified options are passed uninterpreted to the appropriate protocol module for interpretation. The include file &lt;sys/socket.h&gt; contains definitions for socket level options, described below.   Options  at  other protocol levels vary in format and name; consult the appropriate entries in section 4 of the manual.</span><br><span class="line">	Most  socket-level  options utilize an int argument for optval.  For setsockopt(), the argument should be nonzero to enable a boolean option, or zero if the option is to be disabled.</span><br><span class="line">	For a description of the available socket options see socket(7) and the appropriate protocol man pages.</span><br><span class="line"></span><br><span class="line">RETURN VALUE</span><br><span class="line">	On success, zero is returned.  On error, -1 is returned, and errno is set appropriately.</span><br></pre></td></tr></table></figure>
+
+<h2 id="一个函数fcntl"><a href="#一个函数fcntl" class="headerlink" title="一个函数fcntl"></a>一个函数fcntl</h2><blockquote>
+<p>参考文档：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/fengxinlinux/article/details/51980837">https://blog.csdn.net/fengxinlinux/article/details/51980837</a></p>
+<p><code>fcntl</code>函数，<code>man 3 fcntl</code>，<code>fcntl</code>可实现对指定文件描述符的各种操作</p>
+<p>以下为该函数的<code>man手册</code>的说明，如果看不懂请到上面的连接中去学习该函数，我觉得上面的博客已经写的还不错吧，而且我的英语不太好，所以我就不卖弄自己垃圾的英语了… …。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">ROLOG</span><br><span class="line">       This  manual  page  is part of the POSIX Programmer&#x27;s Manual.  The Linux implementation of this interface may differ</span><br><span class="line">       (consult the corresponding Linux manual page for details of Linux behavior), or the interface may not be implemented</span><br><span class="line">       on Linux.</span><br><span class="line"></span><br><span class="line">NAME</span><br><span class="line">       fcntl - file control</span><br><span class="line"></span><br><span class="line">SYNOPSIS</span><br><span class="line">       #include &lt;unistd.h&gt;</span><br><span class="line">       #include &lt;fcntl.h&gt;</span><br><span class="line"></span><br><span class="line">       int fcntl(int fildes, int cmd, ...);</span><br><span class="line"></span><br><span class="line">DESCRIPTION</span><br><span class="line">       The  fcntl()  function  shall  perform  the  operations described below on open files. The fildes argument is a file</span><br><span class="line">       descriptor.</span><br><span class="line"></span><br><span class="line">       The available values for cmd are defined in &lt;fcntl.h&gt; and are as follows:</span><br><span class="line"></span><br><span class="line">F_DUPFD//复制文件描述符</span><br><span class="line">	Return a new file descriptor which shall be the lowest numbered available (that is, not  already  open)  file descriptor  greater  than  or equal to the third argument, arg, taken as an integer of type int. The new file descriptor shall refer to the same open file description as the original file descriptor, and shall share any locks.  The  FD_CLOEXEC  flag  associated with the new file descriptor shall be cleared to keep the file open across calls to one of the exec functions.</span><br><span class="line"></span><br><span class="line">F_GETFD//获取文件描述符</span><br><span class="line">	Get the file descriptor flags defined in &lt;fcntl.h&gt; that are associated with the file descriptor fildes.  File descriptor  flags  are associated with a single file descriptor and do not affect other file descriptors that refer to the same file.</span><br><span class="line"></span><br><span class="line">F_SETFD//设置文件描述符</span><br><span class="line">	Set the file descriptor flags defined in &lt;fcntl.h&gt;, that are associated with fildes, to the  third  argument, arg,  taken as type int. If the FD_CLOEXEC flag in the third argument is 0, the file shall remain open across the exec functions; otherwise, the file shall be closed upon successful execution of one of  the  exec  func‐ tions.</span><br><span class="line"></span><br><span class="line">F_GETFL//获取文件状态标志</span><br><span class="line">	Get  the  file  status flags and file access modes, defined in &lt;fcntl.h&gt;, for the file description associated with fildes. The file access modes can be extracted from the return value using the mask O_ACCMODE, which  is defined in &lt;fcntl.h&gt;. File status flags and file access modes are associated with the file description and do not affect other file descriptors that refer to the same file with different open file descriptions.</span><br><span class="line"></span><br><span class="line">F_SETFL//设置文件状态标志</span><br><span class="line">	Set the file status flags, defined in &lt;fcntl.h&gt;, for the file description associated  with  fildes  from  the corresponding  bits in the third argument, arg, taken as type int. Bits corresponding to the file access mode and the file creation flags, as defined in &lt;fcntl.h&gt;, that are set in arg shall be ignored. If  any  bits  in arg other than those mentioned here are changed by the application, the result is unspecified.</span><br><span class="line"></span><br><span class="line">F_GETOWN//获取当前接收SIGIO和SIGURG信号的进程嗯IO和进程组ID</span><br><span class="line">	If  fildes  refers  to a socket, get the process or process group ID specified to receive SIGURG signals when out-of-band data is available. Positive values indicate a process ID; negative values, other than  -1,  indi‐cate a process group ID. If fildes does not refer to a socket, the results are unspecified.</span><br><span class="line"></span><br><span class="line">F_SETOWN//设置当前接收SIGIO和SIGURG信号的进程嗯IO和进程组ID</span><br><span class="line">        If  fildes  refers  to a socket, set the process or process group ID specified to receive SIGURG signals when out-of-band data is available, using the value of the third argument, arg, taken as type int. Positive values indicate  a process ID; negative values, other than -1, indicate a process group ID. If fildes does not refer to a socket, the results are unspecified.</span><br><span class="line"></span><br><span class="line">       The following values for cmd are available for advisory record locking. Record locking shall be supported for  regular files, and may be supported for other files.</span><br><span class="line">      </span><br><span class="line">F_GETLK//获取文件锁</span><br><span class="line">	Get  the  first  lock  which  blocks  the  lock description pointed to by the third argument, arg, taken as a pointer to type struct flock, defined in &lt;fcntl.h&gt;. The information retrieved shall overwrite the information passed  to  fcntl()  in the structure flock. If no lock is found that would prevent this lock from being created, then the structure shall be left unchanged except for the lock type which shall be set to F_UNLCK.</span><br><span class="line"></span><br><span class="line">F_SETLK//设置文件锁</span><br><span class="line">	Set or clear a file segment lock according to the lock description pointed to by  the  third  argument,  arg, taken  as  a pointer to type struct flock, defined in &lt;fcntl.h&gt;. F_SETLK can establish shared (or read) locks (F_RDLCK) or exclusive (or write) locks (F_WRLCK), as well as  to  remove  either  type  of  lock  (F_UNLCK). F_RDLCK, F_WRLCK, and F_UNLCK are defined in &lt;fcntl.h&gt;.  If a shared or exclusive lock cannot be set, fcntl() shall return immediately with a return value of -1.</span><br><span class="line"></span><br><span class="line">F_SETLKW//与F_SETLK设置文件锁类似，不过等待返回</span><br><span class="line">	This command shall be equivalent to F_SETLK except that if a shared or exclusive lock  is  blocked  by  other locks, the thread shall wait until the request can be satisfied. If a signal that is to be caught is received while fcntl() is waiting for a region, fcntl() shall be interrupted. Upon return  from  the  signal  handler, fcntl() shall return -1 with errno set to [EINTR], and the lock operation shall not be done.</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="read-timeout函数封装"><a href="#read-timeout函数封装" class="headerlink" title="read_timeout函数封装"></a>read_timeout函数封装</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">int read_timeout(int fd, unsinged int wait_seconds)</span><br><span class="line">&#123;</span><br><span class="line">        int ret = 0;</span><br><span class="line">        if(wait_seconds &gt; 0)</span><br><span class="line">        &#123;</span><br><span class="line">                fd_set rset;</span><br><span class="line">                FD_ZERO(&amp;rset);</span><br><span class="line">                FD_SET(fd, &amp;rset);//把fd添加到集合当中</span><br><span class="line">                struct timeval time;</span><br><span class="line">                time.tv_sec = wait_seconds;</span><br><span class="line">                time_tv_usec = 0;</span><br><span class="line">                do</span><br><span class="line">                &#123;       //超时检测，时间到了，却未发生可读事件，返回0</span><br><span class="line">                        ret = select(fd + 1, &amp;rset, NULL, NULL, &amp;timeout);</span><br><span class="line">                &#125;while(ret &lt; 0 &amp;&amp; errno == EINTR);//中断后重启</span><br><span class="line">                //如果ret &lt; 0 则说明select函数是被中断的</span><br><span class="line">                //errno是记录程序的最后一次错误代码</span><br><span class="line">                //EINTR:当阻塞于某个慢系统调用的一个进程捕获某个信号且相应信号处理函数返回时，该系统调用可能返回一个EINTR错误。（查看网络编程的day09）</span><br><span class="line">                if(ret == 0)</span><br><span class="line">                &#123;</span><br><span class="line">                        ret = -1;</span><br><span class="line">                        errno = ETIMEOUT;</span><br><span class="line">                &#125;</span><br><span class="line">                else if(ret == 1)</span><br><span class="line">                &#123;</span><br><span class="line">                        ret = 1;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="剩下三个函数的封装"><a href="#剩下三个函数的封装" class="headerlink" title="剩下三个函数的封装"></a>剩下三个函数的封装</h2><blockquote>
+<p>剩下的三个函数的封装在下载文件中，<code>write_timeout</code>和<code>read_timeout</code>类似，其他两个有所不同</p>
+</blockquote>
+<p><a href="./Download/day11.tar.gz"><font color="red" size="4"> 点击下载源文件</font></a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/socket/" rel="tag"># socket</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/01/19/Socket/day12/" rel="next" title="12 select函数&getrlimit&setrlimit&poll函数">
+                <i class="fa fa-chevron-left"></i> 12 select函数&getrlimit&setrlimit&poll函数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/01/19/Socket/day10/" rel="prev" title="10 close和shutdown函数">
+                10 close和shutdown函数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="" />
+          <p class="site-author-name" itemprop="name"></p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#day11"><span class="nav-number">1.</span> <span class="nav-text">day11</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E7%AB%A0%E7%9B%AE%E6%A0%87"><span class="nav-number">1.1.</span> <span class="nav-text">本章目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A5%97%E6%8E%A5%E5%AD%97I-O%E8%B6%85%E6%97%B6%E8%AE%BE%E7%BD%AE%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">套接字I&#x2F;O超时设置方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8select%E5%AE%9E%E7%8E%B0%E8%B6%85%E6%97%B6"><span class="nav-number">1.3.</span> <span class="nav-text">用select实现超时</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#getsockopt%E5%87%BD%E6%95%B0"><span class="nav-number">1.4.</span> <span class="nav-text">getsockopt函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0fcntl"><span class="nav-number">1.5.</span> <span class="nav-text">一个函数fcntl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#read-timeout%E5%87%BD%E6%95%B0%E5%B0%81%E8%A3%85"><span class="nav-number">1.6.</span> <span class="nav-text">read_timeout函数封装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%A9%E4%B8%8B%E4%B8%89%E4%B8%AA%E5%87%BD%E6%95%B0%E7%9A%84%E5%B0%81%E8%A3%85"><span class="nav-number">1.7.</span> <span class="nav-text">剩下三个函数的封装</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhanghui</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" target="_blank" rel="noopener" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" target="_blank" rel="noopener" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
