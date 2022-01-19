@@ -329,31 +329,6 @@
           <li>
             
             <div class="item-thumb">
-              <a href="/2022/01/19/Socket/day01/" class="thumb">
-    
-    
-        <span class="thumb-image thumb-none"></span>
-    
-</a>
-
-            </div>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/Socket/">Socket</a>
-              </p>
-              <p class="item-title">
-                <a href="/2022/01/19/Socket/day01/" class="title">01 socket 字节序&amp;地址转换函数&amp;套接字类型</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2022-01-19T05:00:00.000Z" itemprop="datePublished">2022-01-19</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-thumb">
               <a href="/2022/01/19/Socket/day02/" class="thumb">
     
     
@@ -369,6 +344,31 @@
               </p>
               <p class="item-title">
                 <a href="/2022/01/19/Socket/day02/" class="title">02 C/S模型、socket相关函数</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-01-19T05:00:00.000Z" itemprop="datePublished">2022-01-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/2022/01/19/Socket/day01/" class="thumb">
+    
+    
+        <span class="thumb-image thumb-none"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Socket/">Socket</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/01/19/Socket/day01/" class="title">01 socket 字节序&amp;地址转换函数&amp;套接字类型</a>
               </p>
               <p class="item-date">
                 <time datetime="2022-01-19T05:00:00.000Z" itemprop="datePublished">2022-01-19</time>
@@ -512,7 +512,7 @@
  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">多个IP配置</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p> DEVICE=eth0<br> ONBOOT=yes<br> BOOTPROTO=static<br> IPADDR0=172.25.254.108 #IP设置仅供参考，不同情况，不同IP<br> PREFIX0=24<br> GATEWAY0=172.25.254.111 # 网关配置，见下面<br> IPADDR1=172.25.0.108 #IP设置仅供参考，不同情况，不同IP<br> PREFIX1=24<br> GATEWAY1=172.25.254.222 # 网关配置，见下面<br> NAME=eth0</p>
  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">7. lo回环接口</span><br><span class="line"></span><br><span class="line">   &gt;   可以用来测试本机的通信协议是否完好，用于本机内部的通信。</span><br><span class="line"></span><br><span class="line">8. 网关配置</span><br><span class="line"></span><br><span class="line">   &gt;   `vim /etc/sysconfig/network`，全局网关，针对没有设定网关的网卡配置文件</span><br><span class="line">   &gt;</span><br><span class="line">   &gt;   查看防火墙策略：`firewall-cmd --list-all`</span><br><span class="line">   &gt;</span><br><span class="line">   &gt;   添加防火墙策略：`firewall-cmd --permanent --add-masquerade`，主机作路由转换</span><br><span class="line">   &gt;</span><br><span class="line">   &gt;   重新加载服务：`firewall-cmd --list-all`</span><br><span class="line"></span><br><span class="line">9. DNS解析配置</span><br><span class="line"></span><br><span class="line">   &gt;   `vim /etc/resolv.conf`，配置文件位置，`DNS`服务器`nameserver 114.114.114.114`，也可以在网卡的配置文件中设置`DNS1=IP`。</span><br><span class="line">   &gt;</span><br><span class="line">   &gt;   `/etc/hosts`，本机暂存域名和IP的键值对，本地解析文件`IP 域名`</span><br><span class="line">   &gt;</span><br><span class="line">   &gt;   </span><br><span class="line">   &gt;</span><br><span class="line">   &gt;   在网络配置文件中可以添加`DNS1=8.8.8.8`或者其他的`IP`地址</span><br><span class="line">   &gt;</span><br><span class="line">   &gt;   如果远程的`dns`和本地的`host`域名解析冲突，通过修改`/etc/nsswitch.conf`来设置优先级别，在第39行。</span><br><span class="line"></span><br><span class="line">10. dhcp服务设置自己的DNS</span><br><span class="line"></span><br><span class="line">   &gt;   当网卡使用`dhcp`模式的时候网卡会使用`dhcp`服务器的`DNS`，如果不需要`dhcp`的DNS提供的信息，把`/etc/sysconfig/network-scripts/ifcfg-eth0`里面加上`PEERDNS=no`，使用自己的`DNS`不使用`dhcp`提供的服务</span><br><span class="line"></span><br><span class="line">11. man手册的帮助文档</span><br><span class="line"></span><br><span class="line">    &gt;   `/usr/share/doc/initscripts-9.49.37/sysconfig.txt`，其中的数字会不同版本号的原因，按`Tab`补齐就可以了。</span><br><span class="line"></span><br><span class="line">## dhcp服务</span><br><span class="line"></span><br><span class="line">配置文件`/etc/dhcp/dhcpd.conf`拷贝模板配置文件`cp /usr/share/doc/dhcp-4.2.5/dhcpd.conf.example /etc/dhcp/dhcpd.conf`</span><br><span class="line"></span><br><span class="line">*   `yum install -y dhcp`，安装`dhcp`服务</span><br><span class="line"></span><br><span class="line">*   `cp /usr/share/doc/dhcp-4.2.5/dhcpd.conf.example /etc/dhcp/dhcpd.conf`</span><br><span class="line"></span><br><span class="line">*   `vim /etc/dhcp/dhcpd.conf`，编辑配置文件</span><br><span class="line"></span><br><span class="line">    *   `subnet`：分配的IP地址</span><br><span class="line">    *   `netmark`：子网掩码</span><br><span class="line">    *   `range IP1 IP2;`：分配的IP池范围</span><br><span class="line">    *   `option routers IP;`：网关</span><br><span class="line"></span><br><span class="line">*   完整配置文件示例</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h1 id="dhcpd-conf"><a href="#dhcpd-conf" class="headerlink" title="dhcpd.conf"></a>dhcpd.conf</h1><h1 id=""><a href="#" class="headerlink" title=""></a></h1><h1 id="Sample-configuration-file-for-ISC-dhcpd"><a href="#Sample-configuration-file-for-ISC-dhcpd" class="headerlink" title="Sample configuration file for ISC dhcpd"></a>Sample configuration file for ISC dhcpd</h1><h1 id="-1"><a href="#-1" class="headerlink" title=""></a></h1><h1 id="option-definitions-common-to-all-supported-networks…"><a href="#option-definitions-common-to-all-supported-networks…" class="headerlink" title="option definitions common to all supported networks…"></a>option definitions common to all supported networks…</h1><p>option domain-name “example.org”;<br>option domain-name-servers ns1.example.org, ns2.example.org;</p>
+<h1 id="dhcpd-conf"><a href="#dhcpd-conf" class="headerlink" title="dhcpd.conf"></a>dhcpd.conf</h1><h1 id><a href="#" class="headerlink" title></a></h1><h1 id="Sample-configuration-file-for-ISC-dhcpd"><a href="#Sample-configuration-file-for-ISC-dhcpd" class="headerlink" title="Sample configuration file for ISC dhcpd"></a>Sample configuration file for ISC dhcpd</h1><h1 id="-1"><a href="#-1" class="headerlink" title></a></h1><h1 id="option-definitions-common-to-all-supported-networks…"><a href="#option-definitions-common-to-all-supported-networks…" class="headerlink" title="option definitions common to all supported networks…"></a>option definitions common to all supported networks…</h1><p>option domain-name “example.org”;<br>option domain-name-servers ns1.example.org, ns2.example.org;</p>
 <p>default-lease-time 600;<br>max-lease-time 7200;</p>
 <h1 id="Use-this-to-enble-disable-dynamic-dns-updates-globally"><a href="#Use-this-to-enble-disable-dynamic-dns-updates-globally" class="headerlink" title="Use this to enble / disable dynamic dns updates globally."></a>Use this to enble / disable dynamic dns updates globally.</h1><p>#ddns-update-style none;</p>
 <h1 id="If-this-DHCP-server-is-the-official-DHCP-server-for-the-local"><a href="#If-this-DHCP-server-is-the-official-DHCP-server-for-the-local" class="headerlink" title="If this DHCP server is the official DHCP server for the local"></a>If this DHCP server is the official DHCP server for the local</h1><h1 id="network-the-authoritative-directive-should-be-uncommented"><a href="#network-the-authoritative-directive-should-be-uncommented" class="headerlink" title="network, the authoritative directive should be uncommented."></a>network, the authoritative directive should be uncommented.</h1><p>#authoritative;</p>
@@ -584,12 +584,12 @@ subnet 172.25.254.0 netmask 255.255.255.0 &#123;
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2021/11/13/Linux/03linux%E5%9F%BA%E7%A1%80/" title="03 Linux基础知识--权限控制&amp;进程管理"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+      <a href="/2021/11/13/Linux/06linux%E5%9F%BA%E7%A1%80/" title="06 Linux基础知识–-虚拟机安装"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
     </li>
     
     
     <li class="next">
-      <a href="/2021/11/13/Linux/06linux%E5%9F%BA%E7%A1%80/" title="06 Linux基础知识–-虚拟机安装"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2021/11/13/Linux/07linux%E5%9F%BA%E7%A1%80/" title="07 Linux基础知识–-硬盘挂载&amp;yum管理"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     

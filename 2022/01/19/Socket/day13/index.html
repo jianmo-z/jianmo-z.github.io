@@ -329,31 +329,6 @@
           <li>
             
             <div class="item-thumb">
-              <a href="/2022/01/19/Socket/day01/" class="thumb">
-    
-    
-        <span class="thumb-image thumb-none"></span>
-    
-</a>
-
-            </div>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/Socket/">Socket</a>
-              </p>
-              <p class="item-title">
-                <a href="/2022/01/19/Socket/day01/" class="title">01 socket 字节序&amp;地址转换函数&amp;套接字类型</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2022-01-19T05:00:00.000Z" itemprop="datePublished">2022-01-19</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-thumb">
               <a href="/2022/01/19/Socket/day02/" class="thumb">
     
     
@@ -369,6 +344,31 @@
               </p>
               <p class="item-title">
                 <a href="/2022/01/19/Socket/day02/" class="title">02 C/S模型、socket相关函数</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-01-19T05:00:00.000Z" itemprop="datePublished">2022-01-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/2022/01/19/Socket/day01/" class="thumb">
+    
+    
+        <span class="thumb-image thumb-none"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Socket/">Socket</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/01/19/Socket/day01/" class="title">01 socket 字节序&amp;地址转换函数&amp;套接字类型</a>
               </p>
               <p class="item-date">
                 <time datetime="2022-01-19T05:00:00.000Z" itemprop="datePublished">2022-01-19</time>
@@ -504,7 +504,7 @@
 
 <h2 id="epoll实现并发服务器—-gt-优"><a href="#epoll实现并发服务器—-gt-优" class="headerlink" title="epoll实现并发服务器—&gt;优"></a>epoll实现并发服务器—&gt;优</h2><blockquote>
 <p><code>epoll</code>实现服务器会占用五个套接字，<code>标准输入</code>、<code>标准输出</code>、<code>标准错误</code>、<code>服务器监听套接字</code>和<code>epoll的句柄</code>。剩下的，所以当进程的``最大套接字的个数 - 5<code>，就是</code>epoll<code>可以连接的最大客户端个数了。</code>epoll<code>比</code>poll`效率要高。 </p>
-<p><font size=5><a href="./epollsrv.md">点击查看epollsrv代码</a></font></p>
+<p><font size="5"><a href="./epollsrv.md">点击查看epollsrv代码</a></font></p>
 </blockquote>
 <h2 id="epoll、select和poll的区别"><a href="#epoll、select和poll的区别" class="headerlink" title="epoll、select和poll的区别"></a>epoll、select和poll的区别</h2><ul>
 <li><p>相比于<code>select</code>与<code>poll</code>、<code>epoll</code>最大的好处载于它不会随着监听套接字<code>fd</code>数目的增多而降低效率。</p>

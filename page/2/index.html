@@ -323,31 +323,6 @@
           <li>
             
             <div class="item-thumb">
-              <a href="/2022/01/19/Socket/day01/" class="thumb">
-    
-    
-        <span class="thumb-image thumb-none"></span>
-    
-</a>
-
-            </div>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/Socket/">Socket</a>
-              </p>
-              <p class="item-title">
-                <a href="/2022/01/19/Socket/day01/" class="title">01 socket 字节序&amp;地址转换函数&amp;套接字类型</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2022-01-19T05:00:00.000Z" itemprop="datePublished">2022-01-19</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-thumb">
               <a href="/2022/01/19/Socket/day02/" class="thumb">
     
     
@@ -370,6 +345,31 @@
             </div>
           </li>
           
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/2022/01/19/Socket/day01/" class="thumb">
+    
+    
+        <span class="thumb-image thumb-none"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Socket/">Socket</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/01/19/Socket/day01/" class="title">01 socket 字节序&amp;地址转换函数&amp;套接字类型</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-01-19T05:00:00.000Z" itemprop="datePublished">2022-01-19</time>
+              </p>
+            </div>
+          </li>
+          
       </ul>
     </div>
   </div>
@@ -383,49 +383,6 @@
   <main class="main" role="main">
   
   <div class="content article-list">
-    
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/12/14/Golang/12%E8%8C%83%E5%9B%B4Range/">12 Golang范围Range</a>
-    </h1>
-  
-
-  </div>
-  
-  <div class="article-entry text-muted" itemprop="description">
-    <h1 id="12-范围Range"><a href="#12-范围Range" class="headerlink" title="12 范围Range"></a>12 范围Range</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import	&quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">	range关键字用于for循环中迭代数组(array)、切片(slice)、通道(channel)或集合(map)</span><br><span class="line">的元素。</span><br><span class="line">	返回值：</span><br><span class="line">		第一个表示下标</span><br><span class="line">		第二个表示值</span><br><span class="line">	如果是map：</span><br><span class="line">		第一个表示key</span><br><span class="line">		第二个表示value</span><br><span class="line"></span><br><span class="line">	用 &#x27;_&#x27;去接收一个变量表示不关心这个变量的值，起到占位的作用，该位置的值会被抛弃掉</span><br><span class="line">*/</span><br><span class="line">func main() &#123;</span><br><span class="line">	a := [] int&#123;1, 2, 4, 5&#125;</span><br><span class="line">	m := map[int]string&#123;1:&quot;hello&quot;, 2:&quot;world&quot;, 3:&quot;hi&quot;&#125;</span><br><span class="line">	fmt.Println(a)</span><br><span class="line"></span><br><span class="line">	for index, num := range a &#123; // 如果不关心下标，可以设置为 &#x27;_&#x27;</span><br><span class="line">		fmt.Println(&quot;index =&quot;, index, &quot;num =&quot;, num)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	for key, value := range m&#123;</span><br><span class="line">		fmt.Println(&quot;key =&quot;, key, &quot; value =&quot;, value)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2021/12/14/Golang/12%E8%8C%83%E5%9B%B4Range/" class="article-date">
-	  <time datetime="2021-12-14T05:00:00.000Z" itemprop="datePublished">12月 14</time>
-	</a>
-</span>
-    
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a>
-  </span>
-
-    
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/14/Golang/12%E8%8C%83%E5%9B%B4Range/#comments" class="article-comment-link">评论</a></span>
-    
-	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 188(字)</span>
-	
-	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
-	
-
-  </p>
-</article>
-
     
       <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
   <div class="article-header">
@@ -461,6 +418,49 @@
     
 	
 		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 283(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
+	
+
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/12/14/Golang/14%E9%80%92%E5%BD%92/">14 Golang递归</a>
+    </h1>
+  
+
+  </div>
+  
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="14-递归"><a href="#14-递归" class="headerlink" title="14 递归"></a>14 递归</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;unsafe&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">Go语言的函数也可以递归调用</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">// 如果返回值是一个参数则不需要带括号</span><br><span class="line">// 如果是两个参数需要带括号</span><br><span class="line">func Factorial(n int) int&#123;</span><br><span class="line">	if n &lt;= 1&#123;</span><br><span class="line">		return 1</span><br><span class="line">	&#125;</span><br><span class="line">	return n * Factorial(n - 1)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var n = 20</span><br><span class="line">	fmt.Println(&quot;n的阶乘为:&quot;, Factorial(n))</span><br><span class="line">	fmt.Println(&quot;sizeof(n):&quot;, unsafe.Sizeof(n))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/12/14/Golang/14%E9%80%92%E5%BD%92/" class="article-date">
+	  <time datetime="2021-12-14T05:00:00.000Z" itemprop="datePublished">12月 14</time>
+	</a>
+</span>
+    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a>
+  </span>
+
+    
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/14/Golang/14%E9%80%92%E5%BD%92/#comments" class="article-comment-link">评论</a></span>
+    
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 100(字)</span>
 	
 	
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
@@ -561,20 +561,22 @@
     
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/12/14/Golang/14%E9%80%92%E5%BD%92/">14 Golang递归</a>
+      <a class="article-title" href="/2021/12/14/Golang/18%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E5%90%8E%E7%BC%80%E5%B9%B6%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%98%E5%82%A8/">18 Golang批量修改文件后缀并格式化存储</a>
     </h1>
   
 
   </div>
   
   <div class="article-entry text-muted" itemprop="description">
-    <h1 id="14-递归"><a href="#14-递归" class="headerlink" title="14 递归"></a>14 递归</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;unsafe&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">Go语言的函数也可以递归调用</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">// 如果返回值是一个参数则不需要带括号</span><br><span class="line">// 如果是两个参数需要带括号</span><br><span class="line">func Factorial(n int) int&#123;</span><br><span class="line">	if n &lt;= 1&#123;</span><br><span class="line">		return 1</span><br><span class="line">	&#125;</span><br><span class="line">	return n * Factorial(n - 1)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var n = 20</span><br><span class="line">	fmt.Println(&quot;n的阶乘为:&quot;, Factorial(n))</span><br><span class="line">	fmt.Println(&quot;sizeof(n):&quot;, unsafe.Sizeof(n))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <h1 id="18-批量修改文件后缀并格式化存储"><a href="#18-批量修改文件后缀并格式化存储" class="headerlink" title="18 批量修改文件后缀并格式化存储"></a>18 批量修改文件后缀并格式化存储</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;io&quot;</span><br><span class="line">	&quot;os&quot;</span><br><span class="line">	&quot;path/filepath&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	dir := &quot;C:/Users/Pip/Desktop/Go初识/&quot;</span><br><span class="line"></span><br><span class="line">	// 改变路径</span><br><span class="line">	err := os.Chdir(dir)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		fmt.Println(&quot;打开文件失败&quot;)</span><br><span class="line">		os.Exit(1)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	// 获取文件列表</span><br><span class="line">	fileList, err := filepath.Glob(&quot;*&quot;)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		fmt.Println(&quot;获取失败&quot;)</span><br><span class="line">		os.Exit(1)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(fileList)</span><br><span class="line"></span><br><span class="line">	// 遍历文件列表修改后缀并新建文件</span><br><span class="line">	for _, name := range fileList &#123;</span><br><span class="line">		// 跳过.md文件</span><br><span class="line">		if string(name[len(name) - 3:]) == &quot;.md&quot;&#123;</span><br><span class="line">			continue</span><br><span class="line">		&#125;</span><br><span class="line">		newName := name[:len(name) - 3] + &quot;.md&quot;</span><br><span class="line"></span><br><span class="line">		// 打开.go文件</span><br><span class="line">		oldfile, err := os.OpenFile(name, os.O_RDWR, 0666)</span><br><span class="line">		if err != nil &#123;</span><br><span class="line">			fmt.Printf(&quot;打开文件%s失败\n&quot;, newName)</span><br><span class="line">			os.Exit(1)</span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Println(&quot;Open file:&quot;, name, &quot;success&quot;)</span><br><span class="line"></span><br><span class="line">		// 打开.md文件不存在则新建</span><br><span class="line">		newfile, err := os.OpenFile(newName, os.O_CREATE | os.O_RDWR, 0666)</span><br><span class="line">		if err != nil &#123;</span><br><span class="line">			fmt.Printf(&quot;Open file: %s failed\n&quot;, newName)</span><br><span class="line">			os.Exit(1)</span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Println(&quot;Open file:&quot;, newName, &quot;success&quot;)</span><br><span class="line"></span><br><span class="line">		// 修改格式写入另一个文件</span><br><span class="line">		_, err = newfile.WriteString(&quot;# &quot; + name[:len(name)-3] + &quot;\n```\n&quot;)</span><br><span class="line">		if err != nil&#123;</span><br><span class="line">			fmt.Println(&quot;Write &quot;, newName, &quot;failed&quot;)</span><br><span class="line">			os.Exit(1)</span><br><span class="line">		&#125;</span><br><span class="line">		var fileContent = make([] byte, 1024)</span><br><span class="line">		for ;;&#123;</span><br><span class="line">			n, err := oldfile.Read(fileContent)</span><br><span class="line">			if err != nil &amp;&amp; err != io.EOF&#123;</span><br><span class="line">				fmt.Println(&quot;Write to&quot;, newName, &quot;failed&quot;)</span><br><span class="line">				os.Exit(1)</span><br><span class="line">			&#125;else if n == 0 &#123;</span><br><span class="line">				break</span><br><span class="line">			&#125;</span><br><span class="line">			newfile.WriteString(string(fileContent)[:n])</span><br><span class="line">		&#125;</span><br><span class="line">		_, err = newfile.WriteString(&quot;\n```&quot;)</span><br><span class="line">		if err != nil &#123;</span><br><span class="line">			fmt.Println(&quot;Write to&quot;, newName, &quot;failed&quot;)</span><br><span class="line">			os.Exit(1)</span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Println(&quot;Write to&quot;, string(newName), &quot;success\n&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		//newfile.Sync() // 立即同步,即将内容写入数据</span><br><span class="line">		newfile.Close() // 关闭文件或者程序终止内容才会写入文件</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
   </div>
   
   <p class="article-meta">
     <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2021/12/14/Golang/14%E9%80%92%E5%BD%92/" class="article-date">
+	<a href="/2021/12/14/Golang/18%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E5%90%8E%E7%BC%80%E5%B9%B6%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%98%E5%82%A8/" class="article-date">
 	  <time datetime="2021-12-14T05:00:00.000Z" itemprop="datePublished">12月 14</time>
 	</a>
 </span>
@@ -586,13 +588,13 @@
 
     
 
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/14/Golang/14%E9%80%92%E5%BD%92/#comments" class="article-comment-link">评论</a></span>
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/14/Golang/18%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E5%90%8E%E7%BC%80%E5%B9%B6%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%98%E5%82%A8/#comments" class="article-comment-link">评论</a></span>
     
 	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 100(字)</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 402(字)</span>
 	
 	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2(分)</span>
 	
 
   </p>
@@ -636,51 +638,6 @@
 	
 	
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
-	
-
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/12/14/Golang/18%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E5%90%8E%E7%BC%80%E5%B9%B6%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%98%E5%82%A8/">18 Golang批量修改文件后缀并格式化存储</a>
-    </h1>
-  
-
-  </div>
-  
-  <div class="article-entry text-muted" itemprop="description">
-    <h1 id="18-批量修改文件后缀并格式化存储"><a href="#18-批量修改文件后缀并格式化存储" class="headerlink" title="18 批量修改文件后缀并格式化存储"></a>18 批量修改文件后缀并格式化存储</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;io&quot;</span><br><span class="line">	&quot;os&quot;</span><br><span class="line">	&quot;path/filepath&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	dir := &quot;C:/Users/Pip/Desktop/Go初识/&quot;</span><br><span class="line"></span><br><span class="line">	// 改变路径</span><br><span class="line">	err := os.Chdir(dir)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		fmt.Println(&quot;打开文件失败&quot;)</span><br><span class="line">		os.Exit(1)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	// 获取文件列表</span><br><span class="line">	fileList, err := filepath.Glob(&quot;*&quot;)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		fmt.Println(&quot;获取失败&quot;)</span><br><span class="line">		os.Exit(1)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(fileList)</span><br><span class="line"></span><br><span class="line">	// 遍历文件列表修改后缀并新建文件</span><br><span class="line">	for _, name := range fileList &#123;</span><br><span class="line">		// 跳过.md文件</span><br><span class="line">		if string(name[len(name) - 3:]) == &quot;.md&quot;&#123;</span><br><span class="line">			continue</span><br><span class="line">		&#125;</span><br><span class="line">		newName := name[:len(name) - 3] + &quot;.md&quot;</span><br><span class="line"></span><br><span class="line">		// 打开.go文件</span><br><span class="line">		oldfile, err := os.OpenFile(name, os.O_RDWR, 0666)</span><br><span class="line">		if err != nil &#123;</span><br><span class="line">			fmt.Printf(&quot;打开文件%s失败\n&quot;, newName)</span><br><span class="line">			os.Exit(1)</span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Println(&quot;Open file:&quot;, name, &quot;success&quot;)</span><br><span class="line"></span><br><span class="line">		// 打开.md文件不存在则新建</span><br><span class="line">		newfile, err := os.OpenFile(newName, os.O_CREATE | os.O_RDWR, 0666)</span><br><span class="line">		if err != nil &#123;</span><br><span class="line">			fmt.Printf(&quot;Open file: %s failed\n&quot;, newName)</span><br><span class="line">			os.Exit(1)</span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Println(&quot;Open file:&quot;, newName, &quot;success&quot;)</span><br><span class="line"></span><br><span class="line">		// 修改格式写入另一个文件</span><br><span class="line">		_, err = newfile.WriteString(&quot;# &quot; + name[:len(name)-3] + &quot;\n```\n&quot;)</span><br><span class="line">		if err != nil&#123;</span><br><span class="line">			fmt.Println(&quot;Write &quot;, newName, &quot;failed&quot;)</span><br><span class="line">			os.Exit(1)</span><br><span class="line">		&#125;</span><br><span class="line">		var fileContent = make([] byte, 1024)</span><br><span class="line">		for ;;&#123;</span><br><span class="line">			n, err := oldfile.Read(fileContent)</span><br><span class="line">			if err != nil &amp;&amp; err != io.EOF&#123;</span><br><span class="line">				fmt.Println(&quot;Write to&quot;, newName, &quot;failed&quot;)</span><br><span class="line">				os.Exit(1)</span><br><span class="line">			&#125;else if n == 0 &#123;</span><br><span class="line">				break</span><br><span class="line">			&#125;</span><br><span class="line">			newfile.WriteString(string(fileContent)[:n])</span><br><span class="line">		&#125;</span><br><span class="line">		_, err = newfile.WriteString(&quot;\n```&quot;)</span><br><span class="line">		if err != nil &#123;</span><br><span class="line">			fmt.Println(&quot;Write to&quot;, newName, &quot;failed&quot;)</span><br><span class="line">			os.Exit(1)</span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Println(&quot;Write to&quot;, string(newName), &quot;success\n&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		//newfile.Sync() // 立即同步,即将内容写入数据</span><br><span class="line">		newfile.Close() // 关闭文件或者程序终止内容才会写入文件</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2021/12/14/Golang/18%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E5%90%8E%E7%BC%80%E5%B9%B6%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%98%E5%82%A8/" class="article-date">
-	  <time datetime="2021-12-14T05:00:00.000Z" itemprop="datePublished">12月 14</time>
-	</a>
-</span>
-    
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a>
-  </span>
-
-    
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/14/Golang/18%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E5%90%8E%E7%BC%80%E5%B9%B6%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%98%E5%82%A8/#comments" class="article-comment-link">评论</a></span>
-    
-	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 402(字)</span>
-	
-	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2(分)</span>
 	
 
   </p>
@@ -897,6 +854,49 @@
     
   
     <h1 itemprop="name">
+      <a class="article-title" href="/2021/12/14/Golang/11%E5%88%87%E7%89%87slice/">11 Golang切片slice</a>
+    </h1>
+  
+
+  </div>
+  
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="11-切片slice"><a href="#11-切片slice" class="headerlink" title="11 切片slice"></a>11 切片slice</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">定义切片:声明一个未指定大小的数组来定义切片</span><br><span class="line">	var identifier []type // 切片不需要说明长度</span><br><span class="line"></span><br><span class="line">或者使用make()函数来创建切片:</span><br><span class="line">	var slicel []type = make([]type, len)</span><br><span class="line">	slicel := make([]type, len)</span><br><span class="line"></span><br><span class="line">指定容量:(可以省略不写),要求length &lt;= capacity,符合逻辑</span><br><span class="line">	make([]T, length, capacity)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">len()</span><br><span class="line">cap()</span><br><span class="line"></span><br><span class="line">append()</span><br><span class="line">copy()</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">func main()&#123;</span><br><span class="line">	var arr = [] int&#123;1, 3, 4, 5, 3, 2, 7&#125;</span><br><span class="line">	a := arr[1:5]</span><br><span class="line">	b := arr[:5]</span><br><span class="line">	c := arr[1:]</span><br><span class="line">	d := arr[len(arr) - 1:len(arr) - 0]</span><br><span class="line"></span><br><span class="line">	fmt.Println(a)</span><br><span class="line">	fmt.Println(b)</span><br><span class="line">	fmt.Println(c)</span><br><span class="line">	fmt.Println(d)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	var array = make([]int, 5, 7)</span><br><span class="line">	fmt.Println(array)</span><br><span class="line">	fmt.Println(&quot;len =&quot;, len(array), &quot;\ncap =&quot;, cap(array))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	arrayAppend := append(array, 1)</span><br><span class="line">	fmt.Println(arrayAppend)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	arrayCopy := make([]int, 3)</span><br><span class="line">	// 如果len(array_copy) &lt; len(array_append)那么只会复制len(array_copy)个元素</span><br><span class="line">	copy(arrayCopy, arrayAppend)</span><br><span class="line">	fmt.Println(arrayCopy)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/12/14/Golang/11%E5%88%87%E7%89%87slice/" class="article-date">
+	  <time datetime="2021-12-14T05:00:00.000Z" itemprop="datePublished">12月 14</time>
+	</a>
+</span>
+    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a>
+  </span>
+
+    
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/14/Golang/11%E5%88%87%E7%89%87slice/#comments" class="article-comment-link">评论</a></span>
+    
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 192(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
+	
+
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
       <a class="article-title" href="/2021/11/13/Linux/01linux%E5%9F%BA%E7%A1%80/">01 Linux基础知识--基础命令&amp;安装wps</a>
     </h1>
   
@@ -908,7 +908,7 @@
 <p>   <code>Application</code>   —&gt; <code>System Tools</code> —&gt;  <code>Settings</code> —&gt; <code>Region &amp; Language</code></p>
 <p>   点击<code>加号</code>选择添加的输入法，找到中文输入法后，选择点击右上角的添加即可。</p>
 </blockquote>
-<p><img src="./01linux%E5%9F%BA%E7%A1%80/01%E8%AF%AD%E8%A8%80%E8%AE%BE%E7%BD%AE.png" alt="01语言设置"></p>
+<p><img src="/2021/11/13/Linux/01linux%E5%9F%BA%E7%A1%80/01%E8%AF%AD%E8%A8%80%E8%AE%BE%E7%BD%AE.png" alt="01语言设置"></p>
 <h2 id="进入虚拟控制台"><a href="#进入虚拟控制台" class="headerlink" title="进入虚拟控制台"></a>进入虚拟控制台</h2><p><code>Ctrl + Alt + F1/F7</code>进入图形界面</p>
 <p><code>Ctrl + Alt + F2 ~ F6</code>进入图形界面</p>
 <p>通过<code>man  init </code>可以查看系统运行的等级。</p>
@@ -942,6 +942,83 @@
 	
 	
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 7(分)</span>
+	
+
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/11/13/Linux/03linux%E5%9F%BA%E7%A1%80/">03 Linux基础知识--权限控制&amp;进程管理</a>
+    </h1>
+  
+
+  </div>
+  
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="03-Linux基础知识-权限控制-amp-进程管理"><a href="#03-Linux基础知识-权限控制-amp-进程管理" class="headerlink" title="03 Linux基础知识-权限控制&amp;进程管理"></a>03 Linux基础知识-权限控制&amp;进程管理</h1><h2 id="umask"><a href="#umask" class="headerlink" title="umask"></a>umask</h2><p>当用户的<code>UID</code>小于199，并且用户名和用户组名相同时，<code>umaks</code>的值为<code>022</code>。否则的话<code>umask</code>的值为<code>002</code>，当创建文件夹时默认的权限为<code>0777 - umask</code>，当创建文件时默认的权限为<code>0777 - umaks - 0111</code>，文件默认取消执行权限，因为执行权限对文件影响大</p>
+<p>配置文件</p>
+<ul>
+<li>  系统配置文件：<code>/etc/profile</code></li>
+<li>  <code>shell</code>配置文件：<code>/etc/bashrc</code></li>
+<li>  某一个用户的<code>shell</code>配置文件：<code>~/.bashrc</code></li>
+<li>  使配置文件生效：<code>source 要生效的文件</code>，即让系统重新读取该文件，否则需要内核自举。</li>
+</ul>
+<h2 id="特殊权限"><a href="#特殊权限" class="headerlink" title="特殊权限"></a>特殊权限</h2><ul>
+<li>粘滞位(<code>sticky</code>)<ul>
+<li>  只针对目录生效，当一个目录有<code>sticky</code>权限时，在这个目录中的文件只能被文件的所有者删除。</li>
+<li>  设置：<code>chmod o+t 目录</code>或<code>chmod 1xxx 目录</code></li>
+</ul>
+</li>
+<li>强制位(<code>sgid</code>)<ul>
+<li>  对文件作用：只针对二进制可执行文件，当文件有<code>sgid</code>时，任何人执行此文件产生的进程都属于文件的组</li>
+<li>  对目录：当目录有<code>sgid</code>时，任何人在此目录中建立的文件都属于目录。</li>
+<li>  <code>chmod g+s 二进制文件/目录</code>或<code>chmod 2xxx 二进制文件/目录</code></li>
+</ul>
+</li>
+<li>冒险位(<code>suid</code>)<ul>
+<li>  对文件，任何人执行二进制文件，进程都属于进程的所有人。对文件的权限进行降级操作，避免<code>rm -rf /*</code>的误操作，对<code>rm</code>文件的权限进行降级。</li>
+<li>  <code>chmod u+s 文件</code>或<code>chmod 4xxx 文件</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="acl权限"><a href="#acl权限" class="headerlink" title="acl权限"></a>acl权限</h2><blockquote>
+<p>学会使用<code>man setfcal</code></p>
+</blockquote>
+<p>设置：<code>setfcal -m u:username:rwx dir</code></p>
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/11/13/Linux/03linux%E5%9F%BA%E7%A1%80/" class="article-date">
+	  <time datetime="2021-11-13T05:00:00.000Z" itemprop="datePublished">11月 13</time>
+	</a>
+</span>
+    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </span>
+
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/" rel="tag">权限控制</a>, <a class="article-tag-link-link" href="/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="tag">进程管理</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/11/13/Linux/03linux%E5%9F%BA%E7%A1%80/#comments" class="article-comment-link">评论</a></span>
+    
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.3k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 4(分)</span>
 	
 
   </p>
@@ -1144,49 +1221,49 @@
     
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/11/13/Linux/03linux%E5%9F%BA%E7%A1%80/">03 Linux基础知识--权限控制&amp;进程管理</a>
+      <a class="article-title" href="/2021/11/13/Linux/06linux%E5%9F%BA%E7%A1%80/">06 Linux基础知识–-虚拟机安装</a>
     </h1>
   
 
   </div>
   
   <div class="article-entry text-muted" itemprop="description">
-    <h1 id="03-Linux基础知识-权限控制-amp-进程管理"><a href="#03-Linux基础知识-权限控制-amp-进程管理" class="headerlink" title="03 Linux基础知识-权限控制&amp;进程管理"></a>03 Linux基础知识-权限控制&amp;进程管理</h1><h2 id="umask"><a href="#umask" class="headerlink" title="umask"></a>umask</h2><p>当用户的<code>UID</code>小于199，并且用户名和用户组名相同时，<code>umaks</code>的值为<code>022</code>。否则的话<code>umask</code>的值为<code>002</code>，当创建文件夹时默认的权限为<code>0777 - umask</code>，当创建文件时默认的权限为<code>0777 - umaks - 0111</code>，文件默认取消执行权限，因为执行权限对文件影响大</p>
-<p>配置文件</p>
-<ul>
-<li>  系统配置文件：<code>/etc/profile</code></li>
-<li>  <code>shell</code>配置文件：<code>/etc/bashrc</code></li>
-<li>  某一个用户的<code>shell</code>配置文件：<code>~/.bashrc</code></li>
-<li>  使配置文件生效：<code>source 要生效的文件</code>，即让系统重新读取该文件，否则需要内核自举。</li>
-</ul>
-<h2 id="特殊权限"><a href="#特殊权限" class="headerlink" title="特殊权限"></a>特殊权限</h2><ul>
-<li>粘滞位(<code>sticky</code>)<ul>
-<li>  只针对目录生效，当一个目录有<code>sticky</code>权限时，在这个目录中的文件只能被文件的所有者删除。</li>
-<li>  设置：<code>chmod o+t 目录</code>或<code>chmod 1xxx 目录</code></li>
-</ul>
-</li>
-<li>强制位(<code>sgid</code>)<ul>
-<li>  对文件作用：只针对二进制可执行文件，当文件有<code>sgid</code>时，任何人执行此文件产生的进程都属于文件的组</li>
-<li>  对目录：当目录有<code>sgid</code>时，任何人在此目录中建立的文件都属于目录。</li>
-<li>  <code>chmod g+s 二进制文件/目录</code>或<code>chmod 2xxx 二进制文件/目录</code></li>
-</ul>
-</li>
-<li>冒险位(<code>suid</code>)<ul>
-<li>  对文件，任何人执行二进制文件，进程都属于进程的所有人。对文件的权限进行降级操作，避免<code>rm -rf /*</code>的误操作，对<code>rm</code>文件的权限进行降级。</li>
-<li>  <code>chmod u+s 文件</code>或<code>chmod 4xxx 文件</code></li>
-</ul>
-</li>
-</ul>
-<h2 id="acl权限"><a href="#acl权限" class="headerlink" title="acl权限"></a>acl权限</h2><blockquote>
-<p>学会使用<code>man setfcal</code></p>
+    <h1 id="06-Linux基础–-虚拟机安装"><a href="#06-Linux基础–-虚拟机安装" class="headerlink" title="06 Linux基础–-虚拟机安装"></a>06 Linux基础–-虚拟机安装</h1><h2 id="虚拟机的安装"><a href="#虚拟机的安装" class="headerlink" title="虚拟机的安装"></a>虚拟机的安装</h2><blockquote>
+<p>  关于这部分我不想写，个人觉得没必要，多踩坑多百度，自然就能解决。本人装系统已经装吐了，所以真的不想写了，请自行百度。</p>
 </blockquote>
-<p>设置：<code>setfcal -m u:username:rwx dir</code></p>
+<h2 id="虚拟机管理命令"><a href="#虚拟机管理命令" class="headerlink" title="虚拟机管理命令"></a>虚拟机管理命令</h2><ul>
+<li><p>  <code>virt-manager</code>：超级用户执行，开启虚拟机管理器</p>
+</li>
+<li><p><code>virsh list</code>：查看正在运行的虚拟机</p>
+<ul>
+<li>  <code>virsh list --all</code>：查看所有的虚拟机状态</li>
+</ul>
+</li>
+<li><p>  <code>virsh start 虚拟机名</code>：打开一个虚拟机</p>
+</li>
+<li><p>  <code>virt-viewer 虚拟机名</code>：查看一个虚拟机</p>
+</li>
+<li><p>  <code>virsh shutdown 虚拟机名</code>：关闭一个正在运行的虚拟机，需要进入系统后才可以关闭</p>
+</li>
+<li><p>  <code>virsh desroy 虚拟机名</code>：虚拟机直接断电关机</p>
+</li>
+<li><p>  <code>virsh undefine 虚拟机名</code>：删除虚拟机</p>
+</li>
+</ul>
+<h2 id="复制-移动虚拟机"><a href="#复制-移动虚拟机" class="headerlink" title="复制/移动虚拟机"></a>复制/移动虚拟机</h2><ul>
+<li>  第一步拷贝<code>系统文件</code>：<code>/var/lib/libvirt/images/</code>目录下的<code>.qcow2</code>的文件，不同的名字表示不同的虚拟机</li>
+<li>  第二部拷贝<code>配置文件</code>：<code>/etc/libvirt/qemu</code>目录下对应的虚拟机的配置文件</li>
+<li>  第三步创建<code>创建虚拟机</code>：要求拷贝完母盘和配置文件，<code>virsh create 配置文件</code>，需要将母盘移动到<code>/var/lib/libvirt/images</code>目录中否则会提示找不到文件，这个恢复是一次性的</li>
+<li>  第四步<code>恢复虚拟机</code>：<code>virsh define 虚拟机名.xml</code>，<code>xml</code>文件是虚拟机的配置文件</li>
+</ul>
+<h2 id="脚本安装虚拟机"><a href="#脚本安装虚拟机" class="headerlink" title="脚本安装虚拟机"></a>脚本安装虚拟机</h2><p>以<code>.sh</code>结尾</p>
+<p>第一行<code>#!/bin/bash</code>指定解释器</p>
   </div>
   
   <p class="article-meta">
     <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2021/11/13/Linux/03linux%E5%9F%BA%E7%A1%80/" class="article-date">
+	<a href="/2021/11/13/Linux/06linux%E5%9F%BA%E7%A1%80/" class="article-date">
 	  <time datetime="2021-11-13T05:00:00.000Z" itemprop="datePublished">11月 13</time>
 	</a>
 </span>
@@ -1199,17 +1276,17 @@
     
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/" rel="tag">权限控制</a>, <a class="article-tag-link-link" href="/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="tag">进程管理</a>
+	<a class="article-tag-link-link" href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/" rel="tag">虚拟机安装</a>
   </span>
 
 
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/11/13/Linux/03linux%E5%9F%BA%E7%A1%80/#comments" class="article-comment-link">评论</a></span>
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/11/13/Linux/06linux%E5%9F%BA%E7%A1%80/#comments" class="article-comment-link">评论</a></span>
     
 	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.3k(字)</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 616(字)</span>
 	
 	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 4(分)</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2(分)</span>
 	
 
   </p>
@@ -1305,83 +1382,6 @@
 	
 	
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 8(分)</span>
-	
-
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/11/13/Linux/06linux%E5%9F%BA%E7%A1%80/">06 Linux基础知识–-虚拟机安装</a>
-    </h1>
-  
-
-  </div>
-  
-  <div class="article-entry text-muted" itemprop="description">
-    <h1 id="06-Linux基础–-虚拟机安装"><a href="#06-Linux基础–-虚拟机安装" class="headerlink" title="06 Linux基础–-虚拟机安装"></a>06 Linux基础–-虚拟机安装</h1><h2 id="虚拟机的安装"><a href="#虚拟机的安装" class="headerlink" title="虚拟机的安装"></a>虚拟机的安装</h2><blockquote>
-<p>  关于这部分我不想写，个人觉得没必要，多踩坑多百度，自然就能解决。本人装系统已经装吐了，所以真的不想写了，请自行百度。</p>
-</blockquote>
-<h2 id="虚拟机管理命令"><a href="#虚拟机管理命令" class="headerlink" title="虚拟机管理命令"></a>虚拟机管理命令</h2><ul>
-<li><p>  <code>virt-manager</code>：超级用户执行，开启虚拟机管理器</p>
-</li>
-<li><p><code>virsh list</code>：查看正在运行的虚拟机</p>
-<ul>
-<li>  <code>virsh list --all</code>：查看所有的虚拟机状态</li>
-</ul>
-</li>
-<li><p>  <code>virsh start 虚拟机名</code>：打开一个虚拟机</p>
-</li>
-<li><p>  <code>virt-viewer 虚拟机名</code>：查看一个虚拟机</p>
-</li>
-<li><p>  <code>virsh shutdown 虚拟机名</code>：关闭一个正在运行的虚拟机，需要进入系统后才可以关闭</p>
-</li>
-<li><p>  <code>virsh desroy 虚拟机名</code>：虚拟机直接断电关机</p>
-</li>
-<li><p>  <code>virsh undefine 虚拟机名</code>：删除虚拟机</p>
-</li>
-</ul>
-<h2 id="复制-移动虚拟机"><a href="#复制-移动虚拟机" class="headerlink" title="复制/移动虚拟机"></a>复制/移动虚拟机</h2><ul>
-<li>  第一步拷贝<code>系统文件</code>：<code>/var/lib/libvirt/images/</code>目录下的<code>.qcow2</code>的文件，不同的名字表示不同的虚拟机</li>
-<li>  第二部拷贝<code>配置文件</code>：<code>/etc/libvirt/qemu</code>目录下对应的虚拟机的配置文件</li>
-<li>  第三步创建<code>创建虚拟机</code>：要求拷贝完母盘和配置文件，<code>virsh create 配置文件</code>，需要将母盘移动到<code>/var/lib/libvirt/images</code>目录中否则会提示找不到文件，这个恢复是一次性的</li>
-<li>  第四步<code>恢复虚拟机</code>：<code>virsh define 虚拟机名.xml</code>，<code>xml</code>文件是虚拟机的配置文件</li>
-</ul>
-<h2 id="脚本安装虚拟机"><a href="#脚本安装虚拟机" class="headerlink" title="脚本安装虚拟机"></a>脚本安装虚拟机</h2><p>以<code>.sh</code>结尾</p>
-<p>第一行<code>#!/bin/bash</code>指定解释器</p>
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2021/11/13/Linux/06linux%E5%9F%BA%E7%A1%80/" class="article-date">
-	  <time datetime="2021-11-13T05:00:00.000Z" itemprop="datePublished">11月 13</time>
-	</a>
-</span>
-    
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </span>
-
-    
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/" rel="tag">虚拟机安装</a>
-  </span>
-
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/11/13/Linux/06linux%E5%9F%BA%E7%A1%80/#comments" class="article-comment-link">评论</a></span>
-    
-	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 616(字)</span>
-	
-	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2(分)</span>
 	
 
   </p>
