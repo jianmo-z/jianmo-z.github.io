@@ -6,7 +6,7 @@
   <link href="http://ainihu.github.io/atom.xml" rel="self"/>
   
   <link href="http://ainihu.github.io/"/>
-  <updated>2021-11-14T13:25:22.540Z</updated>
+  <updated>2022-01-19T13:19:37.307Z</updated>
   <id>http://ainihu.github.io/</id>
   
   <author>
@@ -15,6 +15,484 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="http://ainihu.github.io/2022/01/19/Socket/day15/"/>
+    <id>http://ainihu.github.io/2022/01/19/Socket/day15/</id>
+    <published>2022-01-19T13:19:37.307Z</published>
+    <updated>2022-01-19T13:19:37.307Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;day15&quot;&gt;&lt;a href=&quot;#day15&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://ainihu.github.io/2022/01/19/Socket/epollsrv/"/>
+    <id>http://ainihu.github.io/2022/01/19/Socket/epollsrv/</id>
+    <published>2022-01-19T13:19:37.307Z</published>
+    <updated>2022-01-19T13:19:37.307Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;epollsrv-cpp&quot;&gt;&lt;a href=&quot;#epollsrv-cpp&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>01 socket 字节序&amp;地址转换函数&amp;套接字类型</title>
+    <link href="http://ainihu.github.io/2022/01/19/Socket/day01/"/>
+    <id>http://ainihu.github.io/2022/01/19/Socket/day01/</id>
+    <published>2022-01-19T05:00:00.000Z</published>
+    <updated>2022-01-19T13:19:37.306Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;day01&quot;&gt;&lt;a href=&quot;#day01&quot; class=&quot;headerlink&quot; title=&quot;day01&quot;&gt;&lt;/a&gt;day01&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Socket" scheme="http://ainihu.github.io/categories/Socket/"/>
+    
+    
+    <category term="socket" scheme="http://ainihu.github.io/tags/socket/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>02 C/S模型、socket相关函数</title>
+    <link href="http://ainihu.github.io/2022/01/19/Socket/day02/"/>
+    <id>http://ainihu.github.io/2022/01/19/Socket/day02/</id>
+    <published>2022-01-19T05:00:00.000Z</published>
+    <updated>2022-01-19T13:19:37.306Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;day02&quot;&gt;&lt;a href=&quot;#day02&quot; class=&quot;headerlink&quot; title=&quot;day02&quot;&gt;&lt;/a&gt;day02&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Socket" scheme="http://ainihu.github.io/categories/Socket/"/>
+    
+    
+    <category term="socket相关函数" scheme="http://ainihu.github.io/tags/socket%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>03 地址重复利用、处理多客户端的连接</title>
+    <link href="http://ainihu.github.io/2022/01/19/Socket/day03/"/>
+    <id>http://ainihu.github.io/2022/01/19/Socket/day03/</id>
+    <published>2022-01-19T05:00:00.000Z</published>
+    <updated>2022-01-19T13:19:37.306Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;day03&quot;&gt;&lt;a href=&quot;#day03&quot; class=&quot;headerlink&quot; title=&quot;day03&quot;&gt;&lt;/a&gt;day03&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Socket" scheme="http://ainihu.github.io/categories/Socket/"/>
+    
+    
+    <category term="REUSEADDR" scheme="http://ainihu.github.io/tags/REUSEADDR/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>04 TCP粘包问题原因及解决</title>
+    <link href="http://ainihu.github.io/2022/01/19/Socket/day04/"/>
+    <id>http://ainihu.github.io/2022/01/19/Socket/day04/</id>
+    <published>2022-01-19T05:00:00.000Z</published>
+    <updated>2022-01-19T13:19:37.306Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;day04&quot;&gt;&lt;a href=&quot;#day04&quot; class=&quot;headerlink&quot; title=&quot;day04&quot;&gt;&lt;/a&gt;day04&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Socket" scheme="http://ainihu.github.io/categories/Socket/"/>
+    
+    
+    <category term="TCP粘包问题" scheme="http://ainihu.github.io/tags/TCP%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>UDP/TCP文件传输</title>
+    <link href="http://ainihu.github.io/2022/01/19/Socket/01%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/"/>
+    <id>http://ainihu.github.io/2022/01/19/Socket/01%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/</id>
+    <published>2022-01-19T05:00:00.000Z</published>
+    <updated>2022-01-19T13:19:37.301Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;UDP-TCP文件传输&quot;&gt;&lt;a href=&quot;#UDP-TCP文件传输&quot; class=&quot;headerlink&quot; title=&quot;UDP/TCP文件传输&quot;&gt;&lt;/a&gt;UDP/TCP文件传输&lt;/h1&gt;&lt;h2 id=&quot;文件结构&quot;&gt;&lt;a href=&quot;#文件结构&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Socket" scheme="http://ainihu.github.io/categories/Socket/"/>
+    
+    
+    <category term="socket" scheme="http://ainihu.github.io/tags/socket/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>05 readline实现、get*name系列函数</title>
+    <link href="http://ainihu.github.io/2022/01/19/Socket/day05/"/>
+    <id>http://ainihu.github.io/2022/01/19/Socket/day05/</id>
+    <published>2022-01-19T05:00:00.000Z</published>
+    <updated>2022-01-19T13:19:37.306Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;day05&quot;&gt;&lt;a href=&quot;#day05&quot; class=&quot;headerlink&quot; title=&quot;day05&quot;&gt;&lt;/a&gt;day05&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Socket" scheme="http://ainihu.github.io/categories/Socket/"/>
+    
+    
+    <category term="socketReadline" scheme="http://ainihu.github.io/tags/socketReadline/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>06 TCP回射C/S&amp;僵尸进程&amp;SIGCHLD信号</title>
+    <link href="http://ainihu.github.io/2022/01/19/Socket/day06/"/>
+    <id>http://ainihu.github.io/2022/01/19/Socket/day06/</id>
+    <published>2022-01-19T05:00:00.000Z</published>
+    <updated>2022-01-19T13:19:37.306Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;day06&quot;&gt;&lt;a href=&quot;#day06&quot; class=&quot;headerlink&quot; title=&quot;day06&quot;&gt;&lt;/a&gt;day06&lt;/h1&gt;&lt;p&gt;参考链接：&lt;/p&gt;
+&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Socket" scheme="http://ainihu.github.io/categories/Socket/"/>
+    
+    
+    <category term="僵尸进程" scheme="http://ainihu.github.io/tags/%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B/"/>
+    
+    <category term="SIGCHLD信号" scheme="http://ainihu.github.io/tags/SIGCHLD%E4%BF%A1%E5%8F%B7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>07 TCP的11种状态、SIGPIPE信号</title>
+    <link href="http://ainihu.github.io/2022/01/19/Socket/day07/"/>
+    <id>http://ainihu.github.io/2022/01/19/Socket/day07/</id>
+    <published>2022-01-19T05:00:00.000Z</published>
+    <updated>2022-01-19T13:19:37.306Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;day07&quot;&gt;&lt;a href=&quot;#day07&quot; class=&quot;headerlink&quot; title=&quot;day07&quot;&gt;&lt;/a&gt;day07&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Socket" scheme="http://ainihu.github.io/categories/Socket/"/>
+    
+    
+    <category term="TCP的11种状态" scheme="http://ainihu.github.io/tags/TCP%E7%9A%8411%E7%A7%8D%E7%8A%B6%E6%80%81/"/>
+    
+    <category term="SIGPIPPE信号" scheme="http://ainihu.github.io/tags/SIGPIPPE%E4%BF%A1%E5%8F%B7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>08 五种I/O模型&amp;select模型</title>
+    <link href="http://ainihu.github.io/2022/01/19/Socket/day08/"/>
+    <id>http://ainihu.github.io/2022/01/19/Socket/day08/</id>
+    <published>2022-01-19T05:00:00.000Z</published>
+    <updated>2022-01-19T13:19:37.306Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;day08&quot;&gt;&lt;a href=&quot;#day08&quot; class=&quot;headerlink&quot; title=&quot;day08&quot;&gt;&lt;/a&gt;day08&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Socket" scheme="http://ainihu.github.io/categories/Socket/"/>
+    
+    
+    <category term="Socket I/O模型" scheme="http://ainihu.github.io/tags/Socket-I-O%E6%A8%A1%E5%9E%8B/"/>
+    
+    <category term="select模型" scheme="http://ainihu.github.io/tags/select%E6%A8%A1%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>09 select并发服务器</title>
+    <link href="http://ainihu.github.io/2022/01/19/Socket/day09/"/>
+    <id>http://ainihu.github.io/2022/01/19/Socket/day09/</id>
+    <published>2022-01-19T05:00:00.000Z</published>
+    <updated>2022-01-19T13:19:37.306Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;day09&quot;&gt;&lt;a href=&quot;#day09&quot; class=&quot;headerlink&quot; title=&quot;day09&quot;&gt;&lt;/a&gt;day09&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Socket" scheme="http://ainihu.github.io/categories/Socket/"/>
+    
+    
+    <category term="select服务器" scheme="http://ainihu.github.io/tags/select%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>10 close和shutdown函数</title>
+    <link href="http://ainihu.github.io/2022/01/19/Socket/day10/"/>
+    <id>http://ainihu.github.io/2022/01/19/Socket/day10/</id>
+    <published>2022-01-19T05:00:00.000Z</published>
+    <updated>2022-01-19T13:19:37.306Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;day10&quot;&gt;&lt;a href=&quot;#day10&quot; class=&quot;headerlink&quot; title=&quot;day10&quot;&gt;&lt;/a&gt;day10&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Socket" scheme="http://ainihu.github.io/categories/Socket/"/>
+    
+    
+    <category term="close函数 - shutdown函数" scheme="http://ainihu.github.io/tags/close%E5%87%BD%E6%95%B0-shutdown%E5%87%BD%E6%95%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>11 套接字IO超时设置&amp;errno&amp;fcntl&amp;getsockopt</title>
+    <link href="http://ainihu.github.io/2022/01/19/Socket/day11/"/>
+    <id>http://ainihu.github.io/2022/01/19/Socket/day11/</id>
+    <published>2022-01-19T05:00:00.000Z</published>
+    <updated>2022-01-19T13:19:37.307Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;day11&quot;&gt;&lt;a href=&quot;#day11&quot; class=&quot;headerlink&quot; title=&quot;day11&quot;&gt;&lt;/a&gt;day11&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Socket" scheme="http://ainihu.github.io/categories/Socket/"/>
+    
+    
+    <category term="socket" scheme="http://ainihu.github.io/tags/socket/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>12 select函数&amp;getrlimit&amp;setrlimit&amp;poll函数</title>
+    <link href="http://ainihu.github.io/2022/01/19/Socket/day12/"/>
+    <id>http://ainihu.github.io/2022/01/19/Socket/day12/</id>
+    <published>2022-01-19T05:00:00.000Z</published>
+    <updated>2022-01-19T13:19:37.307Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;day12&quot;&gt;&lt;a href=&quot;#day12&quot; class=&quot;headerlink&quot; title=&quot;day12&quot;&gt;&lt;/a&gt;day12&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Socket" scheme="http://ainihu.github.io/categories/Socket/"/>
+    
+    
+    <category term="select函数" scheme="http://ainihu.github.io/tags/select%E5%87%BD%E6%95%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>13 epoll相关函数、select、epoll和poll区别</title>
+    <link href="http://ainihu.github.io/2022/01/19/Socket/day13/"/>
+    <id>http://ainihu.github.io/2022/01/19/Socket/day13/</id>
+    <published>2022-01-19T05:00:00.000Z</published>
+    <updated>2022-01-19T13:19:37.307Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;day13&quot;&gt;&lt;a href=&quot;#day13&quot; class=&quot;headerlink&quot; title=&quot;day13&quot;&gt;&lt;/a&gt;day13&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Socket" scheme="http://ainihu.github.io/categories/Socket/"/>
+    
+    
+    <category term="epoll使用" scheme="http://ainihu.github.io/tags/epoll%E4%BD%BF%E7%94%A8/"/>
+    
+    <category term="select&amp;poll&amp;epoll" scheme="http://ainihu.github.io/tags/select-poll-epoll/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>14 UDP服务器</title>
+    <link href="http://ainihu.github.io/2022/01/19/Socket/day14/"/>
+    <id>http://ainihu.github.io/2022/01/19/Socket/day14/</id>
+    <published>2022-01-19T05:00:00.000Z</published>
+    <updated>2022-01-19T13:19:37.307Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;day14&quot;&gt;&lt;a href=&quot;#day14&quot; class=&quot;headerlink&quot; title=&quot;day14&quot;&gt;&lt;/a&gt;day14&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Socket" scheme="http://ainihu.github.io/categories/Socket/"/>
+    
+    
+    <category term="UDP服务器" scheme="http://ainihu.github.io/tags/UDP%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+    <category term="UDP回射客户端" scheme="http://ainihu.github.io/tags/UDP%E5%9B%9E%E5%B0%84%E5%AE%A2%E6%88%B7%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>16 UNIX域协议学习</title>
+    <link href="http://ainihu.github.io/2022/01/19/Socket/day16/"/>
+    <id>http://ainihu.github.io/2022/01/19/Socket/day16/</id>
+    <published>2022-01-19T05:00:00.000Z</published>
+    <updated>2022-01-19T13:19:37.307Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;day16&quot;&gt;&lt;a href=&quot;#day16&quot; class=&quot;headerlink&quot; title=&quot;day16&quot;&gt;&lt;/a&gt;day16&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Socket" scheme="http://ainihu.github.io/categories/Socket/"/>
+    
+    
+    <category term="UNIX域协议" scheme="http://ainihu.github.io/tags/UNIX%E5%9F%9F%E5%8D%8F%E8%AE%AE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>17 socketpair、全双工流管道</title>
+    <link href="http://ainihu.github.io/2022/01/19/Socket/day17/"/>
+    <id>http://ainihu.github.io/2022/01/19/Socket/day17/</id>
+    <published>2022-01-19T05:00:00.000Z</published>
+    <updated>2022-01-19T13:19:37.307Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;day17&quot;&gt;&lt;a href=&quot;#day17&quot; class=&quot;headerlink&quot; title=&quot;day17&quot;&gt;&lt;/a&gt;day17&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Socket" scheme="http://ainihu.github.io/categories/Socket/"/>
+    
+    
+    <category term="socketpair" scheme="http://ainihu.github.io/tags/socketpair/"/>
+    
+  </entry>
   
   <entry>
     <title>01 Golang初识</title>
@@ -29,443 +507,6 @@
         
         
     <summary type="html">&lt;h1 id=&quot;01-Go初识&quot;&gt;&lt;a href=&quot;#01-Go初识&quot; class=&quot;headerlink&quot; title=&quot;01 Go初识&quot;&gt;&lt;/a&gt;01 Go初识&lt;/h1&gt;&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
-        
-      
-    
-    
-    
-    <category term="Golang基础" scheme="http://ainihu.github.io/categories/Golang%E5%9F%BA%E7%A1%80/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>02 Golang交换两个值</title>
-    <link href="http://ainihu.github.io/2021/12/14/Golang/02%E4%BA%A4%E6%8D%A2%E4%B8%A4%E4%B8%AA%E5%80%BC/"/>
-    <id>http://ainihu.github.io/2021/12/14/Golang/02%E4%BA%A4%E6%8D%A2%E4%B8%A4%E4%B8%AA%E5%80%BC/</id>
-    <published>2021-12-14T05:00:00.000Z</published>
-    <updated>2021-11-14T13:25:22.540Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;02-交换两个值&quot;&gt;&lt;a href=&quot;#02-交换两个值&quot; class=&quot;headerlink&quot; title=&quot;02 交换两个值&quot;&gt;&lt;/a&gt;02 交换两个值&lt;/h1&gt;&lt;figure class=&quot;highlight</summary>
-        
-      
-    
-    
-    
-    <category term="Golang基础" scheme="http://ainihu.github.io/categories/Golang%E5%9F%BA%E7%A1%80/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>04 Golang运算符</title>
-    <link href="http://ainihu.github.io/2021/12/14/Golang/04%E8%BF%90%E7%AE%97%E7%AC%A6/"/>
-    <id>http://ainihu.github.io/2021/12/14/Golang/04%E8%BF%90%E7%AE%97%E7%AC%A6/</id>
-    <published>2021-12-14T05:00:00.000Z</published>
-    <updated>2021-11-14T13:25:22.540Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;04-运算符&quot;&gt;&lt;a href=&quot;#04-运算符&quot; class=&quot;headerlink&quot; title=&quot;04 运算符&quot;&gt;&lt;/a&gt;04 运算符&lt;/h1&gt;&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
-        
-      
-    
-    
-    
-    <category term="Golang基础" scheme="http://ainihu.github.io/categories/Golang%E5%9F%BA%E7%A1%80/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>03 Go语言常量</title>
-    <link href="http://ainihu.github.io/2021/12/14/Golang/03%E8%AF%AD%E8%A8%80%E5%B8%B8%E9%87%8F/"/>
-    <id>http://ainihu.github.io/2021/12/14/Golang/03%E8%AF%AD%E8%A8%80%E5%B8%B8%E9%87%8F/</id>
-    <published>2021-12-14T05:00:00.000Z</published>
-    <updated>2021-11-14T13:25:22.540Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;03-语言常量&quot;&gt;&lt;a href=&quot;#03-语言常量&quot; class=&quot;headerlink&quot; title=&quot;03 语言常量&quot;&gt;&lt;/a&gt;03 语言常量&lt;/h1&gt;&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
-        
-      
-    
-    
-    
-    <category term="Golang基础" scheme="http://ainihu.github.io/categories/Golang%E5%9F%BA%E7%A1%80/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>05 Golang条件_循环语句</title>
-    <link href="http://ainihu.github.io/2021/12/14/Golang/05%E6%9D%A1%E4%BB%B6_%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5/"/>
-    <id>http://ainihu.github.io/2021/12/14/Golang/05%E6%9D%A1%E4%BB%B6_%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5/</id>
-    <published>2021-12-14T05:00:00.000Z</published>
-    <updated>2021-11-14T13:25:22.540Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;05条件-循环语句&quot;&gt;&lt;a href=&quot;#05条件-循环语句&quot; class=&quot;headerlink&quot; title=&quot;05条件_循环语句&quot;&gt;&lt;/a&gt;05条件_循环语句&lt;/h1&gt;&lt;figure class=&quot;highlight</summary>
-        
-      
-    
-    
-    
-    <category term="Golang基础" scheme="http://ainihu.github.io/categories/Golang%E5%9F%BA%E7%A1%80/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>06 Golang函数定义</title>
-    <link href="http://ainihu.github.io/2021/12/14/Golang/06%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89/"/>
-    <id>http://ainihu.github.io/2021/12/14/Golang/06%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89/</id>
-    <published>2021-12-14T05:00:00.000Z</published>
-    <updated>2021-11-14T13:25:22.541Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;06函数定义&quot;&gt;&lt;a href=&quot;#06函数定义&quot; class=&quot;headerlink&quot; title=&quot;06函数定义&quot;&gt;&lt;/a&gt;06函数定义&lt;/h1&gt;&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
-        
-      
-    
-    
-    
-    <category term="Golang基础" scheme="http://ainihu.github.io/categories/Golang%E5%9F%BA%E7%A1%80/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>07 Golang变量作用域</title>
-    <link href="http://ainihu.github.io/2021/12/14/Golang/07%E5%8F%98%E9%87%8F%E4%BD%9C%E7%94%A8%E5%9F%9F/"/>
-    <id>http://ainihu.github.io/2021/12/14/Golang/07%E5%8F%98%E9%87%8F%E4%BD%9C%E7%94%A8%E5%9F%9F/</id>
-    <published>2021-12-14T05:00:00.000Z</published>
-    <updated>2021-11-14T13:25:22.541Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;07变量作用域&quot;&gt;&lt;a href=&quot;#07变量作用域&quot; class=&quot;headerlink&quot; title=&quot;07变量作用域&quot;&gt;&lt;/a&gt;07变量作用域&lt;/h1&gt;&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
-        
-      
-    
-    
-    
-    <category term="Golang基础" scheme="http://ainihu.github.io/categories/Golang%E5%9F%BA%E7%A1%80/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>08 Golang数组</title>
-    <link href="http://ainihu.github.io/2021/12/14/Golang/08%E6%95%B0%E7%BB%84/"/>
-    <id>http://ainihu.github.io/2021/12/14/Golang/08%E6%95%B0%E7%BB%84/</id>
-    <published>2021-12-14T05:00:00.000Z</published>
-    <updated>2021-11-14T13:25:22.541Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;08数组&quot;&gt;&lt;a href=&quot;#08数组&quot; class=&quot;headerlink&quot; title=&quot;08数组&quot;&gt;&lt;/a&gt;08数组&lt;/h1&gt;&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
-        
-      
-    
-    
-    
-    <category term="Golang基础" scheme="http://ainihu.github.io/categories/Golang%E5%9F%BA%E7%A1%80/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>09 Golang指针</title>
-    <link href="http://ainihu.github.io/2021/12/14/Golang/09%E6%8C%87%E9%92%88/"/>
-    <id>http://ainihu.github.io/2021/12/14/Golang/09%E6%8C%87%E9%92%88/</id>
-    <published>2021-12-14T05:00:00.000Z</published>
-    <updated>2021-11-14T13:25:22.541Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;09指针&quot;&gt;&lt;a href=&quot;#09指针&quot; class=&quot;headerlink&quot; title=&quot;09指针&quot;&gt;&lt;/a&gt;09指针&lt;/h1&gt;&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
-        
-      
-    
-    
-    
-    <category term="Golang基础" scheme="http://ainihu.github.io/categories/Golang%E5%9F%BA%E7%A1%80/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>10 Golang结构体</title>
-    <link href="http://ainihu.github.io/2021/12/14/Golang/10%E7%BB%93%E6%9E%84%E4%BD%93/"/>
-    <id>http://ainihu.github.io/2021/12/14/Golang/10%E7%BB%93%E6%9E%84%E4%BD%93/</id>
-    <published>2021-12-14T05:00:00.000Z</published>
-    <updated>2021-11-14T13:25:22.541Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;10结构体&quot;&gt;&lt;a href=&quot;#10结构体&quot; class=&quot;headerlink&quot; title=&quot;10结构体&quot;&gt;&lt;/a&gt;10结构体&lt;/h1&gt;&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
-        
-      
-    
-    
-    
-    <category term="Golang基础" scheme="http://ainihu.github.io/categories/Golang%E5%9F%BA%E7%A1%80/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>11 Golang切片slice</title>
-    <link href="http://ainihu.github.io/2021/12/14/Golang/11%E5%88%87%E7%89%87slice/"/>
-    <id>http://ainihu.github.io/2021/12/14/Golang/11%E5%88%87%E7%89%87slice/</id>
-    <published>2021-12-14T05:00:00.000Z</published>
-    <updated>2021-11-14T13:25:22.541Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;11-切片slice&quot;&gt;&lt;a href=&quot;#11-切片slice&quot; class=&quot;headerlink&quot; title=&quot;11 切片slice&quot;&gt;&lt;/a&gt;11 切片slice&lt;/h1&gt;&lt;figure class=&quot;highlight</summary>
-        
-      
-    
-    
-    
-    <category term="Golang基础" scheme="http://ainihu.github.io/categories/Golang%E5%9F%BA%E7%A1%80/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>12 Golang范围Range</title>
-    <link href="http://ainihu.github.io/2021/12/14/Golang/12%E8%8C%83%E5%9B%B4Range/"/>
-    <id>http://ainihu.github.io/2021/12/14/Golang/12%E8%8C%83%E5%9B%B4Range/</id>
-    <published>2021-12-14T05:00:00.000Z</published>
-    <updated>2021-11-14T13:25:22.541Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;12-范围Range&quot;&gt;&lt;a href=&quot;#12-范围Range&quot; class=&quot;headerlink&quot; title=&quot;12 范围Range&quot;&gt;&lt;/a&gt;12 范围Range&lt;/h1&gt;&lt;figure class=&quot;highlight</summary>
-        
-      
-    
-    
-    
-    <category term="Golang基础" scheme="http://ainihu.github.io/categories/Golang%E5%9F%BA%E7%A1%80/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>14 Golang递归</title>
-    <link href="http://ainihu.github.io/2021/12/14/Golang/14%E9%80%92%E5%BD%92/"/>
-    <id>http://ainihu.github.io/2021/12/14/Golang/14%E9%80%92%E5%BD%92/</id>
-    <published>2021-12-14T05:00:00.000Z</published>
-    <updated>2021-11-14T13:25:22.541Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;14-递归&quot;&gt;&lt;a href=&quot;#14-递归&quot; class=&quot;headerlink&quot; title=&quot;14 递归&quot;&gt;&lt;/a&gt;14 递归&lt;/h1&gt;&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
-        
-      
-    
-    
-    
-    <category term="Golang基础" scheme="http://ainihu.github.io/categories/Golang%E5%9F%BA%E7%A1%80/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>13 Golang map集合</title>
-    <link href="http://ainihu.github.io/2021/12/14/Golang/13map%E9%9B%86%E5%90%88/"/>
-    <id>http://ainihu.github.io/2021/12/14/Golang/13map%E9%9B%86%E5%90%88/</id>
-    <published>2021-12-14T05:00:00.000Z</published>
-    <updated>2021-11-14T13:25:22.541Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;13-map集合&quot;&gt;&lt;a href=&quot;#13-map集合&quot; class=&quot;headerlink&quot; title=&quot;13 map集合&quot;&gt;&lt;/a&gt;13 map集合&lt;/h1&gt;&lt;figure class=&quot;highlight</summary>
-        
-      
-    
-    
-    
-    <category term="Golang基础" scheme="http://ainihu.github.io/categories/Golang%E5%9F%BA%E7%A1%80/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>15 Golang类型转换</title>
-    <link href="http://ainihu.github.io/2021/12/14/Golang/15%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"/>
-    <id>http://ainihu.github.io/2021/12/14/Golang/15%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/</id>
-    <published>2021-12-14T05:00:00.000Z</published>
-    <updated>2021-11-14T13:25:22.541Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;15-类型转换&quot;&gt;&lt;a href=&quot;#15-类型转换&quot; class=&quot;headerlink&quot; title=&quot;15 类型转换&quot;&gt;&lt;/a&gt;15 类型转换&lt;/h1&gt;&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
-        
-      
-    
-    
-    
-    <category term="Golang基础" scheme="http://ainihu.github.io/categories/Golang%E5%9F%BA%E7%A1%80/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>16 Golang接口</title>
-    <link href="http://ainihu.github.io/2021/12/14/Golang/16%E6%8E%A5%E5%8F%A3/"/>
-    <id>http://ainihu.github.io/2021/12/14/Golang/16%E6%8E%A5%E5%8F%A3/</id>
-    <published>2021-12-14T05:00:00.000Z</published>
-    <updated>2021-11-14T13:25:22.541Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;16接口&quot;&gt;&lt;a href=&quot;#16接口&quot; class=&quot;headerlink&quot; title=&quot;16接口&quot;&gt;&lt;/a&gt;16接口&lt;/h1&gt;&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
-        
-      
-    
-    
-    
-    <category term="Golang基础" scheme="http://ainihu.github.io/categories/Golang%E5%9F%BA%E7%A1%80/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>17 Golang错误处理</title>
-    <link href="http://ainihu.github.io/2021/12/14/Golang/17%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/"/>
-    <id>http://ainihu.github.io/2021/12/14/Golang/17%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/</id>
-    <published>2021-12-14T05:00:00.000Z</published>
-    <updated>2021-11-14T13:25:22.541Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;17-错误处理&quot;&gt;&lt;a href=&quot;#17-错误处理&quot; class=&quot;headerlink&quot; title=&quot;17 错误处理&quot;&gt;&lt;/a&gt;17 错误处理&lt;/h1&gt;&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
-        
-      
-    
-    
-    
-    <category term="Golang基础" scheme="http://ainihu.github.io/categories/Golang%E5%9F%BA%E7%A1%80/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>19 Golang数组和切片</title>
-    <link href="http://ainihu.github.io/2021/12/14/Golang/19Go%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8C%E5%88%87%E7%89%87/"/>
-    <id>http://ainihu.github.io/2021/12/14/Golang/19Go%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8C%E5%88%87%E7%89%87/</id>
-    <published>2021-12-14T05:00:00.000Z</published>
-    <updated>2021-11-14T13:25:22.542Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;19-Go的数组和切片&quot;&gt;&lt;a href=&quot;#19-Go的数组和切片&quot; class=&quot;headerlink&quot; title=&quot;19 Go的数组和切片&quot;&gt;&lt;/a&gt;19</summary>
-        
-      
-    
-    
-    
-    <category term="Golang基础" scheme="http://ainihu.github.io/categories/Golang%E5%9F%BA%E7%A1%80/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>18 Golang批量修改文件后缀并格式化存储</title>
-    <link href="http://ainihu.github.io/2021/12/14/Golang/18%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E5%90%8E%E7%BC%80%E5%B9%B6%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%98%E5%82%A8/"/>
-    <id>http://ainihu.github.io/2021/12/14/Golang/18%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E5%90%8E%E7%BC%80%E5%B9%B6%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%98%E5%82%A8/</id>
-    <published>2021-12-14T05:00:00.000Z</published>
-    <updated>2021-11-14T13:25:22.541Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;18-批量修改文件后缀并格式化存储&quot;&gt;&lt;a href=&quot;#18-批量修改文件后缀并格式化存储&quot; class=&quot;headerlink&quot; title=&quot;18 批量修改文件后缀并格式化存储&quot;&gt;&lt;/a&gt;18 批量修改文件后缀并格式化存储&lt;/h1&gt;&lt;figure</summary>
-        
-      
-    
-    
-    
-    <category term="Golang基础" scheme="http://ainihu.github.io/categories/Golang%E5%9F%BA%E7%A1%80/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>20 Golang数组指针VS指针数组</title>
-    <link href="http://ainihu.github.io/2021/12/14/Golang/20%E6%8C%87%E9%92%88%E6%95%B0%E7%BB%84VS%E6%95%B0%E7%BB%84%E6%8C%87%E9%92%88/"/>
-    <id>http://ainihu.github.io/2021/12/14/Golang/20%E6%8C%87%E9%92%88%E6%95%B0%E7%BB%84VS%E6%95%B0%E7%BB%84%E6%8C%87%E9%92%88/</id>
-    <published>2021-12-14T05:00:00.000Z</published>
-    <updated>2021-11-14T13:25:22.542Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;20-数组指针VS指针数组&quot;&gt;&lt;a href=&quot;#20-数组指针VS指针数组&quot; class=&quot;headerlink&quot; title=&quot;20 数组指针VS指针数组&quot;&gt;&lt;/a&gt;20 数组指针VS指针数组&lt;/h1&gt;&lt;figure class=&quot;highlight</summary>
         
       
     

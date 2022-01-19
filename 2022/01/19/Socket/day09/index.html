@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>09 select并发服务器 | Hexo</title>
+  <meta name="description" content="day09本章目标 select 读、写、异常事件发生条件 用select改进回射服务器程序  select 再复习和补充一点select的参数  1234567891011121314151617#include &lt;sys&#x2F;select.h&gt;&#x2F;* According to earlier standards *&#x2F;#include &lt;sys&#x2F;time.h&gt;#include">
+<meta property="og:type" content="article">
+<meta property="og:title" content="09 select并发服务器">
+<meta property="og:url" content="http://ainihu.github.io/2022/01/19/Socket/day09/index.html">
+<meta property="og:site_name" content="缄默">
+<meta property="og:description" content="day09本章目标 select 读、写、异常事件发生条件 用select改进回射服务器程序  select 再复习和补充一点select的参数  1234567891011121314151617#include &lt;sys&#x2F;select.h&gt;&#x2F;* According to earlier standards *&#x2F;#include &lt;sys&#x2F;time.h&gt;#include">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-19T05:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-19T13:19:37.306Z">
+<meta property="article:author" content="Zhanghui">
+<meta property="article:tag" content="select服务器">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://ainihu.github.io/2022/01/19/Socket/day09/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="缄默" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/ainihu" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">缄默</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">每一个不曾起舞的日子，都是对生命的辜负。</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Beijing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/ainihu" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/ainihu" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/jianmo_pip" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a><span class="category-list-count">21</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Socket/">Socket</a><span class="category-list-count">17</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LVM%E5%8D%B7/" rel="tag">LVM卷</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" rel="tag">Linux基础命令</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%AE%89%E8%A3%85WPS/" rel="tag">Linux安装WPS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%97%A5%E5%BF%97/" rel="tag">Linux日志</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" rel="tag">Linux用户管理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" rel="tag">Linux磁盘管理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E8%BF%9B%E7%A8%8B/" rel="tag">Linux进程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REUSEADDR/" rel="tag">REUSEADDR</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SIGCHLD%E4%BF%A1%E5%8F%B7/" rel="tag">SIGCHLD信号</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SIGPIPPE%E4%BF%A1%E5%8F%B7/" rel="tag">SIGPIPPE信号</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket-I-O%E6%A8%A1%E5%9E%8B/" rel="tag">Socket I/O模型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP%E7%9A%8411%E7%A7%8D%E7%8A%B6%E6%80%81/" rel="tag">TCP的11种状态</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98/" rel="tag">TCP粘包问题</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UDP%E5%9B%9E%E5%B0%84%E5%AE%A2%E6%88%B7%E7%AB%AF/" rel="tag">UDP回射客户端</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UDP%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">UDP服务器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UNIX%E5%9F%9F%E5%8D%8F%E8%AE%AE/" rel="tag">UNIX域协议</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/close%E5%87%BD%E6%95%B0-shutdown%E5%87%BD%E6%95%B0/" rel="tag">close函数 - shutdown函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/epoll%E4%BD%BF%E7%94%A8/" rel="tag">epoll使用</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ftp/" rel="tag">ftp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select-poll-epoll/" rel="tag">select&poll&epoll</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select%E5%87%BD%E6%95%B0/" rel="tag">select函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">select服务器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select%E6%A8%A1%E5%9E%8B/" rel="tag">select模型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket/" rel="tag">socket</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socketReadline/" rel="tag">socketReadline</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socketpair/" rel="tag">socketpair</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0/" rel="tag">socket相关函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/" rel="tag">ssh</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/" rel="tag">vim</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yum%E7%AE%A1%E7%90%86/" rel="tag">yum管理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B/" rel="tag">僵尸进程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1/" rel="tag">延时任务</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" rel="tag">文件传输</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/" rel="tag">权限控制</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E7%9B%98%E6%8C%82%E8%BD%BD/" rel="tag">硬盘挂载</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" rel="tag">网络配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/" rel="tag">虚拟机安装</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="tag">进程管理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%82%AE%E4%BB%B6%E7%AE%A1%E7%90%86/" rel="tag">邮件管理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" rel="tag">防火墙</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/LVM%E5%8D%B7/" style="font-size: 13px;">LVM卷</a> <a href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" style="font-size: 13px;">Linux基础命令</a> <a href="/tags/Linux%E5%AE%89%E8%A3%85WPS/" style="font-size: 13px;">Linux安装WPS</a> <a href="/tags/Linux%E6%97%A5%E5%BF%97/" style="font-size: 13px;">Linux日志</a> <a href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" style="font-size: 13px;">Linux用户管理</a> <a href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" style="font-size: 13px;">Linux磁盘管理</a> <a href="/tags/Linux%E8%BF%9B%E7%A8%8B/" style="font-size: 13px;">Linux进程</a> <a href="/tags/REUSEADDR/" style="font-size: 13px;">REUSEADDR</a> <a href="/tags/SIGCHLD%E4%BF%A1%E5%8F%B7/" style="font-size: 13px;">SIGCHLD信号</a> <a href="/tags/SIGPIPPE%E4%BF%A1%E5%8F%B7/" style="font-size: 13px;">SIGPIPPE信号</a> <a href="/tags/Socket-I-O%E6%A8%A1%E5%9E%8B/" style="font-size: 13px;">Socket I/O模型</a> <a href="/tags/TCP%E7%9A%8411%E7%A7%8D%E7%8A%B6%E6%80%81/" style="font-size: 13px;">TCP的11种状态</a> <a href="/tags/TCP%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98/" style="font-size: 13px;">TCP粘包问题</a> <a href="/tags/UDP%E5%9B%9E%E5%B0%84%E5%AE%A2%E6%88%B7%E7%AB%AF/" style="font-size: 13px;">UDP回射客户端</a> <a href="/tags/UDP%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 13px;">UDP服务器</a> <a href="/tags/UNIX%E5%9F%9F%E5%8D%8F%E8%AE%AE/" style="font-size: 13px;">UNIX域协议</a> <a href="/tags/close%E5%87%BD%E6%95%B0-shutdown%E5%87%BD%E6%95%B0/" style="font-size: 13px;">close函数 - shutdown函数</a> <a href="/tags/epoll%E4%BD%BF%E7%94%A8/" style="font-size: 13px;">epoll使用</a> <a href="/tags/ftp/" style="font-size: 13px;">ftp</a> <a href="/tags/select-poll-epoll/" style="font-size: 13px;">select&poll&epoll</a> <a href="/tags/select%E5%87%BD%E6%95%B0/" style="font-size: 13px;">select函数</a> <a href="/tags/select%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 13px;">select服务器</a> <a href="/tags/select%E6%A8%A1%E5%9E%8B/" style="font-size: 13px;">select模型</a> <a href="/tags/socket/" style="font-size: 14px;">socket</a> <a href="/tags/socketReadline/" style="font-size: 13px;">socketReadline</a> <a href="/tags/socketpair/" style="font-size: 13px;">socketpair</a> <a href="/tags/socket%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0/" style="font-size: 13px;">socket相关函数</a> <a href="/tags/ssh/" style="font-size: 13px;">ssh</a> <a href="/tags/vim/" style="font-size: 13px;">vim</a> <a href="/tags/yum%E7%AE%A1%E7%90%86/" style="font-size: 13px;">yum管理</a> <a href="/tags/%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B/" style="font-size: 13px;">僵尸进程</a> <a href="/tags/%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1/" style="font-size: 13px;">延时任务</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" style="font-size: 13px;">文件传输</a> <a href="/tags/%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/" style="font-size: 13px;">权限控制</a> <a href="/tags/%E7%A1%AC%E7%9B%98%E6%8C%82%E8%BD%BD/" style="font-size: 13px;">硬盘挂载</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" style="font-size: 13px;">网络配置</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/" style="font-size: 13px;">虚拟机安装</a> <a href="/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" style="font-size: 13px;">进程管理</a> <a href="/tags/%E9%82%AE%E4%BB%B6%E7%AE%A1%E7%90%86/" style="font-size: 13px;">邮件管理</a> <a href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" style="font-size: 13px;">防火墙</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">十一月 2021</a><span class="archive-list-count">10</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled ">
+        
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/2022/01/19/Socket/day15/" class="thumb">
+    
+    
+        <span class="thumb-image thumb-none"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2022/01/19/Socket/day15/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-01-19T13:19:37.307Z" itemprop="datePublished">2022-01-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/2022/01/19/Socket/epollsrv/" class="thumb">
+    
+    
+        <span class="thumb-image thumb-none"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2022/01/19/Socket/epollsrv/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-01-19T13:19:37.307Z" itemprop="datePublished">2022-01-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/2022/01/19/Socket/day01/" class="thumb">
+    
+    
+        <span class="thumb-image thumb-none"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Socket/">Socket</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/01/19/Socket/day01/" class="title">01 socket 字节序&amp;地址转换函数&amp;套接字类型</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-01-19T05:00:00.000Z" itemprop="datePublished">2022-01-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/2022/01/19/Socket/day02/" class="thumb">
+    
+    
+        <span class="thumb-image thumb-none"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Socket/">Socket</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/01/19/Socket/day02/" class="title">02 C/S模型、socket相关函数</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-01-19T05:00:00.000Z" itemprop="datePublished">2022-01-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/2022/01/19/Socket/day03/" class="thumb">
+    
+    
+        <span class="thumb-image thumb-none"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Socket/">Socket</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/01/19/Socket/day03/" class="title">03 地址重复利用、处理多客户端的连接</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-01-19T05:00:00.000Z" itemprop="datePublished">2022-01-19</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#day09"><span class="toc-number">1.</span> <span class="toc-text">day09</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E7%AB%A0%E7%9B%AE%E6%A0%87"><span class="toc-number">1.1.</span> <span class="toc-text">本章目标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#select"><span class="toc-number">1.2.</span> <span class="toc-text">select</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%BB%E3%80%81%E5%86%99%E3%80%81%E5%BC%82%E5%B8%B8%E4%BA%8B%E4%BB%B6%E5%8F%91%E7%94%9F%E6%9D%A1%E4%BB%B6"><span class="toc-number">1.3.</span> <span class="toc-text">读、写、异常事件发生条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">1.4.</span> <span class="toc-text">并发服务器</span></a></li></ol></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-Socket/day09" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      09 select并发服务器
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2022/01/19/Socket/day09/" class="article-date">
+	  <time datetime="2022-01-19T05:00:00.000Z" itemprop="datePublished">2022-01-19</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Socket/">Socket</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/select%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">select服务器</a>
+  </span>
+
+
+        
+
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/2022/01/19/Socket/day09/" class="leancloud_visitors"  data-flag-title="09 select并发服务器">
+			<span class="leancloud-visitors-count">0</span>
+		</span>
+    </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2022/01/19/Socket/day09/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.5k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 6(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="day09"><a href="#day09" class="headerlink" title="day09"></a>day09</h1><h2 id="本章目标"><a href="#本章目标" class="headerlink" title="本章目标"></a>本章目标</h2><ul>
+<li><code>select</code></li>
+<li>读、写、异常事件发生条件</li>
+<li>用<code>select</code>改进回射服务器程序</li>
+</ul>
+<h2 id="select"><a href="#select" class="headerlink" title="select"></a>select</h2><blockquote>
+<p>再复习和补充一点<code>select</code>的参数</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;sys/select.h&gt;</span><br><span class="line"></span><br><span class="line">/* According to earlier standards */</span><br><span class="line">#include &lt;sys/time.h&gt;</span><br><span class="line">#include &lt;sys/types.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line"></span><br><span class="line">int select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout);</span><br><span class="line"></span><br><span class="line">void FD_CLR(int fd, fd_set *set);</span><br><span class="line">int  FD_ISSET(int fd, fd_set *set);</span><br><span class="line">void FD_SET(int fd, fd_set *set);</span><br><span class="line">void FD_ZERO(fd_set *set);</span><br><span class="line"></span><br><span class="line">#include &lt;sys/select.h&gt;</span><br><span class="line"></span><br><span class="line">int pselect(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, const struct timespec *timeout, const sigset_t *sigmask);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>参数一：<code>int nfds</code></p>
+<blockquote>
+<p>因为<code>select</code>的对感兴趣的<code>fd</code>取值范围为<code>[0, nfds)</code>，前闭后开区间，所以需要最大的<code>文件描述符+1</code>，才能覆盖整个感兴趣的文件描述符号的范围。</p>
+</blockquote>
+</li>
+<li><p>参数二：<code>fd_set *readfds</code></p>
+<blockquote>
+<p>可读事件集合，添加感兴趣可读<code>fd</code></p>
+</blockquote>
+</li>
+<li><p>参数三：<code>fd_set *writefds</code></p>
+<blockquote>
+<p>可写事件集合，添加感兴趣可写<code>fd</code></p>
+</blockquote>
+</li>
+<li><p>参数四：<code>fd_set *exceptfds</code></p>
+<blockquote>
+<p>异常事件集合</p>
+</blockquote>
+</li>
+<li><p>参数五：<code>struct timeval *timeout</code></p>
+<blockquote>
+<p>超时时间，在响应的超时时间内没有发生任何一个<code>I/O事件</code>(读/写事件)，则<code>select</code>返回<code>0</code>，指示超时。出现错误<code>select</code>返回<code>-1</code>.</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>监测到多个事件，需要遍历，<code>readfds</code>、<code>writefds</code>、<code>exceptfds</code>这些集合来一一处理这些事情，<font color="read">则将<code>select</code>实现的服务器称为并发服务器</font>。因为没有能力并行处理这些<code>I/O</code>事件，只能一一遍历处理这些事件。所以称为并发服务器，而不是并行服务器。并发服务器不能长时间处理这些事件，因为长时间处理则不能去执行其他的动作。且事件间的处理间隔时间也不能太长。无法充分利用多核处理器。使用多进程<code>select</code>或者多线程处理这些事件。</p>
+<p><code>select</code>可以同时检测网络<code>I/O</code>和标准<code>I/O</code>事件。那个事件产生则处理那个事件。不会因为某一个阻塞导致另一个无法处理。</p>
+</blockquote>
+<h2 id="读、写、异常事件发生条件"><a href="#读、写、异常事件发生条件" class="headerlink" title="读、写、异常事件发生条件"></a>读、写、异常事件发生条件</h2><ul>
+<li>可读<ul>
+<li>套接口缓冲区有数据可读，底层本质：如果缓冲区的数据超过一定的范围才会通知有数据可读</li>
+<li>连接的读一般关闭，即接收到<code>FIN</code>段，读操作返回<code>0</code></li>
+<li>如果是监听套接口，已完成连接队列不为空时。</li>
+<li>套接口上发生了一个错误待处理，错误可以通过<code>getsockopt</code>指定<code>SO_ERROR</code>选项来获取</li>
+</ul>
+</li>
+<li>可写<ul>
+<li>套接口发送缓冲区有空间容纳数据</li>
+<li>连接的写一半关闭，即收到<code>RST</code>段之后，再次调用<code>write</code>操作</li>
+<li>套接口上发生一个错误待处理，错误可以通过<code>getsockopt</code>指定<code>SO_ERROR</code>选项来获取</li>
+</ul>
+</li>
+<li>异常<ul>
+<li>套接口存在带外数据。</li>
+</ul>
+</li>
+</ul>
+<h2 id="并发服务器"><a href="#并发服务器" class="headerlink" title="并发服务器"></a>并发服务器</h2><blockquote>
+<p>对上一次的服务器端通过<code>select</code>使用一个进程实现。并发服务器的连接客户端的限制，<code>FD_SETSZIE</code>大小和一个进程当中能够打开的<code>I/O</code>的最大数目。<code>FD_SETSIZE</code>不能被更改(非要更改，需要更改内核代码，并进行重新编译)，而一个进程的可以打开的最大的<code>I/O</code>数目可以更改，通过<code>ulimit -n 1000</code>命令更改一个进程可以打开的最大<code>I/O</code>数目为<code>1000</code>。<code>FD_SETSIZE</code>默认情况下和进程能够打开的最大<code>I/O</code>数目为<code>1024</code>个。</p>
+</blockquote>
+<blockquote>
+<p>核心代码(<strong>部分代码</strong>)</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line">int i = 0;</span><br><span class="line">int num = 0;</span><br><span class="line">int maxi = 0; //最大不空闲的套接口下标</span><br><span class="line">int nready = 0;</span><br><span class="line">int maxfd = listenfd;</span><br><span class="line">int conn[FD_SETSIZE] = &#123;0&#125;;</span><br><span class="line">fd_set rset;</span><br><span class="line">fd_set allset;</span><br><span class="line">FD_ZERO(&amp;rset);</span><br><span class="line">FD_ZERO(&amp;allset);</span><br><span class="line">FD_SET(listenfd, &amp;allset);</span><br><span class="line">struct sockaddr_in sockname;</span><br><span class="line">socklen_t addrlen = sizeof(sockname);//一定要有初始值，为结构体大小，输入输出型参数。</span><br><span class="line">for(i = 0; i &lt; FD_SETSIZE; i++)//初始化conn数组</span><br><span class="line">&#123;</span><br><span class="line">        conn[i] = -1;</span><br><span class="line">&#125;</span><br><span class="line">while(1)//一个进程处理并发</span><br><span class="line">&#123;</span><br><span class="line">        rset = allset;</span><br><span class="line">        nready = select(maxfd + 1, &amp;rset, NULL, NULL, NULL);</span><br><span class="line">        if(nready == -1)</span><br><span class="line">        &#123;</span><br><span class="line">                //errno 是记录系统的最后一次错误代码。</span><br><span class="line">                //EINTR错误的产生：当阻塞于某个慢系统调用的一个进程捕获某个信号且相应信号处理函数返回时，该系统调用可能返回一个EINTR错误。</span><br><span class="line">                if(errno == EINTR)//如果被信号中断则继续</span><br><span class="line">                        continue;</span><br><span class="line">                ERR_EXIT(&quot;select&quot;);//其他错误退出</span><br><span class="line">        &#125;</span><br><span class="line">        else if(nready == 0)</span><br><span class="line">        &#123;</span><br><span class="line">                //时间超时,因为这里没有设置超时时间，理论不会出现nready == 0的情况</span><br><span class="line">                continue;</span><br><span class="line">        &#125;</span><br><span class="line">        if(FD_ISSET(listenfd, &amp;rset))//判断监听套接口是否在集合当中,处理监听套接口的数据</span><br><span class="line">        &#123;</span><br><span class="line">                int ret = -1;</span><br><span class="line">                if((ret = accept(listenfd, (struct sockaddr *)&amp;peeraddr, (socklen_t *)&amp;peerlen)) &lt; 0)</span><br><span class="line">                &#123;</span><br><span class="line">                        ERR_EXIT(&quot;accept&quot;);</span><br><span class="line">                &#125;</span><br><span class="line">                for(i = 0; i &lt; FD_SETSIZE; i++)</span><br><span class="line">                &#123;</span><br><span class="line">                        if(conn[i] &lt; 0)</span><br><span class="line">                        &#123;</span><br><span class="line">                                conn[i] = ret;</span><br><span class="line">                                if(i &gt; maxi)</span><br><span class="line">                                        maxi = i;//最大不空闲套接口下标，优化遍历时间，提高效率</span><br><span class="line">                                break;</span><br><span class="line">                        &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                if(i == FD_SETSIZE)</span><br><span class="line">                &#123;</span><br><span class="line">                        //stderr标准错误</span><br><span class="line">                        fprintf(stderr, &quot;链接的客户端太多了... ...&quot;);</span><br><span class="line">                        exit(EXIT_FAILURE);</span><br><span class="line">                &#125;</span><br><span class="line">                //获取远程的地址</span><br><span class="line">                if(0 &gt; getpeername(ret , (struct sockaddr *)&amp;sockname, (socklen_t*)&amp;addrlen))</span><br><span class="line">                &#123;</span><br><span class="line">                        perror(&quot;getsockname&quot;);</span><br><span class="line">                        exit(EXIT_FAILURE);//退出程序</span><br><span class="line">                &#125;</span><br><span class="line">                printf(&quot;远程的IP: %s, Port: %d\n&quot;, inet_ntoa(sockname.sin_addr), ntohs(sockname.sin_port));</span><br><span class="line">                FD_SET(ret, &amp;allset);//添加新的套接口到allset中下一次select会检测这个套接口</span><br><span class="line">                if(maxfd &lt; ret)//需要更新最大描述符</span><br><span class="line">                        maxfd = ret;</span><br><span class="line">                if(--nready &lt;= 0)//已经处理完了监听套接口的事件，把nready减一操作，如果等于零，说明没有要处理的事件了，为了提高效率直接continue,如果不小于等于零，说明还有其他事件，即为连接客户端的事件，&gt;然后对客户端的事件进行处理，</span><br><span class="line">                        continue;</span><br><span class="line">        &#125;</span><br><span class="line">        for(i = 0; i &lt;= maxi; i++)</span><br><span class="line">        &#123;</span><br><span class="line">                if(conn[i] == -1)</span><br><span class="line">                        continue;</span><br><span class="line">                if(FD_ISSET(conn[i], &amp;rset))//判断是否在读的集合当中</span><br><span class="line">                &#123;</span><br><span class="line">                        //读取数据</span><br><span class="line">                        char recvbuf[1024] = &#123;0&#125;;</span><br><span class="line">                        int ret = readline(conn[i], recvbuf, 1024);</span><br><span class="line">                        if(ret == -1)</span><br><span class="line">                        &#123;</span><br><span class="line">                                ERR_EXIT(&quot;readline&quot;);</span><br><span class="line">                        &#125;</span><br><span class="line">                        if(0 == ret)</span><br><span class="line">                        &#123;</span><br><span class="line">                                printf(&quot;对方关闭了Socket readline\n&quot;);</span><br><span class="line">                                FD_CLR(conn[i], &amp;allset);//从allset中清除</span><br><span class="line">                                conn[i] = -1;//标志为-1</span><br><span class="line">                                continue;</span><br><span class="line">                        &#125;</span><br><span class="line">                        printf(&quot;服务器接收到的数据:&quot;);</span><br><span class="line">                        fputs(recvbuf, stdout);</span><br><span class="line">                        writen(conn[i], recvbuf, strlen(recvbuf));//数据回射回去:</span><br><span class="line">                        if(--nready &lt;= 0)</span><br><span class="line">                                break;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        FD_ZERO(&amp;rset);//清空rset</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://ainihu.github.io/2022/01/19/Socket/day09/" title="09 select并发服务器" target="_blank" rel="external">http://ainihu.github.io/2022/01/19/Socket/day09/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/ainihu" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/ainihu" target="_blank"><span class="text-dark">缄默</span><small class="ml-1x">每一个不曾起舞的日子，都是对生命的辜负。</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2022/01/19/Socket/day08/" title="08 五种I/O模型&amp;select模型"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2022/01/19/Socket/day10/" title="10 close和shutdown函数"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/ainihu" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/ainihu" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/jianmo_pip" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'qgmxYoTay034i92TP8kFD8SR-gzGzoHsz',
+    appKey: 'C0ArOp2d8k8rblANwqbeKC3E',
+    placeholder: 'Just go go',
+    avatar: 'mp',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: true
+  });
+  </script>
+
+     
+
+
+
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.js"></script>
+  <script>
+  //利用 FancyBox 实现点击图片放大
+  $(document).ready(function() {
+    $('article img').not('[hidden]').not('.panel-body img').each(function() {
+      var $image = $(this);
+      var imageCaption = $image.attr('alt');
+      var $imageWrapLink = $image.parent('a');
+      if ($imageWrapLink.length < 1) {
+        var src = this.getAttribute('src');
+        var idx = src.lastIndexOf('?');
+        if (idx != -1) {
+          src = src.substring(0, idx);
+        }
+        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+      }
+      $imageWrapLink.attr('data-fancybox', 'images');
+      if (imageCaption) {
+        $imageWrapLink.attr('data-caption', imageCaption);
+      }
+    });
+    $().fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+    });
+  });
+  </script>
+
+
+
+
+
+</body>
+</html>
