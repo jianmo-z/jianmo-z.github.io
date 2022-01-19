@@ -323,31 +323,6 @@
           <li>
             
             <div class="item-thumb">
-              <a href="/2022/01/19/Socket/day01/" class="thumb">
-    
-    
-        <span class="thumb-image thumb-none"></span>
-    
-</a>
-
-            </div>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/Socket/">Socket</a>
-              </p>
-              <p class="item-title">
-                <a href="/2022/01/19/Socket/day01/" class="title">01 socket 字节序&amp;地址转换函数&amp;套接字类型</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2022-01-19T05:00:00.000Z" itemprop="datePublished">2022-01-19</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-thumb">
               <a href="/2022/01/19/Socket/day02/" class="thumb">
     
     
@@ -370,6 +345,31 @@
             </div>
           </li>
           
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/2022/01/19/Socket/day01/" class="thumb">
+    
+    
+        <span class="thumb-image thumb-none"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Socket/">Socket</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/01/19/Socket/day01/" class="title">01 socket 字节序&amp;地址转换函数&amp;套接字类型</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-01-19T05:00:00.000Z" itemprop="datePublished">2022-01-19</time>
+              </p>
+            </div>
+          </li>
+          
       </ul>
     </div>
   </div>
@@ -383,6 +383,49 @@
   <main class="main" role="main">
   
   <div class="content article-list">
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/12/14/Golang/09%E6%8C%87%E9%92%88/">09 Golang指针</a>
+    </h1>
+  
+
+  </div>
+  
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="09指针"><a href="#09指针" class="headerlink" title="09指针"></a>09指针</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">指针类型：</span><br><span class="line">	var var_name * var-type</span><br><span class="line">  例：</span><br><span class="line">	var ip * int      // 指向整形的指针变量</span><br><span class="line">	var fp * float32  // 指向浮点型的指针变量</span><br><span class="line"></span><br><span class="line">空指针：nil，指针的默认值为nil</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">指针数组：这是一个数组，变量类型是指针类型的</span><br><span class="line">	var p [3] *int</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">二级指针：指向指针的指针</span><br><span class="line">	var a int</span><br><span class="line">	var p * int</span><br><span class="line">	var pp ** int</span><br><span class="line">*/</span><br><span class="line">func main()&#123;</span><br><span class="line">	var a = [] int &#123;1,2 ,3,&#125;</span><br><span class="line">	var p [3] *int</span><br><span class="line"></span><br><span class="line">	for i := 0; i &lt; len(a); i++&#123;</span><br><span class="line">		p[i] = &amp;a[i]</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(a)</span><br><span class="line">	fmt.Println(p)</span><br><span class="line">	for i := 0; i &lt; len(a); i++&#123;</span><br><span class="line">		fmt.Print(*p[i], &quot;=&gt;&quot;, p[i], &quot; &quot;)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	fmt.Println(&quot;\n%&quot;)</span><br><span class="line">	fmt.Printf(&quot;%%\n&quot;)</span><br><span class="line">	fmt.Print(&quot;%\n&quot;) //(MISSING)%,发现没有后续动词,格式化输出会出现此问题</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	// 多级指针</span><br><span class="line">	var b int</span><br><span class="line">	var bp * int</span><br><span class="line">	var bpp ** int</span><br><span class="line"></span><br><span class="line">	b = 4</span><br><span class="line">	bp = &amp;b</span><br><span class="line">	bpp = &amp; bp</span><br><span class="line">	fmt.Println(b, bp, bpp)</span><br><span class="line">	fmt.Println(*bp, *bpp)</span><br><span class="line">	fmt.Println(**bpp)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/12/14/Golang/09%E6%8C%87%E9%92%88/" class="article-date">
+	  <time datetime="2021-12-14T05:00:00.000Z" itemprop="datePublished">12月 14</time>
+	</a>
+</span>
+    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a>
+  </span>
+
+    
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/14/Golang/09%E6%8C%87%E9%92%88/#comments" class="article-comment-link">评论</a></span>
+    
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 223(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
+	
+
+  </p>
+</article>
+
     
       <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
   <div class="article-header">
@@ -418,49 +461,6 @@
     
 	
 		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 283(字)</span>
-	
-	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
-	
-
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/12/14/Golang/11%E5%88%87%E7%89%87slice/">11 Golang切片slice</a>
-    </h1>
-  
-
-  </div>
-  
-  <div class="article-entry text-muted" itemprop="description">
-    <h1 id="11-切片slice"><a href="#11-切片slice" class="headerlink" title="11 切片slice"></a>11 切片slice</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">定义切片:声明一个未指定大小的数组来定义切片</span><br><span class="line">	var identifier []type // 切片不需要说明长度</span><br><span class="line"></span><br><span class="line">或者使用make()函数来创建切片:</span><br><span class="line">	var slicel []type = make([]type, len)</span><br><span class="line">	slicel := make([]type, len)</span><br><span class="line"></span><br><span class="line">指定容量:(可以省略不写),要求length &lt;= capacity,符合逻辑</span><br><span class="line">	make([]T, length, capacity)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">len()</span><br><span class="line">cap()</span><br><span class="line"></span><br><span class="line">append()</span><br><span class="line">copy()</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">func main()&#123;</span><br><span class="line">	var arr = [] int&#123;1, 3, 4, 5, 3, 2, 7&#125;</span><br><span class="line">	a := arr[1:5]</span><br><span class="line">	b := arr[:5]</span><br><span class="line">	c := arr[1:]</span><br><span class="line">	d := arr[len(arr) - 1:len(arr) - 0]</span><br><span class="line"></span><br><span class="line">	fmt.Println(a)</span><br><span class="line">	fmt.Println(b)</span><br><span class="line">	fmt.Println(c)</span><br><span class="line">	fmt.Println(d)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	var array = make([]int, 5, 7)</span><br><span class="line">	fmt.Println(array)</span><br><span class="line">	fmt.Println(&quot;len =&quot;, len(array), &quot;\ncap =&quot;, cap(array))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	arrayAppend := append(array, 1)</span><br><span class="line">	fmt.Println(arrayAppend)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	arrayCopy := make([]int, 3)</span><br><span class="line">	// 如果len(array_copy) &lt; len(array_append)那么只会复制len(array_copy)个元素</span><br><span class="line">	copy(arrayCopy, arrayAppend)</span><br><span class="line">	fmt.Println(arrayCopy)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2021/12/14/Golang/11%E5%88%87%E7%89%87slice/" class="article-date">
-	  <time datetime="2021-12-14T05:00:00.000Z" itemprop="datePublished">12月 14</time>
-	</a>
-</span>
-    
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a>
-  </span>
-
-    
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/14/Golang/11%E5%88%87%E7%89%87slice/#comments" class="article-comment-link">评论</a></span>
-    
-	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 192(字)</span>
 	
 	
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
@@ -561,49 +561,6 @@
     
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/12/14/Golang/16%E6%8E%A5%E5%8F%A3/">16 Golang接口</a>
-    </h1>
-  
-
-  </div>
-  
-  <div class="article-entry text-muted" itemprop="description">
-    <h1 id="16接口"><a href="#16接口" class="headerlink" title="16接口"></a>16接口</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">// method 方法</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">	接口是一种数据类型，它把所有的具有共性的方法定义在一起，</span><br><span class="line">任何其他类型只要实现了这些方法就是实现了这个接口。</span><br><span class="line"></span><br><span class="line">接口的定义:</span><br><span class="line">	type interface_name interface&#123;</span><br><span class="line">		method_name1 [return_type]</span><br><span class="line">		method_name2 [return_type]</span><br><span class="line">		method_name3 [return_type]</span><br><span class="line">		...</span><br><span class="line">		method_namen [return_type]</span><br><span class="line">	&#125;</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">type Animal interface &#123;</span><br><span class="line">	call()    // 无参数，无返回值</span><br><span class="line">	eat() int // 无参数，有返回值</span><br><span class="line">	sleep(int) int // 有参数，有返回值</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">type Dog struct &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (dog Dog) call()&#123;</span><br><span class="line">	fmt.Println(&quot;汪汪&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (dog Dog) eat() int&#123;</span><br><span class="line">	return 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (dog Dog) sleep(n int) int&#123;</span><br><span class="line">	fmt.Printf(&quot;sleep %d\n&quot;, n)</span><br><span class="line">	return n</span><br><span class="line">&#125;</span><br><span class="line">func main() &#123;</span><br><span class="line"></span><br><span class="line">	// 类似于C++的基类指针指向子类对象，接口的方法都需要实现</span><br><span class="line">	// 继承虚基类就要实现虚基类的所有方法</span><br><span class="line">	var dog Animal</span><br><span class="line">	dog = new(Dog)</span><br><span class="line"></span><br><span class="line">	fmt.Println(dog.eat())</span><br><span class="line">	dog.sleep(23)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2021/12/14/Golang/16%E6%8E%A5%E5%8F%A3/" class="article-date">
-	  <time datetime="2021-12-14T05:00:00.000Z" itemprop="datePublished">12月 14</time>
-	</a>
-</span>
-    
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a>
-  </span>
-
-    
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/14/Golang/16%E6%8E%A5%E5%8F%A3/#comments" class="article-comment-link">评论</a></span>
-    
-	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 214(字)</span>
-	
-	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
-	
-
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
       <a class="article-title" href="/2021/12/14/Golang/17%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/">17 Golang错误处理</a>
     </h1>
   
@@ -636,51 +593,6 @@
 	
 	
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
-	
-
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/12/14/Golang/18%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E5%90%8E%E7%BC%80%E5%B9%B6%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%98%E5%82%A8/">18 Golang批量修改文件后缀并格式化存储</a>
-    </h1>
-  
-
-  </div>
-  
-  <div class="article-entry text-muted" itemprop="description">
-    <h1 id="18-批量修改文件后缀并格式化存储"><a href="#18-批量修改文件后缀并格式化存储" class="headerlink" title="18 批量修改文件后缀并格式化存储"></a>18 批量修改文件后缀并格式化存储</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;io&quot;</span><br><span class="line">	&quot;os&quot;</span><br><span class="line">	&quot;path/filepath&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	dir := &quot;C:/Users/Pip/Desktop/Go初识/&quot;</span><br><span class="line"></span><br><span class="line">	// 改变路径</span><br><span class="line">	err := os.Chdir(dir)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		fmt.Println(&quot;打开文件失败&quot;)</span><br><span class="line">		os.Exit(1)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	// 获取文件列表</span><br><span class="line">	fileList, err := filepath.Glob(&quot;*&quot;)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		fmt.Println(&quot;获取失败&quot;)</span><br><span class="line">		os.Exit(1)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(fileList)</span><br><span class="line"></span><br><span class="line">	// 遍历文件列表修改后缀并新建文件</span><br><span class="line">	for _, name := range fileList &#123;</span><br><span class="line">		// 跳过.md文件</span><br><span class="line">		if string(name[len(name) - 3:]) == &quot;.md&quot;&#123;</span><br><span class="line">			continue</span><br><span class="line">		&#125;</span><br><span class="line">		newName := name[:len(name) - 3] + &quot;.md&quot;</span><br><span class="line"></span><br><span class="line">		// 打开.go文件</span><br><span class="line">		oldfile, err := os.OpenFile(name, os.O_RDWR, 0666)</span><br><span class="line">		if err != nil &#123;</span><br><span class="line">			fmt.Printf(&quot;打开文件%s失败\n&quot;, newName)</span><br><span class="line">			os.Exit(1)</span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Println(&quot;Open file:&quot;, name, &quot;success&quot;)</span><br><span class="line"></span><br><span class="line">		// 打开.md文件不存在则新建</span><br><span class="line">		newfile, err := os.OpenFile(newName, os.O_CREATE | os.O_RDWR, 0666)</span><br><span class="line">		if err != nil &#123;</span><br><span class="line">			fmt.Printf(&quot;Open file: %s failed\n&quot;, newName)</span><br><span class="line">			os.Exit(1)</span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Println(&quot;Open file:&quot;, newName, &quot;success&quot;)</span><br><span class="line"></span><br><span class="line">		// 修改格式写入另一个文件</span><br><span class="line">		_, err = newfile.WriteString(&quot;# &quot; + name[:len(name)-3] + &quot;\n```\n&quot;)</span><br><span class="line">		if err != nil&#123;</span><br><span class="line">			fmt.Println(&quot;Write &quot;, newName, &quot;failed&quot;)</span><br><span class="line">			os.Exit(1)</span><br><span class="line">		&#125;</span><br><span class="line">		var fileContent = make([] byte, 1024)</span><br><span class="line">		for ;;&#123;</span><br><span class="line">			n, err := oldfile.Read(fileContent)</span><br><span class="line">			if err != nil &amp;&amp; err != io.EOF&#123;</span><br><span class="line">				fmt.Println(&quot;Write to&quot;, newName, &quot;failed&quot;)</span><br><span class="line">				os.Exit(1)</span><br><span class="line">			&#125;else if n == 0 &#123;</span><br><span class="line">				break</span><br><span class="line">			&#125;</span><br><span class="line">			newfile.WriteString(string(fileContent)[:n])</span><br><span class="line">		&#125;</span><br><span class="line">		_, err = newfile.WriteString(&quot;\n```&quot;)</span><br><span class="line">		if err != nil &#123;</span><br><span class="line">			fmt.Println(&quot;Write to&quot;, newName, &quot;failed&quot;)</span><br><span class="line">			os.Exit(1)</span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Println(&quot;Write to&quot;, string(newName), &quot;success\n&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		//newfile.Sync() // 立即同步,即将内容写入数据</span><br><span class="line">		newfile.Close() // 关闭文件或者程序终止内容才会写入文件</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2021/12/14/Golang/18%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E5%90%8E%E7%BC%80%E5%B9%B6%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%98%E5%82%A8/" class="article-date">
-	  <time datetime="2021-12-14T05:00:00.000Z" itemprop="datePublished">12月 14</time>
-	</a>
-</span>
-    
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a>
-  </span>
-
-    
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/14/Golang/18%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E5%90%8E%E7%BC%80%E5%B9%B6%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%98%E5%82%A8/#comments" class="article-comment-link">评论</a></span>
-    
-	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 402(字)</span>
-	
-	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2(分)</span>
 	
 
   </p>
@@ -776,6 +688,94 @@
     
 	
 		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 393(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
+	
+
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/12/14/Golang/18%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E5%90%8E%E7%BC%80%E5%B9%B6%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%98%E5%82%A8/">18 Golang批量修改文件后缀并格式化存储</a>
+    </h1>
+  
+
+  </div>
+  
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="18-批量修改文件后缀并格式化存储"><a href="#18-批量修改文件后缀并格式化存储" class="headerlink" title="18 批量修改文件后缀并格式化存储"></a>18 批量修改文件后缀并格式化存储</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;io&quot;</span><br><span class="line">	&quot;os&quot;</span><br><span class="line">	&quot;path/filepath&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	dir := &quot;C:/Users/Pip/Desktop/Go初识/&quot;</span><br><span class="line"></span><br><span class="line">	// 改变路径</span><br><span class="line">	err := os.Chdir(dir)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		fmt.Println(&quot;打开文件失败&quot;)</span><br><span class="line">		os.Exit(1)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	// 获取文件列表</span><br><span class="line">	fileList, err := filepath.Glob(&quot;*&quot;)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		fmt.Println(&quot;获取失败&quot;)</span><br><span class="line">		os.Exit(1)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(fileList)</span><br><span class="line"></span><br><span class="line">	// 遍历文件列表修改后缀并新建文件</span><br><span class="line">	for _, name := range fileList &#123;</span><br><span class="line">		// 跳过.md文件</span><br><span class="line">		if string(name[len(name) - 3:]) == &quot;.md&quot;&#123;</span><br><span class="line">			continue</span><br><span class="line">		&#125;</span><br><span class="line">		newName := name[:len(name) - 3] + &quot;.md&quot;</span><br><span class="line"></span><br><span class="line">		// 打开.go文件</span><br><span class="line">		oldfile, err := os.OpenFile(name, os.O_RDWR, 0666)</span><br><span class="line">		if err != nil &#123;</span><br><span class="line">			fmt.Printf(&quot;打开文件%s失败\n&quot;, newName)</span><br><span class="line">			os.Exit(1)</span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Println(&quot;Open file:&quot;, name, &quot;success&quot;)</span><br><span class="line"></span><br><span class="line">		// 打开.md文件不存在则新建</span><br><span class="line">		newfile, err := os.OpenFile(newName, os.O_CREATE | os.O_RDWR, 0666)</span><br><span class="line">		if err != nil &#123;</span><br><span class="line">			fmt.Printf(&quot;Open file: %s failed\n&quot;, newName)</span><br><span class="line">			os.Exit(1)</span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Println(&quot;Open file:&quot;, newName, &quot;success&quot;)</span><br><span class="line"></span><br><span class="line">		// 修改格式写入另一个文件</span><br><span class="line">		_, err = newfile.WriteString(&quot;# &quot; + name[:len(name)-3] + &quot;\n```\n&quot;)</span><br><span class="line">		if err != nil&#123;</span><br><span class="line">			fmt.Println(&quot;Write &quot;, newName, &quot;failed&quot;)</span><br><span class="line">			os.Exit(1)</span><br><span class="line">		&#125;</span><br><span class="line">		var fileContent = make([] byte, 1024)</span><br><span class="line">		for ;;&#123;</span><br><span class="line">			n, err := oldfile.Read(fileContent)</span><br><span class="line">			if err != nil &amp;&amp; err != io.EOF&#123;</span><br><span class="line">				fmt.Println(&quot;Write to&quot;, newName, &quot;failed&quot;)</span><br><span class="line">				os.Exit(1)</span><br><span class="line">			&#125;else if n == 0 &#123;</span><br><span class="line">				break</span><br><span class="line">			&#125;</span><br><span class="line">			newfile.WriteString(string(fileContent)[:n])</span><br><span class="line">		&#125;</span><br><span class="line">		_, err = newfile.WriteString(&quot;\n```&quot;)</span><br><span class="line">		if err != nil &#123;</span><br><span class="line">			fmt.Println(&quot;Write to&quot;, newName, &quot;failed&quot;)</span><br><span class="line">			os.Exit(1)</span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Println(&quot;Write to&quot;, string(newName), &quot;success\n&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		//newfile.Sync() // 立即同步,即将内容写入数据</span><br><span class="line">		newfile.Close() // 关闭文件或者程序终止内容才会写入文件</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/12/14/Golang/18%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E5%90%8E%E7%BC%80%E5%B9%B6%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%98%E5%82%A8/" class="article-date">
+	  <time datetime="2021-12-14T05:00:00.000Z" itemprop="datePublished">12月 14</time>
+	</a>
+</span>
+    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a>
+  </span>
+
+    
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/14/Golang/18%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E5%90%8E%E7%BC%80%E5%B9%B6%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%98%E5%82%A8/#comments" class="article-comment-link">评论</a></span>
+    
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 402(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2(分)</span>
+	
+
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/12/14/Golang/16%E6%8E%A5%E5%8F%A3/">16 Golang接口</a>
+    </h1>
+  
+
+  </div>
+  
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="16接口"><a href="#16接口" class="headerlink" title="16接口"></a>16接口</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">// method 方法</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">	接口是一种数据类型，它把所有的具有共性的方法定义在一起，</span><br><span class="line">任何其他类型只要实现了这些方法就是实现了这个接口。</span><br><span class="line"></span><br><span class="line">接口的定义:</span><br><span class="line">	type interface_name interface&#123;</span><br><span class="line">		method_name1 [return_type]</span><br><span class="line">		method_name2 [return_type]</span><br><span class="line">		method_name3 [return_type]</span><br><span class="line">		...</span><br><span class="line">		method_namen [return_type]</span><br><span class="line">	&#125;</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">type Animal interface &#123;</span><br><span class="line">	call()    // 无参数，无返回值</span><br><span class="line">	eat() int // 无参数，有返回值</span><br><span class="line">	sleep(int) int // 有参数，有返回值</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">type Dog struct &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (dog Dog) call()&#123;</span><br><span class="line">	fmt.Println(&quot;汪汪&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (dog Dog) eat() int&#123;</span><br><span class="line">	return 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (dog Dog) sleep(n int) int&#123;</span><br><span class="line">	fmt.Printf(&quot;sleep %d\n&quot;, n)</span><br><span class="line">	return n</span><br><span class="line">&#125;</span><br><span class="line">func main() &#123;</span><br><span class="line"></span><br><span class="line">	// 类似于C++的基类指针指向子类对象，接口的方法都需要实现</span><br><span class="line">	// 继承虚基类就要实现虚基类的所有方法</span><br><span class="line">	var dog Animal</span><br><span class="line">	dog = new(Dog)</span><br><span class="line"></span><br><span class="line">	fmt.Println(dog.eat())</span><br><span class="line">	dog.sleep(23)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/12/14/Golang/16%E6%8E%A5%E5%8F%A3/" class="article-date">
+	  <time datetime="2021-12-14T05:00:00.000Z" itemprop="datePublished">12月 14</time>
+	</a>
+</span>
+    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a>
+  </span>
+
+    
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/14/Golang/16%E6%8E%A5%E5%8F%A3/#comments" class="article-comment-link">评论</a></span>
+    
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 214(字)</span>
 	
 	
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
@@ -937,79 +937,6 @@
 
 
     <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/11/13/Linux/01linux%E5%9F%BA%E7%A1%80/#comments" class="article-comment-link">评论</a></span>
-    
-	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2.1k(字)</span>
-	
-	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 7(分)</span>
-	
-
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/11/13/Linux/02linux%E5%9F%BA%E7%A1%80/">02 Linux基础知识--vim&amp;用户管理</a>
-    </h1>
-  
-
-  </div>
-  
-  <div class="article-entry text-muted" itemprop="description">
-    <h1 id="02-Linux基础知识–vim学习-amp-用户管理"><a href="#02-Linux基础知识–vim学习-amp-用户管理" class="headerlink" title="02 Linux基础知识–vim学习&amp;用户管理"></a>02 Linux基础知识–vim学习&amp;用户管理</h1><h2 id="vim模式"><a href="#vim模式" class="headerlink" title="vim模式"></a>vim模式</h2><ul>
-<li>  普通模式：浏览文件</li>
-<li>  插入模式：对文件内容进行编辑，输入<code>i</code></li>
-<li>  命令模式：临时更改vim的工作方式，对字符批量处理，输入<code>:</code></li>
-<li>  视图模式</li>
-<li>  选择模式</li>
-<li>  Ex模式</li>
-</ul>
-<h2 id="vim配置文件"><a href="#vim配置文件" class="headerlink" title="vim配置文件"></a>vim配置文件</h2><p><code>vim</code>的个人配置文件是<code>~/.vimrc</code>，即在家目录下的一个隐藏文件，如果这个文件不存在那么就新建一个，这个配置文件是当前用户的不会影响到其他用户，如果是想要影响所有的用户的<code>vim</code>配置那么就要修改<code>/etc/vimrc</code>文件，修改文件只需要在文件的最后添加就可以了。</p>
-<ul>
-<li>  <code>set shiftwidth=4</code>：配置自动缩进4个空格,当然要设自动缩进先.</li>
-<li>  <code>set sts=4  </code> ：即配置softtabstop为4.输入tab后就跳了4格</li>
-<li>  <code>set tabstop=4 </code> ：实际的tab即为4个空格,而不是缺省的8个Q</li>
-<li>  <code>set expandtab</code>：在输入tab后,vim用恰当的空格来填充这个<code>tab</code></li>
-<li>  普通模式下按<code>g</code>跳到文件尾</li>
-</ul>
-<h2 id="调整工作方式"><a href="#调整工作方式" class="headerlink" title="调整工作方式"></a>调整工作方式</h2><ul>
-<li>  <code>set nu</code>：设置行号</li>
-<li>  <code>set nonu</code>：取消行号</li>
-<li>  <code>set mouse=a</code>：设置鼠标</li>
-<li>  <code>set c</code>：显示行线</li>
-</ul>
-<h2 id="字符搜索"><a href="#字符搜索" class="headerlink" title="字符搜索"></a>字符搜索</h2><ul>
-<li>  <code>/</code>：从上向下搜索</li>
-<li>  <code>?</code>：从下向上搜索</li>
-</ul>
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2021/11/13/Linux/02linux%E5%9F%BA%E7%A1%80/" class="article-date">
-	  <time datetime="2021-11-13T05:00:00.000Z" itemprop="datePublished">11月 13</time>
-	</a>
-</span>
-    
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </span>
-
-    
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" rel="tag">Linux用户管理</a>, <a class="article-tag-link-link" href="/tags/vim/" rel="tag">vim</a>
-  </span>
-
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/11/13/Linux/02linux%E5%9F%BA%E7%A1%80/#comments" class="article-comment-link">评论</a></span>
     
 	
 		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2.1k(字)</span>
@@ -1383,6 +1310,79 @@
 	
 	
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2(分)</span>
+	
+
+  </p>
+</article>
+
+    
+      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/11/13/Linux/02linux%E5%9F%BA%E7%A1%80/">02 Linux基础知识--vim&amp;用户管理</a>
+    </h1>
+  
+
+  </div>
+  
+  <div class="article-entry text-muted" itemprop="description">
+    <h1 id="02-Linux基础知识–vim学习-amp-用户管理"><a href="#02-Linux基础知识–vim学习-amp-用户管理" class="headerlink" title="02 Linux基础知识–vim学习&amp;用户管理"></a>02 Linux基础知识–vim学习&amp;用户管理</h1><h2 id="vim模式"><a href="#vim模式" class="headerlink" title="vim模式"></a>vim模式</h2><ul>
+<li>  普通模式：浏览文件</li>
+<li>  插入模式：对文件内容进行编辑，输入<code>i</code></li>
+<li>  命令模式：临时更改vim的工作方式，对字符批量处理，输入<code>:</code></li>
+<li>  视图模式</li>
+<li>  选择模式</li>
+<li>  Ex模式</li>
+</ul>
+<h2 id="vim配置文件"><a href="#vim配置文件" class="headerlink" title="vim配置文件"></a>vim配置文件</h2><p><code>vim</code>的个人配置文件是<code>~/.vimrc</code>，即在家目录下的一个隐藏文件，如果这个文件不存在那么就新建一个，这个配置文件是当前用户的不会影响到其他用户，如果是想要影响所有的用户的<code>vim</code>配置那么就要修改<code>/etc/vimrc</code>文件，修改文件只需要在文件的最后添加就可以了。</p>
+<ul>
+<li>  <code>set shiftwidth=4</code>：配置自动缩进4个空格,当然要设自动缩进先.</li>
+<li>  <code>set sts=4  </code> ：即配置softtabstop为4.输入tab后就跳了4格</li>
+<li>  <code>set tabstop=4 </code> ：实际的tab即为4个空格,而不是缺省的8个Q</li>
+<li>  <code>set expandtab</code>：在输入tab后,vim用恰当的空格来填充这个<code>tab</code></li>
+<li>  普通模式下按<code>g</code>跳到文件尾</li>
+</ul>
+<h2 id="调整工作方式"><a href="#调整工作方式" class="headerlink" title="调整工作方式"></a>调整工作方式</h2><ul>
+<li>  <code>set nu</code>：设置行号</li>
+<li>  <code>set nonu</code>：取消行号</li>
+<li>  <code>set mouse=a</code>：设置鼠标</li>
+<li>  <code>set c</code>：显示行线</li>
+</ul>
+<h2 id="字符搜索"><a href="#字符搜索" class="headerlink" title="字符搜索"></a>字符搜索</h2><ul>
+<li>  <code>/</code>：从上向下搜索</li>
+<li>  <code>?</code>：从下向上搜索</li>
+</ul>
+  </div>
+  
+  <p class="article-meta">
+    <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/11/13/Linux/02linux%E5%9F%BA%E7%A1%80/" class="article-date">
+	  <time datetime="2021-11-13T05:00:00.000Z" itemprop="datePublished">11月 13</time>
+	</a>
+</span>
+    
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </span>
+
+    
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" rel="tag">Linux用户管理</a>, <a class="article-tag-link-link" href="/tags/vim/" rel="tag">vim</a>
+  </span>
+
+
+    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/11/13/Linux/02linux%E5%9F%BA%E7%A1%80/#comments" class="article-comment-link">评论</a></span>
+    
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2.1k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 7(分)</span>
 	
 
   </p>
