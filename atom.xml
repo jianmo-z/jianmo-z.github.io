@@ -381,6 +381,56 @@
   </entry>
   
   <entry>
+    <title>07 TCP的11种状态、SIGPIPE信号</title>
+    <link href="http://ainihu.github.io/2022/01/19/Socket/day07/"/>
+    <id>http://ainihu.github.io/2022/01/19/Socket/day07/</id>
+    <published>2022-01-19T05:00:00.000Z</published>
+    <updated>2022-01-19T13:19:37.306Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;day07&quot;&gt;&lt;a href=&quot;#day07&quot; class=&quot;headerlink&quot; title=&quot;day07&quot;&gt;&lt;/a&gt;day07&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot; title=&quot;本章目标&quot;&gt;&lt;/a&gt;本章目标&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;TCP&lt;/code&gt; 11种状态&lt;/li&gt;
+&lt;li&gt;连接建立三次握手、连接终止四次握手&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;TIME_WAIT&lt;/code&gt;与&lt;code&gt;SO_REUSEADDR&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SIGPIPE&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;ACK、SYN和FIN&quot;&gt;&lt;a href=&quot;#ACK、SYN和FIN&quot; class=&quot;headerlink&quot; title=&quot;ACK、SYN和FIN&quot;&gt;&lt;/a&gt;ACK、SYN和FIN&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;参考文档：&lt;br&gt;&lt;a href=&quot;https://zhidao.baidu.com/question/27114298.html&quot;&gt;https://zhidao.baidu.com/question/27114298.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ACK&lt;/code&gt;：是一种确认应答，在数据通信传输中，接收站发给发送站的一种传输控制字符。它表示确认发来的数据已经接受无误。&lt;br&gt;&lt;code&gt;SYN&lt;/code&gt;：攻击属于&lt;code&gt;DOS&lt;/code&gt;攻击的一种，它利用&lt;code&gt;TCP协议&lt;/code&gt;缺陷，通过发送大量的&lt;code&gt;半连接请求&lt;/code&gt;，耗费CPU和内存资源。是最常见又最容易被利用的一种攻击手法。&lt;br&gt;&lt;code&gt;FIN&lt;/code&gt;：是用来扫描保留的端口，发送一个&lt;code&gt;FIN&lt;/code&gt;包（或者是任何没有ACK或SYN标记的包）到目标的一个开放的端口，然后等待回应。许多系统会返回一个复位标记。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;TCP-11种状态&quot;&gt;&lt;a href=&quot;#TCP-11种状态&quot; class=&quot;headerlink&quot; title=&quot;TCP 11种状态&quot;&gt;&lt;/a&gt;TCP 11种状态&lt;/h2&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;貌似有点不对啊，不是说是11种状态吗？？？怎么只有10种，莫非打错字了？？？NO！！！NO！！！NO！！！&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第十一种状态为：&lt;code&gt;CLOSING&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;关闭请求由双方都可以主动的发起，图中为客户端发起的中断连接，也可以是服务器发起中断连接。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;TIME_WAIT&lt;/code&gt;：保留两倍的&lt;code&gt;MSL&lt;/code&gt;时间。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;参考：MSL，即 Maximum Segment Lifetime，一个数据分片（报文）在网络中能够生存的最长时间，在RFC793中定义MSL通常为2分钟，即超过两分钟即认为这个报文已经在网络中被丢弃了。对于一个TCP连接，在双方进入TIME_WAIT后，通常会等待2倍MSL时间后，再关闭掉连接，作用是为了防止由于FIN报文丢包，对端重发导致与后续的TCP连接请求产生顺序混乱，具体原理这里就不详细解释了，&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;参考链接：&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/qwertyupoiuytr/article/details/71436967&quot;&gt;https://blog.csdn.net/qwertyupoiuytr/article/details/71436967&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;CLOSING状态&quot;&gt;&lt;a href=&quot;#CLOSING状态&quot; class=&quot;headerlink&quot; title=&quot;CLOSING状态&quot;&gt;&lt;/a&gt;CLOSING状态&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;如果客户端和服务器双方同时关闭&lt;code&gt;close&lt;/code&gt;时，会产生此状态，建议参考连接。&lt;/p&gt;
+&lt;p&gt;参考文档：&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/dog250/article/details/52070680&quot;&gt;https://blog.csdn.net/dog250/article/details/52070680&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="Socket" scheme="http://ainihu.github.io/categories/Socket/"/>
+    
+    
+    <category term="TCP的11种状态" scheme="http://ainihu.github.io/tags/TCP%E7%9A%8411%E7%A7%8D%E7%8A%B6%E6%80%81/"/>
+    
+    <category term="SIGPIPPE信号" scheme="http://ainihu.github.io/tags/SIGPIPPE%E4%BF%A1%E5%8F%B7/"/>
+    
+  </entry>
+  
+  <entry>
     <title>08 五种I/O模型&amp;select模型</title>
     <link href="http://ainihu.github.io/2022/01/19/Socket/day08/"/>
     <id>http://ainihu.github.io/2022/01/19/Socket/day08/</id>
@@ -424,6 +474,108 @@
     <category term="Socket I/O模型" scheme="http://ainihu.github.io/tags/Socket-I-O%E6%A8%A1%E5%9E%8B/"/>
     
     <category term="select模型" scheme="http://ainihu.github.io/tags/select%E6%A8%A1%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>10 close和shutdown函数</title>
+    <link href="http://ainihu.github.io/2022/01/19/Socket/day10/"/>
+    <id>http://ainihu.github.io/2022/01/19/Socket/day10/</id>
+    <published>2022-01-19T05:00:00.000Z</published>
+    <updated>2022-01-19T13:19:37.306Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;day10&quot;&gt;&lt;a href=&quot;#day10&quot; class=&quot;headerlink&quot; title=&quot;day10&quot;&gt;&lt;/a&gt;day10&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot; title=&quot;本章目标&quot;&gt;&lt;/a&gt;本章目标&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;close&lt;/code&gt;和&lt;code&gt;shutdown&lt;/code&gt;的区别&lt;/li&gt;
+&lt;li&gt;进一步改进回射客户端程序&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;close和shutdown&quot;&gt;&lt;a href=&quot;#close和shutdown&quot; class=&quot;headerlink&quot; title=&quot;close和shutdown&quot;&gt;&lt;/a&gt;close和shutdown&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;close&lt;/code&gt;终止了数据传送的两个方向&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;shutdown&lt;/code&gt;可以有选择的终止某个方向的数据传送或者终止数据传送的两个方向&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;shutdown how=1&lt;/code&gt;就可以保证对等方接收到一个&lt;code&gt;EOF&lt;/code&gt;字符，而不管其他进程是否已经打开了套接字，即不关心引用计数。而&lt;code&gt;close&lt;/code&gt;不能保证一定给对等方发送&lt;code&gt;EOF&lt;/code&gt;，而是直到套接字引用计数减为&lt;code&gt;0&lt;/code&gt;时才发送，也就是说直到所有的进程都关闭了套接字。才是真的关闭了套接字。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;FIN&lt;/code&gt;：是用来扫描保留的端口，发送一个FIN包（或者是任何没有&lt;code&gt;ACK&lt;/code&gt;或&lt;code&gt;SYN&lt;/code&gt;标记的包）到目标的一个开放的端口，然后等待回应。许多系统会返回一个复位标记。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;当客户端(或者服务器)发送消息后，另一端没有读取消息，消息还在管道中，但是客户端(或者服务器)使用&lt;code&gt;close&lt;/code&gt;关闭了套接字，那么另一端就不能把未读取的数据读取出来。所以需要&lt;code&gt;shutdown&lt;/code&gt;，终止某个方向的数据传送。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;关于&lt;code&gt;shutdown&lt;/code&gt;和&lt;code&gt;close&lt;/code&gt;参考文档：&lt;a href=&quot;https://blog.csdn.net/lgp88/article/details/7176509&quot;&gt;https://blog.csdn.net/lgp88/article/details/7176509&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;shutdown&quot;&gt;&lt;a href=&quot;#shutdown&quot; class=&quot;headerlink&quot; title=&quot;shutdown&quot;&gt;&lt;/a&gt;shutdown&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;man 2 shutdown&lt;/code&gt;查看帮助，这个是一个函数，和&lt;code&gt;linux&lt;/code&gt;命令一样但是… …，这俩不一样&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;假设客户端使用了&lt;code&gt;close(fd)&lt;/code&gt;，那么客户端的其他进程如果也使用了这个套接字(即：引用计数 &amp;gt; 1)，则只是引用计数减一操作，其他的进程仍然可以通过这个套接字与服务器进行通信。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;假设客户端如果使用了&lt;code&gt;shutdown(fd, SHUT_RD)&lt;/code&gt;，则直接关闭读端(不管引用计数为多少)，其他进程则不能通过读端再进行数据的读取了，同理可得&lt;code&gt;SHUT_WR&lt;/code&gt;：关闭写端，&lt;code&gt;SHUT_RDWR&lt;/code&gt;：读端和写端都关闭。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;sys/socket.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;int shutdown(int sockfd, int how);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DESCRIPTION&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	The  shutdown() call causes all or part of a full-duplex connection on the socket associated with sockfd to be shut down. If how is SHUT_RD, further receptions will be disallowed.  If how is SHUT_WR, further transmissions will  be  disallowed. If how is SHUT_RDWR, further receptions and transmissions will be disallowed.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;RETURN VALUE&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	On success, zero is returned.  On error, -1 is returned, and errno is set appropriately.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ERRORS&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	EBADF  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		sockfd is not a valid descriptor.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	EINVAL &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		An invalid value was specified in how (but see BUGS).&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	ENOTCONN&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		The specified socket is not connected.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	ENOTSOCK&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		sockfd is a file, not a socket.&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    <category term="Socket" scheme="http://ainihu.github.io/categories/Socket/"/>
+    
+    
+    <category term="close函数 - shutdown函数" scheme="http://ainihu.github.io/tags/close%E5%87%BD%E6%95%B0-shutdown%E5%87%BD%E6%95%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>11 套接字IO超时设置&amp;errno&amp;fcntl&amp;getsockopt</title>
+    <link href="http://ainihu.github.io/2022/01/19/Socket/day11/"/>
+    <id>http://ainihu.github.io/2022/01/19/Socket/day11/</id>
+    <published>2022-01-19T05:00:00.000Z</published>
+    <updated>2022-01-19T13:19:37.307Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;day11&quot;&gt;&lt;a href=&quot;#day11&quot; class=&quot;headerlink&quot; title=&quot;day11&quot;&gt;&lt;/a&gt;day11&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot; title=&quot;本章目标&quot;&gt;&lt;/a&gt;本章目标&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;套接字&lt;code&gt;I/O&lt;/code&gt;超时设置方法&lt;/li&gt;
+&lt;li&gt;用&lt;code&gt;select&lt;/code&gt;实现超时&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;read_timeout&lt;/code&gt;函数封装&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;write_timeout&lt;/code&gt;函数封装&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;accept_timeout&lt;/code&gt;函数封装&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;connect_timeout&lt;/code&gt;函数封装&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;套接字I-O超时设置方法&quot;&gt;&lt;a href=&quot;#套接字I-O超时设置方法&quot; class=&quot;headerlink&quot; title=&quot;套接字I/O超时设置方法&quot;&gt;&lt;/a&gt;套接字I/O超时设置方法&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;一共有三种方法&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;alarm&lt;/code&gt;：闹钟定时&lt;/li&gt;
+&lt;li&gt;套接字选项：移植性比较差&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;SO_SNDTIMEO&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SO_RCVTIMEO&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;select&lt;/code&gt;：&lt;strong&gt;优&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;用select实现超时&quot;&gt;&lt;a href=&quot;#用select实现超时&quot; class=&quot;headerlink&quot; title=&quot;用select实现超时&quot;&gt;&lt;/a&gt;用select实现超时&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;自定义&lt;code&gt;read_timeout&lt;/code&gt;、&lt;code&gt;write_timeout&lt;/code&gt;、&lt;code&gt;accept_timeout&lt;/code&gt;和&lt;code&gt;connect_timeout&lt;/code&gt;函数对&lt;code&gt;select&lt;/code&gt;函数进行了封装，所需要参数为&lt;code&gt;文件描述符&lt;/code&gt;和&lt;code&gt;时间长度&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;   int select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout);&lt;/p&gt;
+&lt;p&gt;   The timeout&lt;br&gt;       The time structures involved are defined in &amp;lt;sys/time.h&amp;gt; and look like&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;   struct timeval &amp;#123;
+       long    tv_sec;         /* seconds */
+       long    tv_usec;        /* microseconds */
+   &amp;#125;;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;   and&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;   struct timespec &amp;#123;
+       long    tv_sec;         /* seconds */
+       long    tv_nsec;        /* nanoseconds */
+   &amp;#125;;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;##errno.h头文件&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Socket" scheme="http://ainihu.github.io/categories/Socket/"/>
+    
+    
+    <category term="socket" scheme="http://ainihu.github.io/tags/socket/"/>
     
   </entry>
   
@@ -506,115 +658,6 @@
   </entry>
   
   <entry>
-    <title>07 TCP的11种状态、SIGPIPE信号</title>
-    <link href="http://ainihu.github.io/2022/01/19/Socket/day07/"/>
-    <id>http://ainihu.github.io/2022/01/19/Socket/day07/</id>
-    <published>2022-01-19T05:00:00.000Z</published>
-    <updated>2022-01-19T13:19:37.306Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;day07&quot;&gt;&lt;a href=&quot;#day07&quot; class=&quot;headerlink&quot; title=&quot;day07&quot;&gt;&lt;/a&gt;day07&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot; title=&quot;本章目标&quot;&gt;&lt;/a&gt;本章目标&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;TCP&lt;/code&gt; 11种状态&lt;/li&gt;
-&lt;li&gt;连接建立三次握手、连接终止四次握手&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;TIME_WAIT&lt;/code&gt;与&lt;code&gt;SO_REUSEADDR&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;SIGPIPE&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;ACK、SYN和FIN&quot;&gt;&lt;a href=&quot;#ACK、SYN和FIN&quot; class=&quot;headerlink&quot; title=&quot;ACK、SYN和FIN&quot;&gt;&lt;/a&gt;ACK、SYN和FIN&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;参考文档：&lt;br&gt;&lt;a href=&quot;https://zhidao.baidu.com/question/27114298.html&quot;&gt;https://zhidao.baidu.com/question/27114298.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;ACK&lt;/code&gt;：是一种确认应答，在数据通信传输中，接收站发给发送站的一种传输控制字符。它表示确认发来的数据已经接受无误。&lt;br&gt;&lt;code&gt;SYN&lt;/code&gt;：攻击属于&lt;code&gt;DOS&lt;/code&gt;攻击的一种，它利用&lt;code&gt;TCP协议&lt;/code&gt;缺陷，通过发送大量的&lt;code&gt;半连接请求&lt;/code&gt;，耗费CPU和内存资源。是最常见又最容易被利用的一种攻击手法。&lt;br&gt;&lt;code&gt;FIN&lt;/code&gt;：是用来扫描保留的端口，发送一个&lt;code&gt;FIN&lt;/code&gt;包（或者是任何没有ACK或SYN标记的包）到目标的一个开放的端口，然后等待回应。许多系统会返回一个复位标记。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;TCP-11种状态&quot;&gt;&lt;a href=&quot;#TCP-11种状态&quot; class=&quot;headerlink&quot; title=&quot;TCP 11种状态&quot;&gt;&lt;/a&gt;TCP 11种状态&lt;/h2&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;貌似有点不对啊，不是说是11种状态吗？？？怎么只有10种，莫非打错字了？？？NO！！！NO！！！NO！！！&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;第十一种状态为：&lt;code&gt;CLOSING&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;关闭请求由双方都可以主动的发起，图中为客户端发起的中断连接，也可以是服务器发起中断连接。&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;TIME_WAIT&lt;/code&gt;：保留两倍的&lt;code&gt;MSL&lt;/code&gt;时间。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;参考：MSL，即 Maximum Segment Lifetime，一个数据分片（报文）在网络中能够生存的最长时间，在RFC793中定义MSL通常为2分钟，即超过两分钟即认为这个报文已经在网络中被丢弃了。对于一个TCP连接，在双方进入TIME_WAIT后，通常会等待2倍MSL时间后，再关闭掉连接，作用是为了防止由于FIN报文丢包，对端重发导致与后续的TCP连接请求产生顺序混乱，具体原理这里就不详细解释了，&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;参考链接：&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/qwertyupoiuytr/article/details/71436967&quot;&gt;https://blog.csdn.net/qwertyupoiuytr/article/details/71436967&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&quot;CLOSING状态&quot;&gt;&lt;a href=&quot;#CLOSING状态&quot; class=&quot;headerlink&quot; title=&quot;CLOSING状态&quot;&gt;&lt;/a&gt;CLOSING状态&lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;如果客户端和服务器双方同时关闭&lt;code&gt;close&lt;/code&gt;时，会产生此状态，建议参考连接。&lt;/p&gt;
-&lt;p&gt;参考文档：&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/dog250/article/details/52070680&quot;&gt;https://blog.csdn.net/dog250/article/details/52070680&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="Socket" scheme="http://ainihu.github.io/categories/Socket/"/>
-    
-    
-    <category term="TCP的11种状态" scheme="http://ainihu.github.io/tags/TCP%E7%9A%8411%E7%A7%8D%E7%8A%B6%E6%80%81/"/>
-    
-    <category term="SIGPIPPE信号" scheme="http://ainihu.github.io/tags/SIGPIPPE%E4%BF%A1%E5%8F%B7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>11 套接字IO超时设置&amp;errno&amp;fcntl&amp;getsockopt</title>
-    <link href="http://ainihu.github.io/2022/01/19/Socket/day11/"/>
-    <id>http://ainihu.github.io/2022/01/19/Socket/day11/</id>
-    <published>2022-01-19T05:00:00.000Z</published>
-    <updated>2022-01-19T13:19:37.307Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;day11&quot;&gt;&lt;a href=&quot;#day11&quot; class=&quot;headerlink&quot; title=&quot;day11&quot;&gt;&lt;/a&gt;day11&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot; title=&quot;本章目标&quot;&gt;&lt;/a&gt;本章目标&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;套接字&lt;code&gt;I/O&lt;/code&gt;超时设置方法&lt;/li&gt;
-&lt;li&gt;用&lt;code&gt;select&lt;/code&gt;实现超时&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;read_timeout&lt;/code&gt;函数封装&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;write_timeout&lt;/code&gt;函数封装&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;accept_timeout&lt;/code&gt;函数封装&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;connect_timeout&lt;/code&gt;函数封装&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;套接字I-O超时设置方法&quot;&gt;&lt;a href=&quot;#套接字I-O超时设置方法&quot; class=&quot;headerlink&quot; title=&quot;套接字I/O超时设置方法&quot;&gt;&lt;/a&gt;套接字I/O超时设置方法&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;一共有三种方法&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;alarm&lt;/code&gt;：闹钟定时&lt;/li&gt;
-&lt;li&gt;套接字选项：移植性比较差&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;SO_SNDTIMEO&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;SO_RCVTIMEO&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;select&lt;/code&gt;：&lt;strong&gt;优&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;用select实现超时&quot;&gt;&lt;a href=&quot;#用select实现超时&quot; class=&quot;headerlink&quot; title=&quot;用select实现超时&quot;&gt;&lt;/a&gt;用select实现超时&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;自定义&lt;code&gt;read_timeout&lt;/code&gt;、&lt;code&gt;write_timeout&lt;/code&gt;、&lt;code&gt;accept_timeout&lt;/code&gt;和&lt;code&gt;connect_timeout&lt;/code&gt;函数对&lt;code&gt;select&lt;/code&gt;函数进行了封装，所需要参数为&lt;code&gt;文件描述符&lt;/code&gt;和&lt;code&gt;时间长度&lt;/code&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;   int select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout);&lt;/p&gt;
-&lt;p&gt;   The timeout&lt;br&gt;       The time structures involved are defined in &amp;lt;sys/time.h&amp;gt; and look like&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;   struct timeval &amp;#123;
-       long    tv_sec;         /* seconds */
-       long    tv_usec;        /* microseconds */
-   &amp;#125;;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;   and&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;   struct timespec &amp;#123;
-       long    tv_sec;         /* seconds */
-       long    tv_nsec;        /* nanoseconds */
-   &amp;#125;;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;##errno.h头文件&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Socket" scheme="http://ainihu.github.io/categories/Socket/"/>
-    
-    
-    <category term="socket" scheme="http://ainihu.github.io/tags/socket/"/>
-    
-  </entry>
-  
-  <entry>
     <title>12 select函数&amp;getrlimit&amp;setrlimit&amp;poll函数</title>
     <link href="http://ainihu.github.io/2022/01/19/Socket/day12/"/>
     <id>http://ainihu.github.io/2022/01/19/Socket/day12/</id>
@@ -658,49 +701,6 @@
     
     
     <category term="select函数" scheme="http://ainihu.github.io/tags/select%E5%87%BD%E6%95%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>10 close和shutdown函数</title>
-    <link href="http://ainihu.github.io/2022/01/19/Socket/day10/"/>
-    <id>http://ainihu.github.io/2022/01/19/Socket/day10/</id>
-    <published>2022-01-19T05:00:00.000Z</published>
-    <updated>2022-01-19T13:19:37.306Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;day10&quot;&gt;&lt;a href=&quot;#day10&quot; class=&quot;headerlink&quot; title=&quot;day10&quot;&gt;&lt;/a&gt;day10&lt;/h1&gt;&lt;h2 id=&quot;本章目标&quot;&gt;&lt;a href=&quot;#本章目标&quot; class=&quot;headerlink&quot; title=&quot;本章目标&quot;&gt;&lt;/a&gt;本章目标&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;close&lt;/code&gt;和&lt;code&gt;shutdown&lt;/code&gt;的区别&lt;/li&gt;
-&lt;li&gt;进一步改进回射客户端程序&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;close和shutdown&quot;&gt;&lt;a href=&quot;#close和shutdown&quot; class=&quot;headerlink&quot; title=&quot;close和shutdown&quot;&gt;&lt;/a&gt;close和shutdown&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;code&gt;close&lt;/code&gt;终止了数据传送的两个方向&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;code&gt;shutdown&lt;/code&gt;可以有选择的终止某个方向的数据传送或者终止数据传送的两个方向&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;code&gt;shutdown how=1&lt;/code&gt;就可以保证对等方接收到一个&lt;code&gt;EOF&lt;/code&gt;字符，而不管其他进程是否已经打开了套接字，即不关心引用计数。而&lt;code&gt;close&lt;/code&gt;不能保证一定给对等方发送&lt;code&gt;EOF&lt;/code&gt;，而是直到套接字引用计数减为&lt;code&gt;0&lt;/code&gt;时才发送，也就是说直到所有的进程都关闭了套接字。才是真的关闭了套接字。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;code&gt;FIN&lt;/code&gt;：是用来扫描保留的端口，发送一个FIN包（或者是任何没有&lt;code&gt;ACK&lt;/code&gt;或&lt;code&gt;SYN&lt;/code&gt;标记的包）到目标的一个开放的端口，然后等待回应。许多系统会返回一个复位标记。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;当客户端(或者服务器)发送消息后，另一端没有读取消息，消息还在管道中，但是客户端(或者服务器)使用&lt;code&gt;close&lt;/code&gt;关闭了套接字，那么另一端就不能把未读取的数据读取出来。所以需要&lt;code&gt;shutdown&lt;/code&gt;，终止某个方向的数据传送。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;关于&lt;code&gt;shutdown&lt;/code&gt;和&lt;code&gt;close&lt;/code&gt;参考文档：&lt;a href=&quot;https://blog.csdn.net/lgp88/article/details/7176509&quot;&gt;https://blog.csdn.net/lgp88/article/details/7176509&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;shutdown&quot;&gt;&lt;a href=&quot;#shutdown&quot; class=&quot;headerlink&quot; title=&quot;shutdown&quot;&gt;&lt;/a&gt;shutdown&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;&lt;code&gt;man 2 shutdown&lt;/code&gt;查看帮助，这个是一个函数，和&lt;code&gt;linux&lt;/code&gt;命令一样但是… …，这俩不一样&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;假设客户端使用了&lt;code&gt;close(fd)&lt;/code&gt;，那么客户端的其他进程如果也使用了这个套接字(即：引用计数 &amp;gt; 1)，则只是引用计数减一操作，其他的进程仍然可以通过这个套接字与服务器进行通信。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;假设客户端如果使用了&lt;code&gt;shutdown(fd, SHUT_RD)&lt;/code&gt;，则直接关闭读端(不管引用计数为多少)，其他进程则不能通过读端再进行数据的读取了，同理可得&lt;code&gt;SHUT_WR&lt;/code&gt;：关闭写端，&lt;code&gt;SHUT_RDWR&lt;/code&gt;：读端和写端都关闭。&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;sys/socket.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;int shutdown(int sockfd, int how);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DESCRIPTION&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	The  shutdown() call causes all or part of a full-duplex connection on the socket associated with sockfd to be shut down. If how is SHUT_RD, further receptions will be disallowed.  If how is SHUT_WR, further transmissions will  be  disallowed. If how is SHUT_RDWR, further receptions and transmissions will be disallowed.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;RETURN VALUE&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	On success, zero is returned.  On error, -1 is returned, and errno is set appropriately.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ERRORS&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	EBADF  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		sockfd is not a valid descriptor.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	EINVAL &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		An invalid value was specified in how (but see BUGS).&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	ENOTCONN&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		The specified socket is not connected.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	ENOTSOCK&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		sockfd is a file, not a socket.&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
-    
-    
-    
-    <category term="Socket" scheme="http://ainihu.github.io/categories/Socket/"/>
-    
-    
-    <category term="close函数 - shutdown函数" scheme="http://ainihu.github.io/tags/close%E5%87%BD%E6%95%B0-shutdown%E5%87%BD%E6%95%B0/"/>
     
   </entry>
   
@@ -898,14 +898,14 @@
   </entry>
   
   <entry>
-    <title>03 Go语言常量</title>
-    <link href="http://ainihu.github.io/2021/12/14/Golang/03%E8%AF%AD%E8%A8%80%E5%B8%B8%E9%87%8F/"/>
-    <id>http://ainihu.github.io/2021/12/14/Golang/03%E8%AF%AD%E8%A8%80%E5%B8%B8%E9%87%8F/</id>
+    <title>01 Golang初识</title>
+    <link href="http://ainihu.github.io/2021/12/14/Golang/01Go%E5%88%9D%E8%AF%86/"/>
+    <id>http://ainihu.github.io/2021/12/14/Golang/01Go%E5%88%9D%E8%AF%86/</id>
     <published>2021-12-14T05:00:00.000Z</published>
     <updated>2021-11-14T13:25:22.540Z</updated>
     
     
-    <summary type="html">&lt;h1 id=&quot;03-语言常量&quot;&gt;&lt;a href=&quot;#03-语言常量&quot; class=&quot;headerlink&quot; title=&quot;03 语言常量&quot;&gt;&lt;/a&gt;03 语言常量&lt;/h1&gt;&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;47&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;48&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;49&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;50&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;51&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;52&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;53&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;54&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;55&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;56&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;57&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;58&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;59&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;package main&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;import (&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;quot;fmt&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;quot;unsafe&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// iota 是一个可以被编译器修改的常量，常量计数器&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/*&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; * iota 在 const关键字出现时将被重置为 0(const 内部的第一行之前)，&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; * const 中每新增一行常量声明将使 iota 计数一次(iota 可理解为&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; * const 语句块中的行索引)。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// const 修饰的变量表示在程序运行的过程中不会被修改&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;func main()&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	const(&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		a = iota&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		b = iota&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		c&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		d = iota&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	fmt.Println(a , b , c , d)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	const(&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		e = iota&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		f&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		g&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	fmt.Println(e, f, g)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	const(&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		h = iota&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		i = &amp;quot;hello&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		j&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		k = iota&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	fmt.Println(h , i, j ,k)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	const(&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		l = 1 &amp;lt;&amp;lt; iota // 1 左移 0 位&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		m = 2 &amp;lt;&amp;lt; iota // 2 左移 1 位&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		n             // 结果为  8, 解释应为 2 左移 3 位&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		o             // 结果为 16, 解释应为 2 左移 4 位&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	fmt.Println(l, m, n, o)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	const(&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		p = &amp;quot;hello world&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		q = len(p)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		r = unsafe.Sizeof(p)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		/*&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			Golang中的string内部实现由两部分组成，一部分是指向字符串起始地址的指针，&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			另一部分是字符串的长度，两部分各是8字节，所以一共16字节&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	fmt.Println(p, q, r)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    <summary type="html">&lt;h1 id=&quot;01-Go初识&quot;&gt;&lt;a href=&quot;#01-Go初识&quot; class=&quot;headerlink&quot; title=&quot;01 Go初识&quot;&gt;&lt;/a&gt;01 Go初识&lt;/h1&gt;&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;package main&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;import &amp;quot;fmt&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/*&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; * 三种不同的打印语句&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; * 1. fmt.Println()，可以打印字符串和变量，输出后自动增加一个换行&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; * 2. fmt.Printf()，格式化输出&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; * 3. fmt.Print()，打印字符串常量&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; **/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;func main() &amp;#123; // &amp;#123; 不能单独放一行&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	var i int&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	for i = 1; i &amp;lt;= 9; i++ &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		for j := 1; j &amp;lt;= i ; j++ &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			// fmt.Print(i, &amp;quot;*&amp;quot;, j, &amp;quot;=&amp;quot;, i*j, &amp;quot;  &amp;quot;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			fmt.Printf(&amp;quot;%d * %d =%2d &amp;quot;, i, j, i*j)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			// fmt.Println(i, &amp;quot;*&amp;quot;, j, &amp;quot;=&amp;quot;, i*j, &amp;quot;  &amp;quot;) // 最后会换行，无法格式打印9x9乘法表&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		fmt.Println()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
     
     
     
