@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>21 Golang语言变量生命周期 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="21 Go语言变量生命周期参考链接    https:&#x2F;&#x2F;blog.csdn.net&#x2F;FX677588&#x2F;article&#x2F;details&#x2F;78421334  生命周期 函数中的局部变量被外部指针指向访问时候，这时这个变量会逃逸出函数，在堆上分配内存 当用new申请的内存空间赋值给函数内的局部变量的时候(没有被外部指针指向)，这时该 代码  123456789101112131415161718192">
+<meta property="og:type" content="article">
+<meta property="og:title" content="21 Golang语言变量生命周期">
+<meta property="og:url" content="http://example.com/2021/12/14/Golang/21Go%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E%E5%91%A8%E6%9C%9F/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="21 Go语言变量生命周期参考链接    https:&#x2F;&#x2F;blog.csdn.net&#x2F;FX677588&#x2F;article&#x2F;details&#x2F;78421334  生命周期 函数中的局部变量被外部指针指向访问时候，这时这个变量会逃逸出函数，在堆上分配内存 当用new申请的内存空间赋值给函数内的局部变量的时候(没有被外部指针指向)，这时该 代码  123456789101112131415161718192">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-12-13T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-11-18T07:30:39.951Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Golang/21Go变量声明周期" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/12/14/Golang/21Go%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E%E5%91%A8%E6%9C%9F/" class="article-date">
+  <time class="dt-published" datetime="2021-12-13T16:00:00.000Z" itemprop="datePublished">2021-12-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      21 Golang语言变量生命周期
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="21-Go语言变量生命周期"><a href="#21-Go语言变量生命周期" class="headerlink" title="21 Go语言变量生命周期"></a>21 Go语言变量生命周期</h1><h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><blockquote>
+<p>   <a target="_blank" rel="noopener" href="https://blog.csdn.net/FX677588/article/details/78421334">https://blog.csdn.net/FX677588/article/details/78421334</a></p>
+</blockquote>
+<h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2><ul>
+<li>函数中的局部变量被外部指针指向访问时候，这时这个变量会逃逸出函数，在堆上分配内存</li>
+<li>当用new申请的内存空间赋值给函数内的局部变量的时候(没有被外部指针指向)，这时该</li>
+<li>代码</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">var p * int</span><br><span class="line"></span><br><span class="line">func main()  &#123;</span><br><span class="line">	tmp()</span><br><span class="line"></span><br><span class="line">	fmt.Println(&quot;       p =&quot;, p, &quot; *p = &quot;, *p)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func tmp()  &#123;</span><br><span class="line"></span><br><span class="line">	// 定义一个栈上的变量,查看地址空间</span><br><span class="line">	var base = 0</span><br><span class="line">	fmt.Println(&quot;   &amp;base =&quot;, &amp;base, &quot; base =&quot;, base)</span><br><span class="line"></span><br><span class="line">	// i=num 会逃逸出函数，因为被外部的p指针指向访问了，在函数外仍然可以访问</span><br><span class="line">	var num int</span><br><span class="line">	num = 1</span><br><span class="line">	p = &amp;num</span><br><span class="line">	fmt.Println(&quot;p = &amp;num =&quot;, p, &quot; *p =&quot;, *p)</span><br><span class="line"></span><br><span class="line">	// tp 不会逃逸出函数，因为没有外部变量指向访问</span><br><span class="line">	var tp = new(int)</span><br><span class="line">	*tp = 2</span><br><span class="line">	fmt.Println(&quot;      tp =&quot;, tp, &quot; *tp =&quot;, *tp)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><blockquote>
+<p>  本来打算在外面定义一个全局变量<code>var itp int</code>，用来存储<code>new</code>申请的内存空间的地址，然后把地址传递出去，再在<code>main</code>函数中做类型转换，访问这块内存空间，如果程序崩溃，则恰恰说明说明了<code>tp</code>没有逃逸出函数，思路如下：</p>
+<p>  <code>itp = (int)tp</code>  &#x3D;&#x3D;&gt; <code>p2itp = (* int)itp</code></p>
+<ul>
+<li>第一个是拿到<code>tp</code>的内存地址空间，做类型转换的时候失败了编译器不允许这种操作，<code>int32, int64, uint, uint32, uint64, uintptr</code>都试过了也不行，通过这种方式拿到的地址<code>没有产生指针指向访问</code>所以变量的不会逃逸出函数</li>
+<li>第二个是拿到<code>tp</code>的值，再做类型转换，进行访问内存空间<code>(读/写访问)</code>如果程序崩溃掉了，则说明<code>tp</code>没有逃逸出函数</li>
+<li>不过上面的两步都不行，第一个虽然不能转换成功，但是可以通过<code>fmt.Printf</code>打印地址，可以得到地址值，然后再通过<code>fmt.Scanf</code>重新存储到变量<code>itp</code>中，但是第二步就不可以了，即使通过查内存的方式也无法验证，因为读取内存内容不一定引起程序的崩溃。必须通过<code>读/写</code>访问才可以完整的验证。</li>
+</ul>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/12/14/Golang/21Go%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E%E5%91%A8%E6%9C%9F/" data-id="cm3mpi6200012l0ya0jg0dssm" data-title="21 Golang语言变量生命周期" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/12/14/Golang/19Go%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8C%E5%88%87%E7%89%87/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          19 Golang数组和切片
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/12/14/Golang/20%E6%8C%87%E9%92%88%E6%95%B0%E7%BB%84VS%E6%95%B0%E7%BB%84%E6%8C%87%E9%92%88/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">20 Golang数组指针VS指针数组</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Socket/">Socket</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LVM%E5%8D%B7/" rel="tag">LVM卷</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" rel="tag">Linux基础命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%AE%89%E8%A3%85WPS/" rel="tag">Linux安装WPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%97%A5%E5%BF%97/" rel="tag">Linux日志</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" rel="tag">Linux用户管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" rel="tag">Linux磁盘管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E8%BF%9B%E7%A8%8B/" rel="tag">Linux进程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REUSEADDR/" rel="tag">REUSEADDR</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SIGCHLD%E4%BF%A1%E5%8F%B7/" rel="tag">SIGCHLD信号</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SIGPIPPE%E4%BF%A1%E5%8F%B7/" rel="tag">SIGPIPPE信号</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket-I-O%E6%A8%A1%E5%9E%8B/" rel="tag">Socket I&#x2F;O模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP%E7%9A%8411%E7%A7%8D%E7%8A%B6%E6%80%81/" rel="tag">TCP的11种状态</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98/" rel="tag">TCP粘包问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UDP%E5%9B%9E%E5%B0%84%E5%AE%A2%E6%88%B7%E7%AB%AF/" rel="tag">UDP回射客户端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UDP%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">UDP服务器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UNIX%E5%9F%9F%E5%8D%8F%E8%AE%AE/" rel="tag">UNIX域协议</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/close%E5%87%BD%E6%95%B0-shutdown%E5%87%BD%E6%95%B0/" rel="tag">close函数 - shutdown函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/epoll%E4%BD%BF%E7%94%A8/" rel="tag">epoll使用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ftp/" rel="tag">ftp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select-poll-epoll/" rel="tag">select&amp;poll&amp;epoll</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select%E5%87%BD%E6%95%B0/" rel="tag">select函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">select服务器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select%E6%A8%A1%E5%9E%8B/" rel="tag">select模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket/" rel="tag">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socketReadline/" rel="tag">socketReadline</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socketpair/" rel="tag">socketpair</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0/" rel="tag">socket相关函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/" rel="tag">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/" rel="tag">vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yum%E7%AE%A1%E7%90%86/" rel="tag">yum管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B/" rel="tag">僵尸进程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1/" rel="tag">延时任务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" rel="tag">文件传输</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/" rel="tag">权限控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E7%9B%98%E6%8C%82%E8%BD%BD/" rel="tag">硬盘挂载</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" rel="tag">网络配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/" rel="tag">虚拟机安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="tag">进程管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%82%AE%E4%BB%B6%E7%AE%A1%E7%90%86/" rel="tag">邮件管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" rel="tag">防火墙</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/LVM%E5%8D%B7/" style="font-size: 10px;">LVM卷</a> <a href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" style="font-size: 10px;">Linux基础命令</a> <a href="/tags/Linux%E5%AE%89%E8%A3%85WPS/" style="font-size: 10px;">Linux安装WPS</a> <a href="/tags/Linux%E6%97%A5%E5%BF%97/" style="font-size: 10px;">Linux日志</a> <a href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux用户管理</a> <a href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux磁盘管理</a> <a href="/tags/Linux%E8%BF%9B%E7%A8%8B/" style="font-size: 10px;">Linux进程</a> <a href="/tags/REUSEADDR/" style="font-size: 10px;">REUSEADDR</a> <a href="/tags/SIGCHLD%E4%BF%A1%E5%8F%B7/" style="font-size: 10px;">SIGCHLD信号</a> <a href="/tags/SIGPIPPE%E4%BF%A1%E5%8F%B7/" style="font-size: 10px;">SIGPIPPE信号</a> <a href="/tags/Socket-I-O%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">Socket I/O模型</a> <a href="/tags/TCP%E7%9A%8411%E7%A7%8D%E7%8A%B6%E6%80%81/" style="font-size: 10px;">TCP的11种状态</a> <a href="/tags/TCP%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98/" style="font-size: 10px;">TCP粘包问题</a> <a href="/tags/UDP%E5%9B%9E%E5%B0%84%E5%AE%A2%E6%88%B7%E7%AB%AF/" style="font-size: 10px;">UDP回射客户端</a> <a href="/tags/UDP%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 10px;">UDP服务器</a> <a href="/tags/UNIX%E5%9F%9F%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">UNIX域协议</a> <a href="/tags/close%E5%87%BD%E6%95%B0-shutdown%E5%87%BD%E6%95%B0/" style="font-size: 10px;">close函数 - shutdown函数</a> <a href="/tags/epoll%E4%BD%BF%E7%94%A8/" style="font-size: 10px;">epoll使用</a> <a href="/tags/ftp/" style="font-size: 10px;">ftp</a> <a href="/tags/select-poll-epoll/" style="font-size: 10px;">select&poll&epoll</a> <a href="/tags/select%E5%87%BD%E6%95%B0/" style="font-size: 10px;">select函数</a> <a href="/tags/select%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 10px;">select服务器</a> <a href="/tags/select%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">select模型</a> <a href="/tags/socket/" style="font-size: 20px;">socket</a> <a href="/tags/socketReadline/" style="font-size: 10px;">socketReadline</a> <a href="/tags/socketpair/" style="font-size: 10px;">socketpair</a> <a href="/tags/socket%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0/" style="font-size: 10px;">socket相关函数</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/yum%E7%AE%A1%E7%90%86/" style="font-size: 10px;">yum管理</a> <a href="/tags/%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B/" style="font-size: 10px;">僵尸进程</a> <a href="/tags/%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1/" style="font-size: 10px;">延时任务</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" style="font-size: 10px;">文件传输</a> <a href="/tags/%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">权限控制</a> <a href="/tags/%E7%A1%AC%E7%9B%98%E6%8C%82%E8%BD%BD/" style="font-size: 10px;">硬盘挂载</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">网络配置</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/" style="font-size: 10px;">虚拟机安装</a> <a href="/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" style="font-size: 10px;">进程管理</a> <a href="/tags/%E9%82%AE%E4%BB%B6%E7%AE%A1%E7%90%86/" style="font-size: 10px;">邮件管理</a> <a href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" style="font-size: 10px;">防火墙</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/11/18/Socket/day15/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/11/18/Socket/epollsrv/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/19/Socket/01%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/">UDP/TCP文件传输</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/19/Socket/day02/">02 C/S模型、socket相关函数</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/19/Socket/day01/">01 socket 字节序&amp;地址转换函数&amp;套接字类型</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

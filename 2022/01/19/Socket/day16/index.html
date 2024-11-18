@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>16 UNIX域协议学习 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="day16本章目标 UNIX域协议特点 UNIX域地址结构 UNIX域字节流回射客户&#x2F;服务 UNIX域套接字编程注意点  UNIX域协议特点 UNIX域套接字与TCP套接字相比较，在同一台主机的传输速度前者是后者的两倍。 UNIX域套接字可以在同一台主机上各进程之间传递描述符。 UNIX域套接字与传统套接字的区别是用路径名来表示协议族的描述。  UNIX域地址结构 man unix  1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="16 UNIX域协议学习">
+<meta property="og:url" content="http://example.com/2022/01/19/Socket/day16/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="day16本章目标 UNIX域协议特点 UNIX域地址结构 UNIX域字节流回射客户&#x2F;服务 UNIX域套接字编程注意点  UNIX域协议特点 UNIX域套接字与TCP套接字相比较，在同一台主机的传输速度前者是后者的两倍。 UNIX域套接字可以在同一台主机上各进程之间传递描述符。 UNIX域套接字与传统套接字的区别是用路径名来表示协议族的描述。  UNIX域地址结构 man unix  1">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-01-18T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-11-18T07:30:39.954Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="UNIX域协议">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Socket/day16" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/01/19/Socket/day16/" class="article-date">
+  <time class="dt-published" datetime="2022-01-18T16:00:00.000Z" itemprop="datePublished">2022-01-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Socket/">Socket</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      16 UNIX域协议学习
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="day16"><a href="#day16" class="headerlink" title="day16"></a>day16</h1><h2 id="本章目标"><a href="#本章目标" class="headerlink" title="本章目标"></a>本章目标</h2><ul>
+<li><code>UNIX</code>域协议特点</li>
+<li><code>UNIX</code>域地址结构</li>
+<li><code>UNIX</code>域字节流回射客户&#x2F;服务</li>
+<li><code>UNIX</code>域套接字编程注意点</li>
+</ul>
+<h2 id="UNIX域协议特点"><a href="#UNIX域协议特点" class="headerlink" title="UNIX域协议特点"></a>UNIX域协议特点</h2><ul>
+<li><code>UNIX</code>域套接字与<code>TCP</code>套接字相比较，在同一台主机的传输速度前者是后者的两倍。</li>
+<li><code>UNIX</code>域套接字可以在同一台主机上各进程之间传递描述符。</li>
+<li><code>UNIX</code>域套接字与传统套接字的区别是用路径名来表示协议族的描述。</li>
+</ul>
+<h2 id="UNIX域地址结构"><a href="#UNIX域地址结构" class="headerlink" title="UNIX域地址结构"></a>UNIX域地址结构</h2><blockquote>
+<p><code>man unix</code></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#define UNIX_PATH_MAX 108</span><br><span class="line">struct sockaddr_un</span><br><span class="line">&#123;</span><br><span class="line">    sa_family_t sun_family; //为AF_UNIX</span><br><span class="line">    char sun_path[UNIX_PATH_MAX]; //pathname</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>##UNIX域字节流回射客户&#x2F;服务</p>
+<blockquote>
+<p><code>echosrv.c</code></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;errno.h&gt;</span><br><span class="line">#include &lt;sys/types.h&gt;</span><br><span class="line">#include &lt;sys/socket.h&gt;</span><br><span class="line">#include &lt;arpa/inet.h&gt;</span><br><span class="line">#include &lt;netinet/in.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;sys/un.h&gt;</span><br><span class="line"></span><br><span class="line">#define ERR_EXIT(x) do&#123;perror(x); exit(EXIT_FAILURE);&#125;while(0)</span><br><span class="line"></span><br><span class="line">void echo_srv(int conn)</span><br><span class="line">&#123;</span><br><span class="line">	int ret = 0;</span><br><span class="line">	char recvbuf[1024] = &#123;0&#125;;</span><br><span class="line">	while(1)</span><br><span class="line">	&#123;</span><br><span class="line">		memset(recvbuf, 0, sizeof(recvbuf));</span><br><span class="line">		ret = read(conn, recvbuf, sizeof(recvbuf));</span><br><span class="line">		if(ret &lt; 0)</span><br><span class="line">		&#123;</span><br><span class="line">			if(errno = EINTR)</span><br><span class="line">				continue;</span><br><span class="line">			 ERR_EXIT(&quot;read&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		else if(ret == 0)</span><br><span class="line">		&#123;</span><br><span class="line">			printf(&quot;对方关闭连接&quot;);</span><br><span class="line">			break;</span><br><span class="line">		&#125;</span><br><span class="line">		fputs(recvbuf, stdout);</span><br><span class="line">		ret = write(conn, recvbuf, strlen(recvbuf));</span><br><span class="line">	&#125;</span><br><span class="line">	close(conn);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int conn;</span><br><span class="line">	int listenfd;</span><br><span class="line">	unlink(&quot;test_socket&quot;);//删除一个文件的目录项并减少它的链接数，若成功则返回0，否则返回-1，错误原因存于error。如果想通过调用这个函数来成功删除文件，你就必须拥有这个文件的所属目录的写和执行权</span><br><span class="line">	if((listenfd = socket(PF_UNIX, SOCK_STREAM, 0)) &lt; 0)</span><br><span class="line">		ERR_EXIT(&quot;socket&quot;);</span><br><span class="line">	struct sockaddr_un servaddr;</span><br><span class="line">	memset(&amp;servaddr, 0, sizeof(servaddr));</span><br><span class="line">	servaddr.sun_family = AF_UNIX;</span><br><span class="line">	strcpy(servaddr.sun_path, &quot;test_socket&quot;);</span><br><span class="line">	if(bind(listenfd, (struct sockaddr *)&amp;servaddr, sizeof(servaddr)) &lt; 0)	</span><br><span class="line">		ERR_EXIT(&quot;bind&quot;);</span><br><span class="line">	if(listen(listenfd, SOMAXCONN) &lt; 0)</span><br><span class="line">		ERR_EXIT(&quot;listen&quot;);</span><br><span class="line">	</span><br><span class="line">	pid_t pid;</span><br><span class="line">	while(1)</span><br><span class="line">	&#123;</span><br><span class="line">		conn = accept(listenfd, NULL, NULL);	</span><br><span class="line">		if(conn == -1)</span><br><span class="line">		&#123;</span><br><span class="line">			//用户态资源并没有准备好，返回EINTR错误。以便用户态可以做出自己的决定。</span><br><span class="line">			if(errno = EINTR)</span><br><span class="line">				continue;</span><br><span class="line">			ERR_EXIT(&quot;accept&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		pid = fork();</span><br><span class="line">		if(pid &lt; 0)</span><br><span class="line">			ERR_EXIT(&quot;fork&quot;);</span><br><span class="line">		else if(pid == 0)//子进程处理新的连接</span><br><span class="line">		&#123;</span><br><span class="line">			close(listenfd);//子进程不需要处理监听</span><br><span class="line">			echo_srv(conn);</span><br><span class="line">			exit(EXIT_SUCCESS);</span><br><span class="line">		&#125;</span><br><span class="line">		close(conn);//父进程不需要处理连接</span><br><span class="line">	&#125;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>echocli.c</code></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;errno.h&gt;</span><br><span class="line">#include &lt;sys/types.h&gt;</span><br><span class="line">#include &lt;sys/socket.h&gt;</span><br><span class="line">#include &lt;arpa/inet.h&gt;</span><br><span class="line">#include &lt;netinet/in.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;sys/un.h&gt;</span><br><span class="line"></span><br><span class="line">#define ERR_EXIT(x) do&#123;perror(x); exit(EXIT_FAILURE);&#125;while(0)</span><br><span class="line"></span><br><span class="line">void echo_cli(int sock)</span><br><span class="line">&#123;</span><br><span class="line">	int ret = 0;</span><br><span class="line">	char sendbuf[1024] = &#123;0&#125;;</span><br><span class="line">	char recvbuf[1024] = &#123;0&#125;;</span><br><span class="line">	while(fgets(sendbuf, sizeof(sendbuf), stdin) != NULL)</span><br><span class="line">	&#123;</span><br><span class="line">		ret = write(sock, sendbuf, sizeof(sendbuf));</span><br><span class="line">		ret = read(sock, recvbuf, sizeof(recvbuf));</span><br><span class="line">		fputs(recvbuf, stdout);</span><br><span class="line">		memset(sendbuf, 0, sizeof(sendbuf));</span><br><span class="line">		memset(recvbuf, 0, sizeof(recvbuf));</span><br><span class="line">	&#125;</span><br><span class="line">	close(sock);</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int sock;</span><br><span class="line">	if((sock = socket(PF_UNIX, SOCK_STREAM, 0)) &lt; 0)</span><br><span class="line">		ERR_EXIT(&quot;socket&quot;);</span><br><span class="line">	struct sockaddr_un servaddr;</span><br><span class="line">	memset(&amp;servaddr, 0, sizeof(servaddr));</span><br><span class="line">	servaddr.sun_family = AF_UNIX;</span><br><span class="line">	strcpy(servaddr.sun_path, &quot;test_socket&quot;);</span><br><span class="line">	if(connect(sock, (struct sockaddr *)&amp;servaddr, sizeof(servaddr)) &lt; 0)</span><br><span class="line">		ERR_EXIT(&quot;connect&quot;);</span><br><span class="line">	</span><br><span class="line">	echo_cli(sock);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>##UNIX套接字编程注意点</p>
+<ul>
+<li><code>bind</code>成功将会创建一个文件，权限为<code>0777&amp;umask</code></li>
+<li><code>sun_path</code>最好用一个绝对路径，一般定到<code>tmp</code>目录下。</li>
+<li><code>UNIX</code>域协议支持流式接口<code>SOCK_STREAM</code>与报式套接口<code>SOCK_DGRAM</code></li>
+<li><code>UNIX</code>域流式套接字<code>connect</code>发现监听队列满时，会立即返回一个<code>ECONNERFUSED</code>，这和<code>TCP</code>不同，如果监听套接字队列满，会忽略到来的<code>SYN</code>，导致对方重发<code>SYN</code>。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/19/Socket/day16/" data-id="cm3mpi62e003dl0yabf819kxv" data-title="16 UNIX域协议学习" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UNIX%E5%9F%9F%E5%8D%8F%E8%AE%AE/" rel="tag">UNIX域协议</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/01/19/Socket/day13/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          13 epoll相关函数、select、epoll和poll区别
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/01/19/Socket/day17/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">17 socketpair、全双工流管道</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Socket/">Socket</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LVM%E5%8D%B7/" rel="tag">LVM卷</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" rel="tag">Linux基础命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%AE%89%E8%A3%85WPS/" rel="tag">Linux安装WPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%97%A5%E5%BF%97/" rel="tag">Linux日志</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" rel="tag">Linux用户管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" rel="tag">Linux磁盘管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E8%BF%9B%E7%A8%8B/" rel="tag">Linux进程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REUSEADDR/" rel="tag">REUSEADDR</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SIGCHLD%E4%BF%A1%E5%8F%B7/" rel="tag">SIGCHLD信号</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SIGPIPPE%E4%BF%A1%E5%8F%B7/" rel="tag">SIGPIPPE信号</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket-I-O%E6%A8%A1%E5%9E%8B/" rel="tag">Socket I&#x2F;O模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP%E7%9A%8411%E7%A7%8D%E7%8A%B6%E6%80%81/" rel="tag">TCP的11种状态</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98/" rel="tag">TCP粘包问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UDP%E5%9B%9E%E5%B0%84%E5%AE%A2%E6%88%B7%E7%AB%AF/" rel="tag">UDP回射客户端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UDP%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">UDP服务器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UNIX%E5%9F%9F%E5%8D%8F%E8%AE%AE/" rel="tag">UNIX域协议</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/close%E5%87%BD%E6%95%B0-shutdown%E5%87%BD%E6%95%B0/" rel="tag">close函数 - shutdown函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/epoll%E4%BD%BF%E7%94%A8/" rel="tag">epoll使用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ftp/" rel="tag">ftp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select-poll-epoll/" rel="tag">select&amp;poll&amp;epoll</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select%E5%87%BD%E6%95%B0/" rel="tag">select函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">select服务器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select%E6%A8%A1%E5%9E%8B/" rel="tag">select模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket/" rel="tag">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socketReadline/" rel="tag">socketReadline</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socketpair/" rel="tag">socketpair</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0/" rel="tag">socket相关函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/" rel="tag">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/" rel="tag">vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yum%E7%AE%A1%E7%90%86/" rel="tag">yum管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B/" rel="tag">僵尸进程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1/" rel="tag">延时任务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" rel="tag">文件传输</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/" rel="tag">权限控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E7%9B%98%E6%8C%82%E8%BD%BD/" rel="tag">硬盘挂载</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" rel="tag">网络配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/" rel="tag">虚拟机安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="tag">进程管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%82%AE%E4%BB%B6%E7%AE%A1%E7%90%86/" rel="tag">邮件管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" rel="tag">防火墙</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/LVM%E5%8D%B7/" style="font-size: 10px;">LVM卷</a> <a href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" style="font-size: 10px;">Linux基础命令</a> <a href="/tags/Linux%E5%AE%89%E8%A3%85WPS/" style="font-size: 10px;">Linux安装WPS</a> <a href="/tags/Linux%E6%97%A5%E5%BF%97/" style="font-size: 10px;">Linux日志</a> <a href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux用户管理</a> <a href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux磁盘管理</a> <a href="/tags/Linux%E8%BF%9B%E7%A8%8B/" style="font-size: 10px;">Linux进程</a> <a href="/tags/REUSEADDR/" style="font-size: 10px;">REUSEADDR</a> <a href="/tags/SIGCHLD%E4%BF%A1%E5%8F%B7/" style="font-size: 10px;">SIGCHLD信号</a> <a href="/tags/SIGPIPPE%E4%BF%A1%E5%8F%B7/" style="font-size: 10px;">SIGPIPPE信号</a> <a href="/tags/Socket-I-O%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">Socket I/O模型</a> <a href="/tags/TCP%E7%9A%8411%E7%A7%8D%E7%8A%B6%E6%80%81/" style="font-size: 10px;">TCP的11种状态</a> <a href="/tags/TCP%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98/" style="font-size: 10px;">TCP粘包问题</a> <a href="/tags/UDP%E5%9B%9E%E5%B0%84%E5%AE%A2%E6%88%B7%E7%AB%AF/" style="font-size: 10px;">UDP回射客户端</a> <a href="/tags/UDP%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 10px;">UDP服务器</a> <a href="/tags/UNIX%E5%9F%9F%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">UNIX域协议</a> <a href="/tags/close%E5%87%BD%E6%95%B0-shutdown%E5%87%BD%E6%95%B0/" style="font-size: 10px;">close函数 - shutdown函数</a> <a href="/tags/epoll%E4%BD%BF%E7%94%A8/" style="font-size: 10px;">epoll使用</a> <a href="/tags/ftp/" style="font-size: 10px;">ftp</a> <a href="/tags/select-poll-epoll/" style="font-size: 10px;">select&poll&epoll</a> <a href="/tags/select%E5%87%BD%E6%95%B0/" style="font-size: 10px;">select函数</a> <a href="/tags/select%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 10px;">select服务器</a> <a href="/tags/select%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">select模型</a> <a href="/tags/socket/" style="font-size: 20px;">socket</a> <a href="/tags/socketReadline/" style="font-size: 10px;">socketReadline</a> <a href="/tags/socketpair/" style="font-size: 10px;">socketpair</a> <a href="/tags/socket%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0/" style="font-size: 10px;">socket相关函数</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/yum%E7%AE%A1%E7%90%86/" style="font-size: 10px;">yum管理</a> <a href="/tags/%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B/" style="font-size: 10px;">僵尸进程</a> <a href="/tags/%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1/" style="font-size: 10px;">延时任务</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" style="font-size: 10px;">文件传输</a> <a href="/tags/%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">权限控制</a> <a href="/tags/%E7%A1%AC%E7%9B%98%E6%8C%82%E8%BD%BD/" style="font-size: 10px;">硬盘挂载</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">网络配置</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/" style="font-size: 10px;">虚拟机安装</a> <a href="/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" style="font-size: 10px;">进程管理</a> <a href="/tags/%E9%82%AE%E4%BB%B6%E7%AE%A1%E7%90%86/" style="font-size: 10px;">邮件管理</a> <a href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" style="font-size: 10px;">防火墙</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/11/18/Socket/day15/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/11/18/Socket/epollsrv/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/19/Socket/01%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/">UDP/TCP文件传输</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/19/Socket/day02/">02 C/S模型、socket相关函数</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/19/Socket/day01/">01 socket 字节序&amp;地址转换函数&amp;套接字类型</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

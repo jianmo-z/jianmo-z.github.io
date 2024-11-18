@@ -1,0 +1,2307 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/page/5/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-Linux/01linux基础" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/11/13/Linux/01linux%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time class="dt-published" datetime="2021-11-12T16:00:00.000Z" itemprop="datePublished">2021-11-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/11/13/Linux/01linux%E5%9F%BA%E7%A1%80/">01 Linux基础知识--基础命令&amp;安装wps</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="01-Linux基础知识–基础命令-安装wps"><a href="#01-Linux基础知识–基础命令-安装wps" class="headerlink" title="01 Linux基础知识–基础命令&amp;安装wps"></a>01 Linux基础知识–基础命令&amp;安装wps</h1><h2 id="添加系统语言设置"><a href="#添加系统语言设置" class="headerlink" title="添加系统语言设置"></a>添加系统语言设置</h2><blockquote>
+<p>   <code>Application</code>   —&gt; <code>System Tools</code> —&gt;  <code>Settings</code> —&gt; <code>Region &amp; Language</code></p>
+<p>   点击<code>加号</code>选择添加的输入法，找到中文输入法后，选择点击右上角的添加即可。</p>
+</blockquote>
+<p><img src="/./01linux%E5%9F%BA%E7%A1%80/01%E8%AF%AD%E8%A8%80%E8%AE%BE%E7%BD%AE.png" alt="01语言设置"></p>
+<h2 id="进入虚拟控制台"><a href="#进入虚拟控制台" class="headerlink" title="进入虚拟控制台"></a>进入虚拟控制台</h2><p><code>Ctrl + Alt + F1/F7</code>进入图形界面</p>
+<p><code>Ctrl + Alt + F2 ~ F6</code>进入图形界面</p>
+<p>通过<code>man  init </code>可以查看系统运行的等级。</p>
+<h2 id="命令补齐Tab"><a href="#命令补齐Tab" class="headerlink" title="命令补齐Tab"></a>命令补齐Tab</h2><p><code>linux</code>的神兵利器，不仅可以提高打印命令的效率，还可以提高命令的正确率。</p>
+<p>按一下<code>Tab</code>，如果补齐结果唯一那么直接补齐，如果不唯一则需要按两下显示所有的可能结果。</p>
+<h2 id="linux虚拟机"><a href="#linux虚拟机" class="headerlink" title="linux虚拟机"></a>linux虚拟机</h2><p>对vmware虚拟机操作的命令，通过<code>rht-vmctl --help</code>获取帮助信息</p>
+<ul>
+<li><pre><code>`view`  ：launches console viewer of VMNAME
+</code></pre>
+</li>
+<li><pre><code>`start`：obtain and start up VMNAME
+</code></pre>
+</li>
+<li><pre><code>`stop` ：stop a running VMNAME
+</code></pre>
+</li>
+<li><pre><code>`poweroff`：if running, force stop VMNAME
+</code></pre>
+</li>
+<li><pre><code>`reset`： poweroff, return to saved or original state, start VMNAME
+</code></pre>
+</li>
+<li><pre><code>`save`： stop, save image, start VMNAME (to DATETIME)
+</code></pre>
+</li>
+<li><pre><code>`restore`：poweroff, restore to save (to DATETIME), start VMNAME
+</code></pre>
+</li>
+<li><pre><code>`listsaves`：list the saves of VMNAME
+</code></pre>
+</li>
+<li><pre><code>`status` ：display libvirt status of VMNAME
+</code></pre>
+</li>
+<li><pre><code>`get`：if not here, obtain VMNAME from server
+</code></pre>
+</li>
+<li><pre><code>`remove`：remove VMNAME from system
+</code></pre>
+</li>
+<li><pre><code>`fullreset`：poweroff, reobtain from server, start VMNAME (bad save/image)
+</code></pre>
+</li>
+</ul>
+<h2 id="linux命令控制"><a href="#linux命令控制" class="headerlink" title="linux命令控制"></a>linux命令控制</h2><ul>
+<li><p><code>mkdir</code>：创建一个空目录</p>
+<ul>
+<li><code>-p</code>：递归创建目录</li>
+</ul>
+</li>
+<li><p><code>rmdir</code>：移除一个空目录</p>
+<ul>
+<li><p><code>-p</code>：递归移除一个目录</p>
+<p><img src="/./01linux%E5%9F%BA%E7%A1%80/02mkdir_rmdir.png" alt="02mkdir_rmdir"></p>
+</li>
+</ul>
+</li>
+<li><p><code>rm</code>：移除一个文件</p>
+<ul>
+<li><code>-r</code>：递归移除</li>
+<li><code>-f</code>：强制移除</li>
+<li><code>-d</code>：移除一个目录</li>
+</ul>
+</li>
+<li><p><code>touch</code>：改变一个文件的时间戳，但是常常用来创建一个文本文件</p>
+<ul>
+<li><p><code>touch file</code>：创建一个文件</p>
+<p><img src="/./01linux%E5%9F%BA%E7%A1%80/03touch_rm.png" alt="03touch_rm"></p>
+</li>
+</ul>
+</li>
+<li><p><code>cd</code> ：<code>change directory</code>改变工作路径</p>
+<ul>
+<li><code>~</code>：进入当前用户的家目录</li>
+<li><code>..</code>：进入当前目录的上一级目录</li>
+<li><code>-</code>：进入上一个工作目录</li>
+</ul>
+</li>
+<li><p><code>pwd</code>：<code>print work directory</code>打印当前工作路径</p>
+<p><img src="/./01linux%E5%9F%BA%E7%A1%80/04cd_pwd.png" alt="04cd_pwd"></p>
+</li>
+<li><p><code>ls</code>：<code>list</code>查看当前目录下的文件内容</p>
+<ul>
+<li><code>-a</code>：列出所有内容，包含隐藏文件，<code>linux</code> 的隐藏文件是以<code>.</code>开始的</li>
+<li><code>-l</code>：长格式查看文件详细信息</li>
+<li><code>-d</code>：查看目录的信息</li>
+<li><code>-S</code>：按照文件大小排序打印</li>
+<li><code>-h</code>：按照人类习惯的方式显示文件的大小</li>
+</ul>
+</li>
+<li><p><code>cat</code>：查看文件的内容</p>
+<p><img src="/./01linux%E5%9F%BA%E7%A1%80/05cat.png" alt="05cat"></p>
+</li>
+<li><p><code>less</code> ：分页浏览文件的内容</p>
+<blockquote>
+<p>  按<code>q</code>退出，<code>空格</code>下一屏，<code>b</code>上一屏</p>
+</blockquote>
+<p><img src="/./01linux%E5%9F%BA%E7%A1%80/06less.png" alt="06less"></p>
+</li>
+<li><p><code>head</code>：查看文件内容的前几行</p>
+<ul>
+<li><code>-n</code>：指定打印的行数，如果不指定那么就默认打印<code>10</code>行<ul>
+<li><code>head -n 20</code>：查看文件的前20行</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>tail</code> ：查看文件内容的后几行</p>
+<ul>
+<li><p><code>-n</code>：制订打印的行数，与<code>head</code>对应</p>
+</li>
+<li><p><code>-f</code>：实时监控文件的内容</p>
+<p><img src="/./01linux%E5%9F%BA%E7%A1%80/07head_tail.png" alt="07head_tail"></p>
+</li>
+</ul>
+</li>
+<li><p><code>wc</code>：统计文件字符数</p>
+<ul>
+<li><p><code>-l</code>：<code>lines</code>统计行数</p>
+</li>
+<li><p><code>-w</code>：<code>world</code>单词数</p>
+</li>
+<li><p><code>-c</code>：<code>bytes</code>字节数目</p>
+</li>
+<li><p><code>-m</code>：<code>chars</code>字符数，中文汉字的时候和上一个参数就有不同的结果了</p>
+<p><img src="/./01linux%E5%9F%BA%E7%A1%80/08wc.png" alt="08wc"></p>
+</li>
+</ul>
+</li>
+<li><p><code>cp</code>：拷贝文件</p>
+<ul>
+<li><code>cp 目标文件 副本文件</code></li>
+</ul>
+</li>
+<li><p><code>mv</code>：移动文件</p>
+<ul>
+<li><p><code>mv 源地址文件名 目标路径</code>，将文件从源地址移动到目标地址</p>
+</li>
+<li><p><code>mv 源地址文件名 目标路径名和文件名  </code>，移动文件并重新命名为新的文件名</p>
+</li>
+<li><p><code>mv 源文件文件名 新文件名</code>，对文件进行重新命名</p>
+<p><img src="/./01linux%E5%9F%BA%E7%A1%80/09cp_mv.png" alt="09cp_mv"></p>
+</li>
+</ul>
+</li>
+<li><p><code>whatis</code>：查看某一个命令的功能</p>
+<ul>
+<li><code>whatis ls</code>：查看<code>ls</code>命令的功能</li>
+</ul>
+</li>
+<li><p><code>history</code>：查看系统的历史命令</p>
+<ul>
+<li><p><code>-c</code>：清空当前<code>shell</code>的命令历史，不会真正清除，打开其他终端仍然可以查看到。</p>
+</li>
+<li><p><code>!num</code>：感叹号加数字，调用命令历史中的第<code>num</code>个命令</p>
+</li>
+<li><p><code>!string</code>：感叹号加字符串，调用命令历史中最近一次以这些字符开头的命令。</p>
+</li>
+<li><p><code>模糊查找</code>：命令终端输入一字符串，然后<code>Ctrl + r</code>，查找包含这个字符串的命令。</p>
+<p><img src="/./01linux%E5%9F%BA%E7%A1%80/10whatis_history.png" alt="10whatis_history"></p>
+</li>
+</ul>
+</li>
+<li><p><code>su</code>：<code>switch user</code>切换用户</p>
+<ul>
+<li><code>su - 用户名</code>：切换到某用户</li>
+</ul>
+</li>
+<li><p><code>exit</code> ：退出当前用户</p>
+</li>
+<li><p><code>whoami</code>：查看当前用户</p>
+<p><img src="/./01linux%E5%9F%BA%E7%A1%80/11su_exit_whoami.png" alt="11su_exit_whoami"></p>
+</li>
+<li><p><code>file</code>：查看文件类型</p>
+<ul>
+<li><code>file filename</code>：查看文件类型</li>
+</ul>
+</li>
+<li><p><code>find</code>：查找文件</p>
+<ul>
+<li><code>find /etc/ -name passwd</code>：在<code>/etc/</code>目录下查找名字为<code>passwd</code>的文件</li>
+</ul>
+</li>
+<li><p><code>who</code>：查看当前在线用户</p>
+<p><img src="/./01linux%E5%9F%BA%E7%A1%80/12file_find_who.png" alt="12file_find_who.png"></p>
+</li>
+</ul>
+<h2 id="linux通配符"><a href="#linux通配符" class="headerlink" title="linux通配符"></a>linux通配符</h2><ul>
+<li>不存在的文件使用<code>&#123;&#125;</code></li>
+<li>存在的文件使用<code>[]</code></li>
+<li><code>*</code>：匹配任意字符，匹配任意次</li>
+<li><code>?</code>：匹配任意字符，匹配一次</li>
+<li><code>[[:alpha:]]</code>：匹配单个大小写字母</li>
+<li><code>[[:lower:]]</code>：匹配单个小写字母</li>
+<li><code>[[:upper:]]</code>：匹配单个大写字母</li>
+<li><code>[[:digit:]]</code>：匹配单个数字</li>
+<li><code>[[:alnum:]]</code>：匹配单个数字或字母</li>
+<li><code>[1-9]</code>：匹配1到9的任意数字</li>
+<li><code>^</code>&#x2F;<code>!</code>：表示不匹配括号内的任何一个字符<ul>
+<li><code>[^123]</code>：不匹配1、2、3字符</li>
+</ul>
+</li>
+</ul>
+<p><img src="/./01linux%E5%9F%BA%E7%A1%80/13%E9%80%9A%E9%85%8D%E7%AC%A6.png" alt="13通配符"></p>
+<h2 id="中断程序"><a href="#中断程序" class="headerlink" title="中断程序"></a>中断程序</h2><blockquote>
+<p>  如果一个程序正在运行使用<code>Ctrl + c</code>中断一个程序的运行</p>
+</blockquote>
+<h2 id="获取命令的帮助信息"><a href="#获取命令的帮助信息" class="headerlink" title="获取命令的帮助信息"></a>获取命令的帮助信息</h2><p><code>linux</code>中有很多的命令，如果需要获取一个命令的帮助信息可以通过以下命令</p>
+<ul>
+<li><code>man cmd</code>：通过<code>man</code>手册查询命令的用法<ul>
+<li><code>[]</code>：表示可选参数</li>
+<li><code>...</code>：选项加入的个数可以加多个</li>
+<li><code>&lt;&gt;</code>：选项是必须要加的</li>
+<li><code>man num cmd</code>：在<code>man</code>手册的第<code>num</code>个手册查看<code>cmd</code>命令</li>
+</ul>
+</li>
+<li><code>whatis cmd</code>：查看命令的功能</li>
+<li><code>cmd --help</code> ：查看命令的基本用法<ul>
+<li><code>Usage</code>：标出命令用法</li>
+</ul>
+</li>
+</ul>
+<h2 id="vim编辑器"><a href="#vim编辑器" class="headerlink" title="vim编辑器"></a>vim编辑器</h2><blockquote>
+<p>  <a target="_blank" rel="noopener" href="https://www.cnblogs.com/yangjig/p/6014198.html">转载链接</a>，点击查看所有的<code>vim</code>的命令和快捷键，<code>vim</code>是<code>linux</code>上一个十分强大的编辑器，用过的都知道。嘻嘻嘻嘻。。。</p>
+</blockquote>
+<h2 id="linux快捷键"><a href="#linux快捷键" class="headerlink" title="linux快捷键"></a>linux快捷键</h2><ul>
+<li><p><code>方向键左右</code>：一个字符一个字符移动</p>
+</li>
+<li><p><code>Ctrl + 左右</code> ：一个字一个字移动</p>
+</li>
+<li><p><code>Ctrl + a</code> ：光标移动到行首</p>
+</li>
+<li><p><code>Ctrl + e</code> ：光标移动到行尾</p>
+</li>
+<li><p><code>Ctrl + u</code>  ：光标所在位置删除到行首</p>
+</li>
+<li><p><code>Ctrl + k</code>  ：光标所在位置删除到行尾</p>
+</li>
+<li><p><code>Ctrl + r + 关键字</code>：调出最近一条含有关键字的命令</p>
+</li>
+<li><p><code>Ctrl + c</code>  ：撤销以输入的命令</p>
+</li>
+<li><p><code>Ctrl + d</code>   ：关闭当前环境</p>
+</li>
+<li><p><code>Ctrl + L</code>  ：清空屏幕</p>
+</li>
+<li><p><code>Ctrl + shift + c</code> ：复制</p>
+</li>
+<li><p><code>Ctrl + shift + v</code>  ：粘贴</p>
+</li>
+<li><p><code>Ctrl + shift + t </code> ：在现有shell中重新打开一个<code>table </code></p>
+</li>
+<li><p><code>Ctrl + shift + n</code>  ：在shell中打开一个新的<code>shell</code></p>
+</li>
+<li><p><code>Ctrl + shift + pageup|pagedown </code>：切换<code>table</code></p>
+</li>
+<li><p><code>Ctrl + alt + l</code>   ： 锁屏</p>
+</li>
+</ul>
+<h2 id="linux目录结构"><a href="#linux目录结构" class="headerlink" title="linux目录结构"></a>linux目录结构</h2><ul>
+<li>一级目录：<ul>
+<li><code>/</code>：根目录</li>
+</ul>
+</li>
+<li>二级目录：<ul>
+<li><code>/bin</code>：二进制可执行文件也就是系统命令</li>
+<li><code>/sbin</code>：系统管理命令存放位置</li>
+<li><code>/boot</code>：启动分区，负责系统启动</li>
+<li><code>/dev</code>：设备管理文件</li>
+<li><code>/etc</code>：大多数系统管理文件markdownpad插入本机图片</li>
+<li><code>/home</code>：普通用户的家目录</li>
+<li><code>/lib</code>：32位系统库文件存放位置</li>
+<li><code>/lib64</code>：64位系统库文件存放位置</li>
+<li><code>/media</code>：系统临时设备挂载点                                  </li>
+<li><code>/mnt</code>：系统临时设备挂载点</li>
+<li><code>/run</code>：系统临时设备挂载点</li>
+<li><code>/opt</code>：第三方软件安装位置</li>
+<li><code>/proc</code>：系统信息</li>
+<li><code>/root</code>：超级用户家目录</li>
+<li><code>/srv，/var</code>：系统数据</li>
+<li><code>/sys</code>：系统管理，主要是关于内核的</li>
+<li><code>/tmp</code>：系统临时文件存放位置</li>
+<li><code>/usr</code>：系统用户相关信息数据及用户自定义软件存放位置</li>
+</ul>
+</li>
+</ul>
+<p><img src="/./01linux%E5%9F%BA%E7%A1%80/14tree.png" alt="14tree"></p>
+<h2 id="系统输入输出"><a href="#系统输入输出" class="headerlink" title="系统输入输出"></a>系统输入输出</h2><ul>
+<li><p>输出重定向<code>&gt;</code></p>
+<p>使用<code>&gt;</code>，<code>标准输入(0)</code>、<code>标准输出(1)</code>、<code>标准错误(2)</code></p>
+<p>标准输入：程序的输入</p>
+<p>标准输出：程序正确的输出</p>
+<p>标准错误：程序错误的输出</p>
+<ul>
+<li><code>1&gt;</code> &#x2F; <code>&gt;</code>：对标准输出进行重定向输出</li>
+<li><code>2&gt;</code>：对标准错误进行重定向输出</li>
+<li><code>&amp;&gt;</code>：标准输出和标准错误都进行重定向输出</li>
+<li><code>&gt;&gt;</code>：在输出文件的末尾进行追加输出</li>
+<li><code>&gt;</code>：在输出文件的内容先清空再输出</li>
+</ul>
+<p><img src="/./01linux%E5%9F%BA%E7%A1%80/15stdout.png" alt="15stdout"></p>
+<p><img src="/./01linux%E5%9F%BA%E7%A1%80/16stdout_stderr.png" alt="16stdout_stderr"></p>
+</li>
+<li><p>管道<code>|</code>，把前一条命令的输出变成后一条命令的输入</p>
+<ul>
+<li><p><code>cmd_1 | cmd_2</code>将<code>cmd_1</code>的命令输出作为<code>cmd_2</code>的输入，管道只允许正确输入</p>
+<blockquote>
+<p><code>find /etc/ -name passwd 2&gt;&amp;1  | wc -l</code>将错误的信息重定向到正确的输出中，所有信息就可以通过管道了。</p>
+</blockquote>
+</li>
+<li><p><code>tee</code>：保存输出到文件中</p>
+<blockquote>
+<p>  <code>find /etc/ -name passwd 2&gt;&amp;1  | tee filename | wc -l</code>，<code>tee</code>保存信息到文件中</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>输入重定向<code>&lt;</code></p>
+<ul>
+<li><code>cat &gt; filename &lt;&lt; EOF</code>，当输入EOF的时候结束输入，中间输入的内容全部重定向到了，<code>filename</code>文件中</li>
+</ul>
+</li>
+</ul>
+<h2 id="redhat安装wps"><a href="#redhat安装wps" class="headerlink" title="redhat安装wps"></a>redhat安装wps</h2><p>网上有很多就不写了随便找个链接放在上面吧。。。。。。</p>
+<p><a target="_blank" rel="noopener" href="http://www.wps.cn/product/wpslinux">下载地址</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/kzjay/article/details/39271081">安装教程地址</a>，出现问题一般都是依赖问题，自行解决</p>
+<h2 id="redhat使用QQ等win软件"><a href="#redhat使用QQ等win软件" class="headerlink" title="redhat使用QQ等win软件"></a>redhat使用QQ等win软件</h2><blockquote>
+<p>请自行了解wine，<a target="_blank" rel="noopener" href="https://www.winehq.org/">官网链接地址</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/11/13/Linux/01linux%E5%9F%BA%E7%A1%80/" data-id="cm3mpi624001fl0yahmpug770" data-title="01 Linux基础知识--基础命令&amp;安装wps" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" rel="tag">Linux基础命令</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux%E5%AE%89%E8%A3%85WPS/" rel="tag">Linux安装WPS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Linux/02linux基础" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/11/13/Linux/02linux%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time class="dt-published" datetime="2021-11-12T16:00:00.000Z" itemprop="datePublished">2021-11-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/11/13/Linux/02linux%E5%9F%BA%E7%A1%80/">02 Linux基础知识--vim&amp;用户管理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="02-Linux基础知识–vim学习-用户管理"><a href="#02-Linux基础知识–vim学习-用户管理" class="headerlink" title="02 Linux基础知识–vim学习&amp;用户管理"></a>02 Linux基础知识–vim学习&amp;用户管理</h1><h2 id="vim模式"><a href="#vim模式" class="headerlink" title="vim模式"></a>vim模式</h2><ul>
+<li>普通模式：浏览文件</li>
+<li>插入模式：对文件内容进行编辑，输入<code>i</code></li>
+<li>命令模式：临时更改vim的工作方式，对字符批量处理，输入<code>:</code></li>
+<li>视图模式</li>
+<li>选择模式</li>
+<li>Ex模式</li>
+</ul>
+<h2 id="vim配置文件"><a href="#vim配置文件" class="headerlink" title="vim配置文件"></a>vim配置文件</h2><p><code>vim</code>的个人配置文件是<code>~/.vimrc</code>，即在家目录下的一个隐藏文件，如果这个文件不存在那么就新建一个，这个配置文件是当前用户的不会影响到其他用户，如果是想要影响所有的用户的<code>vim</code>配置那么就要修改<code>/etc/vimrc</code>文件，修改文件只需要在文件的最后添加就可以了。</p>
+<ul>
+<li><code>set shiftwidth=4</code>：配置自动缩进4个空格,当然要设自动缩进先.</li>
+<li><code>set sts=4  </code> ：即配置softtabstop为4.输入tab后就跳了4格</li>
+<li><code>set tabstop=4 </code> ：实际的tab即为4个空格,而不是缺省的8个Q</li>
+<li><code>set expandtab</code>：在输入tab后,vim用恰当的空格来填充这个<code>tab</code></li>
+<li>普通模式下按<code>g</code>跳到文件尾</li>
+</ul>
+<h2 id="调整工作方式"><a href="#调整工作方式" class="headerlink" title="调整工作方式"></a>调整工作方式</h2><ul>
+<li><code>set nu</code>：设置行号</li>
+<li><code>set nonu</code>：取消行号</li>
+<li><code>set mouse=a</code>：设置鼠标</li>
+<li><code>set c</code>：显示行线</li>
+</ul>
+<h2 id="字符搜索"><a href="#字符搜索" class="headerlink" title="字符搜索"></a>字符搜索</h2><ul>
+<li><code>/</code>：从上向下搜索</li>
+<li><code>?</code>：从下向上搜索</li>
+</ul>
+<h2 id="复制-粘贴-删除-剪切-进入视图模式"><a href="#复制-粘贴-删除-剪切-进入视图模式" class="headerlink" title="复制&#x2F;粘贴&#x2F;删除&#x2F;剪切&#x2F;进入视图模式"></a>复制&#x2F;粘贴&#x2F;删除&#x2F;剪切&#x2F;进入视图模式</h2><ul>
+<li><p><code>y</code>操作</p>
+<ul>
+<li><code>yy</code>：复制一行</li>
+<li><code>y3y</code>：复制三行</li>
+<li><code>yl</code>：复制字符</li>
+<li><code>y4l</code>：复制四个字符</li>
+<li><code>yw</code>：复制一个单词</li>
+<li><code>y5y</code>：复制五行</li>
+<li><code>y + G</code>：复制从光标的当前行到文件结束</li>
+</ul>
+</li>
+<li><p><code>p</code>操作</p>
+<ul>
+<li><code>p</code>：粘贴</li>
+</ul>
+</li>
+<li><p><code>d</code>操作：与<code>y</code>操作类似，删除的内容在剪切版上</p>
+<ul>
+<li><code>dd</code>：删除一行</li>
+<li><code>d3d</code>：删除三行</li>
+<li><code>dl</code>：删除字符</li>
+<li><code>d4l</code>：删除四个字符</li>
+<li><code>dw</code>：删除一个单词</li>
+<li><code>d5d</code>：删除五行</li>
+<li><code>x</code>：在视图模式下删除一个字符</li>
+<li><code>d + G</code>：删除光标当前行到最后</li>
+</ul>
+</li>
+<li><p>命令模式</p>
+<ul>
+<li><code>	5,10 move 15</code>：移动5到10行到15行，类似剪切+复制</li>
+<li><code>5,10 delete</code>：删除5到10行</li>
+</ul>
+</li>
+<li><p><code>c</code>操作：剪切，与<code>y</code>操作和<code>d</code>操作一样，不再赘述</p>
+<ul>
+<li>剪切之后vim会进入插入模式，要粘贴需要按<code>Esc</code>退出插入模式</li>
+</ul>
+</li>
+<li><p><code>o</code>操作：在当前行的下一行插入一个空行</p>
+</li>
+<li><p><code>u</code>操作：撤销操作，在<code>win</code>上是<code>Ctrl + z</code></p>
+</li>
+<li><p><code>Ctrl + r</code>：撤销的撤销，在<code>win</code>上是<code>Ctrl + y</code></p>
+</li>
+<li><p><code>vim</code>可视化模式</p>
+<ul>
+<li>字符可视化：在普通模式下按小写<code>v</code>，并且可对选中的内容操作</li>
+<li>行可视化：在普通模式下按大写<code>V</code>，并且可对选中的内容操作</li>
+<li>块可视化：在普通模式下按<code>Ctrl + v</code>，选择块，按大写<code>I</code>键，输入字符，<code>Esc</code>退出。</li>
+</ul>
+</li>
+</ul>
+<h2 id="字符替换"><a href="#字符替换" class="headerlink" title="字符替换"></a>字符替换</h2><ul>
+<li><code>:%s/old/new/g</code>：替换<code>old</code>为<code>new</code>的全部的内容</li>
+<li><code>:1,5s/old/new/g</code>：替换1到5行替换</li>
+<li><code>:1,5 s/^/words/g</code>：在1到5行行首添加words</li>
+<li><code>:1,5 s/$/words/g</code>：在1到5行行尾添加words</li>
+</ul>
+<h2 id="编辑多个文件-分屏"><a href="#编辑多个文件-分屏" class="headerlink" title="编辑多个文件&#x2F;分屏"></a>编辑多个文件&#x2F;分屏</h2><ul>
+<li><code>sp filename</code>：在当前的vim，打开另一个文件</li>
+<li>分屏<ul>
+<li><code>Ctrl + w  v</code>：左右分屏</li>
+<li><code>Ctrl + w  s</code>：上下分屏</li>
+<li><code>Crtl + 上/下</code>：上下切屏，用于上下分屏</li>
+<li><code>Crtl + 左/右</code>：左右切屏，用于左右分屏</li>
+<li><code>Ctrl + w + c</code>：关闭当前的屏幕</li>
+</ul>
+</li>
+</ul>
+<h2 id="光标移动"><a href="#光标移动" class="headerlink" title="光标移动"></a>光标移动</h2><ul>
+<li><code>g</code>：跳到文件的行尾</li>
+<li><code>gg</code>：跳到文件的行首</li>
+<li>命令行模式下直接输入输入，跳到指定行</li>
+</ul>
+<h2 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h2><ul>
+<li>小写<code>i</code>：光标所在位置插入</li>
+</ul>
+<ul>
+<li>大写<code>I</code>：行首插入</li>
+<li>小写<code>o</code>：在当前行的下一行插入一个空行</li>
+<li>大写<code>O</code>：在当前行的上一行插入一个空行</li>
+<li>小写<code>a</code>：光标所在字符的下一个字符插入</li>
+<li>大写<code>A</code>：光标所在行的行尾进行插入</li>
+<li>小写<code>s</code>：光标所在字符删除并插入</li>
+<li>大写<code>S</code>光标所在行删除并插入</li>
+<li><code>D</code>：删除当前光标所在位置到行尾</li>
+</ul>
+<h2 id="保存退出"><a href="#保存退出" class="headerlink" title="保存退出"></a>保存退出</h2><ul>
+<li><code>q</code>：退出</li>
+<li><code>w</code>：写入</li>
+<li><code>!</code>：强制执行命令，如果没有权限写入则不会保存。</li>
+<li><code>x</code>：保存并退出</li>
+<li>普通模式下按两下大写<code>Z</code>保存退出</li>
+</ul>
+<h2 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h2><h2 id="用户查看"><a href="#用户查看" class="headerlink" title="用户查看"></a>用户查看</h2><ul>
+<li><code>whoami</code>：查看用户</li>
+<li><code>id</code>查看用户信息<ul>
+<li><code>id user</code>：查看用户id</li>
+<li><code>-u </code>：查看用户UID</li>
+<li><code>-g</code>：查看用户GID</li>
+<li><code>-G</code>：查看用户所在的所有组ID</li>
+<li><code>-n</code>：需要和<code>-ugG</code>配合使用</li>
+</ul>
+</li>
+</ul>
+<h2 id="用户切换"><a href="#用户切换" class="headerlink" title="用户切换"></a>用户切换</h2><ul>
+<li><code>su - user</code><ul>
+<li><code>-</code>：切换用户的同时切换<code>shell</code></li>
+</ul>
+</li>
+<li>只有<code>root</code>切换到其他用户不用输入密码，其他都需要输入密码。</li>
+<li>退出用户<ul>
+<li><code>Ctrl + d</code>：退出当前用户</li>
+<li>输入<code>exit</code>退出当前用户</li>
+</ul>
+</li>
+</ul>
+<h2 id="用户的存储"><a href="#用户的存储" class="headerlink" title="用户的存储"></a>用户的存储</h2><ul>
+<li><p><code>/etc/passwd</code>用户信息文件</p>
+<blockquote>
+<p>  <code>用户名</code>：<code>密码</code>：<code>UID</code>：<code>GID</code>：<code>用户说明</code>：<code>用户的家目录</code>：<code>用户的解释shell</code></p>
+</blockquote>
+</li>
+<li><p><code>/etc/group</code>用户的组id</p>
+<blockquote>
+<p>  <code>组名</code>：<code>组密码</code>：<code>GID</code>：<code>组成员</code></p>
+</blockquote>
+</li>
+<li><p><code>/etc/shadow</code>用户的密码</p>
+<blockquote>
+<p>  认证信息文件</p>
+</blockquote>
+</li>
+<li><p><code>/etc/gshadow</code>用户组的密码</p>
+<blockquote>
+<p>  登陆组认证信息</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="用户增-删等操作"><a href="#用户增-删等操作" class="headerlink" title="用户增&#x2F;删等操作"></a>用户增&#x2F;删等操作</h2><ul>
+<li><p><code>useradd username</code>：添加用户，<code>kali</code>如果需要创建用户需要加参数<code>-m</code>	</p>
+<ul>
+<li><code>-d</code>：指定家目录</li>
+<li><code>-G</code>：指定附加组ID</li>
+<li><code>-u</code>：指定UID</li>
+<li><code>-g</code>：指定GID</li>
+<li><code>-M</code>：不创建家目录</li>
+<li><code>-p</code>：创建用户的时候设置用户登陆密码</li>
+<li><code>-c</code>：指定用户的说明文字，使用双引号<code>&quot;</code>引起来</li>
+<li><code>-s</code>：指定用户的默认登陆<code>shell</code></li>
+</ul>
+</li>
+<li><p><code>userdel username</code>：删除用户默认不删除家目录 </p>
+<ul>
+<li><code>-r</code>：删除用户的同时删除用户的家目录，邮箱等参数。彻底删除</li>
+</ul>
+<blockquote>
+<p>  用户创建如果没有设置密码需要设置密码否则不能登陆</p>
+<p>  <code>passwd username</code>：设置&#x2F;修改用户的密码。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="组的增-删等操作"><a href="#组的增-删等操作" class="headerlink" title="组的增&#x2F;删等操作"></a>组的增&#x2F;删等操作</h2><ul>
+<li><code>groupadd</code>：组的添加<ul>
+<li><code>-g</code>：指定<code>GID</code></li>
+<li><code>-p</code>：设置用户组的密码</li>
+</ul>
+</li>
+<li><code>groupdel</code>：删除用户组</li>
+<li><code>usermod</code>：修改用户<ul>
+<li><code>-L</code>：锁定用户</li>
+<li><code>-U</code>：解锁用户</li>
+<li><code>-l</code>：更改用户名称</li>
+<li><code>-u</code>：更改用户的UID</li>
+<li><code>-g</code>：更改用户的所属组</li>
+<li><code>-G</code>：更改用户的附加组</li>
+<li><code>-G &quot;&quot;</code>：删除用户的所有附加组</li>
+<li><code>-c string</code>：指定用户说明文字</li>
+<li><code>-md path</code>：更改用户的shell</li>
+<li><code>-s</code>：更改用户的shell</li>
+</ul>
+</li>
+</ul>
+<h2 id="用户认证信息"><a href="#用户认证信息" class="headerlink" title="用户认证信息"></a>用户认证信息</h2><blockquote>
+<p>  文件路径信息<code>/etc/shadow</code></p>
+<p>  <code>用户名称</code>；<code>用户密码</code>：<code>用户密码最后一次被更改的时间</code>：<code>用户密码最短有效期</code>：<code>用户密码最长有效期</code>：<code>密码警告期限</code>：<code>用户非活跃天数</code>：<code>用户自定义列</code></p>
+</blockquote>
+<h2 id="修改用户密码"><a href="#修改用户密码" class="headerlink" title="修改用户密码"></a>修改用户密码</h2><p><code>passwd</code>	：修改用户密码</p>
+<ul>
+<li><code>-l</code>：锁定用户</li>
+<li><code>-u</code>：解锁用户</li>
+<li><code>-d</code>：清空密码</li>
+<li><code>-n</code>：密码的最短有效期</li>
+<li><code>-x</code>：密码的最长有效期</li>
+<li><code>-w</code>：密码警告期</li>
+<li><code>-i</code>：用户的非活跃期</li>
+<li><code>-e</code>：使一个密码过期，普通用户再次登陆时需要修改密码</li>
+<li><code>-E</code>：设置用户密码到期时间</li>
+</ul>
+<p>修改密码注意</p>
+<ul>
+<li>普通用户修改密码的时候必须知道永久原始密码</li>
+<li>密码不能和帐号类似</li>
+<li>密码不能是纯数字</li>
+<li>密码不能是有序的数字和字母的组合</li>
+</ul>
+<h2 id="文件属性"><a href="#文件属性" class="headerlink" title="文件属性"></a>文件属性</h2><ul>
+<li><p>文件类型</p>
+<ul>
+<li><code>-</code>：空文件，或者文本</li>
+<li><code>d</code>：目录</li>
+<li><code>l</code>：链接</li>
+<li><code>b</code>：块设备</li>
+<li><code>s</code>：socket文件</li>
+<li><code>c</code>：字符设备，鼠标键盘</li>
+</ul>
+</li>
+<li><p>权限</p>
+<ul>
+<li><p>所有者权限(u)：读(r)、写(w)和执行(x)</p>
+</li>
+<li><p>所属组权限(g)：读(r)、写(w)和执行(x)</p>
+</li>
+<li><p>其他人权限(o)：读(r)、写(w)和执行(x)</p>
+<blockquote>
+<p>  文件权限</p>
+<ul>
+<li><code>r</code>：读权限，4<ul>
+<li>普通文件查看文件内容</li>
+<li>目录查看目录内的文件列表</li>
+</ul>
+</li>
+<li><code>w</code>：写权限，2<ul>
+<li>普通文件修改文件内容</li>
+<li>目录内的文件的属性修改</li>
+</ul>
+</li>
+<li><code>x</code>：执行权限，1<ul>
+<li>对文件是否可以通过文件名调用文件内记录的程序</li>
+<li>对目录是否能进入</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>文件的硬链接数</p>
+<ul>
+<li>文件来说是硬链接数</li>
+<li>目录来说是子目录的个数，包含<code>.</code>和<code>..</code></li>
+</ul>
+</li>
+<li><p>文件属者</p>
+</li>
+<li><p>文件属组</p>
+</li>
+<li><p>大小</p>
+<ul>
+<li>文件来说是文件大小</li>
+<li>目录来说记录的文件的信息，大小是位数+文件名长度</li>
+</ul>
+</li>
+<li><p>最后一次被修改的时间</p>
+</li>
+<li><p>文件名</p>
+</li>
+</ul>
+<h2 id="修改文件信息"><a href="#修改文件信息" class="headerlink" title="修改文件信息"></a>修改文件信息</h2><ul>
+<li><code>chmod</code>：修改文件权限</li>
+<li><code>chown</code>：修改文件属主<ul>
+<li><code>-R</code>：修改目录本身的所有者，还递归修改内部文件的所属者</li>
+</ul>
+</li>
+<li><code>chgrp</code>：修改文件属组</li>
+</ul>
+<h2 id="别名"><a href="#别名" class="headerlink" title="别名"></a>别名</h2><p><code>alias</code>别名，需要添加到配置文件中，否则只会在当前<code>shell</code>有效</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/11/13/Linux/02linux%E5%9F%BA%E7%A1%80/" data-id="cm3mpi624001gl0ya8aou85ud" data-title="02 Linux基础知识--vim&amp;用户管理" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" rel="tag">Linux用户管理</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vim/" rel="tag">vim</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Linux/03linux基础" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/11/13/Linux/03linux%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time class="dt-published" datetime="2021-11-12T16:00:00.000Z" itemprop="datePublished">2021-11-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/11/13/Linux/03linux%E5%9F%BA%E7%A1%80/">03 Linux基础知识--权限控制&amp;进程管理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="03-Linux基础知识-权限控制-进程管理"><a href="#03-Linux基础知识-权限控制-进程管理" class="headerlink" title="03 Linux基础知识-权限控制&amp;进程管理"></a>03 Linux基础知识-权限控制&amp;进程管理</h1><h2 id="umask"><a href="#umask" class="headerlink" title="umask"></a>umask</h2><p>当用户的<code>UID</code>小于199，并且用户名和用户组名相同时，<code>umaks</code>的值为<code>022</code>。否则的话<code>umask</code>的值为<code>002</code>，当创建文件夹时默认的权限为<code>0777 - umask</code>，当创建文件时默认的权限为<code>0777 - umaks - 0111</code>，文件默认取消执行权限，因为执行权限对文件影响大</p>
+<p>配置文件</p>
+<ul>
+<li>系统配置文件：<code>/etc/profile</code></li>
+<li><code>shell</code>配置文件：<code>/etc/bashrc</code></li>
+<li>某一个用户的<code>shell</code>配置文件：<code>~/.bashrc</code></li>
+<li>使配置文件生效：<code>source 要生效的文件</code>，即让系统重新读取该文件，否则需要内核自举。</li>
+</ul>
+<h2 id="特殊权限"><a href="#特殊权限" class="headerlink" title="特殊权限"></a>特殊权限</h2><ul>
+<li>粘滞位(<code>sticky</code>)<ul>
+<li>只针对目录生效，当一个目录有<code>sticky</code>权限时，在这个目录中的文件只能被文件的所有者删除。</li>
+<li>设置：<code>chmod o+t 目录</code>或<code>chmod 1xxx 目录</code></li>
+</ul>
+</li>
+<li>强制位(<code>sgid</code>)<ul>
+<li>对文件作用：只针对二进制可执行文件，当文件有<code>sgid</code>时，任何人执行此文件产生的进程都属于文件的组</li>
+<li>对目录：当目录有<code>sgid</code>时，任何人在此目录中建立的文件都属于目录。</li>
+<li><code>chmod g+s 二进制文件/目录</code>或<code>chmod 2xxx 二进制文件/目录</code></li>
+</ul>
+</li>
+<li>冒险位(<code>suid</code>)<ul>
+<li>对文件，任何人执行二进制文件，进程都属于进程的所有人。对文件的权限进行降级操作，避免<code>rm -rf /*</code>的误操作，对<code>rm</code>文件的权限进行降级。</li>
+<li><code>chmod u+s 文件</code>或<code>chmod 4xxx 文件</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="acl权限"><a href="#acl权限" class="headerlink" title="acl权限"></a>acl权限</h2><blockquote>
+<p>学会使用<code>man setfcal</code></p>
+</blockquote>
+<p>设置：<code>setfcal -m u:username:rwx dir</code></p>
+<p>设置：<code>setfcal -m g:groupname:rwx dir</code></p>
+<p>查看：<code>getfacl filename</code></p>
+<p>作用：让特定的用户对特定的文件拥有特定的权限</p>
+<p>acl列表查看：</p>
+<p>​	权限位<code>+</code>号表示acl权限开启</p>
+<p>查看文件acl开启的权限：<code>getfacl 文件命名</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># file:文件名称</span><br><span class="line"># owner:文件所有者</span><br><span class="line"># group:文件所属组</span><br><span class="line">use::所有者权限</span><br><span class="line">user:用户:指定用户的权限</span><br><span class="line">group::文件所有组的权限</span><br><span class="line">maks：:能赋予用户最大的权限</span><br><span class="line">other::其他用户</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>mask</code>值</p>
+<blockquote>
+<p>  在权限列表中mask表示能生效的权利值，当用<code>chmod</code>减少开启acl的文件权限后，<code>mask</code>值会发生变化</p>
+</blockquote>
+</li>
+<li><p>恢复mask值</p>
+<blockquote>
+<p>  <code>setfacl -m m:rwx filename</code></p>
+</blockquote>
+</li>
+<li><p>acl默认权限</p>
+<blockquote>
+<p>  只针对目录设定，且只针对设定完之后新建的文件或目录生效，不会对已存在的文件生效</p>
+<p>  <code>setfacl -m d:u:username:rwx dir</code></p>
+</blockquote>
+</li>
+</ul>
+<h2 id="系统进程及服务的控制"><a href="#系统进程及服务的控制" class="headerlink" title="系统进程及服务的控制"></a>系统进程及服务的控制</h2><ul>
+<li><p>图形查看进程</p>
+</li>
+<li><p>命令查看(<code>ps</code>)</p>
+<ul>
+<li><p><code>-A</code>：显示所有进程</p>
+</li>
+<li><p><code>-a</code>：当前环境中运行的进程，不显示管理信息与当前终端的进程信息</p>
+</li>
+<li><p><code>-u</code>：有效使用者和相关的进程</p>
+</li>
+<li><p><code>a</code>：当前环境中的进程，包含管理信息与当前终端的进程信息</p>
+</li>
+<li><p><code>x</code>：通常与<code>-a</code>参数一起使用，列出系统中所有运行包含<code>tty</code>输出设备</p>
+</li>
+<li><p><code>-f</code>：显示进程父子关系</p>
+</li>
+<li><p><code>-e</code>：经常与<code>-f</code>一起使用，显示详细信息，显示系统的资源调用和进程的详细信息</p>
+</li>
+<li><p><code>-o</code>：显示指定信息</p>
+<ul>
+<li><code>comm</code>：显示命令</li>
+<li><code>user</code>：进程所有用户</li>
+<li><code>group</code>：进程所有组</li>
+<li><code>%cpu</code>：进程cpu使用率</li>
+<li><code>%mem</code>：进程使用内存使用率</li>
+<li><code>pid</code>：进程id号</li>
+<li><code>nice</code>：查看优先级</li>
+<li><code>stat</code>：状态</li>
+</ul>
+<blockquote>
+<p>例：<code>ps  -o comm,user,group,%cpu,%mem,pid,nice</code>，不要加多余的空格</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>进程排序</p>
+<ul>
+<li><p><code>ps ax --sort=+%cpu</code></p>
+<ul>
+<li><code>+%cpu</code>：按照CPU使用率正序输出，小 —&gt; 大</li>
+<li><code>-%cpu</code>：按照CPU使用率反序输出，大 —&gt; 小</li>
+</ul>
+<blockquote>
+<p>  也可以使用<code>mem</code>进行排序。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>进程优先级：范围[-20, 19]，数值越小优先级越高。</p>
+<ul>
+<li><code>S</code>：表示进程状态</li>
+<li><code>l</code>：内存中有锁定空间</li>
+<li><code>N</code>：表示优先级低</li>
+<li><code>&lt;</code>：表示优先级高</li>
+<li><code>+</code>：表示前台运行</li>
+<li><code>s</code>：顶级进程</li>
+</ul>
+</li>
+<li><p>修改优先级</p>
+<ul>
+<li><code>renice -n -5 pid</code>，修改进程pid的优先级为<code>-5</code></li>
+<li><code>renice -n -5 程序</code>，开启进程并设置优先级为<code>-5</code></li>
+</ul>
+</li>
+<li><p>进程前后台调用</p>
+<ul>
+<li><code>Ctrl + z</code>：把占用终端的进程切入后台，释放终端</li>
+<li><code>jobs</code>：查看被打入环境后台的进程</li>
+<li><code>bg job号</code>：把后台程序运行到后台，不占用终端</li>
+<li><code>fg job号</code> ：把程序运行到前台，占用终端</li>
+<li><code>fg</code>：调用优先<code>+</code> &gt; <code>-</code>&gt;<code>什么都么有</code></li>
+<li>在程序最后加<code>&amp;</code>，进程直接后台运行</li>
+</ul>
+</li>
+<li><p>进程信号：<code>kill -signal pid</code></p>
+<blockquote>
+<p>  <code>signal</code>信号类型</p>
+</blockquote>
+<ul>
+<li><code>1</code>：进程重新加载配置</li>
+<li><code>2</code>：删除进程在内存中的数据</li>
+<li><code>3</code>：删除鼠标在内存中的数据，<code>Ctrl + \</code></li>
+<li><code>9</code>：强行结束单个进程(不可被阻塞)</li>
+<li><code>15</code>：正常关闭进程(可能会被阻塞)</li>
+<li><code>18</code>：运行暂停的进程</li>
+<li><code>19</code>：暂停某个进程(不能被阻塞)</li>
+<li><code>20</code>：把进程打入后台(可以被阻塞)</li>
+</ul>
+<blockquote>
+<p>  例：<code>kill -9 pid</code>，使用<code>kill -l</code>查看所有信号</p>
+<p>  <code>killall -9 程序名</code>，根据程序名，批量关闭程序</p>
+<p>  <code>pkill -u student -9</code>，根据条件发出信号，踢出用户</p>
+</blockquote>
+</li>
+<li><p>常用组合</p>
+<ul>
+<li><code>ps ef</code>：显示进程详细信息并显示进程父子关系</li>
+<li><code>ps aux</code>：显示系统中所有进程和显示进程用户</li>
+<li><code>ps ax</code>：显示当前系统中的所有进程</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/11/13/Linux/03linux%E5%9F%BA%E7%A1%80/" data-id="cm3mpi625001jl0ya84mdchix" data-title="03 Linux基础知识--权限控制&amp;进程管理" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/" rel="tag">权限控制</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="tag">进程管理</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Linux/06linux基础" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/11/13/Linux/06linux%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time class="dt-published" datetime="2021-11-12T16:00:00.000Z" itemprop="datePublished">2021-11-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/11/13/Linux/06linux%E5%9F%BA%E7%A1%80/">06 Linux基础知识–-虚拟机安装</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="06-Linux基础–-虚拟机安装"><a href="#06-Linux基础–-虚拟机安装" class="headerlink" title="06 Linux基础–-虚拟机安装"></a>06 Linux基础–-虚拟机安装</h1><h2 id="虚拟机的安装"><a href="#虚拟机的安装" class="headerlink" title="虚拟机的安装"></a>虚拟机的安装</h2><blockquote>
+<p>  关于这部分我不想写，个人觉得没必要，多踩坑多百度，自然就能解决。本人装系统已经装吐了，所以真的不想写了，请自行百度。</p>
+</blockquote>
+<h2 id="虚拟机管理命令"><a href="#虚拟机管理命令" class="headerlink" title="虚拟机管理命令"></a>虚拟机管理命令</h2><ul>
+<li><p><code>virt-manager</code>：超级用户执行，开启虚拟机管理器</p>
+</li>
+<li><p><code>virsh list</code>：查看正在运行的虚拟机</p>
+<ul>
+<li><code>virsh list --all</code>：查看所有的虚拟机状态</li>
+</ul>
+</li>
+<li><p><code>virsh start 虚拟机名</code>：打开一个虚拟机</p>
+</li>
+<li><p><code>virt-viewer 虚拟机名</code>：查看一个虚拟机</p>
+</li>
+<li><p><code>virsh shutdown 虚拟机名</code>：关闭一个正在运行的虚拟机，需要进入系统后才可以关闭</p>
+</li>
+<li><p><code>virsh desroy 虚拟机名</code>：虚拟机直接断电关机</p>
+</li>
+<li><p><code>virsh undefine 虚拟机名</code>：删除虚拟机</p>
+</li>
+</ul>
+<h2 id="复制-移动虚拟机"><a href="#复制-移动虚拟机" class="headerlink" title="复制&#x2F;移动虚拟机"></a>复制&#x2F;移动虚拟机</h2><ul>
+<li>第一步拷贝<code>系统文件</code>：<code>/var/lib/libvirt/images/</code>目录下的<code>.qcow2</code>的文件，不同的名字表示不同的虚拟机</li>
+<li>第二部拷贝<code>配置文件</code>：<code>/etc/libvirt/qemu</code>目录下对应的虚拟机的配置文件</li>
+<li>第三步创建<code>创建虚拟机</code>：要求拷贝完母盘和配置文件，<code>virsh create 配置文件</code>，需要将母盘移动到<code>/var/lib/libvirt/images</code>目录中否则会提示找不到文件，这个恢复是一次性的</li>
+<li>第四步<code>恢复虚拟机</code>：<code>virsh define 虚拟机名.xml</code>，<code>xml</code>文件是虚拟机的配置文件</li>
+</ul>
+<h2 id="脚本安装虚拟机"><a href="#脚本安装虚拟机" class="headerlink" title="脚本安装虚拟机"></a>脚本安装虚拟机</h2><p>以<code>.sh</code>结尾</p>
+<p>第一行<code>#!/bin/bash</code>指定解释器</p>
+<ul>
+<li><p>自动安装虚拟机脚本，所有的命令都是在一行上，所以需要加<code> \</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">virt-install \</span><br><span class="line">--cdrom /镜像路径 \</span><br><span class="line">--ram 1024  \</span><br><span class="line">--cpus 1 \</span><br><span class="line">--disk /var/lib/libvirt/images/test.qcow2,bus=virtio,size=10 \</span><br><span class="line">--name test \</span><br><span class="line">--network bridge=br0,model=virtio</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>--cdrom</code>：镜像的路径</li>
+<li><code>--ram</code>：内存分配的大小</li>
+<li><code>cpus</code>：分配的CPU的个数</li>
+<li><code>disk</code>：生成的母板的位置，<code>bus</code>：接口的io类型为<code>虚拟io</code>，<code>size</code>：硬盘大小<code>10GB</code></li>
+<li><code>--name</code>：虚拟机的名字</li>
+<li><code>--network</code>：网络模式，<code>bridge=br0</code>：从物理网卡<code>br0</code>上桥接，<code>model</code>：模式为<code>虚拟io</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="脚本制作虚拟机快照"><a href="#脚本制作虚拟机快照" class="headerlink" title="脚本制作虚拟机快照"></a>脚本制作虚拟机快照</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">qemu-img create -f qcow2 -b \</span><br><span class="line">/var/lib/libvirt/images/$1.qcow2 \</span><br><span class="line">/var/lib/libvirt/images/$2.qcow2</span><br><span class="line"></span><br><span class="line">virt-install \</span><br><span class="line">--name $2 \</span><br><span class="line">--ram 1024 \</span><br><span class="line">--cpus 1 \</span><br><span class="line">--disk /var/lib/libvirt/images/$2.qcow2,bus=virtio \</span><br><span class="line">--network bridge=br0,model=virtio \</span><br><span class="line">--import &amp;</span><br></pre></td></tr></table></figure>
+
+<h2 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h2><blockquote>
+<p>  <code>$1</code>：脚本的第一个参数</p>
+<p>  <code>$2</code>：脚本的第二个参数</p>
+</blockquote>
+<h2 id="reset脚本实现"><a href="#reset脚本实现" class="headerlink" title="reset脚本实现"></a>reset脚本实现</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">virsh destroy $1</span><br><span class="line">rm -rf /var/lib/libvirt/images/$1.qcow2</span><br><span class="line">qemu-img create -f qcow2 \</span><br><span class="line">-b /var/lib/libvirt/images/$2.qcow2 \</span><br><span class="line">/var/lib/libvirt/images/$1.qcow2</span><br><span class="line"></span><br><span class="line">virsh start $1</span><br><span class="line">virt-viewer $1 &amp;</span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/11/13/Linux/06linux%E5%9F%BA%E7%A1%80/" data-id="cm3mpi625001ll0yaas2mcak5" data-title="06 Linux基础知识–-虚拟机安装" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/" rel="tag">虚拟机安装</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Linux/07linux基础" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/11/13/Linux/07linux%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time class="dt-published" datetime="2021-11-12T16:00:00.000Z" itemprop="datePublished">2021-11-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/11/13/Linux/07linux%E5%9F%BA%E7%A1%80/">07 Linux基础知识–-硬盘挂载&amp;yum管理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="07-Linux基础–-硬盘挂载-yum管理"><a href="#07-Linux基础–-硬盘挂载-yum管理" class="headerlink" title="07 Linux基础–-硬盘挂载&amp;yum管理"></a>07 Linux基础–-硬盘挂载&amp;yum管理</h1><h2 id="netstat命令"><a href="#netstat命令" class="headerlink" title="netstat命令"></a>netstat命令</h2><p>常用组合<code>netstat -antlpe</code></p>
+<ul>
+<li><code>-a</code>：显示所有信息</li>
+<li><code>-n</code>：显示数字地址</li>
+<li><code>-t</code>：只显示<code>TCP</code>协议</li>
+<li><code>-l</code>：只显示监听状态的端口</li>
+<li><code>-p</code>：显示进程<code>ID</code></li>
+<li><code>-e</code>：显示额外信息</li>
+</ul>
+<h2 id="挂载-取消挂载"><a href="#挂载-取消挂载" class="headerlink" title="挂载&#x2F;取消挂载"></a>挂载&#x2F;取消挂载</h2><ul>
+<li><p><code>mount -t type dev dir</code></p>
+<ul>
+<li><code>-t</code>：指定挂载的设备类型，和<code>type</code>类型，可以不指定</li>
+<li><code>dev</code>：要挂载的设备</li>
+<li><code>dir</code>：挂载的目录点，一般为<code>/mnt</code>，最好是一个空目录</li>
+</ul>
+</li>
+<li><p><code>umount -t type dir</code></p>
+<ul>
+<li><code>-t</code>：同上，非必选</li>
+<li><code>dir</code>：已经挂载的点</li>
+</ul>
+</li>
+</ul>
+<h2 id="yum本地仓库配置"><a href="#yum本地仓库配置" class="headerlink" title="yum本地仓库配置"></a>yum本地仓库配置</h2><ul>
+<li><p>使用<code>mount</code>将系统镜像挂载到<code>/mnt/ISO</code>，如果<code>/mnt/ISO</code>目录不存在则新建<code>/mnt/ISO</code>目录</p>
+</li>
+<li><p>配置<code>yum</code>仓库文件</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[rhel7.3]</span><br><span class="line"> </span><br><span class="line">name=rhel 7.3</span><br><span class="line">baseurl=file:///mnt/ISO</span><br><span class="line">gpgcheck=0</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第一行：<code>[rhel7.3]</code>：不能有空格，否则会报错</li>
+<li>第二行：<code>name</code>：仓库名</li>
+<li>第三行：<code>baseurl</code>：路径名</li>
+<li>第四行：<code>gpgcheck</code>：是否校验</li>
+</ul>
+</li>
+</ul>
+<h2 id="yum远程仓库"><a href="#yum远程仓库" class="headerlink" title="yum远程仓库"></a>yum远程仓库</h2><ul>
+<li><p>第一步：安装<code>httpd</code>服务，然后使用<code>systemctl start httpd</code>启动服务，使用<code>systemctl enable httpd</code>注册到开机自启中。</p>
+</li>
+<li><p>第二步：服务器默认加载路径<code>/var/www/html/</code>，可以在该目录下写自己的测试页面。</p>
+</li>
+<li><p>第三步：增加防火墙策略，否则别的主机无法访问，要么暂时关掉。。。。。。</p>
+</li>
+<li><p>第四步：在<code>/var/www/html/</code>新建一个目录<code>yum</code>，将镜像挂载到<code>/var/www/html/yum/</code>目录下。</p>
+</li>
+<li><p>第五步：修改<code>baseurl=http://IP/DIR</code>，<code>IP</code>就是远程仓库的<code>IP</code>记得加路径，配置文件和本地仓库一样，只是<code>baseurl</code>的不同。</p>
+<p>例：<code>baseurl</code>不同的主机和不同的路径</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[rhel7.3]</span><br><span class="line"></span><br><span class="line">name=rhel7.3</span><br><span class="line">baseurl=http://172.25.254.208/yum/yum_iso/</span><br><span class="line">gpgcheck=0</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用<code>yum clean all </code>和<code>yum makecache</code>测试是否配置好了</li>
+</ul>
+<h2 id="开机自动挂载"><a href="#开机自动挂载" class="headerlink" title="开机自动挂载"></a>开机自动挂载</h2><ul>
+<li>方法一：按照格式修改<code>/etc/fstab</code>即可，可参考<a target="_blank" rel="noopener" href="http://39.106.165.33/#!./blog/etc/./%E4%B8%80%E7%B3%BB%E5%88%97%E9%97%AE%E9%A2%98.md">点击链接</a></li>
+<li>方法二：<code>/etc/rc.d/rc.local</code>，将挂载文件的命令写进去就可以了，需要绝对路径。然后给该文件加执行权限<code>chmod +x /etc/rc.d/rc.local</code></li>
+</ul>
+<h2 id="yum命令"><a href="#yum命令" class="headerlink" title="yum命令"></a>yum命令</h2><ul>
+<li><code>install softwarename</code>：安装<code>softwarename</code>命令</li>
+<li><code>reinstall softwarename</code>：重新安装软件<code>softwarename</code></li>
+<li><code>repolist</code>：列出设定<code>yum</code>源信息</li>
+<li><code>remove softwarename</code>：卸载软件<code>softwarename</code></li>
+<li><code>list package_name</code>：查看软件源中是否有软件<code>package_name</code></li>
+<li><code>list all</code>：查看所有的软件包</li>
+<li><code>list installd softwarename</code>：查看安装的软件名</li>
+<li><code>list available</code>：列出可用的软件安装</li>
+<li><code>clean all</code>：清空<code>yum</code>的缓存</li>
+<li><code>search keyword</code>：根据软件信息搜索软件名</li>
+<li><code>yum whatprovides filename</code>：在<code>yum</code>源中查找<code>filename</code>文件的软件包</li>
+<li><code>yum update software</code>：更新指定的软件<code>software</code>，不接最后一个参数表示更新所有</li>
+<li><code>history list all</code>：查看安装历史</li>
+<li><code>history undo ID</code>：撤销安装软件包，ID号通过<code>history list all</code>查询</li>
+<li><code>--downloadonly</code>：从yum下载安装包</li>
+</ul>
+<h2 id="rpm"><a href="#rpm" class="headerlink" title="rpm"></a>rpm</h2><p><code>rpm -ivh</code>，常用</p>
+<ul>
+<li><code>-i</code>：安装</li>
+<li><code>-v</code>：显示安装过程信息</li>
+<li><code>-h</code>：进行加密方式为hash</li>
+<li><code>-e</code>：卸载</li>
+<li><code>-qa</code>：查询系统中安装的所有软件名称，使用管道查询软件</li>
+<li><code>-pq name.rpm</code>：查询软件包安装后的名字</li>
+<li><code>-ql name</code>：查看软件安装生成的文件，不要加<code>.rpm</code>后缀</li>
+<li><code>-qlp name.rpm</code>：查看软件安装后生成的文件</li>
+<li><code>--force</code>：强制安装，不能忽略依赖性</li>
+<li><code>--nodeps</code>：忽略软件的依赖性</li>
+<li><code>-qi </code>：查看软件的信息，由软件的开发商写</li>
+<li><code>--scripts</code>：检测软件在安装或者卸载过程中执行的动作</li>
+</ul>
+<h2 id="第三方源的搭建"><a href="#第三方源的搭建" class="headerlink" title="第三方源的搭建"></a>第三方源的搭建</h2><p>学会<code>man createrepo</code>，<code>-v</code>显示过程</p>
+<blockquote>
+<p>  把所有的rpm软件包放到一个文件夹中，执行<code>createrepo -v /Software/</code>，生成第三方的仓库，该目录下会生成一个<code>repodata</code>的文件，修改<code>yum.repo</code>将生成的第三方的仓库路径添加到配置文件中</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/11/13/Linux/07linux%E5%9F%BA%E7%A1%80/" data-id="cm3mpi626001ml0ya4z1ebhcz" data-title="07 Linux基础知识–-硬盘挂载&amp;yum管理" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/yum%E7%AE%A1%E7%90%86/" rel="tag">yum管理</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%A1%AC%E7%9B%98%E6%8C%82%E8%BD%BD/" rel="tag">硬盘挂载</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Linux/04linux基础" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/11/13/Linux/04linux%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time class="dt-published" datetime="2021-11-12T16:00:00.000Z" itemprop="datePublished">2021-11-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/11/13/Linux/04linux%E5%9F%BA%E7%A1%80/">04 Linux基础知识--进程监控&amp;ssh&amp;文件传输</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="04-Linux基础–进程监控-ssh-文件传输"><a href="#04-Linux基础–进程监控-ssh-文件传输" class="headerlink" title="04 Linux基础–进程监控&amp;ssh&amp;文件传输"></a>04 Linux基础–进程监控&amp;ssh&amp;文件传输</h1><h2 id="进程动态监控"><a href="#进程动态监控" class="headerlink" title="进程动态监控"></a>进程动态监控</h2><p><code>top</code>：动态查看进程</p>
+<ul>
+<li>按<code>1</code>显示CPU每个核的负载</li>
+<li>按<code>s</code>修改刷新频率</li>
+<li>按<code>c</code>依照CPU负载排序</li>
+<li>按<code>m</code>依照内存大小排序</li>
+<li>按<code>h</code>获取帮助</li>
+<li>按<code>u</code>查看指定用户的进程，需要输入用户名</li>
+<li>按<code>k</code>对指定用户进程发起信号</li>
+<li>按<code>q</code>退出</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>PID</th>
+<th>USER</th>
+<th>PR</th>
+<th>NI</th>
+<th>VIRT</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>进程id</td>
+<td>进程用户</td>
+<td>人物优先级</td>
+<td>优先级值</td>
+<td>进程使用的虚拟内存</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>RES</th>
+<th>SHR</th>
+<th>%CPU</th>
+<th>%MEM</th>
+<th>TIME</th>
+<th>COMMAND</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>进程使用的未被换出的物理内存大小</td>
+<td>共享内存</td>
+<td>CPU使用率</td>
+<td>内存使用率</td>
+<td>使用CPU的时间总计</td>
+<td>命令名</td>
+</tr>
+</tbody></table>
+<h2 id="控制服务systemctl"><a href="#控制服务systemctl" class="headerlink" title="控制服务systemctl"></a>控制服务<code>systemctl</code></h2><p><code>C/S</code>：server、client</p>
+<ul>
+<li><code>pstree</code>：查看进程树</li>
+<li><code>systemd</code>系统初始化进程</li>
+<li>进程控制命令<code>systemctl</code><ul>
+<li><code>ssh</code>，<code>client</code> &#x3D;&#x3D;&#x3D;&gt; <code>sshd</code>，<code>server</code></li>
+<li><code>status</code>：查看服务状态</li>
+<li><code>start</code>：开启服务</li>
+<li><code>restart</code>：重启服务</li>
+<li><code>stop</code>：停止服务</li>
+<li><code>reload</code>：重新加载服务配置</li>
+<li><code>disable</code>：设置服务，开机不自启动  </li>
+<li><code>enable</code>：设置服务，开机自启动</li>
+<li><code>mask</code>：设置无法启动，注销服务</li>
+</ul>
+</li>
+<li>查看端口<ul>
+<li><code>netstat -antulpe | grep :22</code>，查看22端口的程序</li>
+</ul>
+</li>
+</ul>
+<h2 id="linux查看本机ip"><a href="#linux查看本机ip" class="headerlink" title="linux查看本机ip"></a>linux查看本机ip</h2><ul>
+<li><code>ip addr show</code>，推荐使用，可以查到所有的ip地址</li>
+<li><code>ifconfig</code>，只能查看到一个ip地址</li>
+</ul>
+<h2 id="修改hostname"><a href="#修改hostname" class="headerlink" title="修改hostname"></a>修改hostname</h2><blockquote>
+<p><code>hostnamctl set-hostname yourhostname</code>，将<code>yourhostname</code>改成你要设置的名字即可。</p>
+</blockquote>
+<h2 id="ssh服务"><a href="#ssh服务" class="headerlink" title="ssh服务"></a>ssh服务</h2><p><code>ssh username@ip</code>，文本方式链接</p>
+<ul>
+<li><code>username</code>：登陆的用户名</li>
+<li><code>ip</code>：目标主机ip</li>
+<li><code>-X</code>：在链接成功后可以打开图形，比如摄像头<code>cheese</code>… …</li>
+</ul>
+<blockquote>
+<p>  <code>sshd</code>，表示服务，在服务器端使用</p>
+<p>  <code>ssh</code>，客户端使用，连接远程服务。</p>
+</blockquote>
+<ul>
+<li><code>sshd = secure shell</code></li>
+</ul>
+<p><code>第一次链接会在家目录下生成</code>~&#x2F;.ssh&#x2F;known_hosts&#96;认证文件</p>
+<ul>
+<li><p>key认证</p>
+<ul>
+<li><p>第一步：<code>ssh-keygen</code>，在<code>~/.ssh/</code>生成公钥和密钥，三次回车，不设置就回车。</p>
+</li>
+<li><p>第二步：进入<code>~/.ssh/</code>，有两个文件<code>id_rsa(私钥)</code>和<code>id_rsa.pub(公钥)</code></p>
+</li>
+<li><p>第三步：使用公钥加密主机<code>ssh-copy-id -i id_rsa.pub root@ip</code></p>
+</li>
+<li><p>第四步：把<code>id_rsa</code>发送给目标主机，且需要放在<code>~/.ssh</code>目录下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen</span><br><span class="line">cd ~/.ssh/</span><br><span class="line">ssh-copy-id -i id_rsa.pub root@172.25.254.108 </span><br><span class="line">scp ./id_rsa root@172.25.254.108:/root/.ssh/</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>  <code>ssh</code>远程连接目标主机就不需要再输入密码，完成所有操作了。。。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>访问控制</p>
+<p>配置文件：<code>/etc/ssh/sshd_config</code></p>
+<ul>
+<li>字段：<code>PasswordAuthentication yes</code>，是否允许用户通过密码登陆</li>
+<li>字段：<code>PermitRootLogin yes</code>，是否允许<code>root</code>登陆</li>
+<li>字段：<code>Allowusers username1 username2</code>，允许登陆的白名单，多个用户用空格分隔开</li>
+<li>字段：<code>Denyusers username1 username2</code>，不允许登陆的黑名单，多个用户用空格分隔开</li>
+</ul>
+</li>
+<li><p>配置文件生效需要重启<code>sshd</code>服务</p>
+</li>
+<li><p>查看配置文件的写法：<code>man 5 sshd_config</code></p>
+</li>
+<li><p>登陆信息：<code>vim /etc/motd</code>，在用户登陆的时候提示信息，文件内容就是登陆后的显示信息。</p>
+</li>
+<li><p>用户审计：</p>
+<ul>
+<li><code>w -i</code>：查看正在登陆系统用户，显示ip</li>
+<li><code>w -f</code>：查看使用来源，显示主机名</li>
+<li><code>last</code>：查看谁登录过你的<code>shell</code></li>
+<li><code>lastb</code>：试图登录但是没有成功</li>
+</ul>
+</li>
+</ul>
+<h2 id="scp服务"><a href="#scp服务" class="headerlink" title="scp服务"></a>scp服务</h2><p><code>scp sendfile username@ip:absolute_path</code>，上传文件</p>
+<p><code>scp username@ip:absolute_path_file dir </code>，下载文件</p>
+<ul>
+<li><code>-r</code>：下载&#x2F;上传目录时会用到，递归下载&#x2F;上传文件</li>
+<li><code>-p</code>：保存文件的信息(时间戳…)下载&#x2F;上传到目的主机</li>
+<li><code>absolute_path</code>：<strong>绝对路径</strong></li>
+</ul>
+<h2 id="忘记root密码？？？"><a href="#忘记root密码？？？" class="headerlink" title="忘记root密码？？？"></a>忘记root密码？？？</h2><ul>
+<li>第一步：重启电脑，进入系统选择界面按<code>e</code>。</li>
+<li>第二步：找到倒数第二行把<code>ro</code>当前行的后面的内容删掉。并把<code>ro</code>改为<code>rw  rb.break</code>，再按<code>Ctrl + x</code>，启动系统。</li>
+<li>第三步：进入系统后，<code>chroot /sysroot/</code>进入系统分区，并使用<code>passwd root</code>修改<code>root</code>用户密码。</li>
+<li>第四步：在根目录下创建<code>touch /.autorelabel</code>，如果不创建系统启动会出问题。</li>
+<li>第五步：使用两次<code>exit</code>来重启电脑，使用修改后的密码登录。</li>
+</ul>
+<h2 id="rsync-远程同步"><a href="#rsync-远程同步" class="headerlink" title="rsync 远程同步"></a>rsync 远程同步</h2><p>速度快，默认会忽略文件属性，链接文件，设备文件</p>
+<p>参数：</p>
+<ul>
+<li><code>-r</code>：同步目录</li>
+<li><code>-p</code>：同步权限</li>
+<li><code>-o</code>：同步文件所有人</li>
+<li><code>-g</code>：同步文件所有组</li>
+<li><code>-t</code>：同步文件时间戳</li>
+<li><code>-l</code>：同步链接文件</li>
+<li><code>-D</code>：同步设备文件</li>
+</ul>
+<h2 id="查看文件大小"><a href="#查看文件大小" class="headerlink" title="查看文件大小"></a>查看文件大小</h2><p><code>du -sh dir</code></p>
+<p>参数：</p>
+<ul>
+<li><code>-s</code>：显示总的文件大小</li>
+<li><code>-h</code>：人类容易辨别的字节大小单位</li>
+</ul>
+<h2 id="打包文件-tar"><a href="#打包文件-tar" class="headerlink" title="打包文件 tar"></a>打包文件 tar</h2><p><code>-x</code>：解包</p>
+<p><code>-c</code>：创建一个压缩包</p>
+<p><code>-v</code>：显示过程详情信息</p>
+<p><code>-f</code>：指定打包后的名字</p>
+<p><code>-t</code>：查看归档文件内容</p>
+<p><code>-r</code>：添加文件到归档，第一个为归档，后面的是要添加的文件</p>
+<p><code>--get</code>：解挡指定文件，<code>tar f etc.tar --get file</code></p>
+<p><code>--delete</code>：删除归档指定的文件，<code>tar f etc.tar --delete file</code></p>
+<p><code>-C</code>：指定解档目录</p>
+<p><code>-z</code>：使用<code>gzip</code>压缩</p>
+<p><code>-J</code>：使用<code>xz</code>压缩</p>
+<p><code>-j</code>：使用<code>gzip2</code>压缩</p>
+<h2 id="压缩"><a href="#压缩" class="headerlink" title="压缩"></a>压缩</h2><ul>
+<li><code>zip</code>压缩，压缩效率高，推荐使用<ul>
+<li><code>zip -r filename.tar.zip etc.tar</code></li>
+<li><code>unzip  filname.tar.zip</code></li>
+</ul>
+</li>
+<li><code>gzip</code>压缩，压缩效率高，推荐使用+1<ul>
+<li><code>gzip filname.tar</code></li>
+<li><code>gunzip filname.tar.gz</code></li>
+</ul>
+</li>
+<li><code>bzip2</code>压缩，压缩效率低<ul>
+<li><code>bzip2 filname.tar</code></li>
+<li><code>bunzip2 filname.tar.bz2</code></li>
+</ul>
+</li>
+<li><code>xz</code>压缩，压缩效率最高，很慢<ul>
+<li><code>xz filname.tar</code></li>
+<li><code>unxz filname.tar.xz</code></li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/11/13/Linux/04linux%E5%9F%BA%E7%A1%80/" data-id="cm3mpi626001pl0yacmvua9qd" data-title="04 Linux基础知识--进程监控&amp;ssh&amp;文件传输" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux%E8%BF%9B%E7%A8%8B/" rel="tag">Linux进程</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ssh/" rel="tag">ssh</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" rel="tag">文件传输</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Linux/08linux基础" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/11/13/Linux/08linux%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time class="dt-published" datetime="2021-11-12T16:00:00.000Z" itemprop="datePublished">2021-11-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/11/13/Linux/08linux%E5%9F%BA%E7%A1%80/">08 Linux基础知识–-延时任务&amp;邮件管理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="08-Linux基础知识–-延时任务-邮件管理"><a href="#08-Linux基础知识–-延时任务-邮件管理" class="headerlink" title="08 Linux基础知识–-延时任务&amp;邮件管理"></a>08 Linux基础知识–-延时任务&amp;邮件管理</h1><h2 id="kickstart自动安装系统脚本"><a href="#kickstart自动安装系统脚本" class="headerlink" title="kickstart自动安装系统脚本"></a>kickstart自动安装系统脚本</h2><ul>
+<li>第一步：<code>yum install -y system-config-kickstart httpd</code>安装服务</li>
+<li>第二步：<code>system-config-kickstart</code>，配置安装文件</li>
+<li>第三步：给<code>ks.cfg</code>添加安装的脚本，即安装系统基础安装包和配置yum等</li>
+<li>第三步：使用<code>ksvalidator</code>对配置文件进行检测</li>
+<li>第四步：共享配置文件，使用<code>httpd</code>服务共享文件</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">virt-install \</span><br><span class="line">--name $1 \</span><br><span class="line">--ram 1024 \</span><br><span class="line">--cpus 1 \</span><br><span class="line">--disk /var/lib/libvirt/images/$1.qcow2,bus=virtio,size=10 \</span><br><span class="line">--network bridge=br0,model=virtio \</span><br><span class="line">--location http://172.25.254.8/yum/ \</span><br><span class="line">--extra-args ks=http://172.25.254.8/ks.cfg &amp;</span><br></pre></td></tr></table></figure>
+
+<p>ks.cfg的配置文件，需要添加安装包文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">#platform=x86, AMD64, 或 Intel EM64T</span><br><span class="line">#version=DEVEL</span><br><span class="line"># Install OS instead of upgrade</span><br><span class="line">install</span><br><span class="line"># Keyboard layouts</span><br><span class="line">keyboard &#x27;us&#x27;</span><br><span class="line"># Root password</span><br><span class="line">rootpw --iscrypted $1$Jpz4OVkL$kzqAMWU4j3iXUZMZOX.nA.</span><br><span class="line"># Use network installation</span><br><span class="line">url --url=&quot;http://172.25.254.8/yum/&quot;</span><br><span class="line"># System language</span><br><span class="line">lang en_US</span><br><span class="line"># Firewall configuration</span><br><span class="line">firewall --disabled</span><br><span class="line"># System authorization information</span><br><span class="line">auth  --useshadow  --passalgo=sha512</span><br><span class="line"># Use graphical install</span><br><span class="line">graphical</span><br><span class="line">firstboot --disable</span><br><span class="line"># SELinux configuration</span><br><span class="line">selinux --disabled</span><br><span class="line"></span><br><span class="line"># Network information</span><br><span class="line">network  --bootproto=dhcp --device=eth0</span><br><span class="line"># Reboot after installation</span><br><span class="line">reboot</span><br><span class="line"># System timezone</span><br><span class="line">timezone Africa/Abidjan</span><br><span class="line"># System bootloader configuration</span><br><span class="line">bootloader --location=mbr</span><br><span class="line"># Clear the Master Boot Record</span><br><span class="line">zerombr</span><br><span class="line"># Partition clearing information</span><br><span class="line">clearpart --all --initlabel</span><br><span class="line"># Disk partitioning information</span><br><span class="line">part swap --fstype=&quot;swap&quot; --size=1024</span><br><span class="line">part /boot --fstype=&quot;xfs&quot; --size=400</span><br><span class="line">part / --fstype=&quot;xfs&quot; --grow --size=1</span><br><span class="line"></span><br><span class="line">%packages</span><br><span class="line">@base</span><br><span class="line">lftp</span><br><span class="line">%end</span><br><span class="line"></span><br><span class="line">%post</span><br><span class="line">cat &gt;&gt; /etc/yum/yum.repo.d/rhel.repo &lt;&lt; EOF</span><br><span class="line">[rhel]</span><br><span class="line"></span><br><span class="line">nam=pip</span><br><span class="line">baseurl=http://172.25.254.8/yum/</span><br><span class="line">gpgcheck=0</span><br><span class="line">%end</span><br></pre></td></tr></table></figure>
+
+<h2 id="延时任务"><a href="#延时任务" class="headerlink" title="延时任务"></a>延时任务</h2><ul>
+<li><code>at 14:27</code>：定时任务，在某一格式执行什么命令，<code>Ctrl + d</code>发起任务</li>
+<li><code>at now+1min</code>：一分钟后执行任务</li>
+<li><code>at -l</code>：查看任务列表</li>
+<li><code>at -c ID</code>：查看任务的内容</li>
+<li><code>at -r ID</code>：取消任务执行</li>
+<li>当任务有输出时，输出会以邮件的形式发送给at任务的发起者，例<code>echo hello</code></li>
+<li><code>at</code>的黑白名单<ul>
+<li><code>/etc/at.deny</code>：<code>at</code>命令的黑名单中的用户无法执行定时任务</li>
+<li><code>/etc/at.allow</code>：<code>at</code>命令的白名单，之有名单中出现的用户才可以执行at命令，优先级高于黑名单，当白名单存在黑名单失效。如果 不存在则新建。</li>
+</ul>
+</li>
+</ul>
+<h2 id="定时任务"><a href="#定时任务" class="headerlink" title="定时任务"></a>定时任务</h2><p><code>systemctl status crond</code>，查看定时任务控制服务</p>
+<ul>
+<li><code>crontab -e -u root</code>：编辑定时任务</li>
+<li>定时任务格式：<code>分、时、日、月、周</code>。</li>
+<li><code>* * * * * </code>表示每分钟执行一次</li>
+<li><code>*/2 * * * *</code>：每两分钟执行一次</li>
+<li><code>*/2 09-17 * * *</code>：每9点到17点每隔两分钟执行一次</li>
+<li><code>*/2 */2 * * *</code>：每过两小时零两分钟执行一次</li>
+<li><code>*/2 09-17 1 3,5 5</code>：三月和五月的每周周五和三月一日、五月一日，9点到17点每两分钟执行一次</li>
+<li><code>*/2 09-17 * * 5</code>：每周周五09点到17点每隔两分钟执行一次</li>
+<li>当程序开启时定时任务生效</li>
+</ul>
+<blockquote>
+<p>  配置文件路径<code>/var/spool/cron/username</code>最后一个为用户名</p>
+<ul>
+<li><code>crontab</code><ul>
+<li><code>crontab -e -u</code>：编辑指定用户的定时任务表</li>
+<li><code>crontab -l -u</code>：查看指定用户的定时任务</li>
+<li><code>crontab -r -u</code>：删除指定用户的定时任务</li>
+</ul>
+</li>
+<li>自定义定时配置文件，该方式的定时任务使用<code>crontab -l</code>不能查看<ul>
+<li><code>/etc/cron.d/</code>在该目录下新建文件就可<code>* * * * *  root  action</code></li>
+</ul>
+</li>
+<li>黑白名单<ul>
+<li><code>/etc/cron.deny</code>：黑名单中的用户无法执行定时任务</li>
+<li><code>/etc/cron.allow</code>：命令的白名单，之有名单中出现的用户才可以执行at命令，优先级高于黑名单，当白名单存在黑名单失效。如果 不存在则新建。</li>
+<li>这两个名单都不会影响<code>/etc/cron.d/</code>目录中的定时任务的发起和执行</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="查看邮件"><a href="#查看邮件" class="headerlink" title="查看邮件"></a>查看邮件</h2><ul>
+<li><code>mail -u root</code>：查看指定用户的邮件，不指定则查看当前用户的邮件</li>
+<li><code>1</code>：查看第一封邮件</li>
+<li><code>q</code>：退出</li>
+<li><code>&gt; /var/spool/mail/root</code>：清空邮箱</li>
+</ul>
+<h2 id="系统临时文件的管理"><a href="#系统临时文件的管理" class="headerlink" title="系统临时文件的管理"></a>系统临时文件的管理</h2><ul>
+<li>临时文件的存储位置：<code>/tmp/</code></li>
+<li>临时文件的配置文件：<code>/usr/lib/tmpfile.d/tmp.conf</code><ul>
+<li>自定义清理文件<code>westos</code>：<code>d /mnt/westos 777 root root 5s</code></li>
+</ul>
+</li>
+<li>生成文件的<code>systemd-tmpfiles --create /usr/lib/tmpfile.d/</code>读取目录里所有文件并按照其规则去建立</li>
+<li>清理文件的<code>systemd-tmpfiles --clean /usr/lib/tmpfile.d/tmp.conf</code></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/11/13/Linux/08linux%E5%9F%BA%E7%A1%80/" data-id="cm3mpi627001ql0yafh4q5ke5" data-title="08 Linux基础知识–-延时任务&amp;邮件管理" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1/" rel="tag">延时任务</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%82%AE%E4%BB%B6%E7%AE%A1%E7%90%86/" rel="tag">邮件管理</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Linux/05linux基础" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/11/13/Linux/05linux%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time class="dt-published" datetime="2021-11-12T16:00:00.000Z" itemprop="datePublished">2021-11-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/11/13/Linux/05linux%E5%9F%BA%E7%A1%80/">05 Linux基础知识–-日志&amp;网络配置</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="05-Linux基础–-日志-网络配置"><a href="#05-Linux基础–-日志-网络配置" class="headerlink" title="05 Linux基础–-日志&amp;网络配置"></a>05 Linux基础–-日志&amp;网络配置</h1><h2 id="日志采集服务"><a href="#日志采集服务" class="headerlink" title="日志采集服务"></a>日志采集服务</h2><p>查看日志状态：<code>systemctl status rsyslog.service</code></p>
+<p><strong>获取配置文件的帮助信息：<code>man 5 rsyslog.conf</code></strong></p>
+<p>日志：<code>*.*</code>：第一个<code>*</code>表示什么类型，第二个<code>*</code>表示该服务程序的日志级别</p>
+<ul>
+<li><p>日志的位置：<code>/var/log/</code></p>
+<ul>
+<li><code>/var/log/messages</code>：服务信息日志</li>
+<li><code>/var/log/secure</code>：系统登录日志</li>
+<li><code>/var/log/cron</code>：定时任务日志</li>
+<li><code>/var/log/maillog</code>：邮件日志</li>
+<li><code>/var/log/boot.log</code>：系统启动日志</li>
+</ul>
+</li>
+<li><p>日志的类型：</p>
+<ul>
+<li><code>auth</code>：pam产生的日志</li>
+<li><code>authpriv</code>：ssh，ftp等登录信息的验证信息</li>
+<li><code>cron</code>：时间任务相关</li>
+<li><code>kern</code>：内核</li>
+<li><code>lpr</code>：打印</li>
+<li><code>mail</code>：邮件</li>
+<li><code>mark(syslog)-rsyslog</code>：服务内部的信息，时间标识</li>
+<li><code>news</code>：新闻组</li>
+<li><code>user</code>：用户程序产生的相关信息</li>
+<li><code>uucp</code>：unix tounix copy，unix主机之间相关的通讯</li>
+<li><code>local 1-7</code>：自定义的日志系统</li>
+</ul>
+</li>
+<li><p>日志级别：记录的内容逐次减少</p>
+<ol>
+<li><code>debug</code>调试信息：有调式信息的，日志信息最多</li>
+<li><code>info</code>重要事件 ：一般信息的日志，最常用</li>
+<li><code>notice</code>重要通知：最具有重要性的普通条件的信息</li>
+<li><code>warning</code>警报：警告级别</li>
+<li><code>err</code>错误：错误级别，阻止某个功能或者模块不能正常工作的信息 </li>
+<li><code>crit</code>临界：严重级别，阻止整个系统或者整个软件哎能不能正常工作的信息</li>
+<li><code>alert</code>：需要立即修改的信息</li>
+<li><code>emerg</code>系统不可用：内核崩溃等严重信息</li>
+<li><code>none</code>：什么都不记录</li>
+</ol>
+</li>
+<li><p>例：<code>*.*;mail.none    /var/log/message</code>，把所有服务的所有日志信息保存到<code>/var/log/meesage</code>文件中，不保存<code>mail</code>的信息。</p>
+</li>
+</ul>
+<h2 id="日志同步"><a href="#日志同步" class="headerlink" title="日志同步"></a>日志同步</h2><p>配置文件<code>/etc/rsyslog.conf</code>，修改完重启服务<code>systemctl restart rsyslog</code></p>
+<ul>
+<li>客户端(日志发送方)：<code>*.*    @ipaddr</code>：一个<code>@</code>表示使用<code>udp</code>协议，两个<code>@</code>表示使用<code>tcp</code>协议</li>
+<li>服务端(日志接收方)：<code>$ModLoad imudp</code>、<code>$UDPServerRun 514</code>，开启接收的模块，并且打开接收的端口</li>
+<li>设置防火墙可以通过客户端的日志 &#x2F; 关闭防火墙</li>
+</ul>
+<p>  日志采集的格式：<code>/etc/rsyslog.conf</code></p>
+<ul>
+<li><pre><code>$template LOGFMT, &quot;%timegenerated% %FROMHOST-IP% %syslogtag% %msg% \n&quot;
+*.*    /var/log/test;LOGFMT
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  * `LOGFMT`：相当于定义了一个变量</span><br><span class="line"></span><br><span class="line">  * `%timegenerated%`：显示日志时间</span><br><span class="line"></span><br><span class="line">  * `%FROMHOST-IP%`：显示主机IP</span><br><span class="line"></span><br><span class="line">  * `%syslogtag%`：日志记录目标</span><br><span class="line"></span><br><span class="line">  * `%msg%`：日志内容</span><br><span class="line"></span><br><span class="line">## 时间同步</span><br><span class="line"></span><br><span class="line">配置文件`/etc/chrony.conf`、服务程序</span><br><span class="line"></span><br><span class="line"> * 服务端(时间源)：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+   allow 172.25.254.0/24 ##允许那些客户端来同步本机时间，在配置文件的22行
+   local stratum 10 ##本机不同步任何主机的时间，本机作为时间源，在配置文件的29行
+   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* 客户端(同步时间源)：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+   server 172.25.254.100 iburst ##本机立即同步172.25.254.100这台主机的时间
+   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"> 设置完后需要重启同步时间服务：`systemctl restart chronyd.service`</span><br><span class="line"></span><br><span class="line"> 查看时间同步源：`chronyc sources -v`</span><br><span class="line"></span><br><span class="line">## 查看系统时间</span><br><span class="line"></span><br><span class="line">`timedatectl`：查看系统详细</span><br><span class="line"></span><br><span class="line">`timedatectl list-timezones `：查看时区列表</span><br><span class="line"></span><br><span class="line">`timedatectl set-timezones Asia/Shanghai`：设置时区</span><br><span class="line"></span><br><span class="line">`timedatectl set-time  &quot;2018-11-11 11:11&quot;`：设置时间</span><br><span class="line"></span><br><span class="line">`timedatectl set-local-rtc 0/1` ：是否使用UTC时间</span><br><span class="line"></span><br><span class="line">*   `0`设置为UTC时间，`1`设置为LOCAL时间</span><br><span class="line"></span><br><span class="line">`cat /etc/adjtime`：查看时间</span><br><span class="line"></span><br><span class="line">## 日志查看</span><br><span class="line"></span><br><span class="line">`journalctl`：日志查看工具</span><br><span class="line"></span><br><span class="line">*   `-n 3`：查看最近三条日志</span><br><span class="line">*   `-p err`：查看错误日志</span><br><span class="line">*   `-o verbose _PID=pid _COMM=command`：查看指定pid的日志，该进程可以是已经死亡的</span><br><span class="line">*   `--since &quot;2018-10-13 12:00&quot;`：查看从什么时间开始的日志</span><br><span class="line">*   `` --until &quot;2018-10-14 12:00&quot; `：查看从什么时间结束的日志</span><br><span class="line"></span><br><span class="line">使用`systemd-journal`保存系统日志</span><br><span class="line"></span><br><span class="line">1.  `mkdir /var/log/journal`建立一个目录保存`journal`日志</span><br><span class="line">2.  `chgrp systemd-journal /var/log/journal`</span><br><span class="line">3.  `chmod g+s /var/log/journal`</span><br><span class="line">4.  `ps aux | grep systemd-journald`</span><br><span class="line">5.  `killall -1 systemd-journald-pid`</span><br><span class="line">6.  `ls /var/log/journal`，查看保存的文件</span><br><span class="line"></span><br><span class="line">## 网络配置</span><br><span class="line"></span><br><span class="line">1.  IP：由32位bit位组成</span><br><span class="line"></span><br><span class="line">2.  子网掩码：用来划分网络区域。</span><br><span class="line"></span><br><span class="line">3.  IP通信判定：网络位一致，主机位不一致</span><br><span class="line"></span><br><span class="line">4.  网络通信工具：`ping`</span><br><span class="line"></span><br><span class="line">5.  `ifconfig`</span><br><span class="line"></span><br><span class="line">    *   `ifconfig device ip/24`：设置ip地址和子网掩码</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    *   关闭网卡接口：`ifconfig 网卡名 down`</span><br><span class="line">    *   开启网卡接口：`ifconfig 网卡 up`</span><br><span class="line">    *   查看网卡所有的`ip`：`ip addr show`</span><br><span class="line"></span><br><span class="line">6. 修改ip</span><br><span class="line"></span><br><span class="line">   * 图形修改</span><br><span class="line"></span><br><span class="line">     *   图形界面设置` nm-connection-editor `</span><br><span class="line">     *   命令模式下图形修改`nmtui`</span><br><span class="line"></span><br><span class="line">   * 命令修改</span><br><span class="line"></span><br><span class="line">     *   `nmcli `：后面可以加参数对网卡进行配置和连接与断开，`NetworkManager`服务必须开启，`device_name`为网卡名</span><br><span class="line">         *   `nmcli device show`：查看网卡信息</span><br><span class="line">         *   `nmcli device status device_name`：查看网卡服务接口状态信息</span><br><span class="line">         *   `nmcli device connect device_name`：启用网卡</span><br><span class="line">         *   `nmcli device disconnect device_name`：关闭网卡接口</span><br><span class="line">         *   `nmcli connection show`：查看网卡配置信息</span><br><span class="line">         *   `nmcli connection down device_name`：关闭网卡</span><br><span class="line">         *   `nmcli connection up device_name`：开启网卡</span><br><span class="line">         *   `nmcli connection delete device_name`：删除网卡信息</span><br><span class="line"></span><br><span class="line">   * 修改配置文件：`/etc/sysconfig/network-scripts/device_name`，`device_name`为网卡的配置文件名字，自行替换`redhat7/centos7`一般为`ifcfg-eth0`，配置的文件名为`ifcfg-`开头。</span><br><span class="line"></span><br><span class="line">     *   `DEVICE=eth0`：网卡的设备名</span><br><span class="line">     *   `ONBOOT=yes`：开机是否自启</span><br><span class="line">     *   `BOOTPROTO=dhcp/static/none`：三个中的一个，`dhcp`动态分配，`static`静态IP，`none`类似`static`</span><br><span class="line">     *   `IPADDR=172.25.254.108`：`IP`地址</span><br><span class="line">         *   配置多个`IP`，`IPADDR0`、`IPADDR1`、... ...</span><br><span class="line">     *   `PREFIX=24`/`NETMASK=255.255.255.0`：子网掩码</span><br><span class="line">         *   配置多个子网掩码对应`IP`，`PREFIX0`、`PREFIX1`、... ...</span><br><span class="line">     *   `NAME=eth0`：配置名字</span><br><span class="line"></span><br><span class="line">     示例：</span><br><span class="line"></span><br><span class="line">     单个IP配置</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+ DEVICE=eth0
+ ONBOOT=yes
+ BOOTPROTO=static
+ IPADDR=172.25.254.108 #IP设置仅供参考，不同情况，不同IP
+ PREFIX=24
+ GATEWAY=172.25.254.111 # 网关配置，见下面
+ NAME=eth0
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">多个IP配置</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+ DEVICE=eth0
+ ONBOOT=yes
+ BOOTPROTO=static
+ IPADDR0=172.25.254.108 #IP设置仅供参考，不同情况，不同IP
+ PREFIX0=24
+ GATEWAY0=172.25.254.111 # 网关配置，见下面
+ IPADDR1=172.25.0.108 #IP设置仅供参考，不同情况，不同IP
+ PREFIX1=24
+ GATEWAY1=172.25.254.222 # 网关配置，见下面
+ NAME=eth0
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">7. lo回环接口</span><br><span class="line"></span><br><span class="line">   &gt;   可以用来测试本机的通信协议是否完好，用于本机内部的通信。</span><br><span class="line"></span><br><span class="line">8. 网关配置</span><br><span class="line"></span><br><span class="line">   &gt;   `vim /etc/sysconfig/network`，全局网关，针对没有设定网关的网卡配置文件</span><br><span class="line">   &gt;</span><br><span class="line">   &gt;   查看防火墙策略：`firewall-cmd --list-all`</span><br><span class="line">   &gt;</span><br><span class="line">   &gt;   添加防火墙策略：`firewall-cmd --permanent --add-masquerade`，主机作路由转换</span><br><span class="line">   &gt;</span><br><span class="line">   &gt;   重新加载服务：`firewall-cmd --list-all`</span><br><span class="line"></span><br><span class="line">9. DNS解析配置</span><br><span class="line"></span><br><span class="line">   &gt;   `vim /etc/resolv.conf`，配置文件位置，`DNS`服务器`nameserver 114.114.114.114`，也可以在网卡的配置文件中设置`DNS1=IP`。</span><br><span class="line">   &gt;</span><br><span class="line">   &gt;   `/etc/hosts`，本机暂存域名和IP的键值对，本地解析文件`IP 域名`</span><br><span class="line">   &gt;</span><br><span class="line">   &gt;   </span><br><span class="line">   &gt;</span><br><span class="line">   &gt;   在网络配置文件中可以添加`DNS1=8.8.8.8`或者其他的`IP`地址</span><br><span class="line">   &gt;</span><br><span class="line">   &gt;   如果远程的`dns`和本地的`host`域名解析冲突，通过修改`/etc/nsswitch.conf`来设置优先级别，在第39行。</span><br><span class="line"></span><br><span class="line">10. dhcp服务设置自己的DNS</span><br><span class="line"></span><br><span class="line">   &gt;   当网卡使用`dhcp`模式的时候网卡会使用`dhcp`服务器的`DNS`，如果不需要`dhcp`的DNS提供的信息，把`/etc/sysconfig/network-scripts/ifcfg-eth0`里面加上`PEERDNS=no`，使用自己的`DNS`不使用`dhcp`提供的服务</span><br><span class="line"></span><br><span class="line">11. man手册的帮助文档</span><br><span class="line"></span><br><span class="line">    &gt;   `/usr/share/doc/initscripts-9.49.37/sysconfig.txt`，其中的数字会不同版本号的原因，按`Tab`补齐就可以了。</span><br><span class="line"></span><br><span class="line">## dhcp服务</span><br><span class="line"></span><br><span class="line">配置文件`/etc/dhcp/dhcpd.conf`拷贝模板配置文件`cp /usr/share/doc/dhcp-4.2.5/dhcpd.conf.example /etc/dhcp/dhcpd.conf`</span><br><span class="line"></span><br><span class="line">*   `yum install -y dhcp`，安装`dhcp`服务</span><br><span class="line"></span><br><span class="line">*   `cp /usr/share/doc/dhcp-4.2.5/dhcpd.conf.example /etc/dhcp/dhcpd.conf`</span><br><span class="line"></span><br><span class="line">*   `vim /etc/dhcp/dhcpd.conf`，编辑配置文件</span><br><span class="line"></span><br><span class="line">    *   `subnet`：分配的IP地址</span><br><span class="line">    *   `netmark`：子网掩码</span><br><span class="line">    *   `range IP1 IP2;`：分配的IP池范围</span><br><span class="line">    *   `option routers IP;`：网关</span><br><span class="line"></span><br><span class="line">*   完整配置文件示例</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+# dhcpd.conf
+#
+# Sample configuration file for ISC dhcpd
+#
+
+# option definitions common to all supported networks...
+option domain-name &quot;example.org&quot;;
+option domain-name-servers ns1.example.org, ns2.example.org;
+
+default-lease-time 600;
+max-lease-time 7200;
+
+# Use this to enble / disable dynamic dns updates globally.
+#ddns-update-style none;
+
+# If this DHCP server is the official DHCP server for the local
+# network, the authoritative directive should be uncommented.
+#authoritative;
+
+# Use this to send dhcp log messages to a different log file (you also
+# have to hack syslog.conf to complete the redirection).
+log-facility local7;
+
+# No service will be given on this subnet, but declaring it helps the 
+# DHCP server to understand the network topology.
+
+
+# This is a very basic subnet declaration.
+
+subnet 172.25.254.0 netmask 255.255.255.0 &#123;
+  range 172.25.254.50 172.25.254.80;
+  option routers 172.25.254.250;
+&#125;
+</code></pre>
+</li>
+</ul>
+<pre><code>
+*   服务端：`/var/lib/dhcpd/dhcpd.leases`
+
+*   客户端：`/var/log/message`
+</code></pre>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/11/13/Linux/05linux%E5%9F%BA%E7%A1%80/" data-id="cm3mpi627001ul0yaaekyg3ti" data-title="05 Linux基础知识–-日志&amp;网络配置" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux%E6%97%A5%E5%BF%97/" rel="tag">Linux日志</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" rel="tag">网络配置</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Linux/09linux基础" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/11/13/Linux/09linux%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time class="dt-published" datetime="2021-11-12T16:00:00.000Z" itemprop="datePublished">2021-11-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/11/13/Linux/09linux%E5%9F%BA%E7%A1%80/">09 Linux基础知识--磁盘管理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="09-Linux基础–磁盘管理"><a href="#09-Linux基础–磁盘管理" class="headerlink" title="09 Linux基础–磁盘管理"></a>09 Linux基础–磁盘管理</h1><h2 id="磁盘管理"><a href="#磁盘管理" class="headerlink" title="磁盘管理"></a>磁盘管理</h2><ul>
+<li><code>df -h</code>：查看已经挂载的设备</li>
+<li><code>fdisk -l</code>：查看系统中所有的设备，包括未识别的</li>
+<li><code>cat /proc/partitions</code>：参看系统已经挂载的硬盘<ul>
+<li><code>sda</code>：第一块硬盘，<code>adb</code>第二块分区，… …</li>
+<li><code>sr0</code>：光驱</li>
+</ul>
+</li>
+<li><code>blkid</code>：系统可以使用的设备</li>
+</ul>
+<h2 id="设备的挂载和卸载"><a href="#设备的挂载和卸载" class="headerlink" title="设备的挂载和卸载"></a>设备的挂载和卸载</h2><ul>
+<li>设备名称<ul>
+<li><code>/dev/*d*</code>：例<code>/dev/hd0</code>、<code>/dev/hd1</code>、<code>/dev/sda</code>  、 <code>/dev/sdb</code>、<code>/dev/sda1</code>、<code>/dev/sdb1</code>。</li>
+<li><code>/dev/sr0</code>：光驱</li>
+<li><code>/dev/mapper/*</code>：虚拟设备(用软件模拟出来)</li>
+</ul>
+</li>
+<li>设备的挂载<ul>
+<li><code>mount</code>：查看挂载信息</li>
+<li><code>mount 设备 挂载点</code>，使用<code>-t</code>指定挂载格式</li>
+<li><code>mount -o ro 设备 挂载点</code>：只读挂载</li>
+<li><code>umount 挂载点</code>：卸载挂载</li>
+<li><code>mount -o remount,rw /mnt/</code>，对设备重新挂载，改变其挂载点的属性</li>
+</ul>
+</li>
+<li>解决设备正忙问题<ul>
+<li><code>lsof 设备</code>：查看谁正在使用设备</li>
+<li><code>fuser -vm 设备</code>：查看谁在用设备<ul>
+<li><code>-k</code>：查看并踢出谁正在用设备</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>手动同步分区表<ul>
+<li><code>partprobe</code>：同步分区表</li>
+</ul>
+</li>
+</ul>
+<h2 id="磁盘分区"><a href="#磁盘分区" class="headerlink" title="磁盘分区"></a>磁盘分区</h2><ul>
+<li><code>dd if=/dev/zero of=/dev/vda bs=446 count=1</code>：从<code>if</code>截取446个字节，拷贝到<code>of</code>所指向的位置，<code>bs</code>字节大小，<code>count</code>写入次数。</li>
+<li><code>fdisk 磁盘</code><ul>
+<li><code>n</code>：创建新分区<ul>
+<li><code>p</code>：主分区</li>
+<li><code>e</code>：拓展分区里面分的区叫逻辑分区</li>
+</ul>
+</li>
+<li><code>w</code>：写入分区</li>
+<li><code>p</code>：打印分区表</li>
+</ul>
+</li>
+<li>第一步：<code>fdisk -l</code></li>
+<li>第二步：<code>fdisk /dev/vdb</code><ul>
+<li><code>d</code>：删除</li>
+<li><code>n</code>：新建分区</li>
+<li><code>p</code>：显示分区信息</li>
+<li><code>q</code>：退出</li>
+<li><code>t</code>：修改分区id，使用<code>L</code>查看分区标签<ul>
+<li><code>swap</code>：格式化交换分区<code>mkswap /dev/vdb6</code></li>
+</ul>
+</li>
+<li><code>w</code>：保存</li>
+</ul>
+</li>
+<li>第三步：建立主分区，主分区最多四个，所以第四个分区默认为拓展分区。<ul>
+<li><code>n</code>新建</li>
+<li><code>p</code>主分区</li>
+<li>默认id</li>
+<li>分区起始默认</li>
+<li>分区大小自己指定</li>
+</ul>
+</li>
+</ul>
+<h2 id="格式化分区"><a href="#格式化分区" class="headerlink" title="格式化分区"></a>格式化分区</h2><ul>
+<li><code>mkfs.*</code>：使用<code>.</code>后面的参数，选择不同的格式进行格式化</li>
+<li><code>mount -a</code>：挂载<code>/etc/fstab</code>的文件重新执行</li>
+</ul>
+<h2 id="SWAP分区管理"><a href="#SWAP分区管理" class="headerlink" title="SWAP分区管理"></a>SWAP分区管理</h2><ul>
+<li>划分分区：<code>t</code></li>
+<li>设置标签：交换分区为82号标签</li>
+<li>格式化：<code>mkswap /dev/vdb6</code></li>
+<li>挂载：<code>swapon -a /dev/vdb6</code></li>
+<li>卸载：<code>swapoff /dev/vdb6</code></li>
+<li>查看挂载分区：<code>swapon -s</code></li>
+<li>修改<code>/etc/fstab</code>进行开机自启动</li>
+</ul>
+<h2 id="用户参数配额"><a href="#用户参数配额" class="headerlink" title="用户参数配额"></a>用户参数配额</h2><p><code>mount -o usrquota /dev/sdb7 /public</code>挂载时激活参数</p>
+<p><code>edquota -u USER</code>：修改第一个<code>hard</code>的值，单位为<code>kb</code></p>
+<table>
+<thead>
+<tr>
+<th>Filesystem</th>
+<th>blocks</th>
+<th>soft</th>
+<th>hard</th>
+<th>inodes</th>
+<th>soft</th>
+<th>hard</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>文件系统</td>
+<td>块大小</td>
+<td>软限制(超过警告)</td>
+<td>硬限制(客观限制，超过丢失)</td>
+<td>inode节点个数</td>
+<td>软限制(超过警告)</td>
+<td>硬限制(客观限制，超过丢失)</td>
+</tr>
+</tbody></table>
+<p><code>/etc/fstab</code>配置文件添加内容：<code>/dev/vdb2 /public/user xfs.userquota 0 0</code></p>
+<h2 id="磁盘加密"><a href="#磁盘加密" class="headerlink" title="磁盘加密"></a>磁盘加密</h2><p><code>cryptsetup</code>加密文件，加密时需要在格式化的时候进行加密</p>
+<ul>
+<li>加密：<code>cryptsetup lucksFormat /dev/vdb8</code>，输入大写<code>YES</code>和密码</li>
+<li>打开：<code>cryptsetup open /dev/vdb8 name</code>，<code>name</code>名字可以自己取</li>
+<li>格式化<code>mkfs.xfs /dev/mapper/name</code></li>
+<li>挂载<code>mount /dev/mapper/name /mnt</code></li>
+<li>关闭：<code>cryptsetup close name</code>，挂载原始设备也不能查看其中内容</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/11/13/Linux/09linux%E5%9F%BA%E7%A1%80/" data-id="cm3mpi627001xl0ya9i62bz8b" data-title="09 Linux基础知识--磁盘管理" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" rel="tag">Linux磁盘管理</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Linux/10linux基础" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/11/13/Linux/10linux%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time class="dt-published" datetime="2021-11-12T16:00:00.000Z" itemprop="datePublished">2021-11-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/11/13/Linux/10linux%E5%9F%BA%E7%A1%80/">10 Linux基础知识–LVM卷&amp;ftp&amp;防火墙</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="10-Linux基础知识–LVM卷-ftp-防火墙"><a href="#10-Linux基础知识–LVM卷-ftp-防火墙" class="headerlink" title="10 Linux基础知识–LVM卷&amp;ftp&amp;防火墙"></a>10 Linux基础知识–LVM卷&amp;ftp&amp;防火墙</h1><h2 id="LVM逻辑卷"><a href="#LVM逻辑卷" class="headerlink" title="LVM逻辑卷"></a>LVM逻辑卷</h2><ul>
+<li><code>pv</code>物理卷，被<code>lv</code>命令处理过的物理分区</li>
+<li><code>vg</code>物理卷组，被组装到一起的物理卷</li>
+<li><code>pe</code>物理扩展，<code>lvm</code>设备的最小单元，<code>lvm</code>是<code>pe</code>的最小单元</li>
+<li><code>lvm</code>逻辑卷，直接使用的设备，可以增大缩减并保持原有数据不变</li>
+<li>创建LVM<ol>
+<li><code>pvcreate /dev/vdb1</code>，创建一个分区，前提需要一个分区，使用<code>fdisk</code>分区，标签为<code>LVM</code></li>
+<li>&#96;&#96;vgcreate vg0 &#x2F;dev&#x2F;vdb1&#96;，后面的参数是，vg的名字和要组合的硬盘内存</li>
+<li><code>lvcreate -L 20M -n lv0 vg0</code></li>
+<li><code>mkfs.xfs /dev/vg0/lv0</code>，格式化分区</li>
+<li><code>mount /dev/vg/lv0 /mnt</code>，挂载</li>
+</ol>
+</li>
+</ul>
+<h2 id="查看信息"><a href="#查看信息" class="headerlink" title="查看信息"></a>查看信息</h2><ul>
+<li><code>pvs</code>：查看<code>pv</code>列表信息</li>
+<li><code>lvs</code>：查看<code>lv</code>列表信息</li>
+<li><code>vgs</code>：查看<code>vg</code>列表信息</li>
+</ul>
+<h2 id="LVM减小和扩容"><a href="#LVM减小和扩容" class="headerlink" title="LVM减小和扩容"></a>LVM减小和扩容</h2><h3 id="xfs格式"><a href="#xfs格式" class="headerlink" title="xfs格式"></a>xfs格式</h3><ul>
+<li>当vg剩余容量充足<ul>
+<li>扩展：<code>lvextend -L 80M /dev/vg0/lv0</code></li>
+<li>文件系统拉伸：<code>xfs_growfs /dev/vg0/lv0</code></li>
+</ul>
+</li>
+<li>当vg不足时，需要拓展vg大小<ul>
+<li><code>pvcreate /dev/vdb2</code></li>
+<li><code>vgextend vg0 /dev/vdb2</code></li>
+<li><code>lvextend -L 200M /dev/vg0/lv0</code></li>
+<li><code>xfs_growfs /dev/vg0/lv0</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="ext格式"><a href="#ext格式" class="headerlink" title="ext格式"></a>ext格式</h3><blockquote>
+<p>针对ext文件系统的设备拉伸和缩减，只能热拉伸不能热缩减</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">umont /mnt</span><br><span class="line">mkfs.ext4 /dev/vg0/lv0</span><br><span class="line">mount /dev/vg0/lv0 /mnt</span><br></pre></td></tr></table></figure>
+</blockquote>
+<ul>
+<li><p>拉伸分区大小</p>
+<ul>
+<li>需要一块格式化为<code>ext4</code>的文件系统</li>
+<li><code>lvextend -L 250M /dev/vg0/lv0</code></li>
+<li><code>resize2fx /dev/vg0/lv0</code></li>
+</ul>
+</li>
+<li><p>缩减分区大小</p>
+<ul>
+<li><code>umont /dev/vg0/lv0</code></li>
+<li><code>e2fsck -f /dev/vg0/lv0</code></li>
+<li><code>resize2fs /dev/vg0/lv0 100M</code></li>
+<li><code>lvreduce -L 100M /dev/vg0/lv0</code></li>
+<li><code>mount /dev/vg0/lv0 /mnt</code></li>
+</ul>
+</li>
+<li><p>缩减<code>vg</code></p>
+<ul>
+<li><code>vgreduce vg0 /dev/vdb2</code></li>
+<li><code>vgextend vg0 /dev/vdb2</code></li>
+</ul>
+</li>
+<li><p>数据迁移</p>
+<ul>
+<li><p><code>pvmove /dev/vdb1 /dev/vdb2</code></p>
+</li>
+<li><p><code>vgreduce vg0 /dev/vdb1</code></p>
+</li>
+<li><p><code>pvremove /dev/vdb1</code></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="LVM快照"><a href="#LVM快照" class="headerlink" title="LVM快照"></a>LVM快照</h3><ul>
+<li>创建快照：<code>lvcreate -L 40M -n lv0-backup -s /dev/vg0/lv0</code></li>
+<li>重新挂载：<code>mount /dev/vg0/lv0-backup /mnt</code></li>
+<li>PS：如果截取数据大于10M，会损坏设备，自动卸载</li>
+<li>恢复快照<ul>
+<li><code>lvremove /dev/vg0/lv0-backup</code></li>
+<li><code>lvcreate -L 40M -n lv0-backup -s /dev/vg0/lv0</code>，相当于<code>reset</code></li>
+</ul>
+</li>
+<li>删除LVM<ul>
+<li><code>lvremove /dev/vg0/lv0-backup</code></li>
+<li><code>lvremove /dev/vg0/lv0</code></li>
+<li><code>vgremove vg0</code></li>
+<li><code>pvremove /dev/vdb1</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="ftp服务"><a href="#ftp服务" class="headerlink" title="ftp服务"></a>ftp服务</h2><ul>
+<li><p>服务程序</p>
+<ul>
+<li>安装<code>yum install -y vsftpd</code></li>
+<li><code>systemctl start vsftpd</code></li>
+<li><code>systemctl enable vsftpd</code></li>
+<li>访问数据的端口：21</li>
+<li>数据传输端口：&gt; 1024的随机端口</li>
+<li>默认发布目录<ul>
+<li>匿名用户登录<code>lftp 172.25.254.100</code>，默认目录<code>/var/ftp</code></li>
+<li>用户登录：<code>lftp 172.25.254.100 -u username</code>，默认在家目录下</li>
+</ul>
+</li>
+<li>配置文件：<code>/etc/vsftpd/vsftpd.conf</code></li>
+<li>查看配置文件：<code>rpm -qc vsftpd</code></li>
+</ul>
+</li>
+<li><p>客户端<code>yum install lftp</code></p>
+</li>
+</ul>
+<h2 id="ftp的安全部署"><a href="#ftp的安全部署" class="headerlink" title="ftp的安全部署"></a>ftp的安全部署</h2><ul>
+<li>报错信息和命令<ul>
+<li><code>?</code>：查看命令</li>
+<li>500报错：权限过大</li>
+<li>530报错：认证失败</li>
+<li>550报错：服务本身不允许</li>
+<li>553报错：文件系统权限过小 </li>
+<li>上传文件命令<code>put</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="ftp匿名用户配置"><a href="#ftp匿名用户配置" class="headerlink" title="ftp匿名用户配置"></a>ftp匿名用户配置</h2><ul>
+<li>匿名用户登录：<code>anonymous_enable=YES</code></li>
+<li>匿名用户上传文件：<code>anon_upload_enable=YES</code>，针对匿名用户<ul>
+<li>修改权限：<code>chmod 775 /var/ftp/pub</code></li>
+<li>修改属组：<code>chgrp ftp /var/ftp/pub</code></li>
+</ul>
+</li>
+<li>匿名用户新建目录：<code>anon_mkdir_write_enable=YES</code></li>
+<li>匿名用户删除目录：<code>anon_other_write_enable=YES</code></li>
+<li>修改匿名用户的家目录：<code>anon_root=/westos</code>，重新指定匿名用户登录的家目录。</li>
+<li>匿名用户下载文件：<code>anon_world_readable_only=NO</code>，针对匿名用户</li>
+<li>匿名用户的<code>umask</code>：<code>anon_umask=066</code></li>
+<li>匿名用户上传文件的身份：<ul>
+<li><code>chown_uploads=YES</code>，打开上传身份设置</li>
+<li><code>chown_username=student</code>，设置用户名</li>
+</ul>
+</li>
+<li>最大上传速率<ul>
+<li><code>anon_max_rate=102400</code> 单位：字节</li>
+</ul>
+</li>
+<li>最大连接个数<ul>
+<li><code>client_connects=5</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="ftp本地用户配置"><a href="#ftp本地用户配置" class="headerlink" title="ftp本地用户配置"></a>ftp本地用户配置</h2><ul>
+<li>本地用户：<code>local_enable=YES</code></li>
+<li>上传文件：<code>write_enable=YES</code>，针对本地用户</li>
+<li><code>local_root=/westos</code>：本地用户的默认家目录</li>
+<li><code>local_umask=xxx</code>，本地用户上传软件权限</li>
+<li><code>chroot_local_user=YES</code>，禁止本地用户登录后锁定到家目录，PS：需要去掉对家目录的写权限，<code>chmod u-x /home/kiosk</code>，否则会报错</li>
+<li>切换路径黑&#x2F;白名单设置<ul>
+<li><code>chroot_local_user=NO</code>，需要自己新建<code>/etc/vsftpd/chroot_list</code><ul>
+<li>设置为<code>NO</code>，<code>chroot_list_file=/etc/vsftpd/chroot_list</code>是黑名单</li>
+<li>设置为<code>YES</code>，<code>chroot_list_file=/etc/vsftpd/chroot_list</code>是白名单</li>
+</ul>
+</li>
+<li><code>chroot_list_enable=YES</code></li>
+<li><code>chroot_list_file=/etc/vsftpd/chroot_list</code></li>
+</ul>
+</li>
+<li><code>/etc/vsftpd/ftpusers</code>：永久黑名单</li>
+<li><code>/etc/vsftpd/user_list</code>：临时黑名单<ul>
+<li>需要设置<code>userlist_enable=YES</code>下面的才会生效</li>
+<li>设置<code>/etc/vsftpd/vsftpd.conf</code>的<code>userlist_deny=NO</code>，<code>/etc/vsftpd/user_list</code>变成了白名单</li>
+<li>设置<code>/etc/vsftpd/vsftpd.conf</code>的<code>userlist_deny=YES</code>，<code>/etc/vsftpd/user_list</code>变成了黑名单</li>
+</ul>
+</li>
+</ul>
+<h2 id="ftp虚拟用户配置"><a href="#ftp虚拟用户配置" class="headerlink" title="ftp虚拟用户配置"></a>ftp虚拟用户配置</h2><blockquote>
+<ul>
+<li><p>用户列表创建，假设为<code>westos</code>，可以加多个</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">username1</span><br><span class="line">password1</span><br><span class="line">username2</span><br><span class="line">password2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>加密<code>db_load -T -t hash -f /etc/vsftpd/westos /etc/vsftpd/westos.db</code></p>
+</li>
+<li><p><code>pam</code>配置文件<code>/etc/pam.d/westos</code>，创建一个文件内容如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">account required pam_userdb.so db=/etc/vsftpd/westos</span><br><span class="line">auth required pam_userdb.so db=/etc/vsftpd/westos</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>  账户和验证信息，<code>db=/etc/vsftpd/westos</code>会自动默认加<code>db</code>后缀，所以不需要加</p>
+</blockquote>
+</li>
+<li><p>设置配置文件<code>vim /etc/vsftpd/vsftpd.conf</code></p>
+<ul>
+<li><code>pam_service_name=westos</code>，pam的加密文件名</li>
+<li><code>guest_enable=YES</code>，允许访客模式登录</li>
+</ul>
+</li>
+<li><p>虚拟用户的独立家目录<code>/etc/vsftpd/vsftpd.conf</code></p>
+<ul>
+<li>家目录：<code>local_root=/ftphome/$USER</code>，设置每个用户的家目录<code>$USER</code>指代用户名是<code>shell</code>的一个全局变量，让配置文件可以识别这个shell变量<code>user_sub_token=$USER</code></li>
+</ul>
+</li>
+<li><p>独立配置用户权限<code>/etc/vsftpd/vsftpd.conf</code></p>
+<ul>
+<li>配置文件添加内容<code>user_config_dir=/etc/vsftpd/userconf</code>，在该目录下创建该用户的配置文件，文件名为用户名，上传下载的配置，例如：<code>anon_upload_enable=YES</code></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h2><ul>
+<li><code>firewall-cmd --list-all</code>，列出防火墙策略</li>
+<li><code>firewall-cmd --permanent --add-service=ftp</code>，永久添加<code>ftp</code>到防火墙策略，选项<code>--permanent</code>表示永久生效</li>
+<li><code>firewall-cmd --reload</code>，重新加载配置文件</li>
+</ul>
+<h2 id="SELinux内核级别的加强防火墙"><a href="#SELinux内核级别的加强防火墙" class="headerlink" title="SELinux内核级别的加强防火墙"></a>SELinux内核级别的加强防火墙</h2><blockquote>
+<p>配置文件：<code>/etc/selinux/config </code></p>
+<p>临时修改：<code>setenforce 0</code></p>
+<ul>
+<li><code>0</code>：警告模式</li>
+<li><code>1</code>：强制模式</li>
+</ul>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/11/13/Linux/10linux%E5%9F%BA%E7%A1%80/" data-id="cm3mpi6280023l0ya8e2xdae0" data-title="10 Linux基础知识–LVM卷&amp;ftp&amp;防火墙" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LVM%E5%8D%B7/" rel="tag">LVM卷</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ftp/" rel="tag">ftp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" rel="tag">防火墙</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Socket/">Socket</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LVM%E5%8D%B7/" rel="tag">LVM卷</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" rel="tag">Linux基础命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%AE%89%E8%A3%85WPS/" rel="tag">Linux安装WPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%97%A5%E5%BF%97/" rel="tag">Linux日志</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" rel="tag">Linux用户管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" rel="tag">Linux磁盘管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E8%BF%9B%E7%A8%8B/" rel="tag">Linux进程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REUSEADDR/" rel="tag">REUSEADDR</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SIGCHLD%E4%BF%A1%E5%8F%B7/" rel="tag">SIGCHLD信号</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SIGPIPPE%E4%BF%A1%E5%8F%B7/" rel="tag">SIGPIPPE信号</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket-I-O%E6%A8%A1%E5%9E%8B/" rel="tag">Socket I&#x2F;O模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP%E7%9A%8411%E7%A7%8D%E7%8A%B6%E6%80%81/" rel="tag">TCP的11种状态</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98/" rel="tag">TCP粘包问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UDP%E5%9B%9E%E5%B0%84%E5%AE%A2%E6%88%B7%E7%AB%AF/" rel="tag">UDP回射客户端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UDP%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">UDP服务器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UNIX%E5%9F%9F%E5%8D%8F%E8%AE%AE/" rel="tag">UNIX域协议</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/close%E5%87%BD%E6%95%B0-shutdown%E5%87%BD%E6%95%B0/" rel="tag">close函数 - shutdown函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/epoll%E4%BD%BF%E7%94%A8/" rel="tag">epoll使用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ftp/" rel="tag">ftp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select-poll-epoll/" rel="tag">select&amp;poll&amp;epoll</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select%E5%87%BD%E6%95%B0/" rel="tag">select函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">select服务器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select%E6%A8%A1%E5%9E%8B/" rel="tag">select模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket/" rel="tag">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socketReadline/" rel="tag">socketReadline</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socketpair/" rel="tag">socketpair</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0/" rel="tag">socket相关函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/" rel="tag">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/" rel="tag">vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yum%E7%AE%A1%E7%90%86/" rel="tag">yum管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B/" rel="tag">僵尸进程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1/" rel="tag">延时任务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" rel="tag">文件传输</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/" rel="tag">权限控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E7%9B%98%E6%8C%82%E8%BD%BD/" rel="tag">硬盘挂载</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" rel="tag">网络配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/" rel="tag">虚拟机安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="tag">进程管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%82%AE%E4%BB%B6%E7%AE%A1%E7%90%86/" rel="tag">邮件管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" rel="tag">防火墙</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/LVM%E5%8D%B7/" style="font-size: 10px;">LVM卷</a> <a href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" style="font-size: 10px;">Linux基础命令</a> <a href="/tags/Linux%E5%AE%89%E8%A3%85WPS/" style="font-size: 10px;">Linux安装WPS</a> <a href="/tags/Linux%E6%97%A5%E5%BF%97/" style="font-size: 10px;">Linux日志</a> <a href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux用户管理</a> <a href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux磁盘管理</a> <a href="/tags/Linux%E8%BF%9B%E7%A8%8B/" style="font-size: 10px;">Linux进程</a> <a href="/tags/REUSEADDR/" style="font-size: 10px;">REUSEADDR</a> <a href="/tags/SIGCHLD%E4%BF%A1%E5%8F%B7/" style="font-size: 10px;">SIGCHLD信号</a> <a href="/tags/SIGPIPPE%E4%BF%A1%E5%8F%B7/" style="font-size: 10px;">SIGPIPPE信号</a> <a href="/tags/Socket-I-O%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">Socket I/O模型</a> <a href="/tags/TCP%E7%9A%8411%E7%A7%8D%E7%8A%B6%E6%80%81/" style="font-size: 10px;">TCP的11种状态</a> <a href="/tags/TCP%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98/" style="font-size: 10px;">TCP粘包问题</a> <a href="/tags/UDP%E5%9B%9E%E5%B0%84%E5%AE%A2%E6%88%B7%E7%AB%AF/" style="font-size: 10px;">UDP回射客户端</a> <a href="/tags/UDP%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 10px;">UDP服务器</a> <a href="/tags/UNIX%E5%9F%9F%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">UNIX域协议</a> <a href="/tags/close%E5%87%BD%E6%95%B0-shutdown%E5%87%BD%E6%95%B0/" style="font-size: 10px;">close函数 - shutdown函数</a> <a href="/tags/epoll%E4%BD%BF%E7%94%A8/" style="font-size: 10px;">epoll使用</a> <a href="/tags/ftp/" style="font-size: 10px;">ftp</a> <a href="/tags/select-poll-epoll/" style="font-size: 10px;">select&poll&epoll</a> <a href="/tags/select%E5%87%BD%E6%95%B0/" style="font-size: 10px;">select函数</a> <a href="/tags/select%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 10px;">select服务器</a> <a href="/tags/select%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">select模型</a> <a href="/tags/socket/" style="font-size: 20px;">socket</a> <a href="/tags/socketReadline/" style="font-size: 10px;">socketReadline</a> <a href="/tags/socketpair/" style="font-size: 10px;">socketpair</a> <a href="/tags/socket%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0/" style="font-size: 10px;">socket相关函数</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/yum%E7%AE%A1%E7%90%86/" style="font-size: 10px;">yum管理</a> <a href="/tags/%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B/" style="font-size: 10px;">僵尸进程</a> <a href="/tags/%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1/" style="font-size: 10px;">延时任务</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" style="font-size: 10px;">文件传输</a> <a href="/tags/%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">权限控制</a> <a href="/tags/%E7%A1%AC%E7%9B%98%E6%8C%82%E8%BD%BD/" style="font-size: 10px;">硬盘挂载</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">网络配置</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/" style="font-size: 10px;">虚拟机安装</a> <a href="/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" style="font-size: 10px;">进程管理</a> <a href="/tags/%E9%82%AE%E4%BB%B6%E7%AE%A1%E7%90%86/" style="font-size: 10px;">邮件管理</a> <a href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" style="font-size: 10px;">防火墙</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/11/18/Socket/day15/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/11/18/Socket/epollsrv/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/19/Socket/01%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/">UDP/TCP文件传输</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/19/Socket/day02/">02 C/S模型、socket相关函数</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/19/Socket/day01/">01 socket 字节序&amp;地址转换函数&amp;套接字类型</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

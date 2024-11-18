@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>03 Linux基础知识--权限控制&amp;进程管理 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="03 Linux基础知识-权限控制&amp;进程管理umask当用户的UID小于199，并且用户名和用户组名相同时，umaks的值为022。否则的话umask的值为002，当创建文件夹时默认的权限为0777 - umask，当创建文件时默认的权限为0777 - umaks - 0111，文件默认取消执行权限，因为执行权限对文件影响大 配置文件  系统配置文件：&#x2F;etc&#x2F;profile shell配">
+<meta property="og:type" content="article">
+<meta property="og:title" content="03 Linux基础知识--权限控制&amp;进程管理">
+<meta property="og:url" content="http://example.com/2021/11/13/Linux/03linux%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="03 Linux基础知识-权限控制&amp;进程管理umask当用户的UID小于199，并且用户名和用户组名相同时，umaks的值为022。否则的话umask的值为002，当创建文件夹时默认的权限为0777 - umask，当创建文件时默认的权限为0777 - umaks - 0111，文件默认取消执行权限，因为执行权限对文件影响大 配置文件  系统配置文件：&#x2F;etc&#x2F;profile shell配">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-11-12T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-11-18T07:30:39.952Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="权限控制">
+<meta property="article:tag" content="进程管理">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Linux/03linux基础" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/11/13/Linux/03linux%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time class="dt-published" datetime="2021-11-12T16:00:00.000Z" itemprop="datePublished">2021-11-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      03 Linux基础知识--权限控制&amp;进程管理
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="03-Linux基础知识-权限控制-进程管理"><a href="#03-Linux基础知识-权限控制-进程管理" class="headerlink" title="03 Linux基础知识-权限控制&amp;进程管理"></a>03 Linux基础知识-权限控制&amp;进程管理</h1><h2 id="umask"><a href="#umask" class="headerlink" title="umask"></a>umask</h2><p>当用户的<code>UID</code>小于199，并且用户名和用户组名相同时，<code>umaks</code>的值为<code>022</code>。否则的话<code>umask</code>的值为<code>002</code>，当创建文件夹时默认的权限为<code>0777 - umask</code>，当创建文件时默认的权限为<code>0777 - umaks - 0111</code>，文件默认取消执行权限，因为执行权限对文件影响大</p>
+<p>配置文件</p>
+<ul>
+<li>系统配置文件：<code>/etc/profile</code></li>
+<li><code>shell</code>配置文件：<code>/etc/bashrc</code></li>
+<li>某一个用户的<code>shell</code>配置文件：<code>~/.bashrc</code></li>
+<li>使配置文件生效：<code>source 要生效的文件</code>，即让系统重新读取该文件，否则需要内核自举。</li>
+</ul>
+<h2 id="特殊权限"><a href="#特殊权限" class="headerlink" title="特殊权限"></a>特殊权限</h2><ul>
+<li>粘滞位(<code>sticky</code>)<ul>
+<li>只针对目录生效，当一个目录有<code>sticky</code>权限时，在这个目录中的文件只能被文件的所有者删除。</li>
+<li>设置：<code>chmod o+t 目录</code>或<code>chmod 1xxx 目录</code></li>
+</ul>
+</li>
+<li>强制位(<code>sgid</code>)<ul>
+<li>对文件作用：只针对二进制可执行文件，当文件有<code>sgid</code>时，任何人执行此文件产生的进程都属于文件的组</li>
+<li>对目录：当目录有<code>sgid</code>时，任何人在此目录中建立的文件都属于目录。</li>
+<li><code>chmod g+s 二进制文件/目录</code>或<code>chmod 2xxx 二进制文件/目录</code></li>
+</ul>
+</li>
+<li>冒险位(<code>suid</code>)<ul>
+<li>对文件，任何人执行二进制文件，进程都属于进程的所有人。对文件的权限进行降级操作，避免<code>rm -rf /*</code>的误操作，对<code>rm</code>文件的权限进行降级。</li>
+<li><code>chmod u+s 文件</code>或<code>chmod 4xxx 文件</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="acl权限"><a href="#acl权限" class="headerlink" title="acl权限"></a>acl权限</h2><blockquote>
+<p>学会使用<code>man setfcal</code></p>
+</blockquote>
+<p>设置：<code>setfcal -m u:username:rwx dir</code></p>
+<p>设置：<code>setfcal -m g:groupname:rwx dir</code></p>
+<p>查看：<code>getfacl filename</code></p>
+<p>作用：让特定的用户对特定的文件拥有特定的权限</p>
+<p>acl列表查看：</p>
+<p>​	权限位<code>+</code>号表示acl权限开启</p>
+<p>查看文件acl开启的权限：<code>getfacl 文件命名</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># file:文件名称</span><br><span class="line"># owner:文件所有者</span><br><span class="line"># group:文件所属组</span><br><span class="line">use::所有者权限</span><br><span class="line">user:用户:指定用户的权限</span><br><span class="line">group::文件所有组的权限</span><br><span class="line">maks：:能赋予用户最大的权限</span><br><span class="line">other::其他用户</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>mask</code>值</p>
+<blockquote>
+<p>  在权限列表中mask表示能生效的权利值，当用<code>chmod</code>减少开启acl的文件权限后，<code>mask</code>值会发生变化</p>
+</blockquote>
+</li>
+<li><p>恢复mask值</p>
+<blockquote>
+<p>  <code>setfacl -m m:rwx filename</code></p>
+</blockquote>
+</li>
+<li><p>acl默认权限</p>
+<blockquote>
+<p>  只针对目录设定，且只针对设定完之后新建的文件或目录生效，不会对已存在的文件生效</p>
+<p>  <code>setfacl -m d:u:username:rwx dir</code></p>
+</blockquote>
+</li>
+</ul>
+<h2 id="系统进程及服务的控制"><a href="#系统进程及服务的控制" class="headerlink" title="系统进程及服务的控制"></a>系统进程及服务的控制</h2><ul>
+<li><p>图形查看进程</p>
+</li>
+<li><p>命令查看(<code>ps</code>)</p>
+<ul>
+<li><p><code>-A</code>：显示所有进程</p>
+</li>
+<li><p><code>-a</code>：当前环境中运行的进程，不显示管理信息与当前终端的进程信息</p>
+</li>
+<li><p><code>-u</code>：有效使用者和相关的进程</p>
+</li>
+<li><p><code>a</code>：当前环境中的进程，包含管理信息与当前终端的进程信息</p>
+</li>
+<li><p><code>x</code>：通常与<code>-a</code>参数一起使用，列出系统中所有运行包含<code>tty</code>输出设备</p>
+</li>
+<li><p><code>-f</code>：显示进程父子关系</p>
+</li>
+<li><p><code>-e</code>：经常与<code>-f</code>一起使用，显示详细信息，显示系统的资源调用和进程的详细信息</p>
+</li>
+<li><p><code>-o</code>：显示指定信息</p>
+<ul>
+<li><code>comm</code>：显示命令</li>
+<li><code>user</code>：进程所有用户</li>
+<li><code>group</code>：进程所有组</li>
+<li><code>%cpu</code>：进程cpu使用率</li>
+<li><code>%mem</code>：进程使用内存使用率</li>
+<li><code>pid</code>：进程id号</li>
+<li><code>nice</code>：查看优先级</li>
+<li><code>stat</code>：状态</li>
+</ul>
+<blockquote>
+<p>例：<code>ps  -o comm,user,group,%cpu,%mem,pid,nice</code>，不要加多余的空格</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>进程排序</p>
+<ul>
+<li><p><code>ps ax --sort=+%cpu</code></p>
+<ul>
+<li><code>+%cpu</code>：按照CPU使用率正序输出，小 —&gt; 大</li>
+<li><code>-%cpu</code>：按照CPU使用率反序输出，大 —&gt; 小</li>
+</ul>
+<blockquote>
+<p>  也可以使用<code>mem</code>进行排序。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>进程优先级：范围[-20, 19]，数值越小优先级越高。</p>
+<ul>
+<li><code>S</code>：表示进程状态</li>
+<li><code>l</code>：内存中有锁定空间</li>
+<li><code>N</code>：表示优先级低</li>
+<li><code>&lt;</code>：表示优先级高</li>
+<li><code>+</code>：表示前台运行</li>
+<li><code>s</code>：顶级进程</li>
+</ul>
+</li>
+<li><p>修改优先级</p>
+<ul>
+<li><code>renice -n -5 pid</code>，修改进程pid的优先级为<code>-5</code></li>
+<li><code>renice -n -5 程序</code>，开启进程并设置优先级为<code>-5</code></li>
+</ul>
+</li>
+<li><p>进程前后台调用</p>
+<ul>
+<li><code>Ctrl + z</code>：把占用终端的进程切入后台，释放终端</li>
+<li><code>jobs</code>：查看被打入环境后台的进程</li>
+<li><code>bg job号</code>：把后台程序运行到后台，不占用终端</li>
+<li><code>fg job号</code> ：把程序运行到前台，占用终端</li>
+<li><code>fg</code>：调用优先<code>+</code> &gt; <code>-</code>&gt;<code>什么都么有</code></li>
+<li>在程序最后加<code>&amp;</code>，进程直接后台运行</li>
+</ul>
+</li>
+<li><p>进程信号：<code>kill -signal pid</code></p>
+<blockquote>
+<p>  <code>signal</code>信号类型</p>
+</blockquote>
+<ul>
+<li><code>1</code>：进程重新加载配置</li>
+<li><code>2</code>：删除进程在内存中的数据</li>
+<li><code>3</code>：删除鼠标在内存中的数据，<code>Ctrl + \</code></li>
+<li><code>9</code>：强行结束单个进程(不可被阻塞)</li>
+<li><code>15</code>：正常关闭进程(可能会被阻塞)</li>
+<li><code>18</code>：运行暂停的进程</li>
+<li><code>19</code>：暂停某个进程(不能被阻塞)</li>
+<li><code>20</code>：把进程打入后台(可以被阻塞)</li>
+</ul>
+<blockquote>
+<p>  例：<code>kill -9 pid</code>，使用<code>kill -l</code>查看所有信号</p>
+<p>  <code>killall -9 程序名</code>，根据程序名，批量关闭程序</p>
+<p>  <code>pkill -u student -9</code>，根据条件发出信号，踢出用户</p>
+</blockquote>
+</li>
+<li><p>常用组合</p>
+<ul>
+<li><code>ps ef</code>：显示进程详细信息并显示进程父子关系</li>
+<li><code>ps aux</code>：显示系统中所有进程和显示进程用户</li>
+<li><code>ps ax</code>：显示当前系统中的所有进程</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/11/13/Linux/03linux%E5%9F%BA%E7%A1%80/" data-id="cm3mpi625001jl0ya84mdchix" data-title="03 Linux基础知识--权限控制&amp;进程管理" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/" rel="tag">权限控制</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="tag">进程管理</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/11/13/Linux/02linux%E5%9F%BA%E7%A1%80/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          02 Linux基础知识--vim&amp;用户管理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/11/13/Linux/06linux%E5%9F%BA%E7%A1%80/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">06 Linux基础知识–-虚拟机安装</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Socket/">Socket</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LVM%E5%8D%B7/" rel="tag">LVM卷</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" rel="tag">Linux基础命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%AE%89%E8%A3%85WPS/" rel="tag">Linux安装WPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%97%A5%E5%BF%97/" rel="tag">Linux日志</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" rel="tag">Linux用户管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" rel="tag">Linux磁盘管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E8%BF%9B%E7%A8%8B/" rel="tag">Linux进程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REUSEADDR/" rel="tag">REUSEADDR</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SIGCHLD%E4%BF%A1%E5%8F%B7/" rel="tag">SIGCHLD信号</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SIGPIPPE%E4%BF%A1%E5%8F%B7/" rel="tag">SIGPIPPE信号</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket-I-O%E6%A8%A1%E5%9E%8B/" rel="tag">Socket I&#x2F;O模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP%E7%9A%8411%E7%A7%8D%E7%8A%B6%E6%80%81/" rel="tag">TCP的11种状态</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98/" rel="tag">TCP粘包问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UDP%E5%9B%9E%E5%B0%84%E5%AE%A2%E6%88%B7%E7%AB%AF/" rel="tag">UDP回射客户端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UDP%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">UDP服务器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UNIX%E5%9F%9F%E5%8D%8F%E8%AE%AE/" rel="tag">UNIX域协议</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/close%E5%87%BD%E6%95%B0-shutdown%E5%87%BD%E6%95%B0/" rel="tag">close函数 - shutdown函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/epoll%E4%BD%BF%E7%94%A8/" rel="tag">epoll使用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ftp/" rel="tag">ftp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select-poll-epoll/" rel="tag">select&amp;poll&amp;epoll</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select%E5%87%BD%E6%95%B0/" rel="tag">select函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">select服务器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select%E6%A8%A1%E5%9E%8B/" rel="tag">select模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket/" rel="tag">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socketReadline/" rel="tag">socketReadline</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socketpair/" rel="tag">socketpair</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0/" rel="tag">socket相关函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/" rel="tag">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/" rel="tag">vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yum%E7%AE%A1%E7%90%86/" rel="tag">yum管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B/" rel="tag">僵尸进程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1/" rel="tag">延时任务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" rel="tag">文件传输</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/" rel="tag">权限控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E7%9B%98%E6%8C%82%E8%BD%BD/" rel="tag">硬盘挂载</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" rel="tag">网络配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/" rel="tag">虚拟机安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="tag">进程管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%82%AE%E4%BB%B6%E7%AE%A1%E7%90%86/" rel="tag">邮件管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" rel="tag">防火墙</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/LVM%E5%8D%B7/" style="font-size: 10px;">LVM卷</a> <a href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" style="font-size: 10px;">Linux基础命令</a> <a href="/tags/Linux%E5%AE%89%E8%A3%85WPS/" style="font-size: 10px;">Linux安装WPS</a> <a href="/tags/Linux%E6%97%A5%E5%BF%97/" style="font-size: 10px;">Linux日志</a> <a href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux用户管理</a> <a href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux磁盘管理</a> <a href="/tags/Linux%E8%BF%9B%E7%A8%8B/" style="font-size: 10px;">Linux进程</a> <a href="/tags/REUSEADDR/" style="font-size: 10px;">REUSEADDR</a> <a href="/tags/SIGCHLD%E4%BF%A1%E5%8F%B7/" style="font-size: 10px;">SIGCHLD信号</a> <a href="/tags/SIGPIPPE%E4%BF%A1%E5%8F%B7/" style="font-size: 10px;">SIGPIPPE信号</a> <a href="/tags/Socket-I-O%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">Socket I/O模型</a> <a href="/tags/TCP%E7%9A%8411%E7%A7%8D%E7%8A%B6%E6%80%81/" style="font-size: 10px;">TCP的11种状态</a> <a href="/tags/TCP%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98/" style="font-size: 10px;">TCP粘包问题</a> <a href="/tags/UDP%E5%9B%9E%E5%B0%84%E5%AE%A2%E6%88%B7%E7%AB%AF/" style="font-size: 10px;">UDP回射客户端</a> <a href="/tags/UDP%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 10px;">UDP服务器</a> <a href="/tags/UNIX%E5%9F%9F%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">UNIX域协议</a> <a href="/tags/close%E5%87%BD%E6%95%B0-shutdown%E5%87%BD%E6%95%B0/" style="font-size: 10px;">close函数 - shutdown函数</a> <a href="/tags/epoll%E4%BD%BF%E7%94%A8/" style="font-size: 10px;">epoll使用</a> <a href="/tags/ftp/" style="font-size: 10px;">ftp</a> <a href="/tags/select-poll-epoll/" style="font-size: 10px;">select&poll&epoll</a> <a href="/tags/select%E5%87%BD%E6%95%B0/" style="font-size: 10px;">select函数</a> <a href="/tags/select%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 10px;">select服务器</a> <a href="/tags/select%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">select模型</a> <a href="/tags/socket/" style="font-size: 20px;">socket</a> <a href="/tags/socketReadline/" style="font-size: 10px;">socketReadline</a> <a href="/tags/socketpair/" style="font-size: 10px;">socketpair</a> <a href="/tags/socket%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0/" style="font-size: 10px;">socket相关函数</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/yum%E7%AE%A1%E7%90%86/" style="font-size: 10px;">yum管理</a> <a href="/tags/%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B/" style="font-size: 10px;">僵尸进程</a> <a href="/tags/%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1/" style="font-size: 10px;">延时任务</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" style="font-size: 10px;">文件传输</a> <a href="/tags/%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">权限控制</a> <a href="/tags/%E7%A1%AC%E7%9B%98%E6%8C%82%E8%BD%BD/" style="font-size: 10px;">硬盘挂载</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">网络配置</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/" style="font-size: 10px;">虚拟机安装</a> <a href="/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" style="font-size: 10px;">进程管理</a> <a href="/tags/%E9%82%AE%E4%BB%B6%E7%AE%A1%E7%90%86/" style="font-size: 10px;">邮件管理</a> <a href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" style="font-size: 10px;">防火墙</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/11/18/Socket/day15/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/11/18/Socket/epollsrv/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/19/Socket/01%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/">UDP/TCP文件传输</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/19/Socket/day02/">02 C/S模型、socket相关函数</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/19/Socket/day01/">01 socket 字节序&amp;地址转换函数&amp;套接字类型</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

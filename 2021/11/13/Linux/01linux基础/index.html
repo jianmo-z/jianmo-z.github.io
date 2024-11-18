@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>01 Linux基础知识--基础命令&amp;安装wps | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="01 Linux基础知识–基础命令&amp;安装wps添加系统语言设置    Application   —&gt; System Tools —&gt;  Settings —&gt; Region &amp; Language    点击加号选择添加的输入法，找到中文输入法后，选择点击右上角的添加即可。   进入虚拟控制台Ctrl + Alt + F1&#x2F;F7进入图形界面 Ctrl + Alt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="01 Linux基础知识--基础命令&amp;安装wps">
+<meta property="og:url" content="http://example.com/2021/11/13/Linux/01linux%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="01 Linux基础知识–基础命令&amp;安装wps添加系统语言设置    Application   —&gt; System Tools —&gt;  Settings —&gt; Region &amp; Language    点击加号选择添加的输入法，找到中文输入法后，选择点击右上角的添加即可。   进入虚拟控制台Ctrl + Alt + F1&#x2F;F7进入图形界面 Ctrl + Alt">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/01linux%E5%9F%BA%E7%A1%80/01%E8%AF%AD%E8%A8%80%E8%AE%BE%E7%BD%AE.png">
+<meta property="og:image" content="http://example.com/01linux%E5%9F%BA%E7%A1%80/02mkdir_rmdir.png">
+<meta property="og:image" content="http://example.com/01linux%E5%9F%BA%E7%A1%80/03touch_rm.png">
+<meta property="og:image" content="http://example.com/01linux%E5%9F%BA%E7%A1%80/04cd_pwd.png">
+<meta property="og:image" content="http://example.com/01linux%E5%9F%BA%E7%A1%80/05cat.png">
+<meta property="og:image" content="http://example.com/01linux%E5%9F%BA%E7%A1%80/06less.png">
+<meta property="og:image" content="http://example.com/01linux%E5%9F%BA%E7%A1%80/07head_tail.png">
+<meta property="og:image" content="http://example.com/01linux%E5%9F%BA%E7%A1%80/08wc.png">
+<meta property="og:image" content="http://example.com/01linux%E5%9F%BA%E7%A1%80/09cp_mv.png">
+<meta property="og:image" content="http://example.com/01linux%E5%9F%BA%E7%A1%80/10whatis_history.png">
+<meta property="og:image" content="http://example.com/01linux%E5%9F%BA%E7%A1%80/11su_exit_whoami.png">
+<meta property="og:image" content="http://example.com/01linux%E5%9F%BA%E7%A1%80/12file_find_who.png">
+<meta property="og:image" content="http://example.com/01linux%E5%9F%BA%E7%A1%80/13%E9%80%9A%E9%85%8D%E7%AC%A6.png">
+<meta property="og:image" content="http://example.com/01linux%E5%9F%BA%E7%A1%80/14tree.png">
+<meta property="og:image" content="http://example.com/01linux%E5%9F%BA%E7%A1%80/15stdout.png">
+<meta property="og:image" content="http://example.com/01linux%E5%9F%BA%E7%A1%80/16stdout_stderr.png">
+<meta property="article:published_time" content="2021-11-12T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-11-18T07:30:39.951Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Linux基础命令">
+<meta property="article:tag" content="Linux安装WPS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/01linux%E5%9F%BA%E7%A1%80/01%E8%AF%AD%E8%A8%80%E8%AE%BE%E7%BD%AE.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Linux/01linux基础" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/11/13/Linux/01linux%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time class="dt-published" datetime="2021-11-12T16:00:00.000Z" itemprop="datePublished">2021-11-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      01 Linux基础知识--基础命令&amp;安装wps
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="01-Linux基础知识–基础命令-安装wps"><a href="#01-Linux基础知识–基础命令-安装wps" class="headerlink" title="01 Linux基础知识–基础命令&amp;安装wps"></a>01 Linux基础知识–基础命令&amp;安装wps</h1><h2 id="添加系统语言设置"><a href="#添加系统语言设置" class="headerlink" title="添加系统语言设置"></a>添加系统语言设置</h2><blockquote>
+<p>   <code>Application</code>   —&gt; <code>System Tools</code> —&gt;  <code>Settings</code> —&gt; <code>Region &amp; Language</code></p>
+<p>   点击<code>加号</code>选择添加的输入法，找到中文输入法后，选择点击右上角的添加即可。</p>
+</blockquote>
+<p><img src="/./01linux%E5%9F%BA%E7%A1%80/01%E8%AF%AD%E8%A8%80%E8%AE%BE%E7%BD%AE.png" alt="01语言设置"></p>
+<h2 id="进入虚拟控制台"><a href="#进入虚拟控制台" class="headerlink" title="进入虚拟控制台"></a>进入虚拟控制台</h2><p><code>Ctrl + Alt + F1/F7</code>进入图形界面</p>
+<p><code>Ctrl + Alt + F2 ~ F6</code>进入图形界面</p>
+<p>通过<code>man  init </code>可以查看系统运行的等级。</p>
+<h2 id="命令补齐Tab"><a href="#命令补齐Tab" class="headerlink" title="命令补齐Tab"></a>命令补齐Tab</h2><p><code>linux</code>的神兵利器，不仅可以提高打印命令的效率，还可以提高命令的正确率。</p>
+<p>按一下<code>Tab</code>，如果补齐结果唯一那么直接补齐，如果不唯一则需要按两下显示所有的可能结果。</p>
+<h2 id="linux虚拟机"><a href="#linux虚拟机" class="headerlink" title="linux虚拟机"></a>linux虚拟机</h2><p>对vmware虚拟机操作的命令，通过<code>rht-vmctl --help</code>获取帮助信息</p>
+<ul>
+<li><pre><code>`view`  ：launches console viewer of VMNAME
+</code></pre>
+</li>
+<li><pre><code>`start`：obtain and start up VMNAME
+</code></pre>
+</li>
+<li><pre><code>`stop` ：stop a running VMNAME
+</code></pre>
+</li>
+<li><pre><code>`poweroff`：if running, force stop VMNAME
+</code></pre>
+</li>
+<li><pre><code>`reset`： poweroff, return to saved or original state, start VMNAME
+</code></pre>
+</li>
+<li><pre><code>`save`： stop, save image, start VMNAME (to DATETIME)
+</code></pre>
+</li>
+<li><pre><code>`restore`：poweroff, restore to save (to DATETIME), start VMNAME
+</code></pre>
+</li>
+<li><pre><code>`listsaves`：list the saves of VMNAME
+</code></pre>
+</li>
+<li><pre><code>`status` ：display libvirt status of VMNAME
+</code></pre>
+</li>
+<li><pre><code>`get`：if not here, obtain VMNAME from server
+</code></pre>
+</li>
+<li><pre><code>`remove`：remove VMNAME from system
+</code></pre>
+</li>
+<li><pre><code>`fullreset`：poweroff, reobtain from server, start VMNAME (bad save/image)
+</code></pre>
+</li>
+</ul>
+<h2 id="linux命令控制"><a href="#linux命令控制" class="headerlink" title="linux命令控制"></a>linux命令控制</h2><ul>
+<li><p><code>mkdir</code>：创建一个空目录</p>
+<ul>
+<li><code>-p</code>：递归创建目录</li>
+</ul>
+</li>
+<li><p><code>rmdir</code>：移除一个空目录</p>
+<ul>
+<li><p><code>-p</code>：递归移除一个目录</p>
+<p><img src="/./01linux%E5%9F%BA%E7%A1%80/02mkdir_rmdir.png" alt="02mkdir_rmdir"></p>
+</li>
+</ul>
+</li>
+<li><p><code>rm</code>：移除一个文件</p>
+<ul>
+<li><code>-r</code>：递归移除</li>
+<li><code>-f</code>：强制移除</li>
+<li><code>-d</code>：移除一个目录</li>
+</ul>
+</li>
+<li><p><code>touch</code>：改变一个文件的时间戳，但是常常用来创建一个文本文件</p>
+<ul>
+<li><p><code>touch file</code>：创建一个文件</p>
+<p><img src="/./01linux%E5%9F%BA%E7%A1%80/03touch_rm.png" alt="03touch_rm"></p>
+</li>
+</ul>
+</li>
+<li><p><code>cd</code> ：<code>change directory</code>改变工作路径</p>
+<ul>
+<li><code>~</code>：进入当前用户的家目录</li>
+<li><code>..</code>：进入当前目录的上一级目录</li>
+<li><code>-</code>：进入上一个工作目录</li>
+</ul>
+</li>
+<li><p><code>pwd</code>：<code>print work directory</code>打印当前工作路径</p>
+<p><img src="/./01linux%E5%9F%BA%E7%A1%80/04cd_pwd.png" alt="04cd_pwd"></p>
+</li>
+<li><p><code>ls</code>：<code>list</code>查看当前目录下的文件内容</p>
+<ul>
+<li><code>-a</code>：列出所有内容，包含隐藏文件，<code>linux</code> 的隐藏文件是以<code>.</code>开始的</li>
+<li><code>-l</code>：长格式查看文件详细信息</li>
+<li><code>-d</code>：查看目录的信息</li>
+<li><code>-S</code>：按照文件大小排序打印</li>
+<li><code>-h</code>：按照人类习惯的方式显示文件的大小</li>
+</ul>
+</li>
+<li><p><code>cat</code>：查看文件的内容</p>
+<p><img src="/./01linux%E5%9F%BA%E7%A1%80/05cat.png" alt="05cat"></p>
+</li>
+<li><p><code>less</code> ：分页浏览文件的内容</p>
+<blockquote>
+<p>  按<code>q</code>退出，<code>空格</code>下一屏，<code>b</code>上一屏</p>
+</blockquote>
+<p><img src="/./01linux%E5%9F%BA%E7%A1%80/06less.png" alt="06less"></p>
+</li>
+<li><p><code>head</code>：查看文件内容的前几行</p>
+<ul>
+<li><code>-n</code>：指定打印的行数，如果不指定那么就默认打印<code>10</code>行<ul>
+<li><code>head -n 20</code>：查看文件的前20行</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>tail</code> ：查看文件内容的后几行</p>
+<ul>
+<li><p><code>-n</code>：制订打印的行数，与<code>head</code>对应</p>
+</li>
+<li><p><code>-f</code>：实时监控文件的内容</p>
+<p><img src="/./01linux%E5%9F%BA%E7%A1%80/07head_tail.png" alt="07head_tail"></p>
+</li>
+</ul>
+</li>
+<li><p><code>wc</code>：统计文件字符数</p>
+<ul>
+<li><p><code>-l</code>：<code>lines</code>统计行数</p>
+</li>
+<li><p><code>-w</code>：<code>world</code>单词数</p>
+</li>
+<li><p><code>-c</code>：<code>bytes</code>字节数目</p>
+</li>
+<li><p><code>-m</code>：<code>chars</code>字符数，中文汉字的时候和上一个参数就有不同的结果了</p>
+<p><img src="/./01linux%E5%9F%BA%E7%A1%80/08wc.png" alt="08wc"></p>
+</li>
+</ul>
+</li>
+<li><p><code>cp</code>：拷贝文件</p>
+<ul>
+<li><code>cp 目标文件 副本文件</code></li>
+</ul>
+</li>
+<li><p><code>mv</code>：移动文件</p>
+<ul>
+<li><p><code>mv 源地址文件名 目标路径</code>，将文件从源地址移动到目标地址</p>
+</li>
+<li><p><code>mv 源地址文件名 目标路径名和文件名  </code>，移动文件并重新命名为新的文件名</p>
+</li>
+<li><p><code>mv 源文件文件名 新文件名</code>，对文件进行重新命名</p>
+<p><img src="/./01linux%E5%9F%BA%E7%A1%80/09cp_mv.png" alt="09cp_mv"></p>
+</li>
+</ul>
+</li>
+<li><p><code>whatis</code>：查看某一个命令的功能</p>
+<ul>
+<li><code>whatis ls</code>：查看<code>ls</code>命令的功能</li>
+</ul>
+</li>
+<li><p><code>history</code>：查看系统的历史命令</p>
+<ul>
+<li><p><code>-c</code>：清空当前<code>shell</code>的命令历史，不会真正清除，打开其他终端仍然可以查看到。</p>
+</li>
+<li><p><code>!num</code>：感叹号加数字，调用命令历史中的第<code>num</code>个命令</p>
+</li>
+<li><p><code>!string</code>：感叹号加字符串，调用命令历史中最近一次以这些字符开头的命令。</p>
+</li>
+<li><p><code>模糊查找</code>：命令终端输入一字符串，然后<code>Ctrl + r</code>，查找包含这个字符串的命令。</p>
+<p><img src="/./01linux%E5%9F%BA%E7%A1%80/10whatis_history.png" alt="10whatis_history"></p>
+</li>
+</ul>
+</li>
+<li><p><code>su</code>：<code>switch user</code>切换用户</p>
+<ul>
+<li><code>su - 用户名</code>：切换到某用户</li>
+</ul>
+</li>
+<li><p><code>exit</code> ：退出当前用户</p>
+</li>
+<li><p><code>whoami</code>：查看当前用户</p>
+<p><img src="/./01linux%E5%9F%BA%E7%A1%80/11su_exit_whoami.png" alt="11su_exit_whoami"></p>
+</li>
+<li><p><code>file</code>：查看文件类型</p>
+<ul>
+<li><code>file filename</code>：查看文件类型</li>
+</ul>
+</li>
+<li><p><code>find</code>：查找文件</p>
+<ul>
+<li><code>find /etc/ -name passwd</code>：在<code>/etc/</code>目录下查找名字为<code>passwd</code>的文件</li>
+</ul>
+</li>
+<li><p><code>who</code>：查看当前在线用户</p>
+<p><img src="/./01linux%E5%9F%BA%E7%A1%80/12file_find_who.png" alt="12file_find_who.png"></p>
+</li>
+</ul>
+<h2 id="linux通配符"><a href="#linux通配符" class="headerlink" title="linux通配符"></a>linux通配符</h2><ul>
+<li>不存在的文件使用<code>&#123;&#125;</code></li>
+<li>存在的文件使用<code>[]</code></li>
+<li><code>*</code>：匹配任意字符，匹配任意次</li>
+<li><code>?</code>：匹配任意字符，匹配一次</li>
+<li><code>[[:alpha:]]</code>：匹配单个大小写字母</li>
+<li><code>[[:lower:]]</code>：匹配单个小写字母</li>
+<li><code>[[:upper:]]</code>：匹配单个大写字母</li>
+<li><code>[[:digit:]]</code>：匹配单个数字</li>
+<li><code>[[:alnum:]]</code>：匹配单个数字或字母</li>
+<li><code>[1-9]</code>：匹配1到9的任意数字</li>
+<li><code>^</code>&#x2F;<code>!</code>：表示不匹配括号内的任何一个字符<ul>
+<li><code>[^123]</code>：不匹配1、2、3字符</li>
+</ul>
+</li>
+</ul>
+<p><img src="/./01linux%E5%9F%BA%E7%A1%80/13%E9%80%9A%E9%85%8D%E7%AC%A6.png" alt="13通配符"></p>
+<h2 id="中断程序"><a href="#中断程序" class="headerlink" title="中断程序"></a>中断程序</h2><blockquote>
+<p>  如果一个程序正在运行使用<code>Ctrl + c</code>中断一个程序的运行</p>
+</blockquote>
+<h2 id="获取命令的帮助信息"><a href="#获取命令的帮助信息" class="headerlink" title="获取命令的帮助信息"></a>获取命令的帮助信息</h2><p><code>linux</code>中有很多的命令，如果需要获取一个命令的帮助信息可以通过以下命令</p>
+<ul>
+<li><code>man cmd</code>：通过<code>man</code>手册查询命令的用法<ul>
+<li><code>[]</code>：表示可选参数</li>
+<li><code>...</code>：选项加入的个数可以加多个</li>
+<li><code>&lt;&gt;</code>：选项是必须要加的</li>
+<li><code>man num cmd</code>：在<code>man</code>手册的第<code>num</code>个手册查看<code>cmd</code>命令</li>
+</ul>
+</li>
+<li><code>whatis cmd</code>：查看命令的功能</li>
+<li><code>cmd --help</code> ：查看命令的基本用法<ul>
+<li><code>Usage</code>：标出命令用法</li>
+</ul>
+</li>
+</ul>
+<h2 id="vim编辑器"><a href="#vim编辑器" class="headerlink" title="vim编辑器"></a>vim编辑器</h2><blockquote>
+<p>  <a target="_blank" rel="noopener" href="https://www.cnblogs.com/yangjig/p/6014198.html">转载链接</a>，点击查看所有的<code>vim</code>的命令和快捷键，<code>vim</code>是<code>linux</code>上一个十分强大的编辑器，用过的都知道。嘻嘻嘻嘻。。。</p>
+</blockquote>
+<h2 id="linux快捷键"><a href="#linux快捷键" class="headerlink" title="linux快捷键"></a>linux快捷键</h2><ul>
+<li><p><code>方向键左右</code>：一个字符一个字符移动</p>
+</li>
+<li><p><code>Ctrl + 左右</code> ：一个字一个字移动</p>
+</li>
+<li><p><code>Ctrl + a</code> ：光标移动到行首</p>
+</li>
+<li><p><code>Ctrl + e</code> ：光标移动到行尾</p>
+</li>
+<li><p><code>Ctrl + u</code>  ：光标所在位置删除到行首</p>
+</li>
+<li><p><code>Ctrl + k</code>  ：光标所在位置删除到行尾</p>
+</li>
+<li><p><code>Ctrl + r + 关键字</code>：调出最近一条含有关键字的命令</p>
+</li>
+<li><p><code>Ctrl + c</code>  ：撤销以输入的命令</p>
+</li>
+<li><p><code>Ctrl + d</code>   ：关闭当前环境</p>
+</li>
+<li><p><code>Ctrl + L</code>  ：清空屏幕</p>
+</li>
+<li><p><code>Ctrl + shift + c</code> ：复制</p>
+</li>
+<li><p><code>Ctrl + shift + v</code>  ：粘贴</p>
+</li>
+<li><p><code>Ctrl + shift + t </code> ：在现有shell中重新打开一个<code>table </code></p>
+</li>
+<li><p><code>Ctrl + shift + n</code>  ：在shell中打开一个新的<code>shell</code></p>
+</li>
+<li><p><code>Ctrl + shift + pageup|pagedown </code>：切换<code>table</code></p>
+</li>
+<li><p><code>Ctrl + alt + l</code>   ： 锁屏</p>
+</li>
+</ul>
+<h2 id="linux目录结构"><a href="#linux目录结构" class="headerlink" title="linux目录结构"></a>linux目录结构</h2><ul>
+<li>一级目录：<ul>
+<li><code>/</code>：根目录</li>
+</ul>
+</li>
+<li>二级目录：<ul>
+<li><code>/bin</code>：二进制可执行文件也就是系统命令</li>
+<li><code>/sbin</code>：系统管理命令存放位置</li>
+<li><code>/boot</code>：启动分区，负责系统启动</li>
+<li><code>/dev</code>：设备管理文件</li>
+<li><code>/etc</code>：大多数系统管理文件markdownpad插入本机图片</li>
+<li><code>/home</code>：普通用户的家目录</li>
+<li><code>/lib</code>：32位系统库文件存放位置</li>
+<li><code>/lib64</code>：64位系统库文件存放位置</li>
+<li><code>/media</code>：系统临时设备挂载点                                  </li>
+<li><code>/mnt</code>：系统临时设备挂载点</li>
+<li><code>/run</code>：系统临时设备挂载点</li>
+<li><code>/opt</code>：第三方软件安装位置</li>
+<li><code>/proc</code>：系统信息</li>
+<li><code>/root</code>：超级用户家目录</li>
+<li><code>/srv，/var</code>：系统数据</li>
+<li><code>/sys</code>：系统管理，主要是关于内核的</li>
+<li><code>/tmp</code>：系统临时文件存放位置</li>
+<li><code>/usr</code>：系统用户相关信息数据及用户自定义软件存放位置</li>
+</ul>
+</li>
+</ul>
+<p><img src="/./01linux%E5%9F%BA%E7%A1%80/14tree.png" alt="14tree"></p>
+<h2 id="系统输入输出"><a href="#系统输入输出" class="headerlink" title="系统输入输出"></a>系统输入输出</h2><ul>
+<li><p>输出重定向<code>&gt;</code></p>
+<p>使用<code>&gt;</code>，<code>标准输入(0)</code>、<code>标准输出(1)</code>、<code>标准错误(2)</code></p>
+<p>标准输入：程序的输入</p>
+<p>标准输出：程序正确的输出</p>
+<p>标准错误：程序错误的输出</p>
+<ul>
+<li><code>1&gt;</code> &#x2F; <code>&gt;</code>：对标准输出进行重定向输出</li>
+<li><code>2&gt;</code>：对标准错误进行重定向输出</li>
+<li><code>&amp;&gt;</code>：标准输出和标准错误都进行重定向输出</li>
+<li><code>&gt;&gt;</code>：在输出文件的末尾进行追加输出</li>
+<li><code>&gt;</code>：在输出文件的内容先清空再输出</li>
+</ul>
+<p><img src="/./01linux%E5%9F%BA%E7%A1%80/15stdout.png" alt="15stdout"></p>
+<p><img src="/./01linux%E5%9F%BA%E7%A1%80/16stdout_stderr.png" alt="16stdout_stderr"></p>
+</li>
+<li><p>管道<code>|</code>，把前一条命令的输出变成后一条命令的输入</p>
+<ul>
+<li><p><code>cmd_1 | cmd_2</code>将<code>cmd_1</code>的命令输出作为<code>cmd_2</code>的输入，管道只允许正确输入</p>
+<blockquote>
+<p><code>find /etc/ -name passwd 2&gt;&amp;1  | wc -l</code>将错误的信息重定向到正确的输出中，所有信息就可以通过管道了。</p>
+</blockquote>
+</li>
+<li><p><code>tee</code>：保存输出到文件中</p>
+<blockquote>
+<p>  <code>find /etc/ -name passwd 2&gt;&amp;1  | tee filename | wc -l</code>，<code>tee</code>保存信息到文件中</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>输入重定向<code>&lt;</code></p>
+<ul>
+<li><code>cat &gt; filename &lt;&lt; EOF</code>，当输入EOF的时候结束输入，中间输入的内容全部重定向到了，<code>filename</code>文件中</li>
+</ul>
+</li>
+</ul>
+<h2 id="redhat安装wps"><a href="#redhat安装wps" class="headerlink" title="redhat安装wps"></a>redhat安装wps</h2><p>网上有很多就不写了随便找个链接放在上面吧。。。。。。</p>
+<p><a target="_blank" rel="noopener" href="http://www.wps.cn/product/wpslinux">下载地址</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/kzjay/article/details/39271081">安装教程地址</a>，出现问题一般都是依赖问题，自行解决</p>
+<h2 id="redhat使用QQ等win软件"><a href="#redhat使用QQ等win软件" class="headerlink" title="redhat使用QQ等win软件"></a>redhat使用QQ等win软件</h2><blockquote>
+<p>请自行了解wine，<a target="_blank" rel="noopener" href="https://www.winehq.org/">官网链接地址</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/11/13/Linux/01linux%E5%9F%BA%E7%A1%80/" data-id="cm3mpi624001fl0yahmpug770" data-title="01 Linux基础知识--基础命令&amp;安装wps" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" rel="tag">Linux基础命令</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux%E5%AE%89%E8%A3%85WPS/" rel="tag">Linux安装WPS</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/12/14/Golang/06%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          06 Golang函数定义
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/11/13/Linux/02linux%E5%9F%BA%E7%A1%80/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">02 Linux基础知识--vim&amp;用户管理</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Socket/">Socket</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LVM%E5%8D%B7/" rel="tag">LVM卷</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" rel="tag">Linux基础命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%AE%89%E8%A3%85WPS/" rel="tag">Linux安装WPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%97%A5%E5%BF%97/" rel="tag">Linux日志</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" rel="tag">Linux用户管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" rel="tag">Linux磁盘管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E8%BF%9B%E7%A8%8B/" rel="tag">Linux进程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REUSEADDR/" rel="tag">REUSEADDR</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SIGCHLD%E4%BF%A1%E5%8F%B7/" rel="tag">SIGCHLD信号</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SIGPIPPE%E4%BF%A1%E5%8F%B7/" rel="tag">SIGPIPPE信号</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket-I-O%E6%A8%A1%E5%9E%8B/" rel="tag">Socket I&#x2F;O模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP%E7%9A%8411%E7%A7%8D%E7%8A%B6%E6%80%81/" rel="tag">TCP的11种状态</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98/" rel="tag">TCP粘包问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UDP%E5%9B%9E%E5%B0%84%E5%AE%A2%E6%88%B7%E7%AB%AF/" rel="tag">UDP回射客户端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UDP%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">UDP服务器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UNIX%E5%9F%9F%E5%8D%8F%E8%AE%AE/" rel="tag">UNIX域协议</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/close%E5%87%BD%E6%95%B0-shutdown%E5%87%BD%E6%95%B0/" rel="tag">close函数 - shutdown函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/epoll%E4%BD%BF%E7%94%A8/" rel="tag">epoll使用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ftp/" rel="tag">ftp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select-poll-epoll/" rel="tag">select&amp;poll&amp;epoll</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select%E5%87%BD%E6%95%B0/" rel="tag">select函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">select服务器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select%E6%A8%A1%E5%9E%8B/" rel="tag">select模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket/" rel="tag">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socketReadline/" rel="tag">socketReadline</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socketpair/" rel="tag">socketpair</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0/" rel="tag">socket相关函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/" rel="tag">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/" rel="tag">vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yum%E7%AE%A1%E7%90%86/" rel="tag">yum管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B/" rel="tag">僵尸进程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1/" rel="tag">延时任务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" rel="tag">文件传输</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/" rel="tag">权限控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E7%9B%98%E6%8C%82%E8%BD%BD/" rel="tag">硬盘挂载</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" rel="tag">网络配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/" rel="tag">虚拟机安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="tag">进程管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%82%AE%E4%BB%B6%E7%AE%A1%E7%90%86/" rel="tag">邮件管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" rel="tag">防火墙</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/LVM%E5%8D%B7/" style="font-size: 10px;">LVM卷</a> <a href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" style="font-size: 10px;">Linux基础命令</a> <a href="/tags/Linux%E5%AE%89%E8%A3%85WPS/" style="font-size: 10px;">Linux安装WPS</a> <a href="/tags/Linux%E6%97%A5%E5%BF%97/" style="font-size: 10px;">Linux日志</a> <a href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux用户管理</a> <a href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux磁盘管理</a> <a href="/tags/Linux%E8%BF%9B%E7%A8%8B/" style="font-size: 10px;">Linux进程</a> <a href="/tags/REUSEADDR/" style="font-size: 10px;">REUSEADDR</a> <a href="/tags/SIGCHLD%E4%BF%A1%E5%8F%B7/" style="font-size: 10px;">SIGCHLD信号</a> <a href="/tags/SIGPIPPE%E4%BF%A1%E5%8F%B7/" style="font-size: 10px;">SIGPIPPE信号</a> <a href="/tags/Socket-I-O%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">Socket I/O模型</a> <a href="/tags/TCP%E7%9A%8411%E7%A7%8D%E7%8A%B6%E6%80%81/" style="font-size: 10px;">TCP的11种状态</a> <a href="/tags/TCP%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98/" style="font-size: 10px;">TCP粘包问题</a> <a href="/tags/UDP%E5%9B%9E%E5%B0%84%E5%AE%A2%E6%88%B7%E7%AB%AF/" style="font-size: 10px;">UDP回射客户端</a> <a href="/tags/UDP%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 10px;">UDP服务器</a> <a href="/tags/UNIX%E5%9F%9F%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">UNIX域协议</a> <a href="/tags/close%E5%87%BD%E6%95%B0-shutdown%E5%87%BD%E6%95%B0/" style="font-size: 10px;">close函数 - shutdown函数</a> <a href="/tags/epoll%E4%BD%BF%E7%94%A8/" style="font-size: 10px;">epoll使用</a> <a href="/tags/ftp/" style="font-size: 10px;">ftp</a> <a href="/tags/select-poll-epoll/" style="font-size: 10px;">select&poll&epoll</a> <a href="/tags/select%E5%87%BD%E6%95%B0/" style="font-size: 10px;">select函数</a> <a href="/tags/select%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 10px;">select服务器</a> <a href="/tags/select%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">select模型</a> <a href="/tags/socket/" style="font-size: 20px;">socket</a> <a href="/tags/socketReadline/" style="font-size: 10px;">socketReadline</a> <a href="/tags/socketpair/" style="font-size: 10px;">socketpair</a> <a href="/tags/socket%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0/" style="font-size: 10px;">socket相关函数</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/yum%E7%AE%A1%E7%90%86/" style="font-size: 10px;">yum管理</a> <a href="/tags/%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B/" style="font-size: 10px;">僵尸进程</a> <a href="/tags/%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1/" style="font-size: 10px;">延时任务</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" style="font-size: 10px;">文件传输</a> <a href="/tags/%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">权限控制</a> <a href="/tags/%E7%A1%AC%E7%9B%98%E6%8C%82%E8%BD%BD/" style="font-size: 10px;">硬盘挂载</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">网络配置</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/" style="font-size: 10px;">虚拟机安装</a> <a href="/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" style="font-size: 10px;">进程管理</a> <a href="/tags/%E9%82%AE%E4%BB%B6%E7%AE%A1%E7%90%86/" style="font-size: 10px;">邮件管理</a> <a href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" style="font-size: 10px;">防火墙</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/11/18/Socket/day15/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/11/18/Socket/epollsrv/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/19/Socket/01%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/">UDP/TCP文件传输</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/19/Socket/day02/">02 C/S模型、socket相关函数</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/19/Socket/day01/">01 socket 字节序&amp;地址转换函数&amp;套接字类型</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

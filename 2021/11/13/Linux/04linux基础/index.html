@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>04 Linux基础知识--进程监控&amp;ssh&amp;文件传输 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="04 Linux基础–进程监控&amp;ssh&amp;文件传输进程动态监控top：动态查看进程  按1显示CPU每个核的负载 按s修改刷新频率 按c依照CPU负载排序 按m依照内存大小排序 按h获取帮助 按u查看指定用户的进程，需要输入用户名 按k对指定用户进程发起信号 按q退出     PID USER PR NI VIRT    进程id 进程用户 人物优先级 优先级值 进程使用的虚拟内存">
+<meta property="og:type" content="article">
+<meta property="og:title" content="04 Linux基础知识--进程监控&amp;ssh&amp;文件传输">
+<meta property="og:url" content="http://example.com/2021/11/13/Linux/04linux%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="04 Linux基础–进程监控&amp;ssh&amp;文件传输进程动态监控top：动态查看进程  按1显示CPU每个核的负载 按s修改刷新频率 按c依照CPU负载排序 按m依照内存大小排序 按h获取帮助 按u查看指定用户的进程，需要输入用户名 按k对指定用户进程发起信号 按q退出     PID USER PR NI VIRT    进程id 进程用户 人物优先级 优先级值 进程使用的虚拟内存">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-11-12T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-11-18T07:30:39.952Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Linux进程">
+<meta property="article:tag" content="ssh">
+<meta property="article:tag" content="文件传输">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Linux/04linux基础" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/11/13/Linux/04linux%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time class="dt-published" datetime="2021-11-12T16:00:00.000Z" itemprop="datePublished">2021-11-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      04 Linux基础知识--进程监控&amp;ssh&amp;文件传输
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="04-Linux基础–进程监控-ssh-文件传输"><a href="#04-Linux基础–进程监控-ssh-文件传输" class="headerlink" title="04 Linux基础–进程监控&amp;ssh&amp;文件传输"></a>04 Linux基础–进程监控&amp;ssh&amp;文件传输</h1><h2 id="进程动态监控"><a href="#进程动态监控" class="headerlink" title="进程动态监控"></a>进程动态监控</h2><p><code>top</code>：动态查看进程</p>
+<ul>
+<li>按<code>1</code>显示CPU每个核的负载</li>
+<li>按<code>s</code>修改刷新频率</li>
+<li>按<code>c</code>依照CPU负载排序</li>
+<li>按<code>m</code>依照内存大小排序</li>
+<li>按<code>h</code>获取帮助</li>
+<li>按<code>u</code>查看指定用户的进程，需要输入用户名</li>
+<li>按<code>k</code>对指定用户进程发起信号</li>
+<li>按<code>q</code>退出</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>PID</th>
+<th>USER</th>
+<th>PR</th>
+<th>NI</th>
+<th>VIRT</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>进程id</td>
+<td>进程用户</td>
+<td>人物优先级</td>
+<td>优先级值</td>
+<td>进程使用的虚拟内存</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>RES</th>
+<th>SHR</th>
+<th>%CPU</th>
+<th>%MEM</th>
+<th>TIME</th>
+<th>COMMAND</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>进程使用的未被换出的物理内存大小</td>
+<td>共享内存</td>
+<td>CPU使用率</td>
+<td>内存使用率</td>
+<td>使用CPU的时间总计</td>
+<td>命令名</td>
+</tr>
+</tbody></table>
+<h2 id="控制服务systemctl"><a href="#控制服务systemctl" class="headerlink" title="控制服务systemctl"></a>控制服务<code>systemctl</code></h2><p><code>C/S</code>：server、client</p>
+<ul>
+<li><code>pstree</code>：查看进程树</li>
+<li><code>systemd</code>系统初始化进程</li>
+<li>进程控制命令<code>systemctl</code><ul>
+<li><code>ssh</code>，<code>client</code> &#x3D;&#x3D;&#x3D;&gt; <code>sshd</code>，<code>server</code></li>
+<li><code>status</code>：查看服务状态</li>
+<li><code>start</code>：开启服务</li>
+<li><code>restart</code>：重启服务</li>
+<li><code>stop</code>：停止服务</li>
+<li><code>reload</code>：重新加载服务配置</li>
+<li><code>disable</code>：设置服务，开机不自启动  </li>
+<li><code>enable</code>：设置服务，开机自启动</li>
+<li><code>mask</code>：设置无法启动，注销服务</li>
+</ul>
+</li>
+<li>查看端口<ul>
+<li><code>netstat -antulpe | grep :22</code>，查看22端口的程序</li>
+</ul>
+</li>
+</ul>
+<h2 id="linux查看本机ip"><a href="#linux查看本机ip" class="headerlink" title="linux查看本机ip"></a>linux查看本机ip</h2><ul>
+<li><code>ip addr show</code>，推荐使用，可以查到所有的ip地址</li>
+<li><code>ifconfig</code>，只能查看到一个ip地址</li>
+</ul>
+<h2 id="修改hostname"><a href="#修改hostname" class="headerlink" title="修改hostname"></a>修改hostname</h2><blockquote>
+<p><code>hostnamctl set-hostname yourhostname</code>，将<code>yourhostname</code>改成你要设置的名字即可。</p>
+</blockquote>
+<h2 id="ssh服务"><a href="#ssh服务" class="headerlink" title="ssh服务"></a>ssh服务</h2><p><code>ssh username@ip</code>，文本方式链接</p>
+<ul>
+<li><code>username</code>：登陆的用户名</li>
+<li><code>ip</code>：目标主机ip</li>
+<li><code>-X</code>：在链接成功后可以打开图形，比如摄像头<code>cheese</code>… …</li>
+</ul>
+<blockquote>
+<p>  <code>sshd</code>，表示服务，在服务器端使用</p>
+<p>  <code>ssh</code>，客户端使用，连接远程服务。</p>
+</blockquote>
+<ul>
+<li><code>sshd = secure shell</code></li>
+</ul>
+<p><code>第一次链接会在家目录下生成</code>~&#x2F;.ssh&#x2F;known_hosts&#96;认证文件</p>
+<ul>
+<li><p>key认证</p>
+<ul>
+<li><p>第一步：<code>ssh-keygen</code>，在<code>~/.ssh/</code>生成公钥和密钥，三次回车，不设置就回车。</p>
+</li>
+<li><p>第二步：进入<code>~/.ssh/</code>，有两个文件<code>id_rsa(私钥)</code>和<code>id_rsa.pub(公钥)</code></p>
+</li>
+<li><p>第三步：使用公钥加密主机<code>ssh-copy-id -i id_rsa.pub root@ip</code></p>
+</li>
+<li><p>第四步：把<code>id_rsa</code>发送给目标主机，且需要放在<code>~/.ssh</code>目录下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen</span><br><span class="line">cd ~/.ssh/</span><br><span class="line">ssh-copy-id -i id_rsa.pub root@172.25.254.108 </span><br><span class="line">scp ./id_rsa root@172.25.254.108:/root/.ssh/</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>  <code>ssh</code>远程连接目标主机就不需要再输入密码，完成所有操作了。。。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>访问控制</p>
+<p>配置文件：<code>/etc/ssh/sshd_config</code></p>
+<ul>
+<li>字段：<code>PasswordAuthentication yes</code>，是否允许用户通过密码登陆</li>
+<li>字段：<code>PermitRootLogin yes</code>，是否允许<code>root</code>登陆</li>
+<li>字段：<code>Allowusers username1 username2</code>，允许登陆的白名单，多个用户用空格分隔开</li>
+<li>字段：<code>Denyusers username1 username2</code>，不允许登陆的黑名单，多个用户用空格分隔开</li>
+</ul>
+</li>
+<li><p>配置文件生效需要重启<code>sshd</code>服务</p>
+</li>
+<li><p>查看配置文件的写法：<code>man 5 sshd_config</code></p>
+</li>
+<li><p>登陆信息：<code>vim /etc/motd</code>，在用户登陆的时候提示信息，文件内容就是登陆后的显示信息。</p>
+</li>
+<li><p>用户审计：</p>
+<ul>
+<li><code>w -i</code>：查看正在登陆系统用户，显示ip</li>
+<li><code>w -f</code>：查看使用来源，显示主机名</li>
+<li><code>last</code>：查看谁登录过你的<code>shell</code></li>
+<li><code>lastb</code>：试图登录但是没有成功</li>
+</ul>
+</li>
+</ul>
+<h2 id="scp服务"><a href="#scp服务" class="headerlink" title="scp服务"></a>scp服务</h2><p><code>scp sendfile username@ip:absolute_path</code>，上传文件</p>
+<p><code>scp username@ip:absolute_path_file dir </code>，下载文件</p>
+<ul>
+<li><code>-r</code>：下载&#x2F;上传目录时会用到，递归下载&#x2F;上传文件</li>
+<li><code>-p</code>：保存文件的信息(时间戳…)下载&#x2F;上传到目的主机</li>
+<li><code>absolute_path</code>：<strong>绝对路径</strong></li>
+</ul>
+<h2 id="忘记root密码？？？"><a href="#忘记root密码？？？" class="headerlink" title="忘记root密码？？？"></a>忘记root密码？？？</h2><ul>
+<li>第一步：重启电脑，进入系统选择界面按<code>e</code>。</li>
+<li>第二步：找到倒数第二行把<code>ro</code>当前行的后面的内容删掉。并把<code>ro</code>改为<code>rw  rb.break</code>，再按<code>Ctrl + x</code>，启动系统。</li>
+<li>第三步：进入系统后，<code>chroot /sysroot/</code>进入系统分区，并使用<code>passwd root</code>修改<code>root</code>用户密码。</li>
+<li>第四步：在根目录下创建<code>touch /.autorelabel</code>，如果不创建系统启动会出问题。</li>
+<li>第五步：使用两次<code>exit</code>来重启电脑，使用修改后的密码登录。</li>
+</ul>
+<h2 id="rsync-远程同步"><a href="#rsync-远程同步" class="headerlink" title="rsync 远程同步"></a>rsync 远程同步</h2><p>速度快，默认会忽略文件属性，链接文件，设备文件</p>
+<p>参数：</p>
+<ul>
+<li><code>-r</code>：同步目录</li>
+<li><code>-p</code>：同步权限</li>
+<li><code>-o</code>：同步文件所有人</li>
+<li><code>-g</code>：同步文件所有组</li>
+<li><code>-t</code>：同步文件时间戳</li>
+<li><code>-l</code>：同步链接文件</li>
+<li><code>-D</code>：同步设备文件</li>
+</ul>
+<h2 id="查看文件大小"><a href="#查看文件大小" class="headerlink" title="查看文件大小"></a>查看文件大小</h2><p><code>du -sh dir</code></p>
+<p>参数：</p>
+<ul>
+<li><code>-s</code>：显示总的文件大小</li>
+<li><code>-h</code>：人类容易辨别的字节大小单位</li>
+</ul>
+<h2 id="打包文件-tar"><a href="#打包文件-tar" class="headerlink" title="打包文件 tar"></a>打包文件 tar</h2><p><code>-x</code>：解包</p>
+<p><code>-c</code>：创建一个压缩包</p>
+<p><code>-v</code>：显示过程详情信息</p>
+<p><code>-f</code>：指定打包后的名字</p>
+<p><code>-t</code>：查看归档文件内容</p>
+<p><code>-r</code>：添加文件到归档，第一个为归档，后面的是要添加的文件</p>
+<p><code>--get</code>：解挡指定文件，<code>tar f etc.tar --get file</code></p>
+<p><code>--delete</code>：删除归档指定的文件，<code>tar f etc.tar --delete file</code></p>
+<p><code>-C</code>：指定解档目录</p>
+<p><code>-z</code>：使用<code>gzip</code>压缩</p>
+<p><code>-J</code>：使用<code>xz</code>压缩</p>
+<p><code>-j</code>：使用<code>gzip2</code>压缩</p>
+<h2 id="压缩"><a href="#压缩" class="headerlink" title="压缩"></a>压缩</h2><ul>
+<li><code>zip</code>压缩，压缩效率高，推荐使用<ul>
+<li><code>zip -r filename.tar.zip etc.tar</code></li>
+<li><code>unzip  filname.tar.zip</code></li>
+</ul>
+</li>
+<li><code>gzip</code>压缩，压缩效率高，推荐使用+1<ul>
+<li><code>gzip filname.tar</code></li>
+<li><code>gunzip filname.tar.gz</code></li>
+</ul>
+</li>
+<li><code>bzip2</code>压缩，压缩效率低<ul>
+<li><code>bzip2 filname.tar</code></li>
+<li><code>bunzip2 filname.tar.bz2</code></li>
+</ul>
+</li>
+<li><code>xz</code>压缩，压缩效率最高，很慢<ul>
+<li><code>xz filname.tar</code></li>
+<li><code>unxz filname.tar.xz</code></li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/11/13/Linux/04linux%E5%9F%BA%E7%A1%80/" data-id="cm3mpi626001pl0yacmvua9qd" data-title="04 Linux基础知识--进程监控&amp;ssh&amp;文件传输" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux%E8%BF%9B%E7%A8%8B/" rel="tag">Linux进程</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ssh/" rel="tag">ssh</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" rel="tag">文件传输</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/11/13/Linux/07linux%E5%9F%BA%E7%A1%80/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          07 Linux基础知识–-硬盘挂载&amp;yum管理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/11/13/Linux/08linux%E5%9F%BA%E7%A1%80/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">08 Linux基础知识–-延时任务&amp;邮件管理</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Socket/">Socket</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LVM%E5%8D%B7/" rel="tag">LVM卷</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" rel="tag">Linux基础命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%AE%89%E8%A3%85WPS/" rel="tag">Linux安装WPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%97%A5%E5%BF%97/" rel="tag">Linux日志</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" rel="tag">Linux用户管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" rel="tag">Linux磁盘管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E8%BF%9B%E7%A8%8B/" rel="tag">Linux进程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REUSEADDR/" rel="tag">REUSEADDR</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SIGCHLD%E4%BF%A1%E5%8F%B7/" rel="tag">SIGCHLD信号</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SIGPIPPE%E4%BF%A1%E5%8F%B7/" rel="tag">SIGPIPPE信号</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket-I-O%E6%A8%A1%E5%9E%8B/" rel="tag">Socket I&#x2F;O模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP%E7%9A%8411%E7%A7%8D%E7%8A%B6%E6%80%81/" rel="tag">TCP的11种状态</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98/" rel="tag">TCP粘包问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UDP%E5%9B%9E%E5%B0%84%E5%AE%A2%E6%88%B7%E7%AB%AF/" rel="tag">UDP回射客户端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UDP%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">UDP服务器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UNIX%E5%9F%9F%E5%8D%8F%E8%AE%AE/" rel="tag">UNIX域协议</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/close%E5%87%BD%E6%95%B0-shutdown%E5%87%BD%E6%95%B0/" rel="tag">close函数 - shutdown函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/epoll%E4%BD%BF%E7%94%A8/" rel="tag">epoll使用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ftp/" rel="tag">ftp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select-poll-epoll/" rel="tag">select&amp;poll&amp;epoll</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select%E5%87%BD%E6%95%B0/" rel="tag">select函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">select服务器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select%E6%A8%A1%E5%9E%8B/" rel="tag">select模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket/" rel="tag">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socketReadline/" rel="tag">socketReadline</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socketpair/" rel="tag">socketpair</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0/" rel="tag">socket相关函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/" rel="tag">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/" rel="tag">vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yum%E7%AE%A1%E7%90%86/" rel="tag">yum管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B/" rel="tag">僵尸进程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1/" rel="tag">延时任务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" rel="tag">文件传输</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/" rel="tag">权限控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E7%9B%98%E6%8C%82%E8%BD%BD/" rel="tag">硬盘挂载</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" rel="tag">网络配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/" rel="tag">虚拟机安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="tag">进程管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%82%AE%E4%BB%B6%E7%AE%A1%E7%90%86/" rel="tag">邮件管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" rel="tag">防火墙</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/LVM%E5%8D%B7/" style="font-size: 10px;">LVM卷</a> <a href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" style="font-size: 10px;">Linux基础命令</a> <a href="/tags/Linux%E5%AE%89%E8%A3%85WPS/" style="font-size: 10px;">Linux安装WPS</a> <a href="/tags/Linux%E6%97%A5%E5%BF%97/" style="font-size: 10px;">Linux日志</a> <a href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux用户管理</a> <a href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux磁盘管理</a> <a href="/tags/Linux%E8%BF%9B%E7%A8%8B/" style="font-size: 10px;">Linux进程</a> <a href="/tags/REUSEADDR/" style="font-size: 10px;">REUSEADDR</a> <a href="/tags/SIGCHLD%E4%BF%A1%E5%8F%B7/" style="font-size: 10px;">SIGCHLD信号</a> <a href="/tags/SIGPIPPE%E4%BF%A1%E5%8F%B7/" style="font-size: 10px;">SIGPIPPE信号</a> <a href="/tags/Socket-I-O%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">Socket I/O模型</a> <a href="/tags/TCP%E7%9A%8411%E7%A7%8D%E7%8A%B6%E6%80%81/" style="font-size: 10px;">TCP的11种状态</a> <a href="/tags/TCP%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98/" style="font-size: 10px;">TCP粘包问题</a> <a href="/tags/UDP%E5%9B%9E%E5%B0%84%E5%AE%A2%E6%88%B7%E7%AB%AF/" style="font-size: 10px;">UDP回射客户端</a> <a href="/tags/UDP%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 10px;">UDP服务器</a> <a href="/tags/UNIX%E5%9F%9F%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">UNIX域协议</a> <a href="/tags/close%E5%87%BD%E6%95%B0-shutdown%E5%87%BD%E6%95%B0/" style="font-size: 10px;">close函数 - shutdown函数</a> <a href="/tags/epoll%E4%BD%BF%E7%94%A8/" style="font-size: 10px;">epoll使用</a> <a href="/tags/ftp/" style="font-size: 10px;">ftp</a> <a href="/tags/select-poll-epoll/" style="font-size: 10px;">select&poll&epoll</a> <a href="/tags/select%E5%87%BD%E6%95%B0/" style="font-size: 10px;">select函数</a> <a href="/tags/select%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 10px;">select服务器</a> <a href="/tags/select%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">select模型</a> <a href="/tags/socket/" style="font-size: 20px;">socket</a> <a href="/tags/socketReadline/" style="font-size: 10px;">socketReadline</a> <a href="/tags/socketpair/" style="font-size: 10px;">socketpair</a> <a href="/tags/socket%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0/" style="font-size: 10px;">socket相关函数</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/yum%E7%AE%A1%E7%90%86/" style="font-size: 10px;">yum管理</a> <a href="/tags/%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B/" style="font-size: 10px;">僵尸进程</a> <a href="/tags/%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1/" style="font-size: 10px;">延时任务</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" style="font-size: 10px;">文件传输</a> <a href="/tags/%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">权限控制</a> <a href="/tags/%E7%A1%AC%E7%9B%98%E6%8C%82%E8%BD%BD/" style="font-size: 10px;">硬盘挂载</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">网络配置</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/" style="font-size: 10px;">虚拟机安装</a> <a href="/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" style="font-size: 10px;">进程管理</a> <a href="/tags/%E9%82%AE%E4%BB%B6%E7%AE%A1%E7%90%86/" style="font-size: 10px;">邮件管理</a> <a href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" style="font-size: 10px;">防火墙</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/11/18/Socket/day15/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/11/18/Socket/epollsrv/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/19/Socket/01%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/">UDP/TCP文件传输</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/19/Socket/day02/">02 C/S模型、socket相关函数</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/19/Socket/day01/">01 socket 字节序&amp;地址转换函数&amp;套接字类型</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

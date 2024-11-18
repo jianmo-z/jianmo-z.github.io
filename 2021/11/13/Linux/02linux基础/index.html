@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>02 Linux基础知识--vim&amp;用户管理 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="02 Linux基础知识–vim学习&amp;用户管理vim模式 普通模式：浏览文件 插入模式：对文件内容进行编辑，输入i 命令模式：临时更改vim的工作方式，对字符批量处理，输入: 视图模式 选择模式 Ex模式  vim配置文件vim的个人配置文件是~&#x2F;.vimrc，即在家目录下的一个隐藏文件，如果这个文件不存在那么就新建一个，这个配置文件是当前用户的不会影响到其他用户，如果是想要影响所有的用户">
+<meta property="og:type" content="article">
+<meta property="og:title" content="02 Linux基础知识--vim&amp;用户管理">
+<meta property="og:url" content="http://example.com/2021/11/13/Linux/02linux%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="02 Linux基础知识–vim学习&amp;用户管理vim模式 普通模式：浏览文件 插入模式：对文件内容进行编辑，输入i 命令模式：临时更改vim的工作方式，对字符批量处理，输入: 视图模式 选择模式 Ex模式  vim配置文件vim的个人配置文件是~&#x2F;.vimrc，即在家目录下的一个隐藏文件，如果这个文件不存在那么就新建一个，这个配置文件是当前用户的不会影响到其他用户，如果是想要影响所有的用户">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-11-12T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-11-18T07:30:39.952Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="vim">
+<meta property="article:tag" content="Linux用户管理">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Linux/02linux基础" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/11/13/Linux/02linux%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time class="dt-published" datetime="2021-11-12T16:00:00.000Z" itemprop="datePublished">2021-11-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      02 Linux基础知识--vim&amp;用户管理
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="02-Linux基础知识–vim学习-用户管理"><a href="#02-Linux基础知识–vim学习-用户管理" class="headerlink" title="02 Linux基础知识–vim学习&amp;用户管理"></a>02 Linux基础知识–vim学习&amp;用户管理</h1><h2 id="vim模式"><a href="#vim模式" class="headerlink" title="vim模式"></a>vim模式</h2><ul>
+<li>普通模式：浏览文件</li>
+<li>插入模式：对文件内容进行编辑，输入<code>i</code></li>
+<li>命令模式：临时更改vim的工作方式，对字符批量处理，输入<code>:</code></li>
+<li>视图模式</li>
+<li>选择模式</li>
+<li>Ex模式</li>
+</ul>
+<h2 id="vim配置文件"><a href="#vim配置文件" class="headerlink" title="vim配置文件"></a>vim配置文件</h2><p><code>vim</code>的个人配置文件是<code>~/.vimrc</code>，即在家目录下的一个隐藏文件，如果这个文件不存在那么就新建一个，这个配置文件是当前用户的不会影响到其他用户，如果是想要影响所有的用户的<code>vim</code>配置那么就要修改<code>/etc/vimrc</code>文件，修改文件只需要在文件的最后添加就可以了。</p>
+<ul>
+<li><code>set shiftwidth=4</code>：配置自动缩进4个空格,当然要设自动缩进先.</li>
+<li><code>set sts=4  </code> ：即配置softtabstop为4.输入tab后就跳了4格</li>
+<li><code>set tabstop=4 </code> ：实际的tab即为4个空格,而不是缺省的8个Q</li>
+<li><code>set expandtab</code>：在输入tab后,vim用恰当的空格来填充这个<code>tab</code></li>
+<li>普通模式下按<code>g</code>跳到文件尾</li>
+</ul>
+<h2 id="调整工作方式"><a href="#调整工作方式" class="headerlink" title="调整工作方式"></a>调整工作方式</h2><ul>
+<li><code>set nu</code>：设置行号</li>
+<li><code>set nonu</code>：取消行号</li>
+<li><code>set mouse=a</code>：设置鼠标</li>
+<li><code>set c</code>：显示行线</li>
+</ul>
+<h2 id="字符搜索"><a href="#字符搜索" class="headerlink" title="字符搜索"></a>字符搜索</h2><ul>
+<li><code>/</code>：从上向下搜索</li>
+<li><code>?</code>：从下向上搜索</li>
+</ul>
+<h2 id="复制-粘贴-删除-剪切-进入视图模式"><a href="#复制-粘贴-删除-剪切-进入视图模式" class="headerlink" title="复制&#x2F;粘贴&#x2F;删除&#x2F;剪切&#x2F;进入视图模式"></a>复制&#x2F;粘贴&#x2F;删除&#x2F;剪切&#x2F;进入视图模式</h2><ul>
+<li><p><code>y</code>操作</p>
+<ul>
+<li><code>yy</code>：复制一行</li>
+<li><code>y3y</code>：复制三行</li>
+<li><code>yl</code>：复制字符</li>
+<li><code>y4l</code>：复制四个字符</li>
+<li><code>yw</code>：复制一个单词</li>
+<li><code>y5y</code>：复制五行</li>
+<li><code>y + G</code>：复制从光标的当前行到文件结束</li>
+</ul>
+</li>
+<li><p><code>p</code>操作</p>
+<ul>
+<li><code>p</code>：粘贴</li>
+</ul>
+</li>
+<li><p><code>d</code>操作：与<code>y</code>操作类似，删除的内容在剪切版上</p>
+<ul>
+<li><code>dd</code>：删除一行</li>
+<li><code>d3d</code>：删除三行</li>
+<li><code>dl</code>：删除字符</li>
+<li><code>d4l</code>：删除四个字符</li>
+<li><code>dw</code>：删除一个单词</li>
+<li><code>d5d</code>：删除五行</li>
+<li><code>x</code>：在视图模式下删除一个字符</li>
+<li><code>d + G</code>：删除光标当前行到最后</li>
+</ul>
+</li>
+<li><p>命令模式</p>
+<ul>
+<li><code>	5,10 move 15</code>：移动5到10行到15行，类似剪切+复制</li>
+<li><code>5,10 delete</code>：删除5到10行</li>
+</ul>
+</li>
+<li><p><code>c</code>操作：剪切，与<code>y</code>操作和<code>d</code>操作一样，不再赘述</p>
+<ul>
+<li>剪切之后vim会进入插入模式，要粘贴需要按<code>Esc</code>退出插入模式</li>
+</ul>
+</li>
+<li><p><code>o</code>操作：在当前行的下一行插入一个空行</p>
+</li>
+<li><p><code>u</code>操作：撤销操作，在<code>win</code>上是<code>Ctrl + z</code></p>
+</li>
+<li><p><code>Ctrl + r</code>：撤销的撤销，在<code>win</code>上是<code>Ctrl + y</code></p>
+</li>
+<li><p><code>vim</code>可视化模式</p>
+<ul>
+<li>字符可视化：在普通模式下按小写<code>v</code>，并且可对选中的内容操作</li>
+<li>行可视化：在普通模式下按大写<code>V</code>，并且可对选中的内容操作</li>
+<li>块可视化：在普通模式下按<code>Ctrl + v</code>，选择块，按大写<code>I</code>键，输入字符，<code>Esc</code>退出。</li>
+</ul>
+</li>
+</ul>
+<h2 id="字符替换"><a href="#字符替换" class="headerlink" title="字符替换"></a>字符替换</h2><ul>
+<li><code>:%s/old/new/g</code>：替换<code>old</code>为<code>new</code>的全部的内容</li>
+<li><code>:1,5s/old/new/g</code>：替换1到5行替换</li>
+<li><code>:1,5 s/^/words/g</code>：在1到5行行首添加words</li>
+<li><code>:1,5 s/$/words/g</code>：在1到5行行尾添加words</li>
+</ul>
+<h2 id="编辑多个文件-分屏"><a href="#编辑多个文件-分屏" class="headerlink" title="编辑多个文件&#x2F;分屏"></a>编辑多个文件&#x2F;分屏</h2><ul>
+<li><code>sp filename</code>：在当前的vim，打开另一个文件</li>
+<li>分屏<ul>
+<li><code>Ctrl + w  v</code>：左右分屏</li>
+<li><code>Ctrl + w  s</code>：上下分屏</li>
+<li><code>Crtl + 上/下</code>：上下切屏，用于上下分屏</li>
+<li><code>Crtl + 左/右</code>：左右切屏，用于左右分屏</li>
+<li><code>Ctrl + w + c</code>：关闭当前的屏幕</li>
+</ul>
+</li>
+</ul>
+<h2 id="光标移动"><a href="#光标移动" class="headerlink" title="光标移动"></a>光标移动</h2><ul>
+<li><code>g</code>：跳到文件的行尾</li>
+<li><code>gg</code>：跳到文件的行首</li>
+<li>命令行模式下直接输入输入，跳到指定行</li>
+</ul>
+<h2 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h2><ul>
+<li>小写<code>i</code>：光标所在位置插入</li>
+</ul>
+<ul>
+<li>大写<code>I</code>：行首插入</li>
+<li>小写<code>o</code>：在当前行的下一行插入一个空行</li>
+<li>大写<code>O</code>：在当前行的上一行插入一个空行</li>
+<li>小写<code>a</code>：光标所在字符的下一个字符插入</li>
+<li>大写<code>A</code>：光标所在行的行尾进行插入</li>
+<li>小写<code>s</code>：光标所在字符删除并插入</li>
+<li>大写<code>S</code>光标所在行删除并插入</li>
+<li><code>D</code>：删除当前光标所在位置到行尾</li>
+</ul>
+<h2 id="保存退出"><a href="#保存退出" class="headerlink" title="保存退出"></a>保存退出</h2><ul>
+<li><code>q</code>：退出</li>
+<li><code>w</code>：写入</li>
+<li><code>!</code>：强制执行命令，如果没有权限写入则不会保存。</li>
+<li><code>x</code>：保存并退出</li>
+<li>普通模式下按两下大写<code>Z</code>保存退出</li>
+</ul>
+<h2 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h2><h2 id="用户查看"><a href="#用户查看" class="headerlink" title="用户查看"></a>用户查看</h2><ul>
+<li><code>whoami</code>：查看用户</li>
+<li><code>id</code>查看用户信息<ul>
+<li><code>id user</code>：查看用户id</li>
+<li><code>-u </code>：查看用户UID</li>
+<li><code>-g</code>：查看用户GID</li>
+<li><code>-G</code>：查看用户所在的所有组ID</li>
+<li><code>-n</code>：需要和<code>-ugG</code>配合使用</li>
+</ul>
+</li>
+</ul>
+<h2 id="用户切换"><a href="#用户切换" class="headerlink" title="用户切换"></a>用户切换</h2><ul>
+<li><code>su - user</code><ul>
+<li><code>-</code>：切换用户的同时切换<code>shell</code></li>
+</ul>
+</li>
+<li>只有<code>root</code>切换到其他用户不用输入密码，其他都需要输入密码。</li>
+<li>退出用户<ul>
+<li><code>Ctrl + d</code>：退出当前用户</li>
+<li>输入<code>exit</code>退出当前用户</li>
+</ul>
+</li>
+</ul>
+<h2 id="用户的存储"><a href="#用户的存储" class="headerlink" title="用户的存储"></a>用户的存储</h2><ul>
+<li><p><code>/etc/passwd</code>用户信息文件</p>
+<blockquote>
+<p>  <code>用户名</code>：<code>密码</code>：<code>UID</code>：<code>GID</code>：<code>用户说明</code>：<code>用户的家目录</code>：<code>用户的解释shell</code></p>
+</blockquote>
+</li>
+<li><p><code>/etc/group</code>用户的组id</p>
+<blockquote>
+<p>  <code>组名</code>：<code>组密码</code>：<code>GID</code>：<code>组成员</code></p>
+</blockquote>
+</li>
+<li><p><code>/etc/shadow</code>用户的密码</p>
+<blockquote>
+<p>  认证信息文件</p>
+</blockquote>
+</li>
+<li><p><code>/etc/gshadow</code>用户组的密码</p>
+<blockquote>
+<p>  登陆组认证信息</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="用户增-删等操作"><a href="#用户增-删等操作" class="headerlink" title="用户增&#x2F;删等操作"></a>用户增&#x2F;删等操作</h2><ul>
+<li><p><code>useradd username</code>：添加用户，<code>kali</code>如果需要创建用户需要加参数<code>-m</code>	</p>
+<ul>
+<li><code>-d</code>：指定家目录</li>
+<li><code>-G</code>：指定附加组ID</li>
+<li><code>-u</code>：指定UID</li>
+<li><code>-g</code>：指定GID</li>
+<li><code>-M</code>：不创建家目录</li>
+<li><code>-p</code>：创建用户的时候设置用户登陆密码</li>
+<li><code>-c</code>：指定用户的说明文字，使用双引号<code>&quot;</code>引起来</li>
+<li><code>-s</code>：指定用户的默认登陆<code>shell</code></li>
+</ul>
+</li>
+<li><p><code>userdel username</code>：删除用户默认不删除家目录 </p>
+<ul>
+<li><code>-r</code>：删除用户的同时删除用户的家目录，邮箱等参数。彻底删除</li>
+</ul>
+<blockquote>
+<p>  用户创建如果没有设置密码需要设置密码否则不能登陆</p>
+<p>  <code>passwd username</code>：设置&#x2F;修改用户的密码。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="组的增-删等操作"><a href="#组的增-删等操作" class="headerlink" title="组的增&#x2F;删等操作"></a>组的增&#x2F;删等操作</h2><ul>
+<li><code>groupadd</code>：组的添加<ul>
+<li><code>-g</code>：指定<code>GID</code></li>
+<li><code>-p</code>：设置用户组的密码</li>
+</ul>
+</li>
+<li><code>groupdel</code>：删除用户组</li>
+<li><code>usermod</code>：修改用户<ul>
+<li><code>-L</code>：锁定用户</li>
+<li><code>-U</code>：解锁用户</li>
+<li><code>-l</code>：更改用户名称</li>
+<li><code>-u</code>：更改用户的UID</li>
+<li><code>-g</code>：更改用户的所属组</li>
+<li><code>-G</code>：更改用户的附加组</li>
+<li><code>-G &quot;&quot;</code>：删除用户的所有附加组</li>
+<li><code>-c string</code>：指定用户说明文字</li>
+<li><code>-md path</code>：更改用户的shell</li>
+<li><code>-s</code>：更改用户的shell</li>
+</ul>
+</li>
+</ul>
+<h2 id="用户认证信息"><a href="#用户认证信息" class="headerlink" title="用户认证信息"></a>用户认证信息</h2><blockquote>
+<p>  文件路径信息<code>/etc/shadow</code></p>
+<p>  <code>用户名称</code>；<code>用户密码</code>：<code>用户密码最后一次被更改的时间</code>：<code>用户密码最短有效期</code>：<code>用户密码最长有效期</code>：<code>密码警告期限</code>：<code>用户非活跃天数</code>：<code>用户自定义列</code></p>
+</blockquote>
+<h2 id="修改用户密码"><a href="#修改用户密码" class="headerlink" title="修改用户密码"></a>修改用户密码</h2><p><code>passwd</code>	：修改用户密码</p>
+<ul>
+<li><code>-l</code>：锁定用户</li>
+<li><code>-u</code>：解锁用户</li>
+<li><code>-d</code>：清空密码</li>
+<li><code>-n</code>：密码的最短有效期</li>
+<li><code>-x</code>：密码的最长有效期</li>
+<li><code>-w</code>：密码警告期</li>
+<li><code>-i</code>：用户的非活跃期</li>
+<li><code>-e</code>：使一个密码过期，普通用户再次登陆时需要修改密码</li>
+<li><code>-E</code>：设置用户密码到期时间</li>
+</ul>
+<p>修改密码注意</p>
+<ul>
+<li>普通用户修改密码的时候必须知道永久原始密码</li>
+<li>密码不能和帐号类似</li>
+<li>密码不能是纯数字</li>
+<li>密码不能是有序的数字和字母的组合</li>
+</ul>
+<h2 id="文件属性"><a href="#文件属性" class="headerlink" title="文件属性"></a>文件属性</h2><ul>
+<li><p>文件类型</p>
+<ul>
+<li><code>-</code>：空文件，或者文本</li>
+<li><code>d</code>：目录</li>
+<li><code>l</code>：链接</li>
+<li><code>b</code>：块设备</li>
+<li><code>s</code>：socket文件</li>
+<li><code>c</code>：字符设备，鼠标键盘</li>
+</ul>
+</li>
+<li><p>权限</p>
+<ul>
+<li><p>所有者权限(u)：读(r)、写(w)和执行(x)</p>
+</li>
+<li><p>所属组权限(g)：读(r)、写(w)和执行(x)</p>
+</li>
+<li><p>其他人权限(o)：读(r)、写(w)和执行(x)</p>
+<blockquote>
+<p>  文件权限</p>
+<ul>
+<li><code>r</code>：读权限，4<ul>
+<li>普通文件查看文件内容</li>
+<li>目录查看目录内的文件列表</li>
+</ul>
+</li>
+<li><code>w</code>：写权限，2<ul>
+<li>普通文件修改文件内容</li>
+<li>目录内的文件的属性修改</li>
+</ul>
+</li>
+<li><code>x</code>：执行权限，1<ul>
+<li>对文件是否可以通过文件名调用文件内记录的程序</li>
+<li>对目录是否能进入</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>文件的硬链接数</p>
+<ul>
+<li>文件来说是硬链接数</li>
+<li>目录来说是子目录的个数，包含<code>.</code>和<code>..</code></li>
+</ul>
+</li>
+<li><p>文件属者</p>
+</li>
+<li><p>文件属组</p>
+</li>
+<li><p>大小</p>
+<ul>
+<li>文件来说是文件大小</li>
+<li>目录来说记录的文件的信息，大小是位数+文件名长度</li>
+</ul>
+</li>
+<li><p>最后一次被修改的时间</p>
+</li>
+<li><p>文件名</p>
+</li>
+</ul>
+<h2 id="修改文件信息"><a href="#修改文件信息" class="headerlink" title="修改文件信息"></a>修改文件信息</h2><ul>
+<li><code>chmod</code>：修改文件权限</li>
+<li><code>chown</code>：修改文件属主<ul>
+<li><code>-R</code>：修改目录本身的所有者，还递归修改内部文件的所属者</li>
+</ul>
+</li>
+<li><code>chgrp</code>：修改文件属组</li>
+</ul>
+<h2 id="别名"><a href="#别名" class="headerlink" title="别名"></a>别名</h2><p><code>alias</code>别名，需要添加到配置文件中，否则只会在当前<code>shell</code>有效</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/11/13/Linux/02linux%E5%9F%BA%E7%A1%80/" data-id="cm3mpi624001gl0ya8aou85ud" data-title="02 Linux基础知识--vim&amp;用户管理" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" rel="tag">Linux用户管理</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vim/" rel="tag">vim</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/11/13/Linux/01linux%E5%9F%BA%E7%A1%80/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          01 Linux基础知识--基础命令&amp;安装wps
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/11/13/Linux/03linux%E5%9F%BA%E7%A1%80/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">03 Linux基础知识--权限控制&amp;进程管理</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Socket/">Socket</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LVM%E5%8D%B7/" rel="tag">LVM卷</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" rel="tag">Linux基础命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%AE%89%E8%A3%85WPS/" rel="tag">Linux安装WPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%97%A5%E5%BF%97/" rel="tag">Linux日志</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" rel="tag">Linux用户管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" rel="tag">Linux磁盘管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E8%BF%9B%E7%A8%8B/" rel="tag">Linux进程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REUSEADDR/" rel="tag">REUSEADDR</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SIGCHLD%E4%BF%A1%E5%8F%B7/" rel="tag">SIGCHLD信号</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SIGPIPPE%E4%BF%A1%E5%8F%B7/" rel="tag">SIGPIPPE信号</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket-I-O%E6%A8%A1%E5%9E%8B/" rel="tag">Socket I&#x2F;O模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP%E7%9A%8411%E7%A7%8D%E7%8A%B6%E6%80%81/" rel="tag">TCP的11种状态</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98/" rel="tag">TCP粘包问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UDP%E5%9B%9E%E5%B0%84%E5%AE%A2%E6%88%B7%E7%AB%AF/" rel="tag">UDP回射客户端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UDP%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">UDP服务器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UNIX%E5%9F%9F%E5%8D%8F%E8%AE%AE/" rel="tag">UNIX域协议</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/close%E5%87%BD%E6%95%B0-shutdown%E5%87%BD%E6%95%B0/" rel="tag">close函数 - shutdown函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/epoll%E4%BD%BF%E7%94%A8/" rel="tag">epoll使用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ftp/" rel="tag">ftp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select-poll-epoll/" rel="tag">select&amp;poll&amp;epoll</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select%E5%87%BD%E6%95%B0/" rel="tag">select函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">select服务器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select%E6%A8%A1%E5%9E%8B/" rel="tag">select模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket/" rel="tag">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socketReadline/" rel="tag">socketReadline</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socketpair/" rel="tag">socketpair</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0/" rel="tag">socket相关函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/" rel="tag">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/" rel="tag">vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yum%E7%AE%A1%E7%90%86/" rel="tag">yum管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B/" rel="tag">僵尸进程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1/" rel="tag">延时任务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" rel="tag">文件传输</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/" rel="tag">权限控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E7%9B%98%E6%8C%82%E8%BD%BD/" rel="tag">硬盘挂载</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" rel="tag">网络配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/" rel="tag">虚拟机安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="tag">进程管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%82%AE%E4%BB%B6%E7%AE%A1%E7%90%86/" rel="tag">邮件管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" rel="tag">防火墙</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/LVM%E5%8D%B7/" style="font-size: 10px;">LVM卷</a> <a href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" style="font-size: 10px;">Linux基础命令</a> <a href="/tags/Linux%E5%AE%89%E8%A3%85WPS/" style="font-size: 10px;">Linux安装WPS</a> <a href="/tags/Linux%E6%97%A5%E5%BF%97/" style="font-size: 10px;">Linux日志</a> <a href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux用户管理</a> <a href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux磁盘管理</a> <a href="/tags/Linux%E8%BF%9B%E7%A8%8B/" style="font-size: 10px;">Linux进程</a> <a href="/tags/REUSEADDR/" style="font-size: 10px;">REUSEADDR</a> <a href="/tags/SIGCHLD%E4%BF%A1%E5%8F%B7/" style="font-size: 10px;">SIGCHLD信号</a> <a href="/tags/SIGPIPPE%E4%BF%A1%E5%8F%B7/" style="font-size: 10px;">SIGPIPPE信号</a> <a href="/tags/Socket-I-O%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">Socket I/O模型</a> <a href="/tags/TCP%E7%9A%8411%E7%A7%8D%E7%8A%B6%E6%80%81/" style="font-size: 10px;">TCP的11种状态</a> <a href="/tags/TCP%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98/" style="font-size: 10px;">TCP粘包问题</a> <a href="/tags/UDP%E5%9B%9E%E5%B0%84%E5%AE%A2%E6%88%B7%E7%AB%AF/" style="font-size: 10px;">UDP回射客户端</a> <a href="/tags/UDP%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 10px;">UDP服务器</a> <a href="/tags/UNIX%E5%9F%9F%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">UNIX域协议</a> <a href="/tags/close%E5%87%BD%E6%95%B0-shutdown%E5%87%BD%E6%95%B0/" style="font-size: 10px;">close函数 - shutdown函数</a> <a href="/tags/epoll%E4%BD%BF%E7%94%A8/" style="font-size: 10px;">epoll使用</a> <a href="/tags/ftp/" style="font-size: 10px;">ftp</a> <a href="/tags/select-poll-epoll/" style="font-size: 10px;">select&poll&epoll</a> <a href="/tags/select%E5%87%BD%E6%95%B0/" style="font-size: 10px;">select函数</a> <a href="/tags/select%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 10px;">select服务器</a> <a href="/tags/select%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">select模型</a> <a href="/tags/socket/" style="font-size: 20px;">socket</a> <a href="/tags/socketReadline/" style="font-size: 10px;">socketReadline</a> <a href="/tags/socketpair/" style="font-size: 10px;">socketpair</a> <a href="/tags/socket%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0/" style="font-size: 10px;">socket相关函数</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/yum%E7%AE%A1%E7%90%86/" style="font-size: 10px;">yum管理</a> <a href="/tags/%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B/" style="font-size: 10px;">僵尸进程</a> <a href="/tags/%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1/" style="font-size: 10px;">延时任务</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" style="font-size: 10px;">文件传输</a> <a href="/tags/%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">权限控制</a> <a href="/tags/%E7%A1%AC%E7%9B%98%E6%8C%82%E8%BD%BD/" style="font-size: 10px;">硬盘挂载</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">网络配置</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/" style="font-size: 10px;">虚拟机安装</a> <a href="/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" style="font-size: 10px;">进程管理</a> <a href="/tags/%E9%82%AE%E4%BB%B6%E7%AE%A1%E7%90%86/" style="font-size: 10px;">邮件管理</a> <a href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" style="font-size: 10px;">防火墙</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/11/18/Socket/day15/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/11/18/Socket/epollsrv/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/19/Socket/01%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/">UDP/TCP文件传输</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/19/Socket/day02/">02 C/S模型、socket相关函数</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/19/Socket/day01/">01 socket 字节序&amp;地址转换函数&amp;套接字类型</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

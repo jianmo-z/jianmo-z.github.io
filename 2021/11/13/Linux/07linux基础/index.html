@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>07 Linux基础知识–-硬盘挂载&amp;yum管理 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="07 Linux基础–-硬盘挂载&amp;yum管理netstat命令常用组合netstat -antlpe  -a：显示所有信息 -n：显示数字地址 -t：只显示TCP协议 -l：只显示监听状态的端口 -p：显示进程ID -e：显示额外信息  挂载&#x2F;取消挂载 mount -t type dev dir  -t：指定挂载的设备类型，和type类型，可以不指定 dev：要挂载的设备 dir">
+<meta property="og:type" content="article">
+<meta property="og:title" content="07 Linux基础知识–-硬盘挂载&amp;yum管理">
+<meta property="og:url" content="http://example.com/2021/11/13/Linux/07linux%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="07 Linux基础–-硬盘挂载&amp;yum管理netstat命令常用组合netstat -antlpe  -a：显示所有信息 -n：显示数字地址 -t：只显示TCP协议 -l：只显示监听状态的端口 -p：显示进程ID -e：显示额外信息  挂载&#x2F;取消挂载 mount -t type dev dir  -t：指定挂载的设备类型，和type类型，可以不指定 dev：要挂载的设备 dir">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-11-12T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-11-18T07:30:39.952Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="硬盘挂载">
+<meta property="article:tag" content="yum管理">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Linux/07linux基础" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/11/13/Linux/07linux%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time class="dt-published" datetime="2021-11-12T16:00:00.000Z" itemprop="datePublished">2021-11-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      07 Linux基础知识–-硬盘挂载&amp;yum管理
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="07-Linux基础–-硬盘挂载-yum管理"><a href="#07-Linux基础–-硬盘挂载-yum管理" class="headerlink" title="07 Linux基础–-硬盘挂载&amp;yum管理"></a>07 Linux基础–-硬盘挂载&amp;yum管理</h1><h2 id="netstat命令"><a href="#netstat命令" class="headerlink" title="netstat命令"></a>netstat命令</h2><p>常用组合<code>netstat -antlpe</code></p>
+<ul>
+<li><code>-a</code>：显示所有信息</li>
+<li><code>-n</code>：显示数字地址</li>
+<li><code>-t</code>：只显示<code>TCP</code>协议</li>
+<li><code>-l</code>：只显示监听状态的端口</li>
+<li><code>-p</code>：显示进程<code>ID</code></li>
+<li><code>-e</code>：显示额外信息</li>
+</ul>
+<h2 id="挂载-取消挂载"><a href="#挂载-取消挂载" class="headerlink" title="挂载&#x2F;取消挂载"></a>挂载&#x2F;取消挂载</h2><ul>
+<li><p><code>mount -t type dev dir</code></p>
+<ul>
+<li><code>-t</code>：指定挂载的设备类型，和<code>type</code>类型，可以不指定</li>
+<li><code>dev</code>：要挂载的设备</li>
+<li><code>dir</code>：挂载的目录点，一般为<code>/mnt</code>，最好是一个空目录</li>
+</ul>
+</li>
+<li><p><code>umount -t type dir</code></p>
+<ul>
+<li><code>-t</code>：同上，非必选</li>
+<li><code>dir</code>：已经挂载的点</li>
+</ul>
+</li>
+</ul>
+<h2 id="yum本地仓库配置"><a href="#yum本地仓库配置" class="headerlink" title="yum本地仓库配置"></a>yum本地仓库配置</h2><ul>
+<li><p>使用<code>mount</code>将系统镜像挂载到<code>/mnt/ISO</code>，如果<code>/mnt/ISO</code>目录不存在则新建<code>/mnt/ISO</code>目录</p>
+</li>
+<li><p>配置<code>yum</code>仓库文件</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[rhel7.3]</span><br><span class="line"> </span><br><span class="line">name=rhel 7.3</span><br><span class="line">baseurl=file:///mnt/ISO</span><br><span class="line">gpgcheck=0</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第一行：<code>[rhel7.3]</code>：不能有空格，否则会报错</li>
+<li>第二行：<code>name</code>：仓库名</li>
+<li>第三行：<code>baseurl</code>：路径名</li>
+<li>第四行：<code>gpgcheck</code>：是否校验</li>
+</ul>
+</li>
+</ul>
+<h2 id="yum远程仓库"><a href="#yum远程仓库" class="headerlink" title="yum远程仓库"></a>yum远程仓库</h2><ul>
+<li><p>第一步：安装<code>httpd</code>服务，然后使用<code>systemctl start httpd</code>启动服务，使用<code>systemctl enable httpd</code>注册到开机自启中。</p>
+</li>
+<li><p>第二步：服务器默认加载路径<code>/var/www/html/</code>，可以在该目录下写自己的测试页面。</p>
+</li>
+<li><p>第三步：增加防火墙策略，否则别的主机无法访问，要么暂时关掉。。。。。。</p>
+</li>
+<li><p>第四步：在<code>/var/www/html/</code>新建一个目录<code>yum</code>，将镜像挂载到<code>/var/www/html/yum/</code>目录下。</p>
+</li>
+<li><p>第五步：修改<code>baseurl=http://IP/DIR</code>，<code>IP</code>就是远程仓库的<code>IP</code>记得加路径，配置文件和本地仓库一样，只是<code>baseurl</code>的不同。</p>
+<p>例：<code>baseurl</code>不同的主机和不同的路径</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[rhel7.3]</span><br><span class="line"></span><br><span class="line">name=rhel7.3</span><br><span class="line">baseurl=http://172.25.254.208/yum/yum_iso/</span><br><span class="line">gpgcheck=0</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用<code>yum clean all </code>和<code>yum makecache</code>测试是否配置好了</li>
+</ul>
+<h2 id="开机自动挂载"><a href="#开机自动挂载" class="headerlink" title="开机自动挂载"></a>开机自动挂载</h2><ul>
+<li>方法一：按照格式修改<code>/etc/fstab</code>即可，可参考<a target="_blank" rel="noopener" href="http://39.106.165.33/#!./blog/etc/./%E4%B8%80%E7%B3%BB%E5%88%97%E9%97%AE%E9%A2%98.md">点击链接</a></li>
+<li>方法二：<code>/etc/rc.d/rc.local</code>，将挂载文件的命令写进去就可以了，需要绝对路径。然后给该文件加执行权限<code>chmod +x /etc/rc.d/rc.local</code></li>
+</ul>
+<h2 id="yum命令"><a href="#yum命令" class="headerlink" title="yum命令"></a>yum命令</h2><ul>
+<li><code>install softwarename</code>：安装<code>softwarename</code>命令</li>
+<li><code>reinstall softwarename</code>：重新安装软件<code>softwarename</code></li>
+<li><code>repolist</code>：列出设定<code>yum</code>源信息</li>
+<li><code>remove softwarename</code>：卸载软件<code>softwarename</code></li>
+<li><code>list package_name</code>：查看软件源中是否有软件<code>package_name</code></li>
+<li><code>list all</code>：查看所有的软件包</li>
+<li><code>list installd softwarename</code>：查看安装的软件名</li>
+<li><code>list available</code>：列出可用的软件安装</li>
+<li><code>clean all</code>：清空<code>yum</code>的缓存</li>
+<li><code>search keyword</code>：根据软件信息搜索软件名</li>
+<li><code>yum whatprovides filename</code>：在<code>yum</code>源中查找<code>filename</code>文件的软件包</li>
+<li><code>yum update software</code>：更新指定的软件<code>software</code>，不接最后一个参数表示更新所有</li>
+<li><code>history list all</code>：查看安装历史</li>
+<li><code>history undo ID</code>：撤销安装软件包，ID号通过<code>history list all</code>查询</li>
+<li><code>--downloadonly</code>：从yum下载安装包</li>
+</ul>
+<h2 id="rpm"><a href="#rpm" class="headerlink" title="rpm"></a>rpm</h2><p><code>rpm -ivh</code>，常用</p>
+<ul>
+<li><code>-i</code>：安装</li>
+<li><code>-v</code>：显示安装过程信息</li>
+<li><code>-h</code>：进行加密方式为hash</li>
+<li><code>-e</code>：卸载</li>
+<li><code>-qa</code>：查询系统中安装的所有软件名称，使用管道查询软件</li>
+<li><code>-pq name.rpm</code>：查询软件包安装后的名字</li>
+<li><code>-ql name</code>：查看软件安装生成的文件，不要加<code>.rpm</code>后缀</li>
+<li><code>-qlp name.rpm</code>：查看软件安装后生成的文件</li>
+<li><code>--force</code>：强制安装，不能忽略依赖性</li>
+<li><code>--nodeps</code>：忽略软件的依赖性</li>
+<li><code>-qi </code>：查看软件的信息，由软件的开发商写</li>
+<li><code>--scripts</code>：检测软件在安装或者卸载过程中执行的动作</li>
+</ul>
+<h2 id="第三方源的搭建"><a href="#第三方源的搭建" class="headerlink" title="第三方源的搭建"></a>第三方源的搭建</h2><p>学会<code>man createrepo</code>，<code>-v</code>显示过程</p>
+<blockquote>
+<p>  把所有的rpm软件包放到一个文件夹中，执行<code>createrepo -v /Software/</code>，生成第三方的仓库，该目录下会生成一个<code>repodata</code>的文件，修改<code>yum.repo</code>将生成的第三方的仓库路径添加到配置文件中</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/11/13/Linux/07linux%E5%9F%BA%E7%A1%80/" data-id="cm3mpi626001ml0ya4z1ebhcz" data-title="07 Linux基础知识–-硬盘挂载&amp;yum管理" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/yum%E7%AE%A1%E7%90%86/" rel="tag">yum管理</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%A1%AC%E7%9B%98%E6%8C%82%E8%BD%BD/" rel="tag">硬盘挂载</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/11/13/Linux/06linux%E5%9F%BA%E7%A1%80/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          06 Linux基础知识–-虚拟机安装
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/11/13/Linux/04linux%E5%9F%BA%E7%A1%80/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">04 Linux基础知识--进程监控&amp;ssh&amp;文件传输</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Golang%E5%9F%BA%E7%A1%80/">Golang基础</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Socket/">Socket</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LVM%E5%8D%B7/" rel="tag">LVM卷</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" rel="tag">Linux基础命令</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E5%AE%89%E8%A3%85WPS/" rel="tag">Linux安装WPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E6%97%A5%E5%BF%97/" rel="tag">Linux日志</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" rel="tag">Linux用户管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" rel="tag">Linux磁盘管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux%E8%BF%9B%E7%A8%8B/" rel="tag">Linux进程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REUSEADDR/" rel="tag">REUSEADDR</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SIGCHLD%E4%BF%A1%E5%8F%B7/" rel="tag">SIGCHLD信号</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SIGPIPPE%E4%BF%A1%E5%8F%B7/" rel="tag">SIGPIPPE信号</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket-I-O%E6%A8%A1%E5%9E%8B/" rel="tag">Socket I&#x2F;O模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP%E7%9A%8411%E7%A7%8D%E7%8A%B6%E6%80%81/" rel="tag">TCP的11种状态</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98/" rel="tag">TCP粘包问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UDP%E5%9B%9E%E5%B0%84%E5%AE%A2%E6%88%B7%E7%AB%AF/" rel="tag">UDP回射客户端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UDP%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">UDP服务器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UNIX%E5%9F%9F%E5%8D%8F%E8%AE%AE/" rel="tag">UNIX域协议</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/close%E5%87%BD%E6%95%B0-shutdown%E5%87%BD%E6%95%B0/" rel="tag">close函数 - shutdown函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/epoll%E4%BD%BF%E7%94%A8/" rel="tag">epoll使用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ftp/" rel="tag">ftp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select-poll-epoll/" rel="tag">select&amp;poll&amp;epoll</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select%E5%87%BD%E6%95%B0/" rel="tag">select函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">select服务器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select%E6%A8%A1%E5%9E%8B/" rel="tag">select模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket/" rel="tag">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socketReadline/" rel="tag">socketReadline</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socketpair/" rel="tag">socketpair</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0/" rel="tag">socket相关函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/" rel="tag">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/" rel="tag">vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yum%E7%AE%A1%E7%90%86/" rel="tag">yum管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B/" rel="tag">僵尸进程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1/" rel="tag">延时任务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" rel="tag">文件传输</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/" rel="tag">权限控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E7%9B%98%E6%8C%82%E8%BD%BD/" rel="tag">硬盘挂载</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" rel="tag">网络配置</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/" rel="tag">虚拟机安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="tag">进程管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%82%AE%E4%BB%B6%E7%AE%A1%E7%90%86/" rel="tag">邮件管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" rel="tag">防火墙</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/LVM%E5%8D%B7/" style="font-size: 10px;">LVM卷</a> <a href="/tags/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" style="font-size: 10px;">Linux基础命令</a> <a href="/tags/Linux%E5%AE%89%E8%A3%85WPS/" style="font-size: 10px;">Linux安装WPS</a> <a href="/tags/Linux%E6%97%A5%E5%BF%97/" style="font-size: 10px;">Linux日志</a> <a href="/tags/Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux用户管理</a> <a href="/tags/Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" style="font-size: 10px;">Linux磁盘管理</a> <a href="/tags/Linux%E8%BF%9B%E7%A8%8B/" style="font-size: 10px;">Linux进程</a> <a href="/tags/REUSEADDR/" style="font-size: 10px;">REUSEADDR</a> <a href="/tags/SIGCHLD%E4%BF%A1%E5%8F%B7/" style="font-size: 10px;">SIGCHLD信号</a> <a href="/tags/SIGPIPPE%E4%BF%A1%E5%8F%B7/" style="font-size: 10px;">SIGPIPPE信号</a> <a href="/tags/Socket-I-O%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">Socket I/O模型</a> <a href="/tags/TCP%E7%9A%8411%E7%A7%8D%E7%8A%B6%E6%80%81/" style="font-size: 10px;">TCP的11种状态</a> <a href="/tags/TCP%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98/" style="font-size: 10px;">TCP粘包问题</a> <a href="/tags/UDP%E5%9B%9E%E5%B0%84%E5%AE%A2%E6%88%B7%E7%AB%AF/" style="font-size: 10px;">UDP回射客户端</a> <a href="/tags/UDP%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 10px;">UDP服务器</a> <a href="/tags/UNIX%E5%9F%9F%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">UNIX域协议</a> <a href="/tags/close%E5%87%BD%E6%95%B0-shutdown%E5%87%BD%E6%95%B0/" style="font-size: 10px;">close函数 - shutdown函数</a> <a href="/tags/epoll%E4%BD%BF%E7%94%A8/" style="font-size: 10px;">epoll使用</a> <a href="/tags/ftp/" style="font-size: 10px;">ftp</a> <a href="/tags/select-poll-epoll/" style="font-size: 10px;">select&poll&epoll</a> <a href="/tags/select%E5%87%BD%E6%95%B0/" style="font-size: 10px;">select函数</a> <a href="/tags/select%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 10px;">select服务器</a> <a href="/tags/select%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">select模型</a> <a href="/tags/socket/" style="font-size: 20px;">socket</a> <a href="/tags/socketReadline/" style="font-size: 10px;">socketReadline</a> <a href="/tags/socketpair/" style="font-size: 10px;">socketpair</a> <a href="/tags/socket%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0/" style="font-size: 10px;">socket相关函数</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/yum%E7%AE%A1%E7%90%86/" style="font-size: 10px;">yum管理</a> <a href="/tags/%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B/" style="font-size: 10px;">僵尸进程</a> <a href="/tags/%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1/" style="font-size: 10px;">延时任务</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" style="font-size: 10px;">文件传输</a> <a href="/tags/%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/" style="font-size: 10px;">权限控制</a> <a href="/tags/%E7%A1%AC%E7%9B%98%E6%8C%82%E8%BD%BD/" style="font-size: 10px;">硬盘挂载</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">网络配置</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85/" style="font-size: 10px;">虚拟机安装</a> <a href="/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" style="font-size: 10px;">进程管理</a> <a href="/tags/%E9%82%AE%E4%BB%B6%E7%AE%A1%E7%90%86/" style="font-size: 10px;">邮件管理</a> <a href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" style="font-size: 10px;">防火墙</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/11/18/Socket/day15/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/11/18/Socket/epollsrv/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/19/Socket/01%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/">UDP/TCP文件传输</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/19/Socket/day02/">02 C/S模型、socket相关函数</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/19/Socket/day01/">01 socket 字节序&amp;地址转换函数&amp;套接字类型</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
